@@ -50,10 +50,8 @@ export const INITIAL_STATE = {
       uriFilter: null,
       priority: 7
     },
-
-    source: {
+    target: {
       id: 'target',
-      // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
       flatValues: [],
@@ -68,22 +66,37 @@ export const INITIAL_STATE = {
       uriFilter: null,
       priority: 7
     },
-    author: {
-      id: 'author',
-      // predicate: defined in backend
+    from: {
+      id: 'from',
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: 'prefLabel',
-      sortDirection: 'asc',
-      sortButton: true,
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: false,
       spatialFilterButton: false,
       isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
+      searchField: false,
+      containerClass: 'five',
       filterType: 'uriFilter',
       uriFilter: null,
-      priority: 2
+      priority: 7
+    },
+    to: {
+      id: 'to',
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: false,
+      spatialFilterButton: false,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'five',
+      filterType: 'uriFilter',
+      uriFilter: null,
+      priority: 7
     },
     language: {
       id: 'language',
@@ -121,23 +134,6 @@ export const INITIAL_STATE = {
       timespanFilter: null,
       type: 'timespan',
       priority: 6
-    },
-    collection: {
-      id: 'collection',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
-      sortButton: true,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 5
     }
   }
 }

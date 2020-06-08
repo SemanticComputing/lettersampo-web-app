@@ -42,6 +42,23 @@ export const perspective2Config = {
     description: {
       labelPath: 'dct:description'
     },
+    from: {
+      id: 'from',
+      facetValueFilter: '',
+      labelPath: 'eschema:cofk_union_relationship_type-was_sent_from/skos:prefLabel',
+      predicate: 'eschema:cofk_union_relationship_type-was_sent_from',
+      //  parentProperty: 'crm:P89_falls_within',
+      //  parentPredicate: 'crm:P7_took_place_at/crm:P89_falls_within+',
+      //  type: 'hierarchical'
+      type: 'list' 
+    },
+    to: {
+      id: 'to',
+      facetValueFilter: '',
+      labelPath: 'eschema:cofk_union_relationship_type-was_sent_to/skos:prefLabel',
+      predicate: 'eschema:cofk_union_relationship_type-was_sent_to',
+      type: 'list'
+    },
     language: {
       id: 'language',
       facetValueFilter: '',

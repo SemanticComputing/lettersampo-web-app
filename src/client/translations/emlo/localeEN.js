@@ -451,7 +451,7 @@ export default {
           `
         },
         productionTimespan: {
-          label: 'Manuscript production date',
+          label: 'Date',
           description: `
             The date(s) when the manuscript(s) in which the Work can be found were written.
             Multiple production dates may appear for a single manuscript,
@@ -476,7 +476,20 @@ export default {
           description: `
           Receiver of the letter.
           `
+        },
+        from: {
+          label: 'Place of sending',
+          description: `
+          Place from where the letter was sent.
+          `
+        },
+        to: {
+          label: 'Place of receiving',
+          description: `
+          The receiving place of the letter.
+          `
         }
+
       }
     },
     perspective3: {

@@ -40,6 +40,19 @@ UNION
   ?language__id skos:prefLabel ?language__prefLabel .
   BIND (?language__id AS ?language__dataProviderUrl)
 }
+UNION 
+{
+  ?id eschema:cofk_union_relationship_type-was_sent_from ?from__id .
+  ?from__id skos:prefLabel ?from__prefLabel .
+  BIND (?from__id AS ?from__dataProviderUrl)
+}
+UNION 
+{
+  ?id eschema:cofk_union_relationship_type-was_sent_to ?to__id .
+  ?to__id skos:prefLabel ?to__prefLabel .
+  BIND (?to__id AS ?to__dataProviderUrl)
+}
+
 `
 
 /** TODO

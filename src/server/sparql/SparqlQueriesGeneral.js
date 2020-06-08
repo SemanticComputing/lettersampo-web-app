@@ -63,7 +63,7 @@ export const facetValuesQuery = `
       FILTER(BOUND(?id))
       <FACET_VALUE_FILTER>
       OPTIONAL {
-        ?id skos:prefLabel|rdfs:label ?prefLabel_
+        ?id skos:prefLabel ?prefLabel_
         <FACET_LABEL_FILTER>
       }
       <PARENTS_FOR_FACET_VALUES>
