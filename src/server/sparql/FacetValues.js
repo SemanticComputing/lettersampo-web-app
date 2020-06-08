@@ -30,7 +30,6 @@ export const getFacet = async ({
 }) => {
   const facetConfig = backendSearchConfig[facetClass].facets[facetID]
   const endpoint = backendSearchConfig[facetClass].endpoint
-  console.log(endpoint)
   // choose query template and result mapper:
   let q = ''
   let mapper = null

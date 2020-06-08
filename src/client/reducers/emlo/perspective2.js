@@ -66,9 +66,27 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'author',
+      id: 'source',
       valueType: 'object',
       makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 200
+    },
+    {
+      id: 'target',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 200
+    },
+    {
+      id: 'description',
+      valueType: 'object',
+      makeLink: false,
       externalLink: false,
       sortValues: true,
       numberedList: false,
@@ -84,25 +102,6 @@ export const INITIAL_STATE = {
       minWidth: 150
     },
     {
-      id: 'expression',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'manuscript',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250
-    },
-    {
       id: 'productionTimespan',
       valueType: 'object',
       makeLink: false,
@@ -116,15 +115,6 @@ export const INITIAL_STATE = {
       valueType: 'object',
       makeLink: true,
       externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 200
-    },
-    {
-      id: 'source',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
       sortValues: true,
       numberedList: false,
       minWidth: 200

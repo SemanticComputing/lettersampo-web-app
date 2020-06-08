@@ -66,13 +66,13 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'author',
+      id: 'gender',
       valueType: 'object',
-      makeLink: true,
+      makeLink: false,
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 200
+      minWidth: 80
     },
     {
       id: 'work',

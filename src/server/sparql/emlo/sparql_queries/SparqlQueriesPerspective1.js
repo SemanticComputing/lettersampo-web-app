@@ -1,12 +1,12 @@
 const perspectiveID = 'perspective1'
 
 export const manuscriptPropertiesInstancePage =
-`   {
+`   BIND(?id as ?uri__id)
+    BIND(?id as ?uri__dataProviderUrl)
+    BIND(?id as ?uri__prefLabel)
+    {
       ?id skos:prefLabel ?prefLabel__id .
       BIND (?prefLabel__id as ?prefLabel__prefLabel)
-      BIND(?id as ?uri__id)
-      BIND(?id as ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
     }
     UNION
     {
@@ -27,15 +27,16 @@ export const manuscriptPropertiesFacetResults =
   {
     ?id skos:prefLabel ?prefLabel__id .
     BIND (?prefLabel__id as ?prefLabel__prefLabel)
+    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
   }
   UNION
   {
-    ?id foaf:gender ?code . 
-    VALUES (?code ?gender) { 
+    ?id foaf:gender ?gender__id . 
+    VALUES (?gender__id ?gender__prefLabel) { 
       (sdmx-code:sex-M "Male") 
       (sdmx-code:sex-F "Female") 
     }
-    BIND(?gender as ?gender__prefLabel)
+    BIND(?gender__id as ?gender__dataProviderUrl)
   }
   UNION
   {

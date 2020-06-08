@@ -32,8 +32,8 @@ export const INITIAL_STATE = {
       textFilter: null,
       priority: 1
     },
-    author: {
-      id: 'author',
+    gender: {
+      id: 'gender',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
@@ -43,10 +43,10 @@ export const INITIAL_STATE = {
       sortButton: true,
       spatialFilterButton: false,
       isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
+      searchField: false,
+      containerClass: 'two',
+      filterType: 'uriFtextFilterilter',
+      textFilter: null,
       priority: 4
     },
     work: {

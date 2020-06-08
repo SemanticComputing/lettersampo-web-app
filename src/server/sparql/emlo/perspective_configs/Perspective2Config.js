@@ -9,7 +9,7 @@ export const perspective2Config = {
     prefixes,
     useAuth: true
   },
-  facetClass: 'frbroo:F1_Work',
+  facetClass: 'eschema:Letter',
   paginatedResults: {
     properties: workProperties
   },
@@ -28,50 +28,34 @@ export const perspective2Config = {
     source: {
       id: 'source',
       facetValueFilter: '',
-      labelPath: 'dct:source/skos:prefLabel',
-      predicate: 'dct:source',
+      labelPath: '^eschema:cofk_union_relationship_type-created/skos:prefLabel',
+      predicate: '^eschema:cofk_union_relationship_type-created',
       type: 'list'
     },
-    author: {
-      id: 'author',
+    target: {
+      id: 'target',
       facetValueFilter: '',
-      label: 'Author',
-      labelPath: '^frbroo:R16_initiated/(mmm-schema:carried_out_by_as_possible_author|mmm-schema:carried_out_by_as_author)/skos:prefLabel',
-      predicate: '^frbroo:R16_initiated/(mmm-schema:carried_out_by_as_possible_author|mmm-schema:carried_out_by_as_author)',
+      labelPath: 'eschema:cofk_union_relationship_type-was_addressed_to/skos:prefLabel',
+      predicate: 'eschema:cofk_union_relationship_type-was_addressed_to',
       type: 'list'
     },
-    manuscript: {
-      labelPath: '^mmm-schema:manuscript_work/skos:prefLabel'
+    description: {
+      labelPath: 'dct:description'
     },
     language: {
       id: 'language',
       facetValueFilter: '',
       label: 'Language',
-      labelPath: '^frbroo:R19_created_a_realisation_of/frbroo:R17_created/crm:P72_has_language/skos:prefLabel',
-      predicate: '^frbroo:R19_created_a_realisation_of/frbroo:R17_created/crm:P72_has_language',
-      type: 'list'
-    },
-    material: {
-      id: 'material',
-      facetValueFilter: '',
-      label: 'Language',
-      labelPath: '^mmm-schema:manuscript_work/crm:P45_consists_of/skos:prefLabel',
-      predicate: '^mmm-schema:manuscript_work/crm:P45_consists_of',
-      type: 'list'
-    },
-    collection: {
-      id: 'collection',
-      facetValueFilter: '',
-      labelPath: '^mmm-schema:manuscript_work/crm:P46i_forms_part_of/skos:prefLabel',
-      predicate: '^mmm-schema:manuscript_work/crm:P46i_forms_part_of',
+      labelPath: 'dct:language/skos:prefLabel',
+      predicate: 'dct:language',
       type: 'list'
     },
     productionTimespan: {
       id: 'productionTimespan',
       facetValueFilter: '',
-      sortByAscPredicate: '^mmm-schema:manuscript_work/^crm:P108_has_produced/crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
-      sortByDescPredicate: '^mmm-schema:manuscript_work/^crm:P108_has_produced/crm:P4_has_time-span/crm:P82b_end_of_the_end',
-      predicate: '^mmm-schema:manuscript_work/^crm:P108_has_produced/crm:P4_has_time-span',
+      sortByAscPredicate: 'crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: 'crm:P4_has_time-span/crm:P82b_end_of_the_end',
+      predicate: 'crm:P4_has_time-span',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
       type: 'timespan'

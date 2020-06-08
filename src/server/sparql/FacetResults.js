@@ -57,15 +57,14 @@ export const getAllResults = ({
   } else {
     endpoint = backendSearchConfig[config.perspectiveID].endpoint
   }
-  console.log(endpoint)
   const { filterTarget, resultMapper } = config
   let { q } = config
   if (constraints == null) {
     q = q.replace('<FILTER>', '# no filters')
   } else {
     q = q.replace('<FILTER>', generateConstraintsBlock({
-      backendSearchConfig,
       resultClass: resultClass,
+      backendSearchConfig,
       facetClass: facetClass,
       constraints: constraints,
       filterTarget: filterTarget,

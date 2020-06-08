@@ -25,13 +25,13 @@ import FacetBar from '../components/facet_bar/FacetBar'
 // ** General components end **
 
 // ** Portal specific components and configs **
-import FacetedSearchPerspective from '../components/perspectives/sampo/FacetedSearchPerspective'
+import FacetedSearchPerspective from '../components/perspectives/emlo/FacetedSearchPerspective'
 import FullTextSearch from '../components/perspectives/sampo/FullTextSearch'
 import ClientFSPerspective from '../components/perspectives/sampo/client_fs/ClientFSPerspective'
 import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMain'
 import Footer from '../components/perspectives/sampo/Footer'
-import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
-import { perspectiveConfigOnlyInfoPages } from '../configs/sampo/PerspectiveConfigOnlyInfoPages'
+import { perspectiveConfig } from '../configs/emlo/PerspectiveConfig'
+import { perspectiveConfigOnlyInfoPages } from '../configs/emlo/PerspectiveConfigOnlyInfoPages'
 import { rootUrl } from '../configs/emlo/GeneralConfig'
 // ** Portal specific components and configs end **
 

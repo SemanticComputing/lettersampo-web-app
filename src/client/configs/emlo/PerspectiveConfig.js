@@ -23,7 +23,7 @@ export const perspectiveConfig = [
         id: 'table',
         value: 0,
         icon: <CalendarViewDayIcon />
-      },
+      }, /** 
       {
         id: 'production_places',
         value: 1,
@@ -38,7 +38,7 @@ export const perspectiveConfig = [
         id: 'last_known_locations',
         value: 3,
         icon: <LocationOnIcon />
-      },
+      }, */
       {
         id: 'migrations',
         value: 4,

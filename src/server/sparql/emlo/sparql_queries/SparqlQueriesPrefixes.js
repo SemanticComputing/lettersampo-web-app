@@ -1,6 +1,5 @@
 export const prefixes = `
   PREFIX text: <http://jena.apache.org/text#>
-  PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
   PREFIX sch: <http://schema.org/>
   PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
@@ -8,8 +7,9 @@ export const prefixes = `
   PREFIX mmm-schema: <http://ldf.fi/schema/mmm/>
   PREFIX gvp: <http://vocab.getty.edu/ontology#>
   PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-  
+
   PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+  PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX eschema: <http://emlo.bodleian.ox.ac.uk/schema#>
   PREFIX foaf: <http://xmlns.com/foaf/0.1/>
   PREFIX owl: <http://www.w3.org/2002/07/owl#>

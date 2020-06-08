@@ -7,19 +7,25 @@ export const runSelectQuery = async ({
   resultMapper,
   previousSelections = null, // not in use
   resultFormat,
-  useAuth = false
+  useAuth = true
 }) => {
   const MIMEtype = resultFormat === 'json'
     ? 'application/sparql-results+json; charset=utf-8'
     : 'text/csv; charset=utf-8'
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
-    Accept: MIMEtype
+    Accept: MIMEtype,
+    Authorization: `Basic c2Vjbzpsb2dvczAz` //  TODO: remove this
   }
   if (useAuth) {
-    headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}`
+    // headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` // TODO remove
   }
+  console.log('Query')
+  query += " LIMIT 1000 " // TODO remove
+  console.log(query)
   const q = querystring.stringify({ query })
+  console.log("Basic")
+  console.log(`Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}`)
   try {
     const response = await axios({
       method: 'post',
@@ -27,6 +33,7 @@ export const runSelectQuery = async ({
       url: endpoint,
       data: q
     })
+    // console.log(response.data.results)
     if (resultFormat === 'json') {
       const mappedResults = resultMapper(response.data.results.bindings, previousSelections)
       return {

@@ -26,12 +26,12 @@ export const perspective1Config = {
       textQueryProperty: 'skos:prefLabel', // limit only to prefLabels
       type: 'text'
     },
-    author: {
-      id: 'author',
+    gender: {
+      id: 'gender',
       facetValueFilter: '',
-      label: 'Author',
-      labelPath: 'mmm-schema:manuscript_author/skos:prefLabel',
-      predicate: 'mmm-schema:manuscript_author',
+      label: 'Gender',
+      labelPath: 'foaf:gender',
+      predicate: 'foaf:gender',
       type: 'list'
     },
     work: {

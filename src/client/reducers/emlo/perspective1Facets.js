@@ -34,24 +34,24 @@ export const INITIAL_STATE = {
       filterType: 'textFilter',
       textFilter: null,
       priority: 1
-    },
-    author: {
-      id: 'author',
+    }, 
+    gender: {
+      id: 'gender',
       // predicate: defined in backend
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
+      sortBy: null,
+      sortDirection: null,
       sortButton: true,
       spatialFilterButton: false,
       chartButton: false,
       isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 4
+      searchField: false,
+      containerClass: 'two',
+      filterType: 'textFilter',
+      textFilter: null,
+      priority: 2
     },
     work: {
       id: 'work',
