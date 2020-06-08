@@ -57,6 +57,7 @@ export const getAllResults = ({
   } else {
     endpoint = backendSearchConfig[config.perspectiveID].endpoint
   }
+  console.log(endpoint)
   const { filterTarget, resultMapper } = config
   let { q } = config
   if (constraints == null) {

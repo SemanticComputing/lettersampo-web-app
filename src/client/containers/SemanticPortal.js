@@ -32,7 +32,7 @@ import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMai
 import Footer from '../components/perspectives/sampo/Footer'
 import { perspectiveConfig } from '../configs/sampo/PerspectiveConfig'
 import { perspectiveConfigOnlyInfoPages } from '../configs/sampo/PerspectiveConfigOnlyInfoPages'
-import { rootUrl } from '../configs/sampo/GeneralConfig'
+import { rootUrl } from '../configs/emlo/GeneralConfig'
 // ** Portal specific components and configs end **
 
 import {

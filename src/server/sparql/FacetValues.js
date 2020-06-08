@@ -30,6 +30,7 @@ export const getFacet = async ({
 }) => {
   const facetConfig = backendSearchConfig[facetClass].facets[facetID]
   const endpoint = backendSearchConfig[facetClass].endpoint
+  console.log(endpoint)
   // choose query template and result mapper:
   let q = ''
   let mapper = null
@@ -128,6 +129,7 @@ export const getFacet = async ({
     q = q.replace('<START_PROPERTY>', facetConfig.startProperty)
     q = q.replace('<END_PROPERTY>', facetConfig.endProperty)
   }
+  console.log(endpoint)
   const response = await runSelectQuery({
     query: endpoint.prefixes + q,
     endpoint: endpoint.url,
