@@ -1,9 +1,10 @@
 const perspectiveID = 'perspective1'
 
+//  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const manuscriptPropertiesInstancePage =
 `   BIND(?id as ?uri__id)
-    BIND(?id as ?uri__dataProviderUrl)
     BIND(?id as ?uri__prefLabel)
+    BIND(CONCAT("http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=", STR(?id), "&model=emlo") AS ?uri__dataProviderUrl)
     {
       ?id skos:prefLabel ?prefLabel__id .
       BIND (?prefLabel__id as ?prefLabel__prefLabel)
@@ -17,7 +18,34 @@ export const manuscriptPropertiesInstancePage =
       }
       BIND(?gender as ?gender__prefLabel)
     }
+    UNION 
+    { ?id skos:altLabel ?altLabel }
+    UNION
+    { ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
+      ?related__id skos:prefLabel ?related__prefLabel .
+      BIND(?related__id AS ?related__dataProviderUrl)
+    }
+    UNION
+    {
+      ?id eschema:birthDate ?birthDateTimespan__id .
+      ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
+      OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
+      OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
+    }
+    UNION
+    {
+      ?id eschema:deathDate ?deathDateTimespan__id .
+      ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
+      OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
+      OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
+    }
+
+    VALUES (?class__id ?class__prefLabel) { 
+      (crm:E21_Person "Person")
+      (crm:E74_Group "Group") }
+    ?id a ?class__id .
 `
+
 
 export const manuscriptPropertiesFacetResults =
   `
@@ -52,6 +80,11 @@ export const manuscriptPropertiesFacetResults =
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
   }
+
+  VALUES (?class__id ?class__prefLabel) { 
+    (crm:E21_Person "Person")
+    (crm:E74_Group "Group") }
+  ?id a ?class__id .
 `
 
 export const expressionProperties =

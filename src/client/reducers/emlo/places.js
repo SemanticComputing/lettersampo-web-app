@@ -137,13 +137,15 @@ const resultClasses = new Set([
   'places',
   'placesAll',
   'placesActors',
-  'placesMsProduced',
+  'letterMigrations',
   'lastKnownLocations',
   'placesMsMigrations',
   'placesEvents'
 ])
 
 const places = (state = INITIAL_STATE, action) => {
+  console.log("action@places")
+  console.log(action)
   if (resultClasses.has(action.resultClass)) {
     switch (action.type) {
       case FETCH_RESULTS:

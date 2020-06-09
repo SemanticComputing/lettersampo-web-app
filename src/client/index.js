@@ -8,7 +8,7 @@ import configureStore from './configureStore'
 import App from './components/App'
 import { availableLocales } from './epics/index.js'
 import { loadLocales } from './actions'
-import { defaultLocale } from './configs/sampo/GeneralConfig'
+import { defaultLocale } from './configs/emlo/GeneralConfig'
 import { updateLocaleToPathname } from './helpers/helpers'
 
 import './index.css'

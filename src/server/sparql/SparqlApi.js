@@ -20,12 +20,10 @@ export const runSelectQuery = async ({
   if (useAuth) {
     // headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` // TODO remove
   }
-  console.log('Query')
-  query += " LIMIT 1000 " // TODO remove
-  console.log(query)
+  //  query += " LIMIT 1000 " // TODO remove
+  console.log("query")
+  // console.log(query)
   const q = querystring.stringify({ query })
-  console.log("Basic")
-  console.log(`Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}`)
   try {
     const response = await axios({
       method: 'post',

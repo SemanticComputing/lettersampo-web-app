@@ -143,7 +143,7 @@ export default {
   perspectives: {
     perspective1: {
       label: 'Perspective 1',
-      facetResultsType: 'manuscripts',
+      facetResultsType: 'actors',
       shortDescription: 'Perspective1 description',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
@@ -173,7 +173,7 @@ export default {
         </ul>
       `,
       instancePage: {
-        label: 'Manuscript',
+        label: 'Actor',
         description: `
           <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
             MMM’s Manuscript entity corresponds to
@@ -225,34 +225,21 @@ export default {
             contained in the manuscript.
           `
         },
-        work: {
-          label: 'Work',
-          description: 'The intellectual content (works) contained in the manuscript.'
+        gender: {
+          label: 'Gender',
+          description: 'The gender of a person.'
         },
-        expression: {
-          label: 'Expression',
-          description: 'The linguistic versions of the works contained in the manuscript.'
+        class: {
+          label: 'Type',
+          description: 'The type is a Person or a Group.'
         },
-        productionPlace: {
-          label: 'Production place',
-          description: `
-            The location where the manuscript was written. Multiple production places
-            may appear for a single manuscript due to the following reasons:  1) there
-            are discrepancies in the contributing data source,  2) there are discrepancies
-            between several contributing data sources, 3) the precise date is uncertain,
-            4) the production indeed took place on several occasions (e.g. for composite
-            manuscripts).
-          `
+        birthDateTimespan: {
+          label: 'Birth date',
+          description: `Birth date of a person`
         },
-        productionTimespan: {
-          label: 'Production date',
-          description: `
-            The date when the manuscript was written. Multiple production dates may appear
-            for a single manuscript due to the following reasons:  1) there are discrepancies
-            in the contributing data source,  2) there are discrepancies between several
-            contributing data sources, 3) the precise date is uncertain, 4) the production
-            indeed took place on several occasions (e.g. for composite manuscripts).
-          `
+        deathDateTimespan: {
+          label: 'Death date',
+          description: `Death date of a person`
         },
         note: {
           label: 'Note',
@@ -262,10 +249,10 @@ export default {
             texts and/or parts of a miscellany, such as multiple types of page layout.
           `
         },
-        language: {
-          label: 'Language',
+        related: {
+          label: 'External links',
           description: `
-            The language(s) in which the manuscript was written.
+            External links.
           `
         },
         event: {
@@ -376,7 +363,7 @@ export default {
     },
     perspective2: {
       label: 'Perspective 2',
-      facetResultsType: 'works',
+      facetResultsType: 'letters',
       shortDescription: 'Perspective 2 description',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">

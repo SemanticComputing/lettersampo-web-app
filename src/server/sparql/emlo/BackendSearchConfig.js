@@ -10,7 +10,8 @@ import {
   collectionProperties
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
-  workProperties
+  workProperties,
+  letterMigrationsQuery
 } from './sparql_queries/SparqlQueriesPerspective2'
 import {
   eventProperties,
@@ -92,6 +93,12 @@ export const backendSearchConfig = {
       properties: placePropertiesInfoWindow,
       relatedInstances: manuscriptsProducedAt
     }
+  },
+  letterMigrations: {
+    perspectiveID: 'perspective2', // use endpoint config from people
+    q: letterMigrationsQuery,
+    filterTarget: 'letter__id',
+    resultMapper: makeObjectList
   },
   lastKnownLocations: {
     perspectiveID: 'perspective1',

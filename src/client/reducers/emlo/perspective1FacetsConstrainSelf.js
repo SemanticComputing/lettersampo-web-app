@@ -45,46 +45,9 @@ export const INITIAL_STATE = {
       isFetching: false,
       searchField: false,
       containerClass: 'two',
-      filterType: 'uriFtextFilterilter',
-      textFilter: null,
-      priority: 4
-    },
-    work: {
-      id: 'work',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: null,
-      sortDirection: null,
-      sortButton: false,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: false,
-      containerClass: 'one',
       filterType: 'textFilter',
       textFilter: null,
-      priority: 2
-    },
-    productionPlace: {
-      id: 'productionPlace',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'prefLabel',
-      sortDirection: 'asc',
-      sortButton: false,
-      spatialFilterButton: true,
-      spatialFilterTab: 'production_places',
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      spatialFilter: null,
-      type: 'hierarchical',
-      priority: 5
+      priority: 4
     },
     productionTimespan: {
       id: 'productionTimespan',
@@ -105,40 +68,6 @@ export const INITIAL_STATE = {
       timespanFilter: null,
       type: 'timespan',
       priority: 8
-    },
-    note: {
-      id: 'note',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: null,
-      sortDirection: null,
-      sortButton: false,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: false,
-      containerClass: 'one',
-      filterType: 'textFilter',
-      textFilter: null,
-      priority: 3
-    },
-    language: {
-      id: 'language',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
-      sortButton: true,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 5
     },
     // event only as a result table column
     owner: {

@@ -72,41 +72,41 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 80
+      minWidth: 100
     },
     {
-      id: 'work',
+      id: 'class',
       valueType: 'object',
       makeLink: true,
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 250,
+      minWidth: 100,
       priority: 5
     },
     {
-      id: 'expression',
+      id: 'related',
       valueType: 'object',
       makeLink: true,
-      externalLink: false,
+      externalLink: true,
       sortValues: true,
       numberedList: false,
       minWidth: 250,
-      priority: 5
+      priority: 8
     },
     {
-      id: 'productionPlace',
+      id: 'birthDateTimespan',
       valueType: 'object',
-      makeLink: true,
+      makeLink: false,
       externalLink: false,
       sortValues: true,
       numberedList: false,
       showSource: true,
       sourceExternalLink: true,
-      minWidth: 200
+      minWidth: 250
     },
     {
-      id: 'productionTimespan',
+      id: 'deathDateTimespan',
       valueType: 'object',
       makeLink: false,
       externalLink: false,
@@ -164,24 +164,6 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'collection',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 200
-    },
-    {
-      id: 'transferOfCustodyPlace',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 220
-    },
-    {
       id: 'transferOfCustodyTimespan',
       valueType: 'object',
       makeLink: false,
@@ -189,87 +171,6 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 210
-    },
-    {
-      id: 'material',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'height',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 140
-    },
-    {
-      id: 'width',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'folios',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'lines',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'columns',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'miniatures',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'decoratedInitials',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 170
-    },
-    {
-      id: 'historiatedInitials',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 170
     },
     {
       id: 'source',

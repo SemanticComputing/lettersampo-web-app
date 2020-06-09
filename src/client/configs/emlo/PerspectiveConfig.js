@@ -76,8 +76,13 @@ export const perspectiveConfig = [
         icon: <CalendarViewDayIcon />
       },
       {
-        id: 'export',
+        id: 'migrations',
         value: 1,
+        icon: <RedoIcon />
+      },
+      {
+        id: 'export',
+        value: 2,
         icon: <CloudDownloadIcon />
       }
     ],
@@ -110,7 +115,6 @@ export const perspectiveConfig = [
         value: 1,
         icon: <AddLocationIcon />
       },
-
       {
         id: 'export',
         value: 2,

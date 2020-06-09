@@ -4,6 +4,9 @@ import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import Export from '../../facet_results/Export'
+import Deck from '../../facet_results/Deck'
+import MigrationsMapLegend from '../sampo/MigrationsMapLegend'
+import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
 const Perspective2 = props => {
   const { rootUrl, perspective } = props
@@ -32,6 +35,22 @@ const Perspective2 = props => {
             sortResults={props.sortResults}
             routeProps={routeProps}
             rootUrl={rootUrl}
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/migrations`}
+        render={() =>
+          <Deck
+            results={props.placesResults.results}
+            facetUpdateID={props.facetData.facetUpdateID}
+            resultClass='letterMigrations'
+            facetClass='perspective2'
+            fetchResults={props.fetchResults}
+            fetching={props.placesResults.fetching}
+            legendComponent={<MigrationsMapLegend />}
+            layerType='arcLayer'
+            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
+            mapBoxStyle={MAPBOX_STYLE}
           />}
       />
       <Route

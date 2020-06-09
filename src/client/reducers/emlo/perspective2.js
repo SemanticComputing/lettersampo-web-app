@@ -127,21 +127,19 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 250
-    },
-    {
-      id: 'collection',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 200
     }
   ]
 }
 
+const resultClasses = new Set([
+  'perspective2'
+])
+
 const perspective2 = (state = INITIAL_STATE, action) => {
-  if (action.resultClass === 'perspective2') {
+  console.log("action")
+  console.log(action)
+  if (resultClasses.has(action.resultClass)) {
+  //  if (action.resultClass === 'perspective2') {
     switch (action.type) {
       case FETCH_RESULTS:
       case FETCH_PAGINATED_RESULTS:
