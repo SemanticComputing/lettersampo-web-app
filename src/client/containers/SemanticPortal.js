@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid'
 
 // ** General components **
 import TopBar from '../components/main_layout/TopBar'
-import InstanceHomePage from '../components/main_layout/InstanceHomePage'
+import InstanceHomePage from '../components/perspectives/emlo/InstanceHomePage' //'../components/main_layout/InstanceHomePage'
 import InfoHeader from '../components/main_layout/InfoHeader'
 import TextPage from '../components/main_layout/TextPage'
 import Message from '../components/main_layout/Message'
