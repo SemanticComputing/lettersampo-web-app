@@ -56,10 +56,17 @@ export const perspectiveConfig = [
         value: 0,
         icon: <CalendarViewDayIcon />
       },
-
+      /** 
+     
+       {
+         id: 'letterNetwork',
+         value: 1,
+         icon: <BubbleChartIcon />
+        },
+      */
       {
         id: 'export',
-        value: 1,
+        value: 2,
         icon: <CloudDownloadIcon />
       }
     ]
@@ -76,9 +83,9 @@ export const perspectiveConfig = [
         icon: <CalendarViewDayIcon />
       },
       {
-        id: 'migrations',
+        id: 'map',
         value: 1,
-        icon: <RedoIcon />
+        icon: <AddLocationIcon />
       },
       {
         id: 'export',

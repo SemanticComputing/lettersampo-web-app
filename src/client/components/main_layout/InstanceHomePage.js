@@ -8,6 +8,7 @@ import purple from '@material-ui/core/colors/purple'
 import PerspectiveTabs from './PerspectiveTabs'
 import InstanceHomePageTable from './InstanceHomePageTable'
 import LeafletMap from '../facet_results/LeafletMap'
+import Network from '../facet_results/Network'
 import Export from '../facet_results/Export'
 import { Route, Redirect } from 'react-router-dom'
 import { has } from 'lodash'
@@ -67,7 +68,7 @@ class InstanceHomePage extends React.Component {
         uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
       case 'perspective2':
-        uri = `${base}/work/${localID}`
+        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
       case 'perspective3':
         uri = `${base}/event/${localID}`
@@ -191,6 +192,20 @@ class InstanceHomePage extends React.Component {
                     fetchByURI={this.props.fetchByURI}
                     fetching={this.props.isLoading}
                     showInstanceCountInClusters
+                  />}
+              />
+              <Route
+                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/letterNetwork`}
+                render={() =>
+                  <Network
+                    pageType='instancePage'
+                    results={this.props.networkData}
+                    resultUpdateID={this.props.resultUpdateID}
+                    fetchNetworkById={this.props.fetchNetworkById}
+                    resultClass='academicNetwork'
+                    id={data.id}
+                    limit={200}
+                    optimize={1.2}
                   />}
               />
               <Route

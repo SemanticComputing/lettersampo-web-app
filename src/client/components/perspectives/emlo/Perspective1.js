@@ -86,20 +86,6 @@ const Perspective1 = props => {
           />}
       />
       <Route
-        path={`${rootUrl}/${resultClass}/page/${this.state.localID}/letterNetwork`}
-        render={() =>
-          <Network
-            pageType='instancePage'
-            results={this.props.networkData}
-            resultUpdateID={this.props.resultUpdateID}
-            fetchNetworkById={this.props.fetchNetworkById}
-            resultClass='letterNetwork'
-            id={data.id}
-            limit={200}
-            optimize={1.2}
-          />}
-      />
-      <Route
         path={`${rootUrl}/${perspective.id}/faceted-search/migrations`}
         render={() =>
           <Deck

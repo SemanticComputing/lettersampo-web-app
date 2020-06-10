@@ -5,17 +5,22 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 export const perspectiveConfigOnlyInfoPages = [
   {
     id: 'manuscripts',
-    perspectiveDescHeight: 160,
+    perspectiveDescHeight: 40,
     instancePageTabs: [
       {
         id: 'table',
         value: 0,
         icon: <CalendarViewDayIcon />
       },
-
+      /**
+      {
+        id: 'letterNetwork',
+        value: 1,
+        icon: <BubbleChartIcon />
+      }, */
       {
         id: 'export',
-        value: 1,
+        value: 2,
         icon: <CloudDownloadIcon />
       }
     ]
