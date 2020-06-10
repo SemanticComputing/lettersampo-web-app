@@ -1,6 +1,6 @@
 const perspectiveID = 'perspective2'
 
-export const workProperties = `
+export const letterProperties = `
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__dataProviderUrl)
 BIND(?id as ?uri__prefLabel)
@@ -59,24 +59,29 @@ UNION
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 export const letterMigrationsQuery = `
-SELECT DISTINCT *
+SELECT DISTINCT ?id ?letter__id 
+?time__id ?time__start ?time__end 
+?from__id ?from__prefLabel ?from__dataProviderUrl ?from__lat ?from__long
+?to__id ?to__prefLabel ?to__dataProviderUrl ?to__lat ?to__long
   WHERE {
     <FILTER>
 
-    ?id a eschema:Letter ;
+    ?letter__id a eschema:Letter ;
     	eschema:cofk_union_relationship_type-was_sent_from ?from__id ;
 		  eschema:cofk_union_relationship_type-was_sent_to ?to__id ;
   		crm:P4_has_time-span ?time__id ;
       skos:prefLabel ?letter__prefLabel .
-    BIND(?id as ?letter__id)
-
-    ?time__id 
-      crm:P82a_begin_of_the_begin ?time__start ;
+    
+    ?time__id crm:P82a_begin_of_the_begin ?time__start ;
       crm:P82b_end_of_the_end ?time__end .
+    
     ?from__id skos:prefLabel ?from__prefLabel ; 
         geo:lat ?from__lat ;
         geo:long ?from__long .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+    
     ?to__id skos:prefLabel ?to__prefLabel ; 
         geo:lat ?to__lat ;
         geo:long ?to__long .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
   } `

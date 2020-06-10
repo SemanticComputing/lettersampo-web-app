@@ -10,7 +10,7 @@ import {
   collectionProperties
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
-  workProperties,
+  letterProperties,
   letterMigrationsQuery
 } from './sparql_queries/SparqlQueriesPerspective2'
 import {
@@ -45,7 +45,7 @@ export const backendSearchConfig = {
   works: {
     perspectiveID: 'perspective1', // use endpoint config from perspective1
     instance: {
-      properties: workProperties,
+      properties: letterProperties,
       relatedInstances: ''
     }
   },

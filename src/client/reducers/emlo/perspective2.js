@@ -132,7 +132,7 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'perspective2'
+  'perspective2', 'letterMigrations'
 ])
 
 const perspective2 = (state = INITIAL_STATE, action) => {

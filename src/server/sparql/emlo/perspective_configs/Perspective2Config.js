@@ -1,5 +1,5 @@
 import {
-  workProperties
+  letterProperties
 } from '../sparql_queries/SparqlQueriesPerspective2'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
@@ -11,10 +11,10 @@ export const perspective2Config = {
   },
   facetClass: 'eschema:Letter',
   paginatedResults: {
-    properties: workProperties
+    properties: letterProperties
   },
   instance: {
-    properties: workProperties,
+    properties: letterProperties,
     relatedInstances: ''
   },
   facets: {
