@@ -14,15 +14,14 @@ export const runSelectQuery = async ({
     : 'text/csv; charset=utf-8'
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
-    Accept: MIMEtype,
-    Authorization: `Basic c2Vjbzpsb2dvczAz` //  TODO: remove this
+    Accept: MIMEtype
   }
   if (useAuth) {
-    // headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` // TODO remove
+    headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` 
+    // TODO remove
+    console.log('Auth')
+    console.log(headers.Authorization)
   }
-  //  query += " LIMIT 1000 " // TODO remove
-  console.log("query")
-  // console.log(query)
   const q = querystring.stringify({ query })
   try {
     const response = await axios({
