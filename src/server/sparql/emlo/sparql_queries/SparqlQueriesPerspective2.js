@@ -14,14 +14,14 @@ UNION
   ?id ^eschema:cofk_union_relationship_type-created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
   FILTER (!REGEX(STR(?source__prefLabel), 'unknown', 'i'))
-  BIND (?source__id AS ?source__dataProviderUrl)
+  BIND(CONCAT("/perspective1/page/", REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1")) AS ?source__dataProviderUrl)
 }
 UNION 
 {
   ?id eschema:cofk_union_relationship_type-was_addressed_to ?target__id . 
   ?target__id skos:prefLabel ?target__prefLabel . 
   FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
-  BIND (?target__id AS ?target__dataProviderUrl)
+  BIND(CONCAT("/perspective1/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
 }
 UNION
 {

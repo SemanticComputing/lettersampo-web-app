@@ -1,6 +1,6 @@
 import {
-  manuscriptPropertiesFacetResults,
-  manuscriptPropertiesInstancePage
+  actorPropertiesFacetResults,
+  actorPropertiesInstancePage
 } from '../sparql_queries/SparqlQueriesPerspective1'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
@@ -12,10 +12,10 @@ export const perspective1Config = {
   },
   facetClass: 'crm:E21_Person crm:E74_Group',
   paginatedResults: {
-    properties: manuscriptPropertiesFacetResults
+    properties: actorPropertiesFacetResults
   },
   instance: {
-    properties: manuscriptPropertiesInstancePage,
+    properties: actorPropertiesInstancePage,
     relatedInstances: ''
   },
   facets: {

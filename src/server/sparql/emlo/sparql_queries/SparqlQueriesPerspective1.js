@@ -1,7 +1,7 @@
 const perspectiveID = 'perspective1'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
-export const manuscriptPropertiesInstancePage =
+export const actorPropertiesInstancePage =
 `   BIND(?id as ?uri__id)
     BIND(?id as ?uri__prefLabel)
     BIND(CONCAT("http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=", STR(?id), "&model=emlo") AS ?uri__dataProviderUrl)
@@ -55,7 +55,7 @@ export const manuscriptPropertiesInstancePage =
 `
 
 
-export const manuscriptPropertiesFacetResults =
+export const actorPropertiesFacetResults =
   `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__dataProviderUrl)
@@ -95,70 +95,6 @@ export const manuscriptPropertiesFacetResults =
   ?id a ?class__id .
 `
 
-export const expressionProperties =
-`   {
-      ?id skos:prefLabel ?prefLabel__id .
-      BIND (?prefLabel__id as ?prefLabel__prefLabel)
-      BIND(CONCAT("/expressions/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-      BIND(?id as ?uri__id)
-      BIND(?id as ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
-    }
-    UNION
-    {
-      ?id dct:source ?source__id .
-      ?source__id skos:prefLabel ?source__prefLabel .
-      ?source__id mmm-schema:data_provider_url ?source__dataProviderUrl .
-    }
-    UNION
-    {
-      ?id ^crm:P128_carries ?manuscript__id .
-      ?manuscript__id skos:prefLabel ?manuscript__prefLabel .
-      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?manuscript__id), "^.*\\\\/(.+)", "$1")) AS ?manuscript__dataProviderUrl)
-    }
-    UNION
-    {
-      ?id crm:P72_has_language ?language__id .
-      ?language__id skos:prefLabel ?language__prefLabel .
-      BIND(?language__id as ?language__dataProviderUrl)
-    }
-`
-
-export const collectionProperties =
- `  {
-       ?id skos:prefLabel ?prefLabel__id .
-       BIND (?prefLabel__id as ?prefLabel__prefLabel)
-       BIND(CONCAT("/collections/page/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))) AS ?prefLabel__dataProviderUrl)
-       BIND(?id as ?uri__id)
-       BIND(?id as ?uri__dataProviderUrl)
-       BIND(?id as ?uri__prefLabel)
-     }
-     UNION
-     {
-       ?id dct:source ?source__id .
-       ?source__id skos:prefLabel ?source__prefLabel .
-       ?source__id mmm-schema:data_provider_url ?source__dataProviderUrl .
-     }
-     UNION
-     {
-       ?id ^crm:P46i_forms_part_of ?manuscript__id .
-       ?manuscript__id skos:prefLabel ?manuscript__prefLabel .
-       BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?manuscript__id), "^.*\\\\/(.+)", "$1")) AS ?manuscript__dataProviderUrl)
-     }
-     UNION
-     {
-       ?id crm:P51_has_former_or_current_owner ?owner__id .
-       ?owner__id skos:prefLabel ?owner__prefLabel .
-       BIND(CONCAT("/actors/page/", REPLACE(STR(?owner__id), "^.*\\\\/(.+)", "$1")) AS ?owner__dataProviderUrl)
-     }
-     UNION
-     {
-       ?id mmm-schema:collection_location ?place__id .
-       ?place__id skos:prefLabel ?place__prefLabel .
-       BIND(CONCAT("/places/page/", REPLACE(STR(?place__id), "^.*\\\\/(.+)", "$1")) AS ?place__dataProviderUrl)
-     }
-`
-
 export const networkLinksQuery = `
   SELECT DISTINCT ?source ?target ("author" as ?prefLabel)
   WHERE {
@@ -177,39 +113,8 @@ export const networkNodesQuery = `
   }
 `
 
-export const productionPlacesQuery = `
-  SELECT ?id ?lat ?long
-  (COUNT(DISTINCT ?manuscripts) as ?instanceCount)
-  WHERE {
-    <FILTER>
-    ?manuscripts ^crm:P108_has_produced/crm:P7_took_place_at ?id .
-    ?id wgs84:lat ?lat ;
-        wgs84:long ?long .
-  }
-  GROUP BY ?id ?lat ?long
-`
 
-export const productionCoordinatesQuery = `
-  SELECT ?lat ?long
-  WHERE {
-    <FILTER>
-    ?manuscripts ^crm:P108_has_produced/crm:P7_took_place_at ?place .
-    ?place wgs84:lat ?lat ;
-           wgs84:long ?long .
-  }
-`
 
-export const knownLocationsQuery = `
-  SELECT ?id ?lat ?long
-  (COUNT(DISTINCT ?manuscripts) as ?instanceCount)
-  WHERE {
-    <FILTER>
-    ?manuscripts mmm-schema:last_known_location ?id .
-    ?id wgs84:lat ?lat ;
-        wgs84:long ?long .
-  }
-  GROUP BY ?id ?lat ?long
-`
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 export const migrationsQuery = `

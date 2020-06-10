@@ -5,7 +5,7 @@ import {
   productionPlacesQuery,
   lastKnownLocationsQuery,
   migrationsQuery,
-  manuscriptPropertiesInstancePage,
+  actorPropertiesInstancePage,
   expressionProperties,
   collectionProperties
 } from './sparql_queries/SparqlQueriesPerspective1'
@@ -38,7 +38,7 @@ export const backendSearchConfig = {
   manuscripts: {
     perspectiveID: 'perspective1', // use endpoint config from perspective1
     instance: {
-      properties: manuscriptPropertiesInstancePage,
+      properties: actorPropertiesInstancePage,
       relatedInstances: ''
     }
   },

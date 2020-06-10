@@ -69,7 +69,7 @@ export const INITIAL_STATE = {
       id: 'source',
       valueType: 'object',
       makeLink: true,
-      externalLink: true,
+      externalLink: false,
       sortValues: true,
       numberedList: false,
       minWidth: 200
@@ -78,7 +78,7 @@ export const INITIAL_STATE = {
       id: 'target',
       valueType: 'object',
       makeLink: true,
-      externalLink: true,
+      externalLink: false,
       sortValues: true,
       numberedList: false,
       minWidth: 200
