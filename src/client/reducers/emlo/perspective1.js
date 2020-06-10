@@ -117,69 +117,24 @@ export const INITIAL_STATE = {
       minWidth: 250
     },
     {
-      id: 'lastKnownLocation',
+      id: 'altLabel',
+      valueType: 'string',
+      renderAsHTML: false,
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 150,
+      collapsedMaxWords: 12
+    },
+    {
+      id: 'knownLocation',
       valueType: 'object',
       makeLink: true,
       externalLink: false,
       sortValues: true,
       numberedList: false,
       minWidth: 220
-    },
-    {
-      id: 'note',
-      valueType: 'string',
-      renderAsHTML: false,
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      collapsedMaxWords: 12
-    },
-    {
-      id: 'language',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'event',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 450
-    },
-    {
-      id: 'owner',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250
-    },
-    {
-      id: 'transferOfCustodyTimespan',
-      valueType: 'object',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 210
-    },
-    {
-      id: 'source',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250
     }
   ]
 }

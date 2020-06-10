@@ -39,6 +39,14 @@ export const manuscriptPropertiesInstancePage =
       OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
       OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
     }
+    UNION 
+    {
+      { ?id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?knownLocation__id }
+        UNION 
+      { ?id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?knownLocation__id }
+    ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
+      BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
+    }
 
     VALUES (?class__id ?class__prefLabel) { 
       (crm:E21_Person "Person")
@@ -191,7 +199,7 @@ export const productionCoordinatesQuery = `
   }
 `
 
-export const lastKnownLocationsQuery = `
+export const knownLocationsQuery = `
   SELECT ?id ?lat ?long
   (COUNT(DISTINCT ?manuscripts) as ?instanceCount)
   WHERE {

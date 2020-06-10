@@ -176,37 +176,8 @@ export default {
         label: 'Actor',
         description: `
           <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            MMM’s Manuscript entity corresponds to
-            <a href='https://www.ifla.org/publications/node/11240' target='_blank' rel='noopener noreferrer'>FRBRoo’s</a>
-            Manifestation Singleton, defined as "physical objects that each carry an instance of
-            [an Expression], and that were produced as unique objects..." The various types
-            of records that describe manuscripts in each of the three contributing MMM
-            datasets have been mapped to this entity.
+            TODO: description.
           </p>
-          <h6 class="MuiTypography-root MuiTypography-h6">
-            Manuscript labels
-          </h6>
-          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            If the Bibale or Oxford databases reference a shelf mark for the manuscript,
-            that information will appear as its label. Otherwise, an SDBM ID number will serve
-            as its label. SDBM ID numbers contain prefixes that indicate different things about
-            the type of record they contain:
-          </p>
-          <ul class="MuiTypography-root MuiTypography-body1">
-            <li>
-              SDBM_MS: SDBM Manuscript Record, which aggregates the data of two or more SDBM
-              Entries. Each Entry represents a different observation of a manuscript at a different
-              point in time, derived from various sources.
-            </li>
-            <li>
-              SDBM_MS_orphan: a single Entry in the SDBM, meaning it has not been linked to any
-              other Entries and therefore has no SDBM Manuscript Record.
-            </li>
-            <li>
-              SDBM_MS_part: a record identified as a fragment of a larger manuscript.
-            </li>
-          </ul>
-          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"></p>
         `
       },
       properties: {
@@ -241,12 +212,10 @@ export default {
           label: 'Death date',
           description: `Death date of a person`
         },
-        note: {
-          label: 'Note',
+        altLabel: {
+          label: 'Alternative names or occupations',
           description: `
-            Other info such as distinguishing characteristics, notes on the physical structure
-            of the manuscript, script types, note glosses, physical relationships among various
-            texts and/or parts of a miscellany, such as multiple types of page layout.
+            Alternative names or occupations of the actor.
           `
         },
         related: {
@@ -285,10 +254,10 @@ export default {
             The dates of “Transfer of Custody” events related to the manuscript.
           `
         },
-        lastKnownLocation: {
-          label: 'Last known location',
+        knownLocation: {
+          label: 'Known locations',
           description: `
-            Last known location
+            Known locations by letter correspondence.
           `
         },
         material: {
