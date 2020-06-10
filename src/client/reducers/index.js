@@ -11,13 +11,7 @@ import clientSideFacetedSearch from './sampo/clientSideFacetedSearch'
 import perspective1 from './emlo/perspective1' // copy of manuscripts
 import perspective2 from './emlo/perspective2' // copy of works
 import perspective3 from './emlo/perspective3' // copy of events
-import manuscripts from './sampo/manuscripts'
-import works from './sampo/works'
-import events from './sampo/events'
-import actors from './sampo/actors'
-import places from './sampo/places'
-import expressions from './sampo/expressions'
-import collections from './sampo/collections'
+import places from './emlo/places'
 import perspective1Facets from './emlo/perspective1Facets'
 import perspective1FacetsConstrainSelf from './sampo/perspective1FacetsConstrainSelf'
 import perspective2Facets from './emlo/perspective2Facets'
@@ -31,12 +25,6 @@ const reducer = combineReducers({
   perspective1FacetsConstrainSelf,
   perspective2Facets,
   perspective3Facets,
-  manuscripts,
-  works,
-  events,
-  actors,
-  expressions,
-  collections,
   places,
   leafletMap,
   animation,

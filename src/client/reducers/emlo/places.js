@@ -63,72 +63,6 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 170
-    },
-    {
-      id: 'placeType',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 170
-    },
-    {
-      id: 'area',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 170
-    },
-    {
-      id: 'manuscriptProduced',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'manuscriptTransferred',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'manuscriptObserved',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'actor',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'source',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false
     }
   ]
 }
@@ -144,8 +78,6 @@ const resultClasses = new Set([
 ])
 
 const places = (state = INITIAL_STATE, action) => {
-  console.log("action@places")
-  console.log(action)
   if (resultClasses.has(action.resultClass)) {
     switch (action.type) {
       case FETCH_RESULTS:
