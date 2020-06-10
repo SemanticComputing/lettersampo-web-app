@@ -61,7 +61,6 @@ UNION
 //  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
 export const letterMigrationsQuery = `
 SELECT DISTINCT ?id ?letter__id 
-# ?time__id ?time__start ?time__end 
 ?from__id ?from__prefLabel ?from__dataProviderUrl ?from__lat ?from__long
 ?to__id ?to__prefLabel ?to__dataProviderUrl ?to__lat ?to__long
   WHERE {
@@ -72,9 +71,6 @@ SELECT DISTINCT ?id ?letter__id
   		crm:P4_has_time-span ?time__id ;
       skos:prefLabel ?letter__prefLabel .
     
-    # ?time__id crm:P82a_begin_of_the_begin ?time__start ;
-    #  crm:P82b_end_of_the_end ?time__end .
-    
     ?from__id skos:prefLabel ?from__prefLabel ; 
         geo:lat ?from__lat ;
         geo:long ?from__long .
@@ -84,5 +80,5 @@ SELECT DISTINCT ?id ?letter__id
         geo:lat ?to__lat ;
         geo:long ?to__long .
     BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-    BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
-  } `
+    BIND(?letter__id AS ?id) # BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
+  } LIMIT 500 `

@@ -17,8 +17,9 @@ const styles = () => ({
 
 const MigrationsMapDialog = props => {
   const { classes, open, onClose, data } = props
-  const hasData = data !== null && data.from && data.to && data.manuscript
-
+  const hasData = data !== null && data.from && data.to && data.letter
+  console.log('dialog')
+  console.log(data)
   return (
     <Dialog
       classes={{ paper: classes.dialogPaper }}
@@ -29,17 +30,16 @@ const MigrationsMapDialog = props => {
       <DialogContent>
         {hasData &&
           <>
-            <Typography>Production place: &nbsp;
+            <Typography>Source location: &nbsp;
               <Link to={data.from.dataProviderUrl}>
                 {Array.isArray(data.from.prefLabel) ? data.from.prefLabel[0] : data.from.prefLabel}
               </Link>
             </Typography>
-            <Typography>Last known location: &nbsp;
+            <Typography>Target location: &nbsp;
               <Link to={data.to.dataProviderUrl}>
                 {Array.isArray(data.to.prefLabel) ? data.to.prefLabel[0] : data.to.prefLabel}
               </Link>
             </Typography>
-            <ManuscriptList manuscripts={data.manuscript} />
           </>}
       </DialogContent>
     </Dialog>

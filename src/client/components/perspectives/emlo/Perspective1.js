@@ -5,9 +5,10 @@ import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import LeafletMap from '../../facet_results/LeafletMap'
 import Deck from '../../facet_results/Deck'
+import Network from '../../facet_results/Network'
 import Export from '../../facet_results/Export'
 import MigrationsMapLegend from './MigrationsMapLegend'
-import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/sampo/GeneralConfig'
+import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
 const Perspective1 = props => {
   const { rootUrl, perspective } = props
@@ -85,31 +86,17 @@ const Perspective1 = props => {
           />}
       />
       <Route
-        path={`${rootUrl}/${perspective.id}/faceted-search/last_known_locations`}
+        path={`${rootUrl}/${resultClass}/page/${this.state.localID}/letterNetwork`}
         render={() =>
-          <LeafletMap
-            center={[22.43, 10.37]}
-            zoom={2}
-            results={props.placesResults.results}
-            layers={props.leafletMapLayers}
-            pageType='facetResults'
-            facetUpdateID={props.facetData.facetUpdateID}
-            facet={props.facetData.facets.productionPlace}
-            facetID='lastKnownLocation'
-            resultClass='lastKnownLocations'
-            facetClass='perspective1'
-            mapMode='cluster'
-            showMapModeControl={false}
-            instance={props.placesResults.instance}
-            fetchResults={props.fetchResults}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayersBackend}
-            clearGeoJSONLayers={props.clearGeoJSONLayers}
-            fetchByURI={props.fetchByURI}
-            fetching={props.placesResults.fetching}
-            showInstanceCountInClusters
-            updateFacetOption={props.updateFacetOption}
-            showExternalLayers
-            showError={props.showError}
+          <Network
+            pageType='instancePage'
+            results={this.props.networkData}
+            resultUpdateID={this.props.resultUpdateID}
+            fetchNetworkById={this.props.fetchNetworkById}
+            resultClass='letterNetwork'
+            id={data.id}
+            limit={200}
+            optimize={1.2}
           />}
       />
       <Route

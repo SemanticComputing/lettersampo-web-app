@@ -95,18 +95,40 @@ export const actorPropertiesFacetResults =
   ?id a ?class__id .
 `
 
-export const networkLinksQuery = `
-  SELECT DISTINCT ?source ?target ("author" as ?prefLabel)
-  WHERE {
-    <FILTER>
-    ?source ^mmm-schema:manuscript_author ?target .
+export const letterLinksQuery = `
+SELECT DISTINCT ?source ?target (COUNT(DISTINCT ?letter) AS ?weight)
+WHERE 
+{
+  VALUES ?id { <ID> }
+  
+  {
+    ?letter a eschema:Letter ;
+    	eschema:cofk_union_relationship_type-was_sent_from ?id ;
+		eschema:cofk_union_relationship_type-was_sent_to ?target .
+    BIND(?id AS ?source)
+  } UNION {
+    ?letter a eschema:Letter ;
+    	eschema:cofk_union_relationship_type-was_sent_from ?source ;
+		eschema:cofk_union_relationship_type-was_sent_to ?id .
+    BIND(?id AS ?target)
   }
-`
+} GROUP BY ?source ?target `
+
+/** 
+ export const networkLinksQuery = `
+ SELECT DISTINCT ?source ?target ("letter" as ?prefLabel)
+ WHERE {
+   ?letter a eschema:Letter ;
+   eschema:cofk_union_relationship_type-was_sent_from ?source ;
+   eschema:cofk_union_relationship_type-was_sent_to ?target 
+  }
+  `
+*/
 
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class
   WHERE {
-    VALUES ?class { frbroo:F4_Manifestation_Singleton crm:E21_Person }
+    VALUES ?class { crm:E21_Person crm:E74_Group }
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
         skos:prefLabel ?prefLabel .

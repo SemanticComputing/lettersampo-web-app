@@ -3,11 +3,10 @@ import { perspective2Config } from './perspective_configs/Perspective2Config'
 import { perspective3Config } from './perspective_configs/Perspective3Config'
 import {
   productionPlacesQuery,
-  lastKnownLocationsQuery,
   migrationsQuery,
   actorPropertiesInstancePage,
-  expressionProperties,
-  collectionProperties
+  letterLinksQuery,
+  networkNodesQuery
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
   letterProperties,
@@ -23,8 +22,7 @@ import {
 import {
   placePropertiesInstancePage,
   placePropertiesInfoWindow,
-  manuscriptsProducedAt,
-  lastKnownLocationsAt
+  manuscriptsProducedAt
 } from './sparql_queries/SparqlQueriesPlaces'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
@@ -70,20 +68,6 @@ export const backendSearchConfig = {
       relatedInstances: ''
     }
   },
-  expressions: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: expressionProperties,
-      relatedInstances: ''
-    }
-  },
-  collections: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: collectionProperties,
-      relatedInstances: ''
-    }
-  },
   placesMsProduced: {
     perspectiveID: 'perspective1', // use endpoint config from perspective1
     q: productionPlacesQuery,
@@ -100,15 +84,11 @@ export const backendSearchConfig = {
     filterTarget: 'letter__id',
     resultMapper: makeObjectList
   },
-  lastKnownLocations: {
-    perspectiveID: 'perspective1',
-    q: lastKnownLocationsQuery,
-    filterTarget: 'manuscripts',
-    resultMapper: mapPlaces,
-    instance: {
-      properties: placePropertiesInfoWindow,
-      relatedInstances: lastKnownLocationsAt
-    }
+  letterNetwork: {
+    perspectiveID: 'perspective1', // use endpoint config from people
+    links: letterLinksQuery,
+    nodes: networkNodesQuery,
+    useNetworkAPI: true
   },
   placesMsMigrations: {
     perspectiveID: 'perspective1',
