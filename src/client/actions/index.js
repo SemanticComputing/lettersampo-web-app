@@ -345,17 +345,3 @@ export const clientFSSortResults = options => ({
   type: CLIENT_FS_SORT_RESULTS,
   options
 })
-
-export const fetchNetworkById = ({ resultClass, id, limit = null, optimize = null }) => ({
-  type: FETCH_NETWORK_BY_ID,
-  resultClass,
-  id,
-  limit,
-  optimize
-})
-export const fetchNetworkByIdFailed = ({ resultClass, id, error, message }) => ({
-  type: FETCH_NETWORK_BY_ID_FAILED,
-  resultClass,
-  error,
-  message
-})
