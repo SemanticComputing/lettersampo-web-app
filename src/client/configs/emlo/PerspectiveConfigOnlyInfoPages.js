@@ -12,12 +12,6 @@ export const perspectiveConfigOnlyInfoPages = [
         value: 0,
         icon: <CalendarViewDayIcon />
       },
-      /**
-      {
-        id: 'letterNetwork',
-        value: 1,
-        icon: <BubbleChartIcon />
-      }, */
       {
         id: 'export',
         value: 2,

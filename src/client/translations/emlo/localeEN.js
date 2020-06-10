@@ -55,13 +55,11 @@ export default {
   tabs: {
     table: 'table',
     map: 'map',
-    production_places: 'production places',
-    production_places_heatmap: 'production heatmap',
-    last_known_locations: 'last known locations',
     migrations: 'migrations',
     network: 'network',
     export: 'export',
     'by-period': 'by period',
+    letterNetwork: 'Network of letters',
     map_clusters: 'clustered map',
     map_markers: 'map',
     heatmap: 'heatmap',
@@ -234,12 +232,6 @@ export default {
           label: 'Owner',
           description: `
             Former or current owners (individual or institutional).
-          `
-        },
-        collection: {
-          label: 'Collection',
-          description: `
-            The collection(s) that the manuscript has been part of at some point in time.
           `
         },
         transferOfCustodyPlace: {

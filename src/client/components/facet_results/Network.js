@@ -53,9 +53,12 @@ class Network extends React.Component {
         {
           selector: 'node',
           style: {
-            'background-color': ele => ele.data('class') === 'http://erlangen-crm.org/efrbroo/F4_Manifestation_Singleton'
-              ? '#666' : '#000',
-            label: 'data(prefLabel)'
+            shape: 'ellipse',
+            'font-size': '12',
+            'background-color': ele => ele.data('color') || '#666',
+            label: ' data(prefLabel)',
+            height: ele => (ele.data('size') || 16 / (ele.data('distance') + 1) || '16px'),
+            width: ele => (ele.data('size') || 16 / (ele.data('distance') + 1) || '16px')
           }
         },
         {

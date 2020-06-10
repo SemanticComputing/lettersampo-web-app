@@ -3,6 +3,7 @@ import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
 import TripOriginIcon from '@material-ui/icons/TripOrigin'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import AddLocationIcon from '@material-ui/icons/AddLocation'
+import BubbleChartIcon from '@material-ui/icons/BubbleChart'
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness'
 import RedoIcon from '@material-ui/icons/Redo'
 import PieChartIcon from '@material-ui/icons/PieChart'
@@ -56,14 +57,11 @@ export const perspectiveConfig = [
         value: 0,
         icon: <CalendarViewDayIcon />
       },
-      /** 
-     
-       {
+      {
          id: 'letterNetwork',
          value: 1,
          icon: <BubbleChartIcon />
-        },
-      */
+      },
       {
         id: 'export',
         value: 2,
