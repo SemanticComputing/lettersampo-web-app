@@ -16,6 +16,8 @@ export const FETCH_BY_URI = 'FETCH_BY_URI'
 export const FETCH_BY_URI_FAILED = 'FETCH_BY_URI_FAILED'
 export const FETCH_SIMILAR_DOCUMENTS_BY_ID = 'FETCH_SIMILAR_DOCUMENTS_BY_ID'
 export const FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED = 'FETCH_SIMILAR_DOCUMENTS_BY_ID_FAILED'
+export const FETCH_NETWORK_BY_ID = 'FETCH_NETWORK_BY_ID'
+export const FETCH_NETWORK_BY_ID_FAILED = 'FETCH_NETWORK_BY_ID_FAILED'
 export const UPDATE_INSTANCE = 'UPDATE_INSTANCE'
 export const UPDATE_INSTANCE_RELATED_DATA = 'UPDATE_INSTANCE_RELATED_DATA'
 export const FETCH_FACET = 'FETCH_FACET'
@@ -321,4 +323,18 @@ export const clientFSUpdateFacet = ({ facetID, value, latestValues }) => ({
 export const clientFSSortResults = options => ({
   type: CLIENT_FS_SORT_RESULTS,
   options
+})
+
+export const fetchNetworkById = ({ resultClass, id, limit = null, optimize = null }) => ({
+  type: FETCH_NETWORK_BY_ID,
+  resultClass,
+  id,
+  limit,
+  optimize
+})
+export const fetchNetworkByIdFailed = ({ resultClass, id, error, message }) => ({
+  type: FETCH_NETWORK_BY_ID_FAILED,
+  resultClass,
+  error,
+  message
 })

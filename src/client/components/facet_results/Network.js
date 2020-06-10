@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
+import history from '../../History'
 import cytoscape from 'cytoscape'
 
 const styles = theme => ({
@@ -42,10 +43,21 @@ class Network extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.fetchResults({
-      resultClass: this.props.resultClass,
-      facetClass: this.props.facetClass
-    })
+    if (this.props.pageType === 'instancePage') {
+      this.props.fetchNetworkById({
+        resultClass: this.props.resultClass,
+        id: this.props.id,
+        limit: this.props.limit,
+        optimize: this.props.optimize
+      })
+    } else {
+      this.props.fetchResults({
+        resultClass: this.props.resultClass,
+        facetClass: this.props.facetClass,
+        limit: this.props.limit,
+        optimize: this.props.optimize
+      })
+    }
     this.cy = cytoscape({
       container: this.cyRef.current,
 
@@ -82,11 +94,23 @@ class Network extends React.Component {
         }
       ]
     })
+    this.cy.on('tap', 'node', function () {
+      try {
+        if (this.data('href')) {
+          // console.log(this.data('href'))
+          history.push(this.data('href'))
+        }
+      } catch (e) { // fall back on url change
+        console.log('Fail', e)
+        console.log(this.data())
+      }
+    })
   }
 
   componentDidUpdate = prevProps => {
     if (prevProps.resultUpdateID !== this.props.resultUpdateID) {
       // console.log(this.props.results.elements);
+      this.cy.elements().remove()
       this.cy.add(this.props.results.elements)
       this.cy.layout(layout).run()
     }
@@ -111,11 +135,14 @@ class Network extends React.Component {
 Network.propTypes = {
   classes: PropTypes.object.isRequired,
   results: PropTypes.object,
-  fetchResults: PropTypes.func.isRequired,
+  fetchResults: PropTypes.func,
+  fetchNetworkById: PropTypes.func,
   resultClass: PropTypes.string.isRequired,
-  facetClass: PropTypes.string.isRequired,
-  facetUpdateID: PropTypes.number.isRequired,
-  resultUpdateID: PropTypes.number.isRequired
+  facetClass: PropTypes.string,
+  facetUpdateID: PropTypes.number,
+  resultUpdateID: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  optimize: PropTypes.number.isRequired
 }
 
 export default withStyles(styles)(Network)

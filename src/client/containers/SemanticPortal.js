@@ -42,6 +42,8 @@ import {
   fetchFullTextResults,
   clearResults,
   fetchByURI,
+  fetchNetworkById,
+  fetchNetworkByIdFailed,
   fetchFacet,
   fetchFacetConstrainSelf,
   clearFacet,
@@ -417,10 +419,13 @@ const SemanticPortal = props => {
                                   <InstanceHomePage
                                     rootUrl={rootUrlWithLang}
                                     fetchByURI={props.fetchByURI}
+                                    fetchNetworkById={props.fetchNetworkById}
                                     resultClass={perspective.id}
+                                    resultUpdateID={props[perspective.id].resultUpdateID}
                                     properties={props[perspective.id].properties}
                                     tabs={perspective.instancePageTabs}
                                     data={props[perspective.id].instance}
+                                    networkData={props[perspective.id].instanceNetworkData}
                                     sparqlQuery={props[perspective.id].instanceSparqlQuery}
                                     isLoading={props[perspective.id].fetching}
                                     routeProps={routeProps}
@@ -466,7 +471,9 @@ const SemanticPortal = props => {
                             <InstanceHomePage
                               rootUrl={rootUrlWithLang}
                               fetchByURI={props.fetchByURI}
+                              fetchNetworkById={props.fetchNetworkById}
                               resultClass={perspective.id}
+                              resultUpdateID={props[perspective.id].resultUpdateID}
                               properties={props[perspective.id].properties}
                               tabs={perspective.instancePageTabs}
                               data={props[perspective.id].instance}
@@ -599,6 +606,7 @@ const mapDispatchToProps = ({
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
   clearGeoJSONLayers,
+  fetchNetworkById,
   sortResults,
   clearResults,
   updateFacetOption,
