@@ -8,7 +8,7 @@ const styles = theme => ({
   root: {
     height: 400,
     [theme.breakpoints.up('md')]: {
-      height: 'calc(100% - 72px)'
+      height: 'calc(100% - 21px)'
     }
   },
   cyContainer: {
@@ -30,7 +30,7 @@ const layout = {
   edgeElasticity: 100,
   nestingFactor: 5,
   gravity: 80,
-  numIter: 1000,
+  numIter: 1347,
   initialTemp: 200,
   coolingFactor: 0.95,
   minTemp: 1.0
@@ -76,19 +76,19 @@ class Network extends React.Component {
         {
           selector: 'edge',
           style: {
-            // 'width': 'data(weight)',
-            'line-color': '#999',
+            width: ele => ele.data('weight') || 1,
+            'line-color': ele => ele.data('color') || '#BBB',
             'curve-style': 'bezier',
-            content: 'data(prefLabel)',
+            content: ' data(prefLabel) ',
             'target-arrow-shape': 'triangle',
             'target-arrow-color': '#999',
             color: '#555',
-            'font-size': '9',
+            'font-size': '6',
             'text-valign': 'top',
             'text-halign': 'center',
             'edge-text-rotation': 'autorotate',
             'text-background-opacity': 1,
-            'text-background-color': '#FFF',
+            'text-background-color': 'white',
             'text-background-shape': 'roundrectangle'
           }
         }

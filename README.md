@@ -1,31 +1,10 @@
-# Sampo-UI
+# Early Modern Letters Online (EMLO)
 
-A framework for building user interfaces for semantic portals. 
-
-The following portals use this repository as a base:
-
-* [NameSampo](https://github.com/SemanticComputing/nimisampo.fi)
-* [Mapping Manuscript Migrations](https://github.com/mapping-manuscript-migrations/mmm-web-app)
-* [WarVictimSampo 1914&ndash;1922](https://github.com/SemanticComputing/sotasurmat-web-app)
-* [LawSampo](https://github.com/SemanticComputing/lawsampo-web-app)
-* [AcademySampo](https://github.com/SemanticComputing/academysampo-web-app)
-* [FindSampo](https://github.com/SemanticComputing/findsampo-web-app) 
-* [HistorySampo](https://github.com/SemanticComputing/historysampo-web-app) 
-* ParliamentSampo (TBA)
-
-An example deployment generated from this repository is published at [sampo-ui.demo.seco.cs.aalto.fi](https://sampo-ui.demo.seco.cs.aalto.fi). It combines perspectives from the Mapping Manuscript Migrations and NameSampo portals, and can be used for testing and as a starting point for developing new portals. 
+Based on [Sampo-UI - A framework for building semantic portal user interfaces](https://github.com/SemanticComputing/sampo-ui)
 
 The Sampo-UI framework is being developed by the [Semantic Computing Research Group (SeCo)](https://seco.cs.aalto.fi) 
 at the Aalto University, Finland. See the [research page](https://seco.cs.aalto.fi/tools/sampo-ui) for 
 more information. 
-
-## Design philosophy
-
-Sampo-UI offers a comprehensive "starting base" of a full stack JavaScript web application. 
-Therefore it is not possible to include Sampo-UI as separate component into an existing 
-application. The 
-most convienient way to build a new user interface using Sampo-UI is to read the documentation 
-provided below, fork this repository, and start developing from there.
 
 ## Requirements
 

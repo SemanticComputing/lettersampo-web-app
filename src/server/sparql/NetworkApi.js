@@ -4,6 +4,7 @@ export const runNetworkQuery = async ({
   endpoint,
   prefixes,
   links,
+  limit,
   nodes,
   id,
   optimize

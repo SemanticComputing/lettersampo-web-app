@@ -16,7 +16,6 @@ import Grid from '@material-ui/core/Grid'
 
 // ** General components **
 import TopBar from '../components/main_layout/TopBar'
-import InstanceHomePage from '../components/perspectives/emlo/InstanceHomePage' //'../components/main_layout/InstanceHomePage'
 import InfoHeader from '../components/main_layout/InfoHeader'
 import TextPage from '../components/main_layout/TextPage'
 import Message from '../components/main_layout/Message'
@@ -29,6 +28,7 @@ import FacetedSearchPerspective from '../components/perspectives/emlo/FacetedSea
 import FullTextSearch from '../components/perspectives/sampo/FullTextSearch'
 import ClientFSPerspective from '../components/perspectives/sampo/client_fs/ClientFSPerspective'
 import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMain'
+import InstanceHomePage from '../components/perspectives/emlo/InstanceHomePage'
 import Footer from '../components/perspectives/sampo/Footer'
 import { perspectiveConfig } from '../configs/emlo/PerspectiveConfig'
 import { perspectiveConfigOnlyInfoPages } from '../configs/emlo/PerspectiveConfigOnlyInfoPages'
@@ -43,7 +43,6 @@ import {
   clearResults,
   fetchByURI,
   fetchNetworkById,
-  fetchNetworkByIdFailed,
   fetchFacet,
   fetchFacetConstrainSelf,
   clearFacet,
@@ -446,7 +445,7 @@ const SemanticPortal = props => {
             {perspectiveConfigOnlyInfoPages.map(perspective =>
               <Switch key={perspective.id}>
                 <Redirect
-                  from={`/${perspective.id}/page/:id`}
+                  from={`${rootUrl}/${perspective.id}/page/:id`}
                   to={`${rootUrlWithLang}/${perspective.id}/page/:id`}
                 />
                 <Route
@@ -477,6 +476,7 @@ const SemanticPortal = props => {
                               properties={props[perspective.id].properties}
                               tabs={perspective.instancePageTabs}
                               data={props[perspective.id].instance}
+                              networkData={props[perspective.id].instanceNetworkData}
                               sparqlQuery={props[perspective.id].instanceSparqlQuery}
                               isLoading={props[perspective.id].fetching}
                               routeProps={routeProps}
@@ -604,9 +604,9 @@ const mapDispatchToProps = ({
   fetchFacetConstrainSelf,
   clearFacet,
   fetchGeoJSONLayers,
+  fetchNetworkById,
   fetchGeoJSONLayersBackend,
   clearGeoJSONLayers,
-  fetchNetworkById,
   sortResults,
   clearResults,
   updateFacetOption,
@@ -694,6 +694,10 @@ SemanticPortal.propTypes = {
    * Redux action for fetching information about a single entity.
    */
   fetchByURI: PropTypes.func.isRequired,
+  /**
+   * Redux action for fetching network of a single entity.
+   */
+  fetchNetworkById: PropTypes.func.isRequired,
   /**
    * Redux action for loading external GeoJSON layers.
    */

@@ -18,36 +18,21 @@ export const perspectiveConfig = [
     id: 'perspective1',
     frontPageImage: manuscriptsImage,
     perspectiveDescHeight: 160,
-    defaultActiveFacets: new Set(['prefLabel', 'productionPlace']),
+    defaultActiveFacets: new Set(['prefLabel']),
     tabs: [
       {
         id: 'table',
         value: 0,
         icon: <CalendarViewDayIcon />
-      }, /** 
-      {
-        id: 'production_places',
-        value: 1,
-        icon: <AddLocationIcon />
       },
-      {
-        id: 'production_places_heatmap',
-        value: 2,
-        icon: <AddLocationIcon />
-      },
-      {
-        id: 'last_known_locations',
-        value: 3,
-        icon: <LocationOnIcon />
-      }, */
       {
         id: 'migrations',
-        value: 4,
+        value: 1,
         icon: <RedoIcon />
       },
       {
         id: 'export',
-        value: 5,
+        value: 2,
         icon: <CloudDownloadIcon />
       }
     ],
@@ -58,9 +43,9 @@ export const perspectiveConfig = [
         icon: <CalendarViewDayIcon />
       },
       {
-         id: 'letterNetwork',
-         value: 1,
-         icon: <BubbleChartIcon />
+        id: 'letterNetwork',
+        value: 1,
+        icon: <BubbleChartIcon />
       },
       {
         id: 'export',
@@ -81,9 +66,9 @@ export const perspectiveConfig = [
         icon: <CalendarViewDayIcon />
       },
       {
-        id: 'map',
+        id: 'migrations',
         value: 1,
-        icon: <AddLocationIcon />
+        icon: <RedoIcon />
       },
       {
         id: 'export',
