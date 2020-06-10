@@ -18,9 +18,7 @@ export const runSelectQuery = async ({
   }
   if (useAuth) {
     headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` 
-    // TODO remove
-    console.log('Auth')
-    console.log(headers.Authorization)
+    //  console.log(headers.Authorization)
   }
   const q = querystring.stringify({ query })
   try {
