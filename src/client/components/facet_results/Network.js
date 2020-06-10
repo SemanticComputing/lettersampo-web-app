@@ -97,7 +97,7 @@ class Network extends React.Component {
     this.cy.on('tap', 'node', function () {
       try {
         if (this.data('href')) {
-          // console.log(this.data('href'))
+          console.log(this.data('href'))
           history.push(this.data('href'))
         }
       } catch (e) { // fall back on url change
@@ -109,7 +109,8 @@ class Network extends React.Component {
 
   componentDidUpdate = prevProps => {
     if (prevProps.resultUpdateID !== this.props.resultUpdateID) {
-      // console.log(this.props.results.elements);
+      console.log('elements')
+      console.log(this.props.results.elements)
       this.cy.elements().remove()
       this.cy.add(this.props.results.elements)
       this.cy.layout(layout).run()
