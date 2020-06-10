@@ -114,8 +114,6 @@ export const networkNodesQuery = `
 `
 
 
-
-
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 export const migrationsQuery = `
   SELECT DISTINCT ?id ?manuscript__id ?manuscript__prefLabel ?manuscript__dataProviderUrl
