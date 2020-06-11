@@ -75,6 +75,7 @@ export const perspective2Config = {
       predicate: 'crm:P4_has_time-span',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
+      dataType: 'xsd:dateTime',
       type: 'timespan'
     }
   }
