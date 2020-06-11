@@ -234,10 +234,10 @@ export default {
             Former or current owners (individual or institutional).
           `
         },
-        transferOfCustodyPlace: {
-          label: 'Transfer of Custody Place',
+        rel: {
+          label: 'Related actors',
           description: `
-            The locations of “Transfer of Custody” events related to the manuscript.
+            Related actors, e.g. parents, spouses, acquaintances.
           `
         },
         transferOfCustodyTimespan: {

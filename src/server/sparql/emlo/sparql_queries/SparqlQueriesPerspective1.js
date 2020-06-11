@@ -56,6 +56,27 @@ export const actorPropertiesInstancePage =
     ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
       BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
     }
+    UNION
+    {
+      VALUES (?rel__prop ?rel__label) {
+        (eschema:cofk_union_relationship_type-sibling_of "Sibling of")
+        (eschema:cofk_union_relationship_type-spouse_of "Spouse of")
+        (eschema:cofk_union_relationship_type-parent_of "Parent of")
+        (eschema:cofk_union_relationship_type-acquaintance_of "Acquaintance of")
+        (eschema:cofk_union_relationship_type-collaborated_with "Collaborated with")
+        (eschema:cofk_union_relationship_type-employed	"Employed")
+        (eschema:cofk_union_relationship_type-member_of "Member of")
+        (eschema:cofk_union_relationship_type-relative_of "Relative of")
+        (eschema:cofk_union_relationship_type-unspecified_relationship_with "Unspecified relationship with")
+        (eschema:cofk_union_relationship_type-friend_of "Friend of")
+        (eschema:cofk_union_relationship_type-colleague_of "Colleague of")
+        (eschema:cofk_union_relationship_type-was_patron_of "Was patron of")
+      }
+      ?id ?rel__prop ?rel__id .
+      ?rel__id skos:prefLabel ?rel__label2
+      BIND (CONCAT(?rel__label, ' ',?rel__label2) AS ?rel__prefLabel)
+      BIND(CONCAT("/perspective1/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
+    }
 
 `
 

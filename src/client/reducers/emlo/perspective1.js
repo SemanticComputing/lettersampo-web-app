@@ -133,6 +133,16 @@ export const INITIAL_STATE = {
       onlyOnInstancePage: true
     },
     {
+      id: 'rel',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 220,
+      onlyOnInstancePage: true
+    },
+    {
       id: 'knownLocation',
       valueType: 'object',
       makeLink: true,
