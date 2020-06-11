@@ -6,7 +6,6 @@ import {
   networkNodesQuery
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
-  // letterProperties,
   letterMigrationsQuery
 } from './sparql_queries/SparqlQueriesPerspective2'
 // import {
