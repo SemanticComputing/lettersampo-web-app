@@ -80,5 +80,5 @@ SELECT DISTINCT ?id ?letter__id
         geo:lat ?to__lat ;
         geo:long ?to__long .
     BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-    BIND(?letter__id AS ?id) # BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
+    BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
   } LIMIT 500 `

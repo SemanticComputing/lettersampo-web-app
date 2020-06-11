@@ -100,16 +100,15 @@ SELECT DISTINCT ?source ?target (COUNT(DISTINCT ?letter) AS ?weight)
 WHERE 
 {
   VALUES ?id { <ID> }
-  
   {
+    ?id eschema:cofk_union_relationship_type-created ?letter .
     ?letter a eschema:Letter ;
-    	eschema:cofk_union_relationship_type-was_sent_from ?id ;
-		eschema:cofk_union_relationship_type-was_sent_to ?target .
+        eschema:cofk_union_relationship_type-was_addressed_to ?target .
     BIND(?id AS ?source)
   } UNION {
-    ?letter a eschema:Letter ;
-    	eschema:cofk_union_relationship_type-was_sent_from ?source ;
-		eschema:cofk_union_relationship_type-was_sent_to ?id .
+    ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+           	a eschema:Letter .
+    ?source eschema:cofk_union_relationship_type-created ?letter ;
     BIND(?id AS ?target)
   }
 } GROUP BY ?source ?target `
