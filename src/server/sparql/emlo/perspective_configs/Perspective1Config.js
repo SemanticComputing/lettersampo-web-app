@@ -50,6 +50,7 @@ export const perspective1Config = {
       predicate: 'eschema:birthDate',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
+      dataType: 'xsd:dateTime',
       type: 'timespan'
     },
     deathDateTimespan: {
@@ -60,6 +61,7 @@ export const perspective1Config = {
       predicate: 'eschema:deathDate',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
+      dataType: 'xsd:dateTime',
       type: 'timespan'
     },
     source: {

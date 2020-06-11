@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 // import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button'
-import { yasguiBaseUrl, yasguiParams } from '../../configs/sampo/GeneralConfig'
+import { yasguiBaseUrl, yasguiParams } from '../../configs/emlo/GeneralConfig'
 import querystring from 'querystring'
 import intl from 'react-intl-universal'
 
