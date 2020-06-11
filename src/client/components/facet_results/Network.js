@@ -36,10 +36,16 @@ const layout = {
   minTemp: 1.0
 }
 
+const max_edge_width = 8
+
 class Network extends React.Component {
   constructor (props) {
     super(props)
     this.cyRef = React.createRef()
+  }
+
+  constrainWidth = w => {
+    return (w ? (w<max_edge_width ? w : max_edge_width) : 1)
   }
 
   componentDidMount = () => {
@@ -58,6 +64,7 @@ class Network extends React.Component {
         optimize: this.props.optimize
       })
     }
+        
     this.cy = cytoscape({
       container: this.cyRef.current,
 
@@ -76,7 +83,7 @@ class Network extends React.Component {
         {
           selector: 'edge',
           style: {
-            width: ele => ele.data('weight') || 1,
+            width: ele => this.constrainWidth(ele.data('weight')),
             'line-color': ele => ele.data('color') || '#BBB',
             'curve-style': 'bezier',
             content: ' data(prefLabel) ',
@@ -110,7 +117,7 @@ class Network extends React.Component {
 
   componentDidUpdate = prevProps => {
     if (prevProps.resultUpdateID !== this.props.resultUpdateID) {
-      // console.log(this.props.results.elements);
+      console.log(this.props.results.elements)
       this.cy.elements().remove()
       this.cy.add(this.props.results.elements)
       this.cy.layout(layout).run()

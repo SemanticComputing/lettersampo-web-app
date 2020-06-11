@@ -125,12 +125,13 @@ WHERE
 */
 
 export const networkNodesQuery = `
-  SELECT DISTINCT ?id ?prefLabel ?class
+  SELECT DISTINCT ?id ?prefLabel ?class ?href
   WHERE {
     VALUES ?class { crm:E21_Person crm:E74_Group }
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
-        skos:prefLabel ?prefLabel .
+      skos:prefLabel ?prefLabel .
+    BIND(CONCAT("../", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)
   }
 `
 
