@@ -41,49 +41,35 @@ export const INITIAL_STATE = {
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: null,
-      sortDirection: null,
-      sortButton: true,
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: false,
+      spatialFilterButton: false,
+      chartButton: true,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'three',
+      filterType: 'uriFilter',
+      uriFilter: null,
+      priority: 9
+    },
+    type: {
+      id: 'type',
+      // predicate: defined in backend
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: false,
       spatialFilterButton: false,
       chartButton: false,
       isFetching: false,
       searchField: false,
-      containerClass: 'two',
-      filterType: 'textFilter',
-      textFilter: null,
-      priority: 2
-    },
-    class: {
-      id: 'class',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [
-        {
-          id: 'http://ldf.fi/MISSING_VALUE',
-          prefLabel: 'Unknown',
-          selected: 'true'
-        },
-        {
-          id: 'http://www.cidoc-crm.org/cidoc-crm/E21_Person',
-          prefLabel: 'Person',
-          selected: 'false'
-        },
-        {
-          id: 'http://www.cidoc-crm.org/cidoc-crm/E74_Group',
-          prefLabel: 'Group',
-          selected: 'false'
-        }],
-      sortBy: null,
-      sortDirection: null,
-      sortButton: false,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: false,
       containerClass: 'three',
-      filterType: 'textFilter',
-      textFilter: null,
-      priority: 2
+      filterType: 'uriFilter',
+      uriFilter: null,
+      priority: 9
     },
     birthDateTimespan: {
       id: 'birthDateTimespan',
@@ -124,24 +110,6 @@ export const INITIAL_STATE = {
       timespanFilter: null,
       type: 'timespan',
       priority: 8
-    },
-    source: {
-      id: 'source',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
-      sortButton: false,
-      spatialFilterButton: false,
-      chartButton: false,
-      isFetching: false,
-      searchField: false,
-      containerClass: 'three',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      priority: 21
     }
   }
 }

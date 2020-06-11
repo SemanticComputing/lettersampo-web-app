@@ -198,7 +198,7 @@ export default {
           label: 'Gender',
           description: 'The gender of a person.'
         },
-        class: {
+        type: {
           label: 'Type',
           description: 'The type is a Person or a Group.'
         },

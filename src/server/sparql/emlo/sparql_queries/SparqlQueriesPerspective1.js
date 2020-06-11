@@ -7,18 +7,25 @@ export const actorPropertiesInstancePage =
 `   BIND(?id as ?uri__id)
     BIND(?id as ?uri__prefLabel)
     BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
+    
+    VALUES (?type__id ?type__prefLabel) { 
+      (crm:E21_Person "Person")
+      (crm:E74_Group "Group") }
+    ?id a ?type__id .
+    BIND (?type__id as ?type_dataProviderUrl)
+
     {
       ?id skos:prefLabel ?prefLabel__id .
       BIND (?prefLabel__id as ?prefLabel__prefLabel)
     }
-    UNION
+    UNION 
     {
-      ?id foaf:gender ?code . 
-      VALUES (?code ?gender) { 
+      ?id foaf:gender ?gender . 
+      VALUES (?gender ?gender__prefLabel) { 
         (sdmx-code:sex-M "Male") 
         (sdmx-code:sex-F "Female") 
       }
-      BIND(?gender as ?gender__prefLabel)
+      BIND(?gender as ?gender__dataProviderUrl)
     }
     UNION 
     { ?id skos:altLabel ?altLabel }
@@ -50,10 +57,6 @@ export const actorPropertiesInstancePage =
       BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
     }
 
-    VALUES (?class__id ?class__prefLabel) { 
-      (crm:E21_Person "Person")
-      (crm:E74_Group "Group") }
-    ?id a ?class__id .
 `
 
 
@@ -62,6 +65,13 @@ export const actorPropertiesFacetResults =
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)
+
+  VALUES (?type__id ?type__prefLabel) { 
+    (crm:E21_Person "Person")
+    (crm:E74_Group "Group") }
+  ?id a ?type__id .
+  BIND (?type__id as ?type_dataProviderUrl)
+  
   {
     ?id skos:prefLabel ?prefLabel__id .
     BIND (?prefLabel__id as ?prefLabel__prefLabel)
@@ -71,8 +81,8 @@ export const actorPropertiesFacetResults =
   {
     ?id foaf:gender ?gender__id . 
     VALUES (?gender__id ?gender__prefLabel) { 
-      (sdmx-code:sex-M "Male") 
-      (sdmx-code:sex-F "Female") 
+      (sdmx-code:sex-M "Male" ) 
+      (sdmx-code:sex-F "Female" ) 
     }
     BIND(?gender__id as ?gender__dataProviderUrl)
   }
@@ -90,11 +100,6 @@ export const actorPropertiesFacetResults =
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
   }
-
-  VALUES (?class__id ?class__prefLabel) { 
-    (crm:E21_Person "Person")
-    (crm:E74_Group "Group") }
-  ?id a ?class__id .
 `
 
 export const letterLinksQuery = `

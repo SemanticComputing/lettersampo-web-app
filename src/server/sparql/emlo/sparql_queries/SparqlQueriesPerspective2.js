@@ -63,7 +63,7 @@ UNION
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 //  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
 export const letterMigrationsQuery = `
-SELECT DISTINCT ?id ?letter__id 
+SELECT DISTINCT ?id # ?letter__id 
 ?from__id ?from__prefLabel ?from__dataProviderUrl ?from__lat ?from__long
 ?to__id ?to__prefLabel ?to__dataProviderUrl ?to__lat ?to__long
   WHERE {
@@ -84,4 +84,4 @@ SELECT DISTINCT ?id ?letter__id
         geo:long ?to__long .
     BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
-  } LIMIT 1000 `
+  } `

@@ -74,16 +74,17 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 100
+      minWidth: 90,
+      priority: 5
     },
     {
-      id: 'class',
+      id: 'type',
       valueType: 'object',
       makeLink: true,
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 100,
+      minWidth: 90,
       priority: 5
     },
     {
@@ -94,7 +95,8 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 250,
-      priority: 8
+      priority: 8,
+      onlyOnInstancePage: true
     },
     {
       id: 'birthDateTimespan',
@@ -127,7 +129,8 @@ export const INITIAL_STATE = {
       sortValues: false,
       numberedList: false,
       minWidth: 150,
-      collapsedMaxWords: 12
+      collapsedMaxWords: 12,
+      onlyOnInstancePage: true
     },
     {
       id: 'knownLocation',
@@ -136,7 +139,8 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 220
+      minWidth: 220,
+      onlyOnInstancePage: true
     }
   ]
 }

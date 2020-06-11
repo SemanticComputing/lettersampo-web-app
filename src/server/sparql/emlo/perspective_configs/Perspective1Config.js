@@ -34,8 +34,8 @@ export const perspective1Config = {
       predicate: 'foaf:gender',
       type: 'text'
     },
-    class: {
-      id: 'class',
+    type: {
+      id: 'type',
       facetValueFilter: '',
       label: 'Type',
       labelPath: 'a',
@@ -63,7 +63,7 @@ export const perspective1Config = {
       endProperty: 'crm:P82b_end_of_the_end',
       dataType: 'xsd:dateTime',
       type: 'timespan'
-    },
+    } /**,
     source: {
       id: 'source',
       facetValueFilter: '',
@@ -71,6 +71,6 @@ export const perspective1Config = {
       labelPath: 'dct:source/skos:prefLabel',
       predicate: 'dct:source',
       type: 'list'
-    }
+    }  */
   }
 }
