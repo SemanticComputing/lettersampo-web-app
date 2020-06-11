@@ -1,6 +1,6 @@
+import { sahaModel, sahaUrl} from './SparqlQueriesPerspective1'
 const perspectiveID = 'perspective2'
-const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
-const sahaModel = '"&model=emlo"'
+
 
 export const letterProperties = `
 BIND(?id as ?uri__id)
@@ -84,4 +84,4 @@ SELECT DISTINCT ?id ?letter__id
         geo:long ?to__long .
     BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
-  } LIMIT 500 `
+  } LIMIT 1000 `

@@ -1,10 +1,12 @@
+import { sahaModel, sahaUrl } from './SparqlQueriesPerspective1'
+
 export const placePropertiesInstancePage = `
     {
       ?id skos:prefLabel ?prefLabel__id .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
       BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
       BIND(?id as ?uri__id)
-      BIND(CONCAT("http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=", STR(?id), "&model=emlo") AS ?uri__dataProviderUrl)
+      BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
       BIND(?id as ?uri__prefLabel)
     }
     UNION

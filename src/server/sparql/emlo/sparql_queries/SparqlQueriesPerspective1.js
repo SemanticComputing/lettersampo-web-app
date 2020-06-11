@@ -1,6 +1,6 @@
 const perspectiveID = 'perspective1'
-const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
-const sahaModel = '"&model=emlo"'
+export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
+export const sahaModel = '"&model=emlo"'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const actorPropertiesInstancePage =
