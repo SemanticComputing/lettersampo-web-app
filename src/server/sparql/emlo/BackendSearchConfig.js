@@ -12,6 +12,10 @@ import {
 //   eventProperties,
 //   eventPlacesQuery
 // } from './sparql_queries/SparqlQueriesPerspective3'
+import {
+  placePropertiesInstancePage
+  // placePropertiesInfoWindow,
+} from './sparql_queries/SparqlQueriesPlaces'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
@@ -21,6 +25,13 @@ export const backendSearchConfig = {
   perspective1: perspective1Config,
   perspective2: perspective2Config,
   perspective3: perspective3Config,
+  places: {
+    perspectiveID: 'perspective1', // use endpoint config from perspective1
+    instance: {
+      properties: placePropertiesInstancePage,
+      relatedInstances: ''
+    }
+  },
   letterMigrations: {
     perspectiveID: 'perspective2', // use endpoint config from perspective2
     q: letterMigrationsQuery,
