@@ -2,109 +2,36 @@ import { perspective1Config } from './perspective_configs/Perspective1Config'
 import { perspective2Config } from './perspective_configs/Perspective2Config'
 import { perspective3Config } from './perspective_configs/Perspective3Config'
 import {
-  productionPlacesQuery,
-  migrationsQuery,
-  actorPropertiesInstancePage,
   letterLinksQuery,
   networkNodesQuery
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
-  letterProperties,
   letterMigrationsQuery
 } from './sparql_queries/SparqlQueriesPerspective2'
-import {
-  eventProperties,
-  eventPlacesQuery
-} from './sparql_queries/SparqlQueriesPerspective3'
-import {
-  actorProperties
-} from './sparql_queries/SparqlQueriesActors'
-import {
-  placePropertiesInstancePage,
-  placePropertiesInfoWindow,
-  manuscriptsProducedAt
-} from './sparql_queries/SparqlQueriesPlaces'
+// import {
+//   eventProperties,
+//   eventPlacesQuery
+// } from './sparql_queries/SparqlQueriesPerspective3'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces } from '../Mappers'
+// import { mapPlaces } from '../Mappers'
 
 export const backendSearchConfig = {
   perspective1: perspective1Config,
   perspective2: perspective2Config,
   perspective3: perspective3Config,
-  manuscripts: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: actorPropertiesInstancePage,
-      relatedInstances: ''
-    }
-  },
-  works: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: letterProperties,
-      relatedInstances: ''
-    }
-  },
-  events: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: eventProperties,
-      relatedInstances: ''
-    }
-  },
-  actors: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: actorProperties,
-      relatedInstances: ''
-    }
-  },
-  places: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    instance: {
-      properties: placePropertiesInstancePage,
-      relatedInstances: ''
-    }
-  },
-  placesMsProduced: {
-    perspectiveID: 'perspective1', // use endpoint config from perspective1
-    q: productionPlacesQuery,
-    filterTarget: 'manuscripts',
-    resultMapper: mapPlaces,
-    instance: {
-      properties: placePropertiesInfoWindow,
-      relatedInstances: manuscriptsProducedAt
-    }
-  },
   letterMigrations: {
-    perspectiveID: 'perspective2', // use endpoint config from people
+    perspectiveID: 'perspective2', // use endpoint config from perspective2
     q: letterMigrationsQuery,
     filterTarget: 'letter__id',
     resultMapper: makeObjectList
   },
   letterNetwork: {
-    perspectiveID: 'perspective1', // use endpoint config from people
+    perspectiveID: 'perspective1', // use endpoint config from perspective1
     links: letterLinksQuery,
     nodes: networkNodesQuery,
     useNetworkAPI: true
-  },
-  placesMsMigrations: {
-    perspectiveID: 'perspective1',
-    q: migrationsQuery,
-    filterTarget: 'manuscript__id',
-    resultMapper: makeObjectList
-  },
-  placesEvents: {
-    perspectiveID: 'perspective3',
-    q: eventPlacesQuery,
-    filterTarget: 'manuscript__id',
-    resultMapper: mapPlaces,
-    instance: {
-      properties: placePropertiesInfoWindow,
-      relatedInstances: ''
-    }
   },
   jenaText: {
     perspectiveID: 'perspective1',
