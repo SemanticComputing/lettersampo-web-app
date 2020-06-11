@@ -63,6 +63,15 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 170
+    },
+    {
+      id: 'area',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 170
     }
   ]
 }
