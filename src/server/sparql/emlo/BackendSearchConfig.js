@@ -21,6 +21,7 @@ import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText
 import { makeObjectList } from '../SparqlObjectMapper'
 // import { mapPlaces } from '../Mappers'
 
+
 export const backendSearchConfig = {
   perspective1: perspective1Config,
   perspective2: perspective2Config,

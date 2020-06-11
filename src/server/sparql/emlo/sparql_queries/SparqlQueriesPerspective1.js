@@ -1,10 +1,12 @@
 const perspectiveID = 'perspective1'
+const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
+const sahaModel = '"&model=emlo"'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const actorPropertiesInstancePage =
 `   BIND(?id as ?uri__id)
     BIND(?id as ?uri__prefLabel)
-    BIND(CONCAT("http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=", STR(?id), "&model=emlo") AS ?uri__dataProviderUrl)
+    BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
     {
       ?id skos:prefLabel ?prefLabel__id .
       BIND (?prefLabel__id as ?prefLabel__prefLabel)
