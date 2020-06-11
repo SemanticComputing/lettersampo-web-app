@@ -26,9 +26,7 @@ export const runNetworkQuery = async ({
     }
   }
   try {
-    console.log(payload)
     const response = await axios.post(url, payload, config)
-    console.log(response)
     return {
       data: response.data
     }
