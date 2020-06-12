@@ -5,7 +5,7 @@ import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import LeafletMap from '../../facet_results/LeafletMap'
 import Deck from '../../facet_results/Deck'
-// import Network from '../../facet_results/Network'
+import Network from '../../facet_results/Network'
 import Export from '../../facet_results/Export'
 import MigrationsMapLegend from './MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
@@ -70,19 +70,26 @@ const Perspective1 = props => {
           />}
       />
       <Route
-        path={`${rootUrl}/${perspective.id}/faceted-search/production_places_heatmap`}
+        path={`${rootUrl}/${perspective.id}/faceted-search/map`}
         render={() =>
-          <Deck
+          <LeafletMap
+            center={[22.43, 10.37]}
+            zoom={2}
             results={props.placesResults.results}
+            layers={props.leafletMapLayers}
+            pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
-            resultClass='placesMsProduced'
+            facetID=''
+            resultClass='peoplePlaces'
             facetClass='perspective1'
+            mapMode='cluster'
+            instance={props.placesResults.instance}
             fetchResults={props.fetchResults}
+            fetchByURI={props.fetchByURI}
             fetching={props.placesResults.fetching}
-            legendComponent={<MigrationsMapLegend />}
-            layerType='heatmapLayer'
-            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
-            mapBoxStyle={MAPBOX_STYLE}
+            showInstanceCountInClusters
+            updateFacetOption={props.updateFacetOption}
+            showExternalLayers={false}
           />}
       />
       <Route

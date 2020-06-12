@@ -70,22 +70,16 @@ export const allPlacesQuery = `
   }
 `
 
-export const manuscriptsProducedAt = `
-    OPTIONAL {
-      <FILTER>
-      ?related__id ^crm:P108_has_produced/crm:P7_took_place_at ?id .
-      ?related__id skos:prefLabel ?related__prefLabel .
-      BIND(CONCAT("/manuscripts/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
-    }
-`
-
-export const lastKnownLocationsAt = `
-    OPTIONAL {
-      <FILTER>
-      ?related__id mmm-schema:last_known_location ?id .
-      ?related__id skos:prefLabel ?related__prefLabel .
-      BIND(CONCAT("/manuscripts/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
-    }
+//  https://api.triplydb.com/s/ck2-SDpCO
+export const peopleRelatedTo = `
+  OPTIONAL {
+    <FILTER>
+    { ?related__id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?id }
+    UNION
+    { ?related__id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?id }
+    ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(CONCAT("/perspective1/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+  } 
 `
 
 export const actorsAt = `

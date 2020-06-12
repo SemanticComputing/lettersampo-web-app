@@ -3,7 +3,8 @@ import { perspective2Config } from './perspective_configs/Perspective2Config'
 import { perspective3Config } from './perspective_configs/Perspective3Config'
 import {
   letterLinksQuery,
-  networkNodesQuery
+  networkNodesQuery,
+  peopleEventPlacesQuery
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
   letterMigrationsQuery
@@ -13,13 +14,14 @@ import {
 //   eventPlacesQuery
 // } from './sparql_queries/SparqlQueriesPerspective3'
 import {
-  placePropertiesInstancePage
-  // placePropertiesInfoWindow,
+  placePropertiesInstancePage,
+  placePropertiesInfoWindow,
+  peopleRelatedTo
 } from './sparql_queries/SparqlQueriesPlaces'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-// import { mapPlaces } from '../Mappers'
+import { mapPlaces } from '../Mappers'
 
 
 export const backendSearchConfig = {
@@ -44,6 +46,16 @@ export const backendSearchConfig = {
     links: letterLinksQuery,
     nodes: networkNodesQuery,
     useNetworkAPI: true
+  },
+  peoplePlaces: {
+    perspectiveID: 'perspective1', // use endpoint config from people
+    q: peopleEventPlacesQuery,
+    filterTarget: 'person',
+    resultMapper: mapPlaces,
+    instance: {
+      properties: placePropertiesInfoWindow,
+      relatedInstances: peopleRelatedTo
+    }
   },
   jenaText: {
     perspectiveID: 'perspective1',

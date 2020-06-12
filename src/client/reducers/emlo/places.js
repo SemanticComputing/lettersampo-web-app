@@ -83,7 +83,8 @@ const resultClasses = new Set([
   'letterMigrations',
   'lastKnownLocations',
   'placesMsMigrations',
-  'placesEvents'
+  'placesEvents',
+  'peoplePlaces'
 ])
 
 const places = (state = INITIAL_STATE, action) => {

@@ -141,6 +141,24 @@ WHERE
   }
 } GROUP BY ?source ?target `
 
+//  https://api.triplydb.com/s/lhDOivCiG
+export const peopleEventPlacesQuery = `
+SELECT DISTINCT ?id ?lat ?long 
+	(COUNT(DISTINCT ?person) AS ?instanceCount)
+WHERE {
+  
+  {
+    ?person eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?id .
+  } UNION {
+    ?person ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?id .
+  } 
+  
+   	?id	geo:lat	?lat ;
+        geo:long ?long 
+  
+} GROUP BY ?id ?lat ?long
+`
+
 
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
