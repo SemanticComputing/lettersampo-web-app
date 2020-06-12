@@ -8,6 +8,8 @@ import Deck from '../../facet_results/Deck'
 import Export from '../../facet_results/Export'
 import MigrationsMapLegend from './MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/sampo/GeneralConfig'
+import ApexChart from '../../facet_results/ApexChart'
+import { createApexLineChartData } from '../../../configs/sampo/ApexCharts/LineChartConfig'
 
 const Perspective1 = props => {
   const { rootUrl, perspective } = props
@@ -129,6 +131,21 @@ const Perspective1 = props => {
           />}
       />
       <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/production_dates`}
+        render={() =>
+          <ApexChart
+            pageType='facetResults'
+            rawData={props.facetResults.results}
+            rawDataUpdateID={props.facetResults.resultUpdateID}
+            facetUpdateID={props.facetData.facetUpdateID}
+            fetching={props.facetResults.fetching}
+            fetchData={props.fetchResults}
+            createChartData={createApexLineChartData}
+            resultClass='productionTimespanLineChart'
+            facetClass='perspective1'
+          />}
+      />
+      <Route
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
@@ -145,6 +162,7 @@ Perspective1.propTypes = {
   placesResults: PropTypes.object.isRequired,
   leafletMapLayers: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
+  facetDataConstrainSelf: PropTypes.object,
   fetchResults: PropTypes.func.isRequired,
   clearGeoJSONLayers: PropTypes.func.isRequired,
   fetchGeoJSONLayers: PropTypes.func.isRequired,
