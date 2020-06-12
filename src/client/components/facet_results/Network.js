@@ -113,6 +113,23 @@ class Network extends React.Component {
         console.log(this.data())
       }
     })
+
+    this.cy.on('mouseover', 'node', function (event) {
+      let node = event.target
+      if (node.data('href')) {
+        document.body.style.cursor = "pointer"
+      }
+      /** // possibility to change node appearance
+      node.style({
+        'background-color': '#F00'}
+        )
+      */
+    })
+
+    this.cy.on('mouseout', 'node', function (event) {
+      document.body.style.cursor = "default"
+    })
+
   }
 
   componentDidUpdate = prevProps => {
