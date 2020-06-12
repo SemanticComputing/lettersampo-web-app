@@ -178,8 +178,8 @@ class InstanceHomePage extends React.Component {
                     fetchNetworkById={this.props.fetchNetworkById}
                     resultClass='letterNetwork'
                     id={data.id}
-                    limit={200}
-                    optimize={1.2}
+                    limit={100}
+                    optimize={1.5}
                   />}
               />
               <Route

@@ -141,16 +141,6 @@ WHERE
   }
 } GROUP BY ?source ?target `
 
-/** 
- export const networkLinksQuery = `
- SELECT DISTINCT ?source ?target ("letter" as ?prefLabel)
- WHERE {
-   ?letter a eschema:Letter ;
-   eschema:cofk_union_relationship_type-was_sent_from ?source ;
-   eschema:cofk_union_relationship_type-was_sent_to ?target 
-  }
-  `
-*/
 
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href

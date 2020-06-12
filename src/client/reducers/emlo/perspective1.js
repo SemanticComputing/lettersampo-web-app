@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
   fetching: false,
   fetchingResultCount: false,
   facetedSearchHeaderExpanded: false,
-  instancePageHeaderExpanded: true,
+  instancePageHeaderExpanded: false,
   properties: [
     {
       id: 'uri',
