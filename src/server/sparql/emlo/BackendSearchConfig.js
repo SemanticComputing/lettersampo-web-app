@@ -47,7 +47,7 @@ export const backendSearchConfig = {
     nodes: networkNodesQuery,
     useNetworkAPI: true
   },
-  peoplePlaces: {
+  placesActors: {
     perspectiveID: 'perspective1', // use endpoint config from people
     q: peopleEventPlacesQuery,
     filterTarget: 'person',

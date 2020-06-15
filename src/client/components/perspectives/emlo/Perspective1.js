@@ -80,7 +80,7 @@ const Perspective1 = props => {
             pageType='facetResults'
             facetUpdateID={props.facetData.facetUpdateID}
             facetID=''
-            resultClass='peoplePlaces'
+            resultClass='placesActors'
             facetClass='perspective1'
             mapMode='cluster'
             instance={props.placesResults.instance}
