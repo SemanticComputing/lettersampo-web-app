@@ -34,9 +34,7 @@ export const cytoscapeStyle = [
 
 // https://js.cytoscape.org/#layouts
 export const coseLayout = {
-  name: 'spread',
-  minDist: 100
-  // name: 'cose',
+  name: 'cose',
   idealEdgeLength: 100,
   nodeOverlap: 20,
   refresh: 20,

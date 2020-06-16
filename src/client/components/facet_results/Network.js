@@ -90,13 +90,9 @@ class Network extends React.Component {
   }
 
   preprocess = elements => {
-    console.log('process')
-    console.log(elements)
     let vals = elements.edges.map(ele => ele.data.weight)
-    console.log(vals)
     let val_max = Math.max(...vals)
     let val_min = Math.min(...vals)
-    console.log(val_min, val_max)
     let w_max = 6.0
     let w_min = 1.0
     let a = (w_max-w_min)/(val_max-val_min)
