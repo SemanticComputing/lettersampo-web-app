@@ -76,6 +76,7 @@ class Network extends React.Component {
     if (prevProps.resultUpdateID !== this.props.resultUpdateID) {
       // console.log(this.props.results.elements)
       this.cy.elements().remove()
+      this.preprocess(this.props.results.elements)
       this.cy.add(this.props.results.elements)
       this.cy.layout(this.props.layout).run()
     }
@@ -87,6 +88,22 @@ class Network extends React.Component {
       })
     }
   }
+
+  preprocess = elements => {
+    console.log('process')
+    console.log(elements)
+    let vals = elements.edges.map(ele => ele.data.weight)
+    console.log(vals)
+    let val_max = Math.max(...vals)
+    let val_min = Math.min(...vals)
+    console.log(val_min, val_max)
+    let w_max = 6.0
+    let w_min = 1.0
+    let a = (w_max-w_min)/(val_max-val_min)
+    let b = w_min-val_min*(w_max-w_min)/(val_max-val_min)
+    elements.edges.forEach((ele, i) => ele.data.weight = vals[i]*a+b)
+  }
+
 
   render = () => {
     return (

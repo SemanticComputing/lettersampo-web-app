@@ -180,7 +180,7 @@ class InstanceHomePage extends React.Component {
                     resultClass='letterNetwork'
                     id={data.id}
                     limit={100}
-                    optimize={1.5}
+                    optimize={5.0}
                     style={cytoscapeStyle}
                     layout={coseLayout}
                   />}

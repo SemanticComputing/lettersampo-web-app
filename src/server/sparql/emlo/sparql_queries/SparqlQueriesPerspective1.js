@@ -3,6 +3,7 @@ export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri
 export const sahaModel = '"&model=emlo"'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
+//  
 export const actorPropertiesInstancePage =
 `   BIND(?id as ?uri__id)
     BIND(?id as ?uri__prefLabel)
@@ -77,6 +78,27 @@ export const actorPropertiesInstancePage =
       BIND (CONCAT(?rel__label, ' ',?rel__label2) AS ?rel__prefLabel)
       BIND(CONCAT("/perspective1/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
     }
+    UNION
+    {
+      { SELECT DISTINCT ?id ?cor__id (COUNT(DISTINCT ?letter) AS ?cor__count)
+        WHERE {
+          {
+            ?id eschema:cofk_union_relationship_type-created ?letter .
+            ?letter a eschema:Letter ;
+                eschema:cofk_union_relationship_type-was_addressed_to ?cor__id .
+          } UNION {
+            ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+                    a eschema:Letter ;
+                    ^eschema:cofk_union_relationship_type-created ?cor__id .
+          }
+
+        } GROUP BY ?id ?cor__id ORDER BY DESC(?cor__count) }
+      FILTER (BOUND(?id) && BOUND(?cor__id))
+      ?cor__id skos:prefLabel ?cor__label .
+      FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
+      BIND (CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
+      BIND(CONCAT("/perspective1/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
+    }
 
 `
 
@@ -123,8 +145,11 @@ export const actorPropertiesFacetResults =
   }
 `
 
+//  https://api.triplydb.com/s/U-6MA_haY
 export const letterLinksQuery = `
-SELECT DISTINCT ?source ?target (COUNT(DISTINCT ?letter) AS ?weight)
+SELECT DISTINCT ?source ?target 
+  (COUNT(DISTINCT ?letter) AS ?weight)
+  (STR(COUNT(DISTINCT ?letter)) AS ?prefLabel)
 WHERE 
 {
   VALUES ?id { <ID> }
@@ -132,14 +157,22 @@ WHERE
     ?id eschema:cofk_union_relationship_type-created ?letter .
     ?letter a eschema:Letter ;
         eschema:cofk_union_relationship_type-was_addressed_to ?target .
+    ?target skos:prefLabel ?target__label . 
+    FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
+  
     BIND(?id AS ?source)
   } UNION {
     ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
            	a eschema:Letter .
     ?source eschema:cofk_union_relationship_type-created ?letter ;
+      skos:prefLabel ?source__label . 
+    FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
+
     BIND(?id AS ?target)
   }
+  
 } GROUP BY ?source ?target `
+
 
 //  https://api.triplydb.com/s/lhDOivCiG
 export const peopleEventPlacesQuery = `

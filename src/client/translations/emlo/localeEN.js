@@ -240,6 +240,14 @@ export default {
             Related actors, e.g. parents, spouses, acquaintances.
           `
         },
+        cor: {
+          label: 'Correspondences',
+          description: `
+            Other actors who have been in correspondence with this actor. 
+            The number of mutually sent letters is in parenthesis at end of the label.
+          `
+        },
+        
         transferOfCustodyTimespan: {
           label: 'Transfer of Custody Date',
           description: `

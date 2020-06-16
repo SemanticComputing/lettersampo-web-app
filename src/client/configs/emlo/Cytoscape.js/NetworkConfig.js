@@ -4,26 +4,26 @@ export const cytoscapeStyle = [
     selector: 'node',
     style: {
       shape: 'ellipse',
-      'font-size': '12',
+      'font-size': '10',
       'background-color': ele => ele.data('color') || '#666',
       label: ' data(prefLabel)',
-      height: ele => (ele.data('size') || 16 / (ele.data('distance') + 1) || '16px'),
-      width: ele => (ele.data('size') || 16 / (ele.data('distance') + 1) || '16px')
+      height: ele => (ele.data('size') || 12 / (ele.data('distance') + 1) || '16px'),
+      width: ele => (ele.data('size') || 12 / (ele.data('distance') + 1) || '16px')
     }
   },
   {
     selector: 'edge',
     style: {
-      width: ele => constrainWidth(ele.data('weight')),
-      'line-color': ele => ele.data('color') || '#BBB',
+      width: ele => ele.data('weight'),
+      'line-color': ele => ele.data('color') || '#D8D8D8',
       'curve-style': 'bezier',
       content: ' data(prefLabel) ',
       'target-arrow-shape': 'triangle',
-      'target-arrow-color': '#999',
+      'target-arrow-color': '#CCC',
       color: '#555',
       'font-size': '6',
-      'text-valign': 'top',
-      'text-halign': 'center',
+      'text-valign': 'center',
+      'text-halign': 'top',
       'edge-text-rotation': 'autorotate',
       'text-background-opacity': 1,
       'text-background-color': 'white',
@@ -34,7 +34,9 @@ export const cytoscapeStyle = [
 
 // https://js.cytoscape.org/#layouts
 export const coseLayout = {
-  name: 'cose',
+  name: 'spread',
+  minDist: 100
+  // name: 'cose',
   idealEdgeLength: 100,
   nodeOverlap: 20,
   refresh: 20,
