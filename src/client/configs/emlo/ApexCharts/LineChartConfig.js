@@ -31,7 +31,7 @@ export const createApexLineChartData = ({
       }
     },
     stroke: {
-      width: 2
+      width: 2 
     }
   }
   return apexChartOptionsWithData
