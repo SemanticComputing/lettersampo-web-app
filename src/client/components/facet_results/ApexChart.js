@@ -55,7 +55,7 @@ class ApexChart extends React.Component {
       this.chartRef.current,
       this.props.createChartData({
         rawData: this.props.rawData,
-        title: this.props.title,
+        title: this.props.title, 
         xaxisTitle: this.props.xaxisTitle || '',
         yaxisTitle: this.props.yaxisTitle || '',
         seriesTitle: this.props.seriesTitle || ''
