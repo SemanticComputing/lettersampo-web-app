@@ -4,6 +4,7 @@ import TripOriginIcon from '@material-ui/icons/TripOrigin'
 import LocationOnIcon from '@material-ui/icons/LocationOn'
 import AddLocationIcon from '@material-ui/icons/AddLocation'
 import BubbleChartIcon from '@material-ui/icons/BubbleChart'
+import LineChartIcon from '@material-ui/icons/ShowChart'
 import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness'
 import RedoIcon from '@material-ui/icons/Redo'
 import PieChartIcon from '@material-ui/icons/PieChart'
@@ -71,8 +72,13 @@ export const perspectiveConfig = [
         icon: <RedoIcon />
       },
       {
-        id: 'export',
+        id: 'by_year',
         value: 2,
+        icon: <LineChartIcon />
+      },
+      {
+        id: 'export',
+        value: 3,
         icon: <CloudDownloadIcon />
       }
     ],

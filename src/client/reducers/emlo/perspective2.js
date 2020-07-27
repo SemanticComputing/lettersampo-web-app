@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
   fetching: false,
   fetchingResultCount: false,
   sparqlQuery: null,
-  facetedSearchHeaderExpanded: true,
+  facetedSearchHeaderExpanded: false,
   instancePageHeaderExpanded: false,
   properties: [
     {
@@ -135,7 +135,7 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'perspective2'
+  'perspective2', 'letterByYear'
 ])
 
 const perspective2 = (state = INITIAL_STATE, action) => {

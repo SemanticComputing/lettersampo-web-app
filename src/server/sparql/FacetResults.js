@@ -60,6 +60,8 @@ export const getAllResults = ({
   }
   const { filterTarget, resultMapper } = config
   let { q } = config
+  console.log('query')
+  console.log(q)
   if (constraints == null) {
     q = q.replace('<FILTER>', '# no filters')
   } else {
@@ -72,6 +74,9 @@ export const getAllResults = ({
       facetID: null
     }))
   }
+  console.log('query')
+  console.log(q)
+   
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
     return runNetworkQuery({
       endpoint: endpoint.url,

@@ -1,4 +1,6 @@
 export const createApexLineChartData = rawData => {
+  // console.log('createApexLineChartData')
+  // console.log(rawData)
   const apexChartOptionsWithData = {
     ...apexLineChartOptions,
     series: [

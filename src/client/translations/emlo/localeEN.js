@@ -58,6 +58,7 @@ export default {
     migrations: 'migrations',
     network: 'network',
     export: 'export',
+    by_year: 'by year',
     'by-period': 'by period',
     letterNetwork: 'Network of letters',
     map_clusters: 'clustered map',

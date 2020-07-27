@@ -4,6 +4,8 @@ import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import Export from '../../facet_results/Export'
+import ApexChart from '../../facet_results/ApexChart'
+import { createApexLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Deck from '../../facet_results/Deck'
 import MigrationsMapLegend from '../sampo/MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
@@ -51,6 +53,25 @@ const Perspective2 = props => {
             layerType='arcLayer'
             mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
             mapBoxStyle={MAPBOX_STYLE}
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/by_year`}
+        render={routeProps =>
+          <ApexChart
+            pageType='facetResults'
+            rawData={props.facetResults.results}
+            rawDataUpdateID={props.facetResults.resultUpdateID}
+            facetUpdateID={props.facetData.facetUpdateID}
+            fetching={props.facetResults.fetching}
+            fetchData={props.fetchResults}
+            createChartData={createApexLineChartData}
+            title='Letters by year'
+            xaxisTitle='Year'
+            yaxisTitle='Number of letters'
+            seriesTitle='Number of letters'
+            resultClass='letterByYear'
+            facetClass='perspective2'
           />}
       />
       <Route

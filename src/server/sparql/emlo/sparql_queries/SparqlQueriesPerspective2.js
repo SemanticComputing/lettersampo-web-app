@@ -58,7 +58,16 @@ UNION
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
-`
+` // TODO add source
+/*
+SELECT DISTINCT ?source ?source__label WHERE {
+?id a  eschema:Letter ;
+        eschema:source ?source .
+?source skos:prefLabel ?source__label .
+
+and possible other properties: https://api.triplydb.com/s/dHjxJhy0U
+e.g. eschema:excipit
+*/
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 //  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
@@ -85,3 +94,20 @@ SELECT DISTINCT ?id # ?letter__id
     BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
   } `
+
+//  https://api.triplydb.com/s/JJ8pW_uH3 
+export const letterByYearQuery = `
+SELECT DISTINCT ?category (COUNT(DISTINCT ?letter__id) AS ?count)
+WHERE {
+  <FILTER>
+  ?id eschema:cofk_union_relationship_type-created ?letter__id .
+  ?letter__id eschema:cofk_union_relationship_type-was_addressed_to ?target .
+
+  ?letter__id crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+
+  BIND (STR(year(?time_0)) AS ?category)
+  FILTER (BOUND(?category))
+} GROUP BY ?category 
+  ORDER BY ?category
+`
+

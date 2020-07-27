@@ -7,7 +7,8 @@ import {
   peopleEventPlacesQuery
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
-  letterMigrationsQuery
+  letterMigrationsQuery,
+  letterByYearQuery
 } from './sparql_queries/SparqlQueriesPerspective2'
 // import {
 //   eventProperties,
@@ -21,7 +22,7 @@ import {
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces } from '../Mappers'
+import { mapPlaces, mapLineChart } from '../Mappers'
 
 
 export const backendSearchConfig = {
@@ -46,6 +47,12 @@ export const backendSearchConfig = {
     links: letterLinksQuery,
     nodes: networkNodesQuery,
     useNetworkAPI: true
+  },
+  letterByYear: {
+    perspectiveID: 'perspective2',
+    q: letterByYearQuery,
+    filterTarget: 'letter__id',
+    resultMapper: mapLineChart
   },
   placesActors: {
     perspectiveID: 'perspective1', // use endpoint config from people
