@@ -141,6 +141,10 @@ const Perspective1 = props => {
             fetching={props.facetResults.fetching}
             fetchData={props.fetchResults}
             createChartData={createApexLineChartData}
+            title='Manuscript production by decade'
+            xaxisTitle='Decade'
+            yaxisTitle='Manuscript count'
+            seriesTitle='Manuscript count'
             resultClass='productionTimespanLineChart'
             facetClass='perspective1'
           />}
@@ -149,8 +153,12 @@ const Perspective1 = props => {
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
-            sparqlQuery={props.facetResults.paginatedResultsSparqlQuery}
+            data={props.facetResults}
+            resultClass='perspective1'
+            facetClass='perspective1'
             pageType='facetResults'
+            fetchPaginatedResults={props.fetchPaginatedResults}
+            updatePage={props.updatePage}
           />}
       />
     </>
