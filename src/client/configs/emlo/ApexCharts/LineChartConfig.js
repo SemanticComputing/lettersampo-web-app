@@ -32,6 +32,10 @@ export const createSingleLineChartData = ({
       title: {
         text: yaxisTitle
       }
+    },
+    stroke: {
+      curve: 'straight',
+      width: 2
     }
   }
   return apexChartOptionsWithData
@@ -75,7 +79,7 @@ export const createMultipleLineChartData = ({
     },
     stroke: {
       curve: 'straight',
-      width: 2
+      width: 1
     },
     fill: {
       type: 'gradient',

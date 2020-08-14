@@ -12,12 +12,6 @@ export const fullTextSearchProperties = `
   }
   UNION
   {
-    ?id mmm-schema:data_provider_url ?source__id .
-    BIND(?source__id as ?source__dataProviderUrl)
-    BIND(?source__id as ?source__prefLabel)
-  }
-  UNION
-  {
     {
       ?id a crm:E21_Person 
     } UNION {
@@ -25,7 +19,7 @@ export const fullTextSearchProperties = `
     }
     ?id skos:prefLabel ?prefLabel__id .
     BIND(?prefLabel__id as ?prefLabel__prefLabel)
-    BIND(CONCAT("//perspective1/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+    BIND(CONCAT("/perspective1/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
   }
   UNION
   {
@@ -39,6 +33,6 @@ export const fullTextSearchProperties = `
     ?id a eschema:Letter .
     ?id skos:prefLabel ?prefLabel__id .
     BIND(?prefLabel__id as ?prefLabel__prefLabel)
-    BIND(CONCAT("/collections/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+    BIND(CONCAT("/perspective2/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
   }
   `

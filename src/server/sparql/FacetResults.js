@@ -74,8 +74,8 @@ export const getAllResults = ({
       facetID: null
     }))
   }
-  console.log('query')
-  console.log(q)
+  // console.log('query')
+  // console.log(q)
    
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
     return runNetworkQuery({
