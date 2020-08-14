@@ -5,7 +5,7 @@ import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import Export from '../../facet_results/Export'
 import ApexChart from '../../facet_results/ApexChart'
-import { createApexLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
+import { createSingleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Deck from '../../facet_results/Deck'
 import MigrationsMapLegend from '../sampo/MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
@@ -65,7 +65,7 @@ const Perspective2 = props => {
             facetUpdateID={props.facetData.facetUpdateID}
             fetching={props.facetResults.fetching}
             fetchData={props.fetchResults}
-            createChartData={createApexLineChartData}
+            createChartData={createSingleLineChartData}
             title='Letters by year'
             xaxisTitle='Year'
             yaxisTitle='Number of letters'
