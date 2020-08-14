@@ -1,10 +1,10 @@
 export default {
   languageLabel: 'English',
   appTitle: {
-    short: 'sampo-ui',
-    long: ' &nbsp; &nbsp; Sampo-UI  &nbsp;  &nbsp;',
+    short: 'emlo-ui',
+    long: ' &nbsp; &nbsp; EMLO-UI  &nbsp;  &nbsp;',
     subheading: `
-      "Here to forge for us the Sampo, Hammer us the lid in colors"
+      Republic of Letters
     `
   },
   appDescription: `
@@ -141,9 +141,9 @@ export default {
   },
   perspectives: {
     perspective1: {
-      label: 'Perspective 1',
+      label: 'Actors',
       facetResultsType: 'actors',
-      shortDescription: 'Perspective1 description',
+      shortDescription: 'Actor description',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to physical manuscript objects.
@@ -332,9 +332,9 @@ export default {
       }
     },
     perspective2: {
-      label: 'Perspective 2',
+      label: 'Letters',
       facetResultsType: 'letters',
-      shortDescription: 'Perspective 2 description',
+      shortDescription: 'Letters description',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: description.
