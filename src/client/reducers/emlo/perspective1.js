@@ -38,6 +38,7 @@ export const INITIAL_STATE = {
   paginatedResultsSparqlQuery: null,
   instance: null,
   instanceNetworkData: null,
+  instanceChartData: null,
   instanceSparqlQuery: null,
   resultCount: 0,
   page: -1,
@@ -152,7 +153,6 @@ export const INITIAL_STATE = {
       minWidth: 220,
       onlyOnInstancePage: true
     },
-    
     {
       id: 'knownLocation',
       valueType: 'object',
@@ -193,7 +193,7 @@ const perspective1 = (state = INITIAL_STATE, action) => {
       case UPDATE_INSTANCE:
         return updateInstance(state, action)
       case UPDATE_INSTANCE_NETWORK_DATA:
-        return updateInstanceNetworkData(state, action)  
+        return updateInstanceNetworkData(state, action)
       case UPDATE_PAGE:
         return updatePage(state, action)
       case UPDATE_ROWS_PER_PAGE:

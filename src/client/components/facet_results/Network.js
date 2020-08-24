@@ -97,9 +97,8 @@ class Network extends React.Component {
     let w_min = 1.0
     let a = (w_max-w_min)/(val_max-val_min)
     let b = w_min-val_min*(w_max-w_min)/(val_max-val_min)
-    elements.edges.forEach((ele, i) => ele.data.weight = vals[i]*a+b)
+    elements.edges.forEach((ele, i) => ele.data.weight = vals[i] * a + b)
   }
-
 
   render = () => {
     return (

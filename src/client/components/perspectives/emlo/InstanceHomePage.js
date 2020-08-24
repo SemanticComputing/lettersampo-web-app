@@ -10,6 +10,7 @@ import InstanceHomePageTable from '../../main_layout/InstanceHomePageTable'
 import Network from '../../facet_results/Network'
 import ApexChart from '../../facet_results/ApexChart'
 import LeafletMap from '../../facet_results/LeafletMap'
+import { createMultipleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Export from '../../facet_results/Export'
 import { coseLayout, cytoscapeStyle } from '../../../configs/sampo/Cytoscape.js/NetworkConfig'
 import { Route, Redirect } from 'react-router-dom'
@@ -191,11 +192,11 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <ApexChart
                     pageType='facetResults'
-                    rawData={props.facetResults.results}
-                    rawDataUpdateID={props.facetResults.resultUpdateID}
-                    facetUpdateID={props.facetData.facetUpdateID}
-                    fetching={props.facetResults.fetching}
-                    fetchData={props.fetchResults}
+                    rawData={this.props.instanceChartData}
+                    // rawDataUpdateID={this.props.facetResults.resultUpdateID}
+                    // facetUpdateID={this.props.facetData.facetUpdateID}
+                    // fetching={this.props.facetResults.fetching}
+                    // fetchData={this.props.fetchResults}
                     createChartData={createMultipleLineChartData}
                     title='Letters by year'
                     xaxisTitle='Year'

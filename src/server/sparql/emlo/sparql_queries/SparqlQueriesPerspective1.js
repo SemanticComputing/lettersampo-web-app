@@ -3,7 +3,6 @@ export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri
 export const sahaModel = '"&model=emlo"'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
-//  
 export const actorPropertiesInstancePage =
 `   BIND(?id as ?uri__id)
     BIND(?id as ?uri__prefLabel)
@@ -65,7 +64,7 @@ export const actorPropertiesInstancePage =
         (eschema:cofk_union_relationship_type-parent_of "Parent of")
         (eschema:cofk_union_relationship_type-acquaintance_of "Acquaintance of")
         (eschema:cofk_union_relationship_type-collaborated_with "Collaborated with")
-        (eschema:cofk_union_relationship_type-employed	"Employed")
+        (eschema:cofk_union_relationship_type-employed "Employed")
         (eschema:cofk_union_relationship_type-member_of "Member of")
         (eschema:cofk_union_relationship_type-relative_of "Relative of")
         (eschema:cofk_union_relationship_type-unspecified_relationship_with "Unspecified relationship with")
@@ -101,7 +100,6 @@ export const actorPropertiesInstancePage =
     }
 
 `
-
 
 export const actorPropertiesFacetResults =
   `
@@ -156,14 +154,14 @@ WHERE
   {
     ?id eschema:cofk_union_relationship_type-created ?letter .
     ?letter a eschema:Letter ;
-        eschema:cofk_union_relationship_type-was_addressed_to ?target .
+      eschema:cofk_union_relationship_type-was_addressed_to ?target .
     ?target skos:prefLabel ?target__label . 
     FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
   
     BIND(?id AS ?source)
   } UNION {
     ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
-           	a eschema:Letter .
+      a eschema:Letter .
     ?source eschema:cofk_union_relationship_type-created ?letter ;
       skos:prefLabel ?source__label . 
     FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
@@ -173,11 +171,10 @@ WHERE
   
 } GROUP BY ?source ?target `
 
-
 //  https://api.triplydb.com/s/lhDOivCiG
 export const peopleEventPlacesQuery = `
 SELECT DISTINCT ?id ?lat ?long 
-	(COUNT(DISTINCT ?person) AS ?instanceCount)
+(COUNT(DISTINCT ?person) AS ?instanceCount)
 WHERE {
   
   {
@@ -186,12 +183,11 @@ WHERE {
     ?person ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?id .
   } 
   
-   	?id	geo:lat	?lat ;
-        geo:long ?long 
+  ?id geo:lat ?lat ;
+    geo:long ?long .
   
 } GROUP BY ?id ?lat ?long
 `
-
 
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
@@ -203,7 +199,6 @@ export const networkNodesQuery = `
     BIND(CONCAT("../", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)
   }
 `
-
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 export const migrationsQuery = `

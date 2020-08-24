@@ -25,7 +25,6 @@ import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText
 import { makeObjectList } from '../SparqlObjectMapper'
 import { mapPlaces, mapLineChart, mapMultipleLineChart } from '../Mappers'
 
-
 export const backendSearchConfig = {
   perspective1: perspective1Config,
   perspective2: perspective2Config,
@@ -74,7 +73,7 @@ export const backendSearchConfig = {
   },
   sentReceived: {
     perspectiveID: 'perspective1',
-    q: sentReceivedQuery, 
+    q: sentReceivedQuery,
     // filterTarget: 'id',
     resultMapper: mapMultipleLineChart
   }

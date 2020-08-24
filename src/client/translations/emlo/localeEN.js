@@ -206,11 +206,15 @@ export default {
         },
         birthDateTimespan: {
           label: 'Birth date',
-          description: `Birth date of a person`
+          description: `
+          Birth date of a person
+          `
         },
         deathDateTimespan: {
           label: 'Death date',
-          description: `Death date of a person`
+          description: `
+          Death date of a person
+          `
         },
         altLabel: {
           label: 'Alternative names or occupations',
@@ -249,7 +253,6 @@ export default {
             The number of mutually sent letters is in parenthesis at end of the label.
           `
         },
-        
         transferOfCustodyTimespan: {
           label: 'Transfer of Custody Date',
           description: `
