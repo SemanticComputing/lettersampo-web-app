@@ -76,7 +76,6 @@ export const getAllResults = ({
   }
   // console.log('query')
   // console.log(q)
-   
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
     return runNetworkQuery({
       endpoint: endpoint.url,

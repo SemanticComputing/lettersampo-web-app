@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
   fetching: false,
   fetchingResultCount: false,
   sparqlQuery: null,
-  facetedSearchHeaderExpanded: false, 
+  facetedSearchHeaderExpanded: false,
   instancePageHeaderExpanded: false,
   properties: [
     {
@@ -115,6 +115,33 @@ export const INITIAL_STATE = {
     },
     {
       id: 'language',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 150
+    },
+    {
+      id: 'subject',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 150
+    },
+    {
+      id: 'datasource',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 150
+    },
+    {
+      id: 'excipit',
       valueType: 'object',
       makeLink: true,
       externalLink: true,

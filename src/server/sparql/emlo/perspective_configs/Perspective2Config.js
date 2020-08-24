@@ -50,7 +50,7 @@ export const perspective2Config = {
       //  parentProperty: 'crm:P89_falls_within',
       //  parentPredicate: 'crm:P7_took_place_at/crm:P89_falls_within+',
       //  type: 'hierarchical'
-      type: 'list' 
+      type: 'list'
     },
     to: {
       id: 'to',
@@ -65,6 +65,30 @@ export const perspective2Config = {
       label: 'Language',
       labelPath: 'dct:language/skos:prefLabel',
       predicate: 'dct:language',
+      type: 'list'
+    },
+    subject: {
+      id: 'subject',
+      facetValueFilter: '',
+      label: 'Subject',
+      labelPath: 'dct:subject/skos:prefLabel',
+      predicate: 'dct:subject',
+      type: 'list'
+    },
+    datasource: {
+      id: 'datasource',
+      facetValueFilter: '',
+      label: 'Data Source',
+      labelPath: 'eschema:source/skos:prefLabel',
+      predicate: 'eschema:source',
+      type: 'list'
+    },
+    excipit: {
+      id: 'excipit',
+      facetValueFilter: '',
+      label: 'Excipit',
+      labelPath: 'eschema:excipit/skos:prefLabel',
+      predicate: 'eschema:excipit',
       type: 'list'
     },
     productionTimespan: {

@@ -1,6 +1,5 @@
-import { sahaModel, sahaUrl} from './SparqlQueriesPerspective1'
+import { sahaModel, sahaUrl } from './SparqlQueriesPerspective1'
 const perspectiveID = 'perspective2'
-
 
 export const letterProperties = `
 BIND(?id as ?uri__id)
@@ -46,6 +45,21 @@ UNION
   ?language__id skos:prefLabel ?language__prefLabel .
   BIND (?language__id AS ?language__dataProviderUrl)
 }
+UNION
+{ ?id dct:subject ?subject__id . 
+  ?subject__id skos:prefLabel ?subject__prefLabel .
+  BIND (?subject__id AS ?subject__dataProviderUrl)
+}
+UNION 
+{ ?id eschema:source ?datasource__id . 
+  ?datasource__id skos:prefLabel ?datasource__prefLabel .
+  BIND (?datasource__id AS ?datasource__dataProviderUrl)
+}
+UNION 
+{ ?id eschema:excipit ?excipit__id .
+  BIND (?excipit__id AS ?excipit__prefLabel)
+  BIND (?excipit__id AS ?excipit__dataProviderUrl)
+}
 UNION 
 {
   ?id eschema:cofk_union_relationship_type-was_sent_from ?from__id .
@@ -58,9 +72,9 @@ UNION
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
-` 
+`
 // TODO add source
-//  TODO add http://purl.org/dc/terms/subject 
+//  TODO add http://purl.org/dc/terms/subject
 /*
 SELECT DISTINCT ?source ?source__label WHERE {
 ?id a  eschema:Letter ;
@@ -82,9 +96,9 @@ SELECT DISTINCT ?id # ?letter__id
   WHERE {
     <FILTER>
     ?letter__id a eschema:Letter ;
-    	eschema:cofk_union_relationship_type-was_sent_from ?from__id ;
-		  eschema:cofk_union_relationship_type-was_sent_to ?to__id ;
-  		crm:P4_has_time-span ?time__id ;
+      eschema:cofk_union_relationship_type-was_sent_from ?from__id ;
+      eschema:cofk_union_relationship_type-was_sent_to ?to__id ;
+      crm:P4_has_time-span ?time__id ;
       skos:prefLabel ?letter__prefLabel .
     
     ?from__id skos:prefLabel ?from__prefLabel ; 
@@ -99,7 +113,7 @@ SELECT DISTINCT ?id # ?letter__id
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
   } `
 
-//  https://api.triplydb.com/s/JJ8pW_uH3 
+//  https://api.triplydb.com/s/JJ8pW_uH3
 export const letterByYearQuery = `
 SELECT DISTINCT ?category (COUNT(DISTINCT ?letter__id) AS ?count)
 WHERE {
@@ -114,4 +128,3 @@ WHERE {
 } GROUP BY ?category 
   ORDER BY ?category
 `
-

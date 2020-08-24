@@ -368,6 +368,24 @@ export default {
             (i.e., an “Expression” of a Work). One manuscript may contain multiple languages.
           `
         },
+        subject: {
+          label: 'Subject',
+          description: `
+            The subject of the letter.
+          `
+        },
+        datasource: {
+          label: 'Data source',
+          description: `
+            The data source of the letter.
+          `
+        },
+        excipit: {
+          label: 'Excipit',
+          description: `
+          An excipit of the letter.
+          `
+        },
         description: {
           label: 'Description',
           description: `
