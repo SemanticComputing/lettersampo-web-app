@@ -21,7 +21,7 @@ export const runSelectQuery = async ({
   }
   const q = querystring.stringify({ query })
   try {
-    // console.log(query)
+    console.log(query)
     const response = await axios({
       method: 'post',
       headers: headers,

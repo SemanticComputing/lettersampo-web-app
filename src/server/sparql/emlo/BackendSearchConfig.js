@@ -21,7 +21,7 @@ import {
   placePropertiesInstancePage,
   placePropertiesInfoWindow,
   peopleRelatedTo
-} from './sparql_queries/SparqlQueriesPlaces'
+} from './sparql_queries/SparqlQueriesPerspective3'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
