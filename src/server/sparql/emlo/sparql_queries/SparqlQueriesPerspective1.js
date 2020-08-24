@@ -227,3 +227,29 @@ export const migrationsQuery = `
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "http://ldf.fi/mmm/place/", ""))) as ?id)
   }
 `
+
+//  https://api.triplydb.com/s/f74HvbLN0
+export const sentReceivedQuery = `
+  SELECT DISTINCT (?year as ?category) 
+    (count(distinct ?sent_letter) AS ?Sent) 
+    (count(distinct ?received_letter) AS ?Received) 
+    ((?Sent + ?Received) as ?All)
+  WHERE {
+    <FILTER>
+    {
+              ?id eschema:cofk_union_relationship_type-created ?sent_letter .
+      
+              ?sent_letter a eschema:Letter ;
+                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+
+          BIND (STR(year(?time_0)) AS ?year)
+        
+            } UNION {
+              ?received_letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+                      a eschema:Letter ;
+              crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+
+          BIND (STR(year(?time_0)) AS ?year)
+            }
+  } GROUP BY ?year ORDER BY ?year 
+`

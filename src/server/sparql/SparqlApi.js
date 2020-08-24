@@ -18,18 +18,20 @@ export const runSelectQuery = async ({
   }
   if (useAuth) {
     headers.Authorization = `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` 
-    //  console.log(headers.Authorization)
   }
   const q = querystring.stringify({ query })
   try {
-    //  console.log(query)
+    console.log(query)
+    console.log('resultMapper')
+    console.log(resultMapper)
     const response = await axios({
       method: 'post',
       headers: headers,
       url: endpoint,
       data: q
     })
-    // console.log(response.data.results)
+    console.log('response.data.results')
+    console.log(response.data.results.length)
     if (resultFormat === 'json') {
       const mappedResults = resultMapper(response.data.results.bindings, previousSelections)
       return {

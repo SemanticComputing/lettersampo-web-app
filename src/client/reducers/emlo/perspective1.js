@@ -167,7 +167,7 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'perspective1', 'letterNetwork'
+  'perspective1', 'letterNetwork', 'sentReceived'
 ])
 
 const perspective1 = (state = INITIAL_STATE, action) => {

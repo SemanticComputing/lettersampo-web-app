@@ -8,6 +8,7 @@ import purple from '@material-ui/core/colors/purple'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import InstanceHomePageTable from '../../main_layout/InstanceHomePageTable'
 import Network from '../../facet_results/Network'
+import ApexChart from '../../facet_results/ApexChart'
 import LeafletMap from '../../facet_results/LeafletMap'
 import Export from '../../facet_results/Export'
 import { coseLayout, cytoscapeStyle } from '../../../configs/sampo/Cytoscape.js/NetworkConfig'
@@ -183,6 +184,24 @@ class InstanceHomePage extends React.Component {
                     optimize={5.0}
                     style={cytoscapeStyle}
                     layout={coseLayout}
+                  />}
+              />
+              <Route
+                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/sentReceived`}
+                render={() =>
+                  <ApexChart
+                    pageType='facetResults'
+                    rawData={props.facetResults.results}
+                    rawDataUpdateID={props.facetResults.resultUpdateID}
+                    facetUpdateID={props.facetData.facetUpdateID}
+                    fetching={props.facetResults.fetching}
+                    fetchData={props.fetchResults}
+                    createChartData={createMultipleLineChartData}
+                    title='Letters by year'
+                    xaxisTitle='Year'
+                    yaxisTitle='Number of letters'
+                    resultClass='sentReceived'
+                    facetClass='people'
                   />}
               />
               <Route

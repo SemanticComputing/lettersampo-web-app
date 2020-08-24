@@ -58,7 +58,9 @@ UNION
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
-` // TODO add source
+` 
+// TODO add source
+//  TODO add http://purl.org/dc/terms/subject 
 /*
 SELECT DISTINCT ?source ?source__label WHERE {
 ?id a  eschema:Letter ;
@@ -67,6 +69,8 @@ SELECT DISTINCT ?source ?source__label WHERE {
 
 and possible other properties: https://api.triplydb.com/s/dHjxJhy0U
 e.g. eschema:excipit
+
+https://api.triplydb.com/s/VeJA9dURr
 */
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md

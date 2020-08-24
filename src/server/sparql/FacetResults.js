@@ -60,8 +60,8 @@ export const getAllResults = ({
   }
   const { filterTarget, resultMapper } = config
   let { q } = config
-  // console.log('query')
-  // console.log(q)
+  console.log('query')
+  console.log(q)
   if (constraints == null) {
     q = q.replace('<FILTER>', '# no filters')
   } else {

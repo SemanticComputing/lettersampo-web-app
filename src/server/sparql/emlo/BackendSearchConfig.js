@@ -4,7 +4,8 @@ import { perspective3Config } from './perspective_configs/Perspective3Config'
 import {
   letterLinksQuery,
   networkNodesQuery,
-  peopleEventPlacesQuery
+  peopleEventPlacesQuery,
+  sentReceivedQuery
 } from './sparql_queries/SparqlQueriesPerspective1'
 import {
   letterMigrationsQuery,
@@ -22,7 +23,7 @@ import {
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces, mapLineChart } from '../Mappers'
+import { mapPlaces, mapLineChart, mapMultipleLineChart } from '../Mappers'
 
 
 export const backendSearchConfig = {
@@ -70,5 +71,11 @@ export const backendSearchConfig = {
   },
   federatedSearch: {
     datasets: federatedSearchDatasets
+  },
+  sentReceived: {
+    perspectiveID: 'perspective1',
+    q: sentReceivedQuery, 
+    // filterTarget: 'id',
+    resultMapper: mapMultipleLineChart
   }
 }
