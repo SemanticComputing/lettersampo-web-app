@@ -74,7 +74,7 @@ class InstanceHomePage extends React.Component {
         uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
       case 'perspective3':
-        uri = `${base}/event/${localID}`
+        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
       case 'events':
         uri = `${base}/event/${localID}`

@@ -1,8 +1,8 @@
 export default {
   languageLabel: 'English',
   appTitle: {
-    short: 'emlo-ui',
-    long: ' &nbsp; &nbsp; EMLO-UI  &nbsp;  &nbsp;',
+    short: 'LetterSampo',
+    long: ' &nbsp; &nbsp; LetterSampo  &nbsp; &nbsp;',
     subheading: `
       Republic of Letters
     `
@@ -441,9 +441,9 @@ export default {
       }
     },
     perspective3: {
-      label: 'Perspective 3',
-      facetResultsType: 'events',
-      shortDescription: 'Perspective 3 description',
+      label: 'Places',
+      facetResultsType: 'Places',
+      shortDescription: 'Place view description',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to events associated with the
@@ -465,7 +465,7 @@ export default {
         </ul>
       `,
       instancePage: {
-        label: 'Event',
+        label: 'Place',
         description: `
           <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
             Events refer to various activities related to Manuscripts and Actors. Event
@@ -489,23 +489,28 @@ export default {
             types of “Activity” events.
           `
         },
-        language: {
-          label: 'Language',
+        prefLabel: {
+          label: 'Label',
           description: `
-            The language in which a Work is written in the manuscript
-            (i.e., an “Expression” of a Work). One manuscript may contain multiple languages.
+            Preferable place label.
           `
         },
-        manuscript: {
-          label: 'Manuscript / Collection',
+        country: {
+          label: 'Country',
           description: `
-            The manuscript or manuscript collection associated with the event.
+            Related country.
           `
         },
-        eventTimespan: {
-          label: 'Date',
+        broader: {
+          label: 'Broader',
           description: `
-            The date or time period associated with the event.
+            Broader place.
+          `
+        },
+        narrower: {
+          label: 'Narrower',
+          description: `
+            Narrower place.
           `
         },
         place: {

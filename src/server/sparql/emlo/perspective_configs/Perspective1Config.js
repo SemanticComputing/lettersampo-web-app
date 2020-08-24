@@ -63,14 +63,6 @@ export const perspective1Config = {
       endProperty: 'crm:P82b_end_of_the_end',
       dataType: 'xsd:dateTime',
       type: 'timespan'
-    } /**,
-    source: {
-      id: 'source',
-      facetValueFilter: '',
-      label: 'Source',
-      labelPath: 'dct:source/skos:prefLabel',
-      predicate: 'dct:source',
-      type: 'list'
-    }  */
+    }
   }
 }

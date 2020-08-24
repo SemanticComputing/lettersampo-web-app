@@ -11,10 +11,12 @@ import {
   letterMigrationsQuery,
   letterByYearQuery
 } from './sparql_queries/SparqlQueriesPerspective2'
-// import {
-//   eventProperties,
+/**
+import {
+  placeProperties
 //   eventPlacesQuery
-// } from './sparql_queries/SparqlQueriesPerspective3'
+} from './sparql_queries/SparqlQueriesPerspective3'
+*/
 import {
   placePropertiesInstancePage,
   placePropertiesInfoWindow,

@@ -176,7 +176,7 @@ export const peopleEventPlacesQuery = `
 SELECT DISTINCT ?id ?lat ?long 
 (COUNT(DISTINCT ?person) AS ?instanceCount)
 WHERE {
-  
+
   {
     ?person eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?id .
   } UNION {

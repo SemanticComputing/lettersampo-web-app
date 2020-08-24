@@ -47,8 +47,8 @@ export const INITIAL_STATE = {
   fetching: false,
   fetchingResultCount: false,
   sparqlQuery: null,
-  facetedSearchHeaderExpanded: true,
-  instancePageHeaderExpanded: true,
+  facetedSearchHeaderExpanded: false,
+  instancePageHeaderExpanded: false,
   properties: [
     {
       id: 'uri',
@@ -60,7 +60,15 @@ export const INITIAL_STATE = {
       onlyOnInstancePage: true
     },
     {
-      id: 'type',
+      id: 'prefLabel',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false
+    },
+    {
+      id: 'country',
       valueType: 'object',
       makeLink: true,
       externalLink: false,
@@ -69,7 +77,7 @@ export const INITIAL_STATE = {
       minWidth: 200
     },
     {
-      id: 'manuscript',
+      id: 'broader',
       valueType: 'object',
       makeLink: true,
       externalLink: false,
@@ -78,72 +86,10 @@ export const INITIAL_STATE = {
       minWidth: 200
     },
     {
-      id: 'eventTimespan',
-      valueType: 'object',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 200
-    },
-    {
-      id: 'place',
+      id: 'narrower',
       valueType: 'object',
       makeLink: true,
       externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250
-    },
-    {
-      id: 'surrender',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true,
-      onlyForClass: 'http://erlangen-crm.org/current/E10_Transfer_of_Custody'
-    },
-    {
-      id: 'receiver',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true,
-      onlyForClass: 'http://erlangen-crm.org/current/E10_Transfer_of_Custody'
-    },
-    {
-      id: 'observedOwner',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      onlyOnInstancePage: true,
-      onlyForClass: 'http://erlangen-crm.org/current/E7_Activity'
-    },
-    {
-      id: 'note',
-      valueType: 'string',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      collapsedMaxWords: 12,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'source',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
       sortValues: true,
       numberedList: false,
       minWidth: 200

@@ -34,7 +34,7 @@ export const INITIAL_STATE = {
       filterType: 'textFilter',
       textFilter: null,
       priority: 1
-    }, 
+    },
     gender: {
       id: 'gender',
       // predicate: defined in backend

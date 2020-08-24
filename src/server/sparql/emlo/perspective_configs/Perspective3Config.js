@@ -1,5 +1,6 @@
 import {
-  eventProperties
+  placePropertiesInstancePage,
+  placePropertiesFacetResults
 } from '../sparql_queries/SparqlQueriesPerspective3'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
@@ -9,18 +10,21 @@ export const perspective3Config = {
     prefixes,
     useAuth: true
   },
-  facetClass: 'crm:E10_Transfer_of_Custody crm:E12_Production mmm-schema:ManuscriptActivity',
+  facetClass: 'crm:E53_Place',
   paginatedResults: {
-    properties: eventProperties
+    properties: placePropertiesFacetResults
   },
   instance: {
-    properties: eventProperties,
+    properties: placePropertiesInstancePage,
     relatedInstances: ''
   },
   facets: {
     prefLabel: {
       id: 'prefLabel',
-      labelPath: 'skos:prefLabel'
+      labelPath: 'skos:prefLabel',
+      textQueryPredicate: '', // empty for querying the facetClass
+      textQueryProperty: 'skos:prefLabel', // limit only to prefLabels
+      type: 'text'
     },
     type: {
       predicate: 'a',
@@ -32,55 +36,29 @@ export const perspective3Config = {
       type: 'list',
       labelPath: 'a/(skos:prefLabel|rdfs:label)'
     },
-    manuscript: {
-      textQueryPredicate: `
-        (crm:P30_transferred_custody_of
-         |crm:P108_has_produced
-         |mmm-schema:observed_manuscript)`,
-      textQueryProperty: 'skos:prefLabel', // limit only to prefLabels
-      type: 'text',
-      labelPath: `(crm:P30_transferred_custody_of
-                  |crm:P108_has_produced
-                  |mmm-schema:observed_manuscript
-                  )/skos:prefLabel`
+    country: {
+      id: 'country',
+      facetValueFilter: 'FILTER EXISTS { ?id a eschema:Country }',
+      label: 'Country',
+      labelPath: 'crm:P89_falls_within+/skos:prefLabel',
+      predicate: 'crm:P89_falls_within+',
+      type: 'text'
     },
-    eventTimespan: {
-      id: 'eventTimespan',
+    broader: {
+      id: 'broader',
       facetValueFilter: '',
-      sortByAscPredicate: 'crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
-      sortByDescPredicate: 'crm:P4_has_time-span/crm:P82b_end_of_the_end',
-      predicate: 'crm:P4_has_time-span',
-      startProperty: 'crm:P82a_begin_of_the_begin',
-      endProperty: 'crm:P82b_end_of_the_end',
-      type: 'timespan'
+      label: 'Broader',
+      labelPath: 'crm:P89_falls_within/skos:prefLabel',
+      predicate: 'crm:P89_falls_within',
+      type: 'text'
     },
-    place: {
-      id: 'place',
-      facetValueFilter: `
-      ?id dct:source <http://vocab.getty.edu/tgn/> .
-      `,
-      label: 'Place',
-      labelPath: 'crm:P7_took_place_at/skos:prefLabel',
-      predicate: 'crm:P7_took_place_at',
-      parentProperty: 'gvp:broaderPreferred',
-      parentPredicate: 'crm:P7_took_place_at/gvp:broaderPreferred+',
-      type: 'hierarchical'
-    },
-    placeType: {
-      id: 'placeType',
+    narrower: {
+      id: 'narrower',
       facetValueFilter: '',
-      label: 'Place type',
-      labelPath: 'crm:P7_took_place_at/gvp:placeTypePreferred',
-      predicate: 'crm:P7_took_place_at/gvp:placeTypePreferred',
-      type: 'list',
-      literal: true
-    },
-    source: {
-      id: 'source',
-      facetValueFilter: '',
-      labelPath: 'dct:source/skos:prefLabel',
-      predicate: 'dct:source',
-      type: 'list'
+      label: 'Narrower',
+      labelPath: '^crm:P89_falls_within/skos:prefLabel',
+      predicate: '^crm:P89_falls_within',
+      type: 'text'
     }
   }
 }

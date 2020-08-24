@@ -17,7 +17,7 @@ import placesImage from '../../img/main_page/places-452x262.jpg'
 export const perspectiveConfig = [
   {
     id: 'perspective1',
-    frontPageImage: manuscriptsImage,
+    frontPageImage: eventsImage,
     perspectiveDescHeight: 160,
     defaultActiveFacets: new Set(['prefLabel']),
     tabs: [
@@ -102,7 +102,7 @@ export const perspectiveConfig = [
   },
   {
     id: 'perspective3',
-    frontPageImage: eventsImage,
+    frontPageImage: placesImage,
     perspectiveDescHeight: 160,
     defaultActiveFacets: new Set(['prefLabel']),
     tabs: [
@@ -110,11 +110,6 @@ export const perspectiveConfig = [
         id: 'table',
         value: 0,
         icon: <CalendarViewDayIcon />
-      },
-      {
-        id: 'map',
-        value: 1,
-        icon: <AddLocationIcon />
       },
       {
         id: 'export',
@@ -128,7 +123,6 @@ export const perspectiveConfig = [
         value: 0,
         icon: <CalendarViewDayIcon />
       },
-
       {
         id: 'export',
         value: 1,
@@ -138,7 +132,7 @@ export const perspectiveConfig = [
   },
   {
     id: 'clientFSPlaces',
-    frontPageImage: placesImage,
+    frontPageImage: manuscriptsImage,
     defaultActiveFacets: new Set(['datasetSelector', 'prefLabel']),
     tabs: [
       {

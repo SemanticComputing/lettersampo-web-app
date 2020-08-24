@@ -18,6 +18,22 @@ export const INITIAL_STATE = {
   facetUpdateID: 0,
   updatedFilter: null,
   facets: {
+    prefLabel: {
+      id: 'prefLabel',
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: null,
+      sortDirection: null,
+      sortButton: false,
+      spatialFilterButton: false,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'one',
+      filterType: 'textFilter',
+      textFilter: null,
+      priority: 1
+    },
     type: {
       id: 'type',
       // predicate: defined in backend
@@ -36,99 +52,37 @@ export const INITIAL_STATE = {
       spatialFilter: null,
       priority: 4
     },
-    manuscript: {
-      id: 'manuscript',
-      // predicate: defined in backend
+    country: {
+      id: 'country',
       distinctValueCount: 0,
       values: [],
       flatValues: [],
-      sortBy: null,
-      sortDirection: null,
-      sortButton: false,
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: true,
       spatialFilterButton: false,
       isFetching: false,
-      searchField: false,
-      containerClass: 'one',
-      filterType: 'textFilter',
-      textFilter: null,
-      priority: 2
-    },
-    eventTimespan: {
-      id: 'eventTimespan',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: null,
-      sortDirection: null,
-      sortButton: false,
-      spatialFilterButton: false,
-      isFetching: false,
-      searchField: false,
-      containerClass: 'three',
-      filterType: 'timespanFilter',
-      min: null,
-      max: null,
-      timespanFilter: null,
-      type: 'timespan',
+      searchField: true,
+      containerClass: 'ten',
+      filterType: 'uriFilter',
+      uriFilter: null,
       priority: 3
     },
-    place: {
-      id: 'place',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'prefLabel',
-      sortDirection: 'asc',
-      sortButton: false,
-      spatialFilterButton: true,
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      spatialFilter: null,
-      type: 'hierarchical',
-      selectAlsoSubconceptsButton: true,
-      selectAlsoSubconcepts: true,
-      priority: 6
-    },
-    placeType: {
-      id: 'placeType',
-      // predicate: defined in backend
+    broader: {
+      id: 'broader',
       distinctValueCount: 0,
       values: [],
       flatValues: [],
       sortBy: 'instanceCount',
       sortDirection: 'desc',
-      sortButton: false,
-      spatialFilterButton: true,
-      isFetching: false,
-      searchField: true,
-      containerClass: 'ten',
-      filterType: 'uriFilter',
-      uriFilter: null,
-      spatialFilter: null,
-      type: 'list',
-      priority: 1
-    },
-    source: {
-      id: 'source',
-      // predicate: defined in backend
-      distinctValueCount: 0,
-      values: [],
-      flatValues: [],
-      sortBy: 'instanceCount',
-      sortDirection: 'desc',
-      sortButton: false,
+      sortButton: true,
       spatialFilterButton: false,
       isFetching: false,
-      searchField: false,
-      containerClass: 'three',
+      searchField: true,
+      containerClass: 'ten',
       filterType: 'uriFilter',
       uriFilter: null,
-      priority: 5
+      priority: 3
     }
   }
 }
