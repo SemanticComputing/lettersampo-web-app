@@ -502,15 +502,15 @@ export default {
           `
         },
         broader: {
-          label: 'Broader',
+          label: 'Parent place',
           description: `
-            Broader place.
+          Parent place, e.g. a municipality, county or country.
           `
         },
         narrower: {
-          label: 'Narrower',
+          label: 'Places within',
           description: `
-            Narrower place.
+            Smaller places, e.g. towns and villages contained within the place.
           `
         },
         place: {
