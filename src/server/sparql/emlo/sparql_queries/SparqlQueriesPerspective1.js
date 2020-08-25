@@ -54,7 +54,7 @@ export const actorPropertiesInstancePage =
         UNION 
       { ?id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?knownLocation__id }
     ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
-      BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
+      BIND(CONCAT("/perspective3/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
     }
     UNION
     {
@@ -214,11 +214,11 @@ export const migrationsQuery = `
     ?from__id skos:prefLabel ?from__prefLabel ;
               wgs84:lat ?from__lat ;
               wgs84:long ?from__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
     ?to__id skos:prefLabel ?to__prefLabel ;
             wgs84:lat ?to__lat ;
             wgs84:long ?to__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "http://ldf.fi/mmm/place/", ""))) as ?id)
   }
 `

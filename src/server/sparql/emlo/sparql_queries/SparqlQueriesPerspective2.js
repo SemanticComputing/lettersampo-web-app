@@ -64,13 +64,13 @@ UNION
 {
   ?id eschema:cofk_union_relationship_type-was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
-  BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+  BIND(CONCAT("/perspective3/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
 }
 UNION 
 {
   ?id eschema:cofk_union_relationship_type-was_sent_to ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
-  BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+  BIND(CONCAT("/perspective3/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
 `
 // TODO add source
@@ -104,12 +104,12 @@ SELECT DISTINCT ?id # ?letter__id
     ?from__id skos:prefLabel ?from__prefLabel ; 
         geo:lat ?from__lat ;
         geo:long ?from__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
     
     ?to__id skos:prefLabel ?to__prefLabel ; 
         geo:lat ?to__lat ;
         geo:long ?to__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
   } `
 

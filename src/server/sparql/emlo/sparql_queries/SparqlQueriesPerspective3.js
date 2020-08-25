@@ -80,7 +80,7 @@ export const placePropertiesInstancePageOld = `
     {
       ?id skos:prefLabel ?prefLabel__id .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-      BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+      BIND(CONCAT("/perspective3/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
       BIND(?id as ?uri__id)
       BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
       BIND(?id as ?uri__prefLabel)
@@ -89,14 +89,14 @@ export const placePropertiesInstancePageOld = `
     {
       ?id crm:P89_falls_within ?area__id .
       ?area__id skos:prefLabel ?area__prefLabel .
-      BIND(CONCAT("/places/page/", REPLACE(STR(?area__id), "^.*\\\\/(.+)", "$1")) AS ?area__dataProviderUrl)
+      BIND(CONCAT("/perspective3/page/", REPLACE(STR(?area__id), "^.*\\\\/(.+)", "$1")) AS ?area__dataProviderUrl)
     }
 `
 
 export const placePropertiesInfoWindow = `
     ?id skos:prefLabel ?prefLabel__id .
     BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-    BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 `
 
 //  https://api.triplydb.com/s/ck2-SDpCO
