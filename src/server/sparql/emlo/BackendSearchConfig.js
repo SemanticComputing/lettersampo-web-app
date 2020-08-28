@@ -53,14 +53,14 @@ export const backendSearchConfig = {
     }
   },
   jenaText: {
-    perspectiveID: 'perspective1',
+    perspectiveID: 'actors',
     properties: fullTextSearchProperties
   },
   federatedSearch: {
     datasets: federatedSearchDatasets
   },
   sentReceived: {
-    perspectiveID: 'perspective1',
+    perspectiveID: 'actors',
     q: sentReceivedQuery,
     // filterTarget: 'id',
     resultMapper: mapMultipleLineChart

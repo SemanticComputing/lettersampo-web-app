@@ -54,7 +54,7 @@ export const actorPropertiesInstancePage =
         UNION 
       { ?id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?knownLocation__id }
     ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
-      BIND(CONCAT("/perspective3/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
+      BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
     }
     UNION
     {
@@ -75,7 +75,7 @@ export const actorPropertiesInstancePage =
       ?id ?rel__prop ?rel__id .
       ?rel__id skos:prefLabel ?rel__label2
       BIND (CONCAT(?rel__label, ' ',?rel__label2) AS ?rel__prefLabel)
-      BIND(CONCAT("/perspective1/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
+      BIND(CONCAT("/actors/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
     }
     UNION
     {
@@ -96,7 +96,7 @@ export const actorPropertiesInstancePage =
       ?cor__id skos:prefLabel ?cor__label .
       FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
       BIND (CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
-      BIND(CONCAT("/perspective1/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
+      BIND(CONCAT("/actors/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
     }
 
 `
@@ -214,11 +214,11 @@ export const migrationsQuery = `
     ?from__id skos:prefLabel ?from__prefLabel ;
               wgs84:lat ?from__lat ;
               wgs84:long ?from__long .
-    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
     ?to__id skos:prefLabel ?to__prefLabel ;
             wgs84:lat ?to__lat ;
             wgs84:long ?to__long .
-    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "http://ldf.fi/mmm/place/", ""))) as ?id)
   }
 `

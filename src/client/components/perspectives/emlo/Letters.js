@@ -71,7 +71,7 @@ const Letters = props => {
             yaxisTitle='Number of letters'
             seriesTitle='Number of letters'
             resultClass='letterByYear'
-            facetClass='perspective2'
+            facetClass='letters'
           />}
       />
       <Route
