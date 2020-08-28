@@ -16,7 +16,7 @@ import placesImage from '../../img/main_page/places-452x262.jpg'
 
 export const perspectiveConfig = [
   {
-    id: 'perspective1',
+    id: 'actors',
     frontPageImage: eventsImage,
     perspectiveDescHeight: 160,
     defaultActiveFacets: new Set(['prefLabel']),
@@ -61,7 +61,7 @@ export const perspectiveConfig = [
     ]
   },
   {
-    id: 'perspective2',
+    id: 'letters',
     frontPageImage: worksImage,
     perspectiveDescHeight: 160,
     defaultActiveFacets: new Set(['prefLabel']),
@@ -101,7 +101,7 @@ export const perspectiveConfig = [
     ]
   },
   {
-    id: 'perspective3',
+    id: 'places',
     frontPageImage: placesImage,
     perspectiveDescHeight: 160,
     defaultActiveFacets: new Set(['prefLabel']),
@@ -129,42 +129,42 @@ export const perspectiveConfig = [
         icon: <CloudDownloadIcon />
       }
     ]
-  },
-  {
-    id: 'clientFSPlaces',
-    frontPageImage: manuscriptsImage,
-    defaultActiveFacets: new Set(['datasetSelector', 'prefLabel']),
-    tabs: [
-      {
-        id: 'table',
-        value: 0,
-        icon: <CalendarViewDayIcon />
-      },
-      {
-        id: 'map_clusters',
-        value: 1,
-        icon: <TripOriginIcon />
-      },
-      {
-        id: 'map_markers',
-        value: 2,
-        icon: <LocationOnIcon />
-      },
-      {
-        id: 'heatmap',
-        value: 3,
-        icon: <SettingsBrightnessIcon />
-      },
-      {
-        id: 'statistics',
-        value: 4,
-        icon: <PieChartIcon />
-      },
-      {
-        id: 'download',
-        value: 5,
-        icon: <CloudDownloadIcon />
-      }
-    ]
   }
+  // {
+  //   id: 'clientFSPlaces',
+  //   frontPageImage: manuscriptsImage,
+  //   defaultActiveFacets: new Set(['datasetSelector', 'prefLabel']),
+  //   tabs: [
+  //     {
+  //       id: 'table',
+  //       value: 0,
+  //       icon: <CalendarViewDayIcon />
+  //     },
+  //     {
+  //       id: 'map_clusters',
+  //       value: 1,
+  //       icon: <TripOriginIcon />
+  //     },
+  //     {
+  //       id: 'map_markers',
+  //       value: 2,
+  //       icon: <LocationOnIcon />
+  //     },
+  //     {
+  //       id: 'heatmap',
+  //       value: 3,
+  //       icon: <SettingsBrightnessIcon />
+  //     },
+  //     {
+  //       id: 'statistics',
+  //       value: 4,
+  //       icon: <PieChartIcon />
+  //     },
+  //     {
+  //       id: 'download',
+  //       value: 5,
+  //       icon: <CloudDownloadIcon />
+  //     }
+  //   ]
+  // }
 ]

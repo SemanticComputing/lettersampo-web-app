@@ -1,5 +1,5 @@
-import { sahaModel, sahaUrl } from './SparqlQueriesPerspective1'
-const perspectiveID = 'perspective3'
+import { sahaModel, sahaUrl } from './SparqlQueriesActors'
+const perspectiveID = 'places'
 
 export const placePropertiesInstancePage =
 `
@@ -89,14 +89,14 @@ export const placePropertiesInstancePageOld = `
     {
       ?id crm:P89_falls_within ?area__id .
       ?area__id skos:prefLabel ?area__prefLabel .
-      BIND(CONCAT("/perspective3/page/", REPLACE(STR(?area__id), "^.*\\\\/(.+)", "$1")) AS ?area__dataProviderUrl)
+      BIND(CONCAT("/places/page/", REPLACE(STR(?area__id), "^.*\\\\/(.+)", "$1")) AS ?area__dataProviderUrl)
     }
 `
 
 export const placePropertiesInfoWindow = `
     ?id skos:prefLabel ?prefLabel__id .
     BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 `
 
 //  https://api.triplydb.com/s/ck2-SDpCO
@@ -107,6 +107,6 @@ export const peopleRelatedTo = `
     UNION
     { ?related__id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?id }
     ?related__id skos:prefLabel ?related__prefLabel .
-    BIND(CONCAT("/perspective1/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   } 
 `

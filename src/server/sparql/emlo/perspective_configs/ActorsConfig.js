@@ -1,10 +1,10 @@
 import {
   actorPropertiesFacetResults,
   actorPropertiesInstancePage
-} from '../sparql_queries/SparqlQueriesPerspective1'
+} from '../sparql_queries/SparqlQueriesActors'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
-export const perspective1Config = {
+export const actorsConfig = {
   endpoint: {
     url: 'http://ldf.fi/emlo/sparql',
     prefixes,

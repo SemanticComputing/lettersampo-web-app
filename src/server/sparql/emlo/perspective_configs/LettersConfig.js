@@ -1,9 +1,9 @@
 import {
   letterProperties
-} from '../sparql_queries/SparqlQueriesPerspective2'
+} from '../sparql_queries/SparqlQueriesLetters'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
-export const perspective2Config = {
+export const lettersConfig = {
   endpoint: {
     url: 'http://ldf.fi/emlo/sparql',
     prefixes,

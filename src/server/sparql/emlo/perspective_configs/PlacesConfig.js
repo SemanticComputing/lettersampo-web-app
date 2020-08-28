@@ -1,10 +1,10 @@
 import {
   placePropertiesInstancePage,
   placePropertiesFacetResults
-} from '../sparql_queries/SparqlQueriesPerspective3'
+} from '../sparql_queries/SparqlQueriesPlaces'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
-export const perspective3Config = {
+export const placesConfig = {
   endpoint: {
     url: 'http://ldf.fi/emlo/sparql',
     prefixes,

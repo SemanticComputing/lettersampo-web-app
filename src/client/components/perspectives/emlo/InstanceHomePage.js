@@ -9,7 +9,7 @@ import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import InstanceHomePageTable from '../../main_layout/InstanceHomePageTable'
 import Network from '../../facet_results/Network'
 import ApexChart from '../../facet_results/ApexChart'
-import LeafletMap from '../../facet_results/LeafletMap'
+// import LeafletMap from '../../facet_results/LeafletMap'
 import { createMultipleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Export from '../../facet_results/Export'
 import { coseLayout, cytoscapeStyle } from '../../../configs/sampo/Cytoscape.js/NetworkConfig'
@@ -56,7 +56,6 @@ class InstanceHomePage extends React.Component {
 
   fetchData = () => {
     let uri = ''
-    const base = 'http://ldf.fi/mmm'
     const locationArr = this.props.routeProps.location.pathname.split('/')
     let localID = locationArr.pop()
     this.props.tabs.map(tab => {
@@ -66,24 +65,13 @@ class InstanceHomePage extends React.Component {
     })
     this.setState({ localID: localID })
     switch (this.props.resultClass) {
-      case 'perspective1':
-        //  uri = `${base}/manifestation_singleton/${localID}`
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
-        break
-      case 'perspective2':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
-        break
-      case 'perspective3':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
-        break
-      case 'events':
-        uri = `${base}/event/${localID}`
-        break
       case 'actors':
-        uri = `${base}/actor/${localID}`
+        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
+        break
+      case 'letters':
+        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
       case 'places':
-        //  uri = `${base}/place/${localID}`
         uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
     }
@@ -95,37 +83,9 @@ class InstanceHomePage extends React.Component {
     })
   }
 
-  createPlaceArray = events => {
-    let places = {}
-    events = Array.isArray(events) ? events : [events]
-    events.map(event => {
-      if (has(event, 'place')) {
-        const eventPlaces = Array.isArray(event.place) ? event.place : [event.place]
-        eventPlaces.map(place => {
-          if (!has(places, place.id)) {
-            places[place.id] = {
-              id: place.id,
-              prefLabel: place.prefLabel,
-              lat: place.lat,
-              long: place.long,
-              events: [event] // gather events here
-            }
-          } else {
-            places[place.id].events.push(event)
-          }
-        })
-      }
-    })
-    places = Object.values(places)
-    places.forEach(place => {
-      place.instanceCount = place.events.length
-    })
-    return places
-  }
-
   getVisibleRows = rows => {
     const visibleRows = []
-    const instanceClass = this.props.data.type ? this.props.data.type.id : ''
+    const instanceClass = this.props.tableData.type ? this.props.tableData.type.id : ''
     rows.map(row => {
       if ((has(row, 'onlyForClass') && row.onlyForClass === instanceClass) ||
        !has(row, 'onlyForClass')) {
@@ -136,8 +96,8 @@ class InstanceHomePage extends React.Component {
   }
 
   render = () => {
-    const { classes, data, isLoading, resultClass, rootUrl } = this.props
-    const hasData = data !== null && Object.values(data).length >= 1
+    const { classes, tableData, isLoading, resultClass, rootUrl } = this.props
+    const hasData = tableData !== null && Object.values(tableData).length >= 1
     return (
       <div className={classes.root}>
         <PerspectiveTabs
@@ -167,7 +127,7 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <InstanceHomePageTable
                     resultClass={resultClass}
-                    data={data}
+                    data={tableData}
                     properties={this.getVisibleRows(this.props.properties)}
                   />}
               />
@@ -176,11 +136,11 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <Network
                     pageType='instancePage'
-                    results={this.props.networkData}
-                    resultUpdateID={this.props.resultUpdateID}
+                    results={this.props.analysisData}
+                    resultUpdateID={this.props.analysisDataUpdateID}
                     fetchNetworkById={this.props.fetchNetworkById}
                     resultClass='letterNetwork'
-                    id={data.id}
+                    id={tableData.id}
                     limit={100}
                     optimize={5.0}
                     style={cytoscapeStyle}
@@ -206,27 +166,12 @@ class InstanceHomePage extends React.Component {
                   />}
               />
               <Route
-                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/map`}
-                render={() =>
-                  <LeafletMap
-                    results={this.createPlaceArray(data.event)}
-                    resultClass='instanceEvents'
-                    pageType='instancePage'
-                    mapMode='cluster'
-                    instance={null}
-                    fetchByURI={this.props.fetchByURI}
-                    fetching={this.props.isLoading}
-                    showInstanceCountInClusters
-                  />}
-              />
-
-              <Route
                 path={`${rootUrl}/${resultClass}/page/${this.state.localID}/export`}
                 render={() =>
                   <Export
                     sparqlQuery={this.props.sparqlQuery}
                     pageType='instancePage'
-                    id={data.id}
+                    id={tableData.id}
                   />}
               />
             </>}
@@ -240,7 +185,10 @@ InstanceHomePage.propTypes = {
   classes: PropTypes.object.isRequired,
   fetchByURI: PropTypes.func.isRequired,
   resultClass: PropTypes.string.isRequired,
-  data: PropTypes.object,
+  tableData: PropTypes.object,
+  tableExternalData: PropTypes.object,
+  analysisData: PropTypes.object,
+  analysisDataUpdateID: PropTypes.number,
   sparqlQuery: PropTypes.string,
   properties: PropTypes.array.isRequired,
   tabs: PropTypes.array.isRequired,

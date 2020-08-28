@@ -1,4 +1,4 @@
-const perspectiveID = 'perspective1'
+const perspectiveID = 'actors'
 export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
 export const sahaModel = '"&model=emlo"'
 

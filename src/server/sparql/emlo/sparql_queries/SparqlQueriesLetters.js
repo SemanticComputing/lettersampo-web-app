@@ -1,5 +1,5 @@
-import { sahaModel, sahaUrl } from './SparqlQueriesPerspective1'
-const perspectiveID = 'perspective2'
+import { sahaModel, sahaUrl } from './SparqlQueriesActors'
+const perspectiveID = 'letters'
 
 export const letterProperties = `
 BIND(?id as ?uri__id)
@@ -16,14 +16,14 @@ UNION
   ?id ^eschema:cofk_union_relationship_type-created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
   FILTER (!REGEX(STR(?source__prefLabel), 'unknown', 'i'))
-  BIND(CONCAT("/perspective1/page/", REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1")) AS ?source__dataProviderUrl)
+  BIND(CONCAT("/actors/page/", REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1")) AS ?source__dataProviderUrl)
 }
 UNION 
 {
   ?id eschema:cofk_union_relationship_type-was_addressed_to ?target__id . 
   ?target__id skos:prefLabel ?target__prefLabel . 
   FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
-  BIND(CONCAT("/perspective1/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
+  BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
 }
 UNION
 {
@@ -64,13 +64,13 @@ UNION
 {
   ?id eschema:cofk_union_relationship_type-was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
-  BIND(CONCAT("/perspective3/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+  BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
 }
 UNION 
 {
   ?id eschema:cofk_union_relationship_type-was_sent_to ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
-  BIND(CONCAT("/perspective3/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+  BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
 `
 // TODO add source
@@ -104,12 +104,12 @@ SELECT DISTINCT ?id # ?letter__id
     ?from__id skos:prefLabel ?from__prefLabel ; 
         geo:lat ?from__lat ;
         geo:long ?from__long .
-    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
     
     ?to__id skos:prefLabel ?to__prefLabel ; 
         geo:lat ?to__lat ;
         geo:long ?to__long .
-    BIND(CONCAT("/perspective3/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
     BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
   } `
 

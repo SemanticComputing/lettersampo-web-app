@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Perspective1 from './Perspective1'
-import Perspective2 from './Perspective2'
-import Perspective3 from './Perspective3'
+import Actors from './Actors'
+import Letters from './Letters'
+import Places from './Places'
 
 /**
  * A component for creating a faceted search perspective for a semantic portal.
@@ -11,9 +11,9 @@ const FacetedSearchPerspective = props => {
   const renderPerspective = () => {
     let perspectiveElement = null
     switch (props.perspective.id) {
-      case 'perspective1':
+      case 'actors':
         perspectiveElement =
-          <Perspective1
+          <Actors
             facetResults={props.facetResults}
             placesResults={props.placesResults}
             leafletMapLayers={props.leafletMap}
@@ -37,9 +37,9 @@ const FacetedSearchPerspective = props => {
             rootUrl={props.rootUrl}
           />
         break
-      case 'perspective2':
+      case 'letters':
         perspectiveElement =
-          <Perspective2
+          <Letters
             facetResults={props.facetResults}
             placesResults={props.placesResults}
             leafletMapLayers={props.leafletMap}
@@ -63,9 +63,9 @@ const FacetedSearchPerspective = props => {
             rootUrl={props.rootUrl}
           />
         break
-      case 'perspective3':
+      case 'places':
         perspectiveElement =
-          <Perspective3
+          <Places
             facetResults={props.facetResults}
             placesResults={props.placesResults}
             leafletMapLayers={props.leafletMap}

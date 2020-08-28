@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
+import LeafletMap from '../../facet_results/LeafletMap'
+// import Deck from '../../facet_results/Deck'
+// import Network from '../../facet_results/Network'
 import Export from '../../facet_results/Export'
-import ApexChart from '../../facet_results/ApexChart'
-import { createSingleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
-import Deck from '../../facet_results/Deck'
-import MigrationsMapLegend from '../sampo/MigrationsMapLegend'
-import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
+// import MigrationsMapLegend from './MigrationsMapLegend'
+// import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
-const Perspective2 = props => {
+const Actors = props => {
   const { rootUrl, perspective } = props
   return (
     <>
@@ -24,13 +24,13 @@ const Perspective2 = props => {
         render={() => <Redirect to={`${rootUrl}/${perspective.id}/faceted-search/table`} />}
       />
       <Route
-        path={`${props.rootUrl}/${perspective.id}/faceted-search/table`}
+        path={[`${props.rootUrl}/${perspective.id}/faceted-search/table`, '/iframe.html']}
         render={routeProps =>
           <ResultTable
             data={props.facetResults}
             facetUpdateID={props.facetData.facetUpdateID}
-            resultClass='perspective2'
-            facetClass='perspective2'
+            resultClass='actors'
+            facetClass='actors'
             fetchPaginatedResults={props.fetchPaginatedResults}
             updatePage={props.updatePage}
             updateRowsPerPage={props.updateRowsPerPage}
@@ -40,58 +40,51 @@ const Perspective2 = props => {
           />}
       />
       <Route
-        path={`${rootUrl}/${perspective.id}/faceted-search/migrations`}
+        path={`${rootUrl}/${perspective.id}/faceted-search/map`}
         render={() =>
-          <Deck
+          <LeafletMap
+            center={[22.43, 10.37]}
+            zoom={2}
             results={props.placesResults.results}
-            facetUpdateID={props.facetData.facetUpdateID}
-            resultClass='letterMigrations'
-            facetClass='perspective2'
-            fetchResults={props.fetchResults}
-            fetching={props.placesResults.fetching}
-            legendComponent={<MigrationsMapLegend />}
-            layerType='arcLayer'
-            mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
-            mapBoxStyle={MAPBOX_STYLE}
-          />}
-      />
-      <Route
-        path={`${rootUrl}/${perspective.id}/faceted-search/by_year`}
-        render={routeProps =>
-          <ApexChart
+            layers={props.leafletMapLayers}
             pageType='facetResults'
-            rawData={props.facetResults.results}
-            rawDataUpdateID={props.facetResults.resultUpdateID}
             facetUpdateID={props.facetData.facetUpdateID}
-            fetching={props.facetResults.fetching}
-            fetchData={props.fetchResults}
-            createChartData={createSingleLineChartData}
-            title='Letters by year'
-            xaxisTitle='Year'
-            yaxisTitle='Number of letters'
-            seriesTitle='Number of letters'
-            resultClass='letterByYear'
-            facetClass='perspective2'
+            facetID=''
+            resultClass='placesActors'
+            facetClass='actors'
+            mapMode='cluster'
+            instance={props.placesResults.instanceTableData}
+            fetchResults={props.fetchResults}
+            fetchByURI={props.fetchByURI}
+            fetching={props.placesResults.fetching}
+            showInstanceCountInClusters
+            updateFacetOption={props.updateFacetOption}
+            showExternalLayers={false}
           />}
       />
       <Route
         path={`${rootUrl}/${perspective.id}/faceted-search/export`}
         render={() =>
           <Export
-            sparqlQuery={props.facetResults.paginatedResultsSparqlQuery}
+            data={props.facetResults}
+            resultClass='actors'
+            facetClass='actors'
             pageType='facetResults'
+            fetchPaginatedResults={props.fetchPaginatedResults}
+            updatePage={props.updatePage}
           />}
       />
     </>
   )
 }
 
-Perspective2.propTypes = {
+Actors.propTypes = {
   facetResults: PropTypes.object.isRequired,
   placesResults: PropTypes.object.isRequired,
   leafletMapLayers: PropTypes.object.isRequired,
   facetData: PropTypes.object.isRequired,
   fetchResults: PropTypes.func.isRequired,
+  clearGeoJSONLayers: PropTypes.func.isRequired,
   fetchGeoJSONLayers: PropTypes.func.isRequired,
   fetchGeoJSONLayersBackend: PropTypes.func.isRequired,
   fetchPaginatedResults: PropTypes.func.isRequired,
@@ -109,4 +102,4 @@ Perspective2.propTypes = {
   showError: PropTypes.func.isRequired
 }
 
-export default Perspective2
+export default Actors
