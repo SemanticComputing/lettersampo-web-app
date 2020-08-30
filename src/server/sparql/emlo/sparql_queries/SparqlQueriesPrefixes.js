@@ -1,4 +1,4 @@
-export const prefixes = 
+export const prefixes =
 ` PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
   PREFIX dct: <http://purl.org/dc/terms/>
   PREFIX eschema: <http://emlo.bodleian.ox.ac.uk/schema#>
