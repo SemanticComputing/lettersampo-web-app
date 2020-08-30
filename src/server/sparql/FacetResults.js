@@ -47,9 +47,12 @@ export const getAllResults = ({
   backendSearchConfig,
   resultClass,
   facetClass,
+  uri,
   constraints,
   resultFormat,
-  groupBy
+  groupBy,
+  optimize,
+  limit
 }) => {
   const config = backendSearchConfig[resultClass]
   let endpoint
@@ -74,14 +77,18 @@ export const getAllResults = ({
       facetID: null
     }))
   }
-  // console.log('query')
-  // console.log(q)
+  if (uri !== null) {
+    q = q.replace('<ID>', `<${uri}>`)
+  }
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
     return runNetworkQuery({
       endpoint: endpoint.url,
       prefixes: endpoint.prefixes,
+      id: uri,
       links: q,
-      nodes: config.nodes
+      nodes: config.nodes,
+      optimize,
+      limit
     })
   } else {
     return runSelectQuery({
@@ -200,8 +207,6 @@ export const getByURI = ({
   facetClass,
   constraints,
   uri,
-  limit, // only used with NetworkAPI
-  optimize, // only used with NetworkAPI
   resultFormat
 }) => {
   const config = backendSearchConfig[resultClass]
@@ -210,17 +215,6 @@ export const getByURI = ({
     endpoint = config.endpoint
   } else {
     endpoint = backendSearchConfig[config.perspectiveID].endpoint
-  }
-  if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
-    return runNetworkQuery({
-      endpoint: endpoint.url,
-      prefixes: endpoint.prefixes,
-      id: uri,
-      links: config.links,
-      nodes: config.nodes,
-      limit,
-      optimize
-    })
   }
   const { properties, relatedInstances } = config.instance
   let q = instanceQuery
