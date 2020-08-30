@@ -32,7 +32,7 @@ export const backendSearchConfig = {
   },
   letterNetwork: {
     perspectiveID: 'actors',
-    links: letterLinksQuery,
+    q: letterLinksQuery,
     nodes: networkNodesQuery,
     useNetworkAPI: true
   },
@@ -62,7 +62,6 @@ export const backendSearchConfig = {
   sentReceived: {
     perspectiveID: 'actors',
     q: sentReceivedQuery,
-    // filterTarget: 'id',
     resultMapper: mapMultipleLineChart
   }
 }

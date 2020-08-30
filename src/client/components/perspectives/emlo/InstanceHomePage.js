@@ -136,11 +136,11 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <Network
                     pageType='instancePage'
-                    results={this.props.analysisData}
-                    resultUpdateID={this.props.analysisDataUpdateID}
-                    fetchNetworkById={this.props.fetchNetworkById}
+                    results={this.props.results}
+                    resultUpdateID={this.props.resultUpdateID}
+                    fetchResults={this.props.fetchResults}
                     resultClass='letterNetwork'
-                    id={tableData.id}
+                    uri={tableData.id}
                     limit={100}
                     optimize={5.0}
                     style={cytoscapeStyle}
@@ -151,18 +151,17 @@ class InstanceHomePage extends React.Component {
                 path={`${rootUrl}/${resultClass}/page/${this.state.localID}/sentReceived`}
                 render={() =>
                   <ApexChart
-                    pageType='facetResults'
-                    rawData={this.props.instanceChartData}
-                    // rawDataUpdateID={this.props.facetResults.resultUpdateID}
-                    // facetUpdateID={this.props.facetData.facetUpdateID}
-                    // fetching={this.props.facetResults.fetching}
-                    // fetchData={this.props.fetchResults}
+                    pageType='instancePage'
+                    rawData={this.props.results}
+                    rawDataUpdateID={this.props.resultUpdateID}
+                    fetching={isLoading}
+                    fetchData={this.props.fetchResults}
+                    uri={tableData.id}
                     createChartData={createMultipleLineChartData}
                     title='Letters by year'
                     xaxisTitle='Year'
                     yaxisTitle='Number of letters'
                     resultClass='sentReceived'
-                    facetClass='people'
                   />}
               />
               <Route

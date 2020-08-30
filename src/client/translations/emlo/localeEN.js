@@ -72,6 +72,14 @@ export default {
     rowsPerPage: 'Rows per page',
     of: 'of'
   },
+  lineChart: {
+    productionCount: 'Production',
+    transferCount: 'Transfer of custody',
+    observationCount: 'Observation',
+    sentCount: 'Sent',
+    receivedCount: 'Received',
+    allCount: 'All'
+  },
   exportToYasgui: 'open the result table query in yasgui sparql editor',
   openInLinkedDataBrowser: 'open in linked data browser',
   resultsAsCSV: 'download the search results as a CSV table',

@@ -21,14 +21,12 @@ export const runSelectQuery = async ({
   }
   const q = querystring.stringify({ query })
   try {
-    // console.log(query)
     const response = await axios({
       method: 'post',
       headers: headers,
       url: endpoint,
       data: q
     })
-    // console.log('response.data.results')
     if (resultFormat === 'json') {
       const mappedResults = resultMapper(response.data.results.bindings, previousSelections)
       return {

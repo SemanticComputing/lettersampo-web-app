@@ -200,51 +200,28 @@ export const networkNodesQuery = `
   }
 `
 
-// # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
-export const migrationsQuery = `
-  SELECT DISTINCT ?id ?manuscript__id ?manuscript__prefLabel ?manuscript__dataProviderUrl
-    ?from__id ?from__prefLabel ?from__dataProviderUrl ?from__lat ?from__long
-    ?to__id ?to__prefLabel ?to__dataProviderUrl ?to__lat ?to__long
-  WHERE {
-    <FILTER>
-    ?manuscript__id ^crm:P108_has_produced/crm:P7_took_place_at ?from__id ;
-                    mmm-schema:last_known_location ?to__id ;
-                    skos:prefLabel ?manuscript__prefLabel .
-    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?manuscript__id), "^.*\\\\/(.+)", "$1")) AS ?manuscript__dataProviderUrl)
-    ?from__id skos:prefLabel ?from__prefLabel ;
-              wgs84:lat ?from__lat ;
-              wgs84:long ?from__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
-    ?to__id skos:prefLabel ?to__prefLabel ;
-            wgs84:lat ?to__lat ;
-            wgs84:long ?to__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-    BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "http://ldf.fi/mmm/place/", ""))) as ?id)
-  }
-`
-
 //  https://api.triplydb.com/s/f74HvbLN0
 export const sentReceivedQuery = `
   SELECT DISTINCT (?year as ?category) 
-    (count(distinct ?sent_letter) AS ?Sent) 
-    (count(distinct ?received_letter) AS ?Received) 
-    ((?Sent + ?Received) as ?All)
+    (count(distinct ?sent_letter) AS ?sentCount) 
+    (count(distinct ?received_letter) AS ?receivedCount) 
+    ((?sentCount + ?receivedCount) as ?allCount)
   WHERE {
-    <FILTER>
+    BIND(<ID> as ?id)
     {
-              ?id eschema:cofk_union_relationship_type-created ?sent_letter .
-      
-              ?sent_letter a eschema:Letter ;
-                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-
-          BIND (STR(year(?time_0)) AS ?year)
-        
-            } UNION {
-              ?received_letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
-                      a eschema:Letter ;
-              crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-
-          BIND (STR(year(?time_0)) AS ?year)
-            }
-  } GROUP BY ?year ORDER BY ?year 
+      ?id eschema:cofk_union_relationship_type-created ?sent_letter .
+      ?sent_letter a eschema:Letter ;
+                   crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+      BIND (STR(year(?time_0)) AS ?year)
+    } 
+    UNION 
+    {
+      ?received_letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+                       a eschema:Letter ;
+                      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+      BIND (STR(year(?time_0)) AS ?year)
+    }
+  } 
+  GROUP BY ?year 
+  ORDER BY ?year 
 `
