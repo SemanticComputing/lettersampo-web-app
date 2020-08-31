@@ -105,14 +105,15 @@ UNION
   FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
   BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
 }
-UNION {
+UNION { SELECT DISTINCT ?id ?other__id ?other__dataProviderUrl ?other__prefLabel  WHERE {
   ?id eschema:cofk_union_relationship_type-was_addressed_to/^eschema:cofk_union_relationship_type-was_addressed_to ?other__id ;
      ^eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-created ?other__id .
   FILTER (?other__id != ?id)
   ?other__id skos:prefLabel ?other__prefLabel .
-  BIND(CONCAT(${sahaUrl}, STR(?other__id), ${sahaModel}) AS ?other__dataProviderUrl)
+  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?other__id), "^.*\\\\/(.+)", "$1")) AS ?other__dataProviderUrl)
   # BIND(CONCAT(STR(?other__id)) AS ?other__dataProviderUrl)
-}
+  OPTIONAL { ?other__id (crm:P4_has_time-span|eschema:inferredDate|eschema:approximateDate|eschema:possibleDate)/crm:P82a_begin_of_the_begin ?other__timespan }
+} ORDER BY STR(?other__timespan) }
 UNION
 {
   { ?id crm:P4_has_time-span ?productionTimespan__id }
