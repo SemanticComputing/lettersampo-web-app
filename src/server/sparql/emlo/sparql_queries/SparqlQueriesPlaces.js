@@ -12,6 +12,16 @@ BIND (?prefLabel__id as ?prefLabel__prefLabel)
 BIND (CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 
 {
+  VALUES (?type__id ?type__prefLabel) { 
+    (crm:E53_Place "Place")
+    (eschema:City "City")
+    (eschema:Country "Country")
+  }
+  ?id a ?type__id .
+  BIND (?type__id as ?type_dataProviderUrl)
+}
+UNION
+{
   ?id crm:P89_falls_within+ ?broader__id .
   ?broader__id skos:prefLabel ?broader__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
@@ -28,23 +38,29 @@ UNION
     skos:prefLabel ?narrower__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
 }
+UNION
+{ ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
+  ?related__id skos:prefLabel ?related__prefLabel .
+  BIND(?related__id AS ?related__dataProviderUrl)
+}
+UNION
+{ ?id skos:altLabel ?altLabel }
 `
 
-export const placePropertiesFacetResults =
-  `
-  BIND(?id as ?uri__id)
-  BIND(?id as ?uri__prefLabel)
-  BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
+export const placePropertiesFacetResults = `
+BIND(?id as ?uri__id)
+BIND(?id as ?uri__prefLabel)
+BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
 
-  ?id a ?type__id .
-  BIND (?type__id as ?type_dataProviderUrl)
-  
-  {
-    ?id skos:prefLabel ?prefLabel__id .
-    BIND (?prefLabel__id as ?prefLabel__prefLabel)
-    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-  }
-  UNION
+?id a ?type__id .
+BIND (?type__id as ?type_dataProviderUrl)
+
+{
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+}
+UNION
 {
   ?id crm:P89_falls_within+ ?broader__id .
   ?broader__id skos:prefLabel ?broader__prefLabel .

@@ -39,6 +39,16 @@ export const INITIAL_STATE = {
       numberedList: false
     },
     {
+      id: 'type',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 90,
+      priority: 5
+    },
+    {
       id: 'country',
       valueType: 'object',
       makeLink: true,
@@ -46,6 +56,29 @@ export const INITIAL_STATE = {
       sortValues: false,
       numberedList: false,
       minWidth: 200
+    },
+    {
+      id: 'altLabel',
+      valueType: 'string',
+      renderAsHTML: false,
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 150,
+      collapsedMaxWords: 12,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'related',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250,
+      priority: 8,
+      onlyOnInstancePage: true
     },
     {
       id: 'broader',
