@@ -13,7 +13,8 @@ import {
 } from './sparql_queries/SparqlQueriesLetters'
 import {
   placePropertiesInfoWindow,
-  peopleRelatedTo
+  peopleRelatedTo,
+  sentReceivedByPlaceQuery
 } from './sparql_queries/SparqlQueriesPlaces'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
@@ -62,6 +63,11 @@ export const backendSearchConfig = {
   sentReceived: {
     perspectiveID: 'actors',
     q: sentReceivedQuery,
+    resultMapper: mapMultipleLineChart
+  },
+  sentReceivedByPlace: {
+    perspectiveID: 'places',
+    q: sentReceivedByPlaceQuery,
     resultMapper: mapMultipleLineChart
   }
 }

@@ -130,3 +130,27 @@ export const peopleRelatedTo = `
     BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   } 
 `
+
+// https://api.triplydb.com/s/gYYySP446
+export const sentReceivedByPlaceQuery = `
+SELECT DISTINCT (STR(?year) as ?category)
+  (count(distinct ?sent_letter) AS ?sentCount)
+  (count(distinct ?received_letter) AS ?receivedCount)
+  ((?sentCount + ?receivedCount) as ?allCount)
+WHERE {
+  BIND(<ID> as ?id)
+  {
+    ?sent_letter eschema:cofk_union_relationship_type-was_sent_from ?id ;
+      a eschema:Letter ;
+      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+    BIND (year(?time_0) AS ?year)
+  }
+  UNION
+  {
+    ?received_letter eschema:cofk_union_relationship_type-was_sent_to ?id ;
+      a eschema:Letter ;
+      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+    BIND (year(?time_0) AS ?year)
+  }
+  FILTER (BOUND(?year))
+} GROUP BY ?year ORDER BY ?year `

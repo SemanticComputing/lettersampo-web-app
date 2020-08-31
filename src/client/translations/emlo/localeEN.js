@@ -62,6 +62,7 @@ export default {
     'by-period': 'by period',
     letterNetwork: 'Network of letters',
     sentReceived: 'Sent and received letters',
+    sentReceivedByPlace: 'Sent and received letters',
     map_clusters: 'clustered map',
     map_markers: 'map',
     heatmap: 'heatmap',

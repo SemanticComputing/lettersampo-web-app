@@ -219,7 +219,8 @@ export const sentReceivedQuery = `
                       crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
     }
-
+    FILTER (BOUND(?year))
+    
     OPTIONAL {
       ?id eschema:birthDate/crm:P82b_end_of_the_end ?birth_end .
     BIND(year(?birth_end) AS ?birth)
