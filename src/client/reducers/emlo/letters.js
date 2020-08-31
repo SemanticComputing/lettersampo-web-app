@@ -72,9 +72,9 @@ export const INITIAL_STATE = {
       makeLink: true,
       externalLink: false,
       sortValues: false,
-      numberedList: false,
+      numberedList: true,
       minWidth: 250,
-      priority: 8,
+      priority: 12,
       onlyOnInstancePage: true
     },
     {
@@ -98,8 +98,8 @@ export const INITIAL_STATE = {
     {
       id: 'language',
       valueType: 'object',
-      makeLink: true,
-      externalLink: true,
+      makeLink: false,
+      externalLink: false,
       sortValues: true,
       numberedList: false,
       minWidth: 150

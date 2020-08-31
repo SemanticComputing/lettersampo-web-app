@@ -434,9 +434,9 @@ export default {
           `
         },
         other: {
-          label: 'Other letters',
+          label: 'Correspondence',
           description: `
-          Other letters sent between sender and receiver.
+          Correspondence of all letters between the sender and the receiver.
           `
         },
         from: {
@@ -496,13 +496,6 @@ export default {
           label: 'URI',
           description: 'Uniform Resource Identifier'
         },
-        type: {
-          label: 'Type',
-          description: `
-            Distinguish between “Transfer of Custody”, “Production”, and other
-            types of “Activity” events.
-          `
-        },
         prefLabel: {
           label: 'Label',
           description: `
@@ -533,7 +526,19 @@ export default {
             The specific place(s) associated with the event.
           `
         },
-        placeType: {
+        altLabel: {
+          label: 'Alternative names',
+          description: `
+            Alternative names of the place.
+          `
+        },
+        related: {
+          label: 'External links',
+          description: `
+            External links.
+          `
+        },
+        type: {
           label: 'Place type',
           description: `
             The type of the specific place(s) associated with the event.
@@ -545,22 +550,10 @@ export default {
             Note
           `
         },
-        surrender: {
-          label: 'Custody surrendered by',
-          description: `
-            Custody surrendered by
-          `
-        },
         receiver: {
           label: 'Custody received by',
           description: `
             Custody received by
-          `
-        },
-        observedOwner: {
-          label: 'Observed owner',
-          description: `
-            Observed owner
           `
         },
         source: {
