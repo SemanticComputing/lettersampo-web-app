@@ -1,5 +1,6 @@
 import {
-  letterProperties
+  letterProperties,
+  letterPropertiesInstancePage
 } from '../sparql_queries/SparqlQueriesLetters'
 import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
@@ -14,7 +15,7 @@ export const lettersConfig = {
     properties: letterProperties
   },
   instance: {
-    properties: letterProperties,
+    properties: letterPropertiesInstancePage,
     relatedInstances: ''
   },
   facets: {

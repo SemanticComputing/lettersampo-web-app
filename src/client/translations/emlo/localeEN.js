@@ -433,6 +433,12 @@ export default {
           Receiver of the letter.
           `
         },
+        other: {
+          label: 'Other letters',
+          description: `
+          Other letters sent between sender and receiver.
+          `
+        },
         from: {
           label: 'Place of sending',
           description: `

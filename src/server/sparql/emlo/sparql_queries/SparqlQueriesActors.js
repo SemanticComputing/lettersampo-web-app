@@ -90,7 +90,6 @@ export const actorPropertiesInstancePage =
                     a eschema:Letter ;
                     ^eschema:cofk_union_relationship_type-created ?cor__id .
           }
-
         } GROUP BY ?id ?cor__id ORDER BY DESC(?cor__count) }
       FILTER (BOUND(?id) && BOUND(?cor__id))
       ?cor__id skos:prefLabel ?cor__label .
@@ -98,7 +97,6 @@ export const actorPropertiesInstancePage =
       BIND (CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
       BIND(CONCAT("/actors/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
     }
-
 `
 
 export const actorPropertiesFacetResults =
@@ -200,7 +198,7 @@ export const networkNodesQuery = `
   }
 `
 
-//  https://api.triplydb.com/s/f74HvbLN0
+//  https://api.triplydb.com/s/O9tYz4CRO
 export const sentReceivedQuery = `
   SELECT DISTINCT (STR(?year) as ?category) 
     (count(distinct ?sent_letter) AS ?sentCount) 
