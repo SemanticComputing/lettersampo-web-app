@@ -6,10 +6,13 @@ BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
 
-?id skos:prefLabel ?prefLabel__id .
-BIND (?prefLabel__id as ?prefLabel__prefLabel)
-BIND (CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-
+{ 
+  SELECT ?id ?prefLabel__id ?prefLabel__prefLabel WHERE {
+  ?id skos:prefLabel ?prefLabel__id .
+   BIND (?prefLabel__id as ?prefLabel__prefLabel)
+   } LIMIT 1
+}
+UNION
 {
   VALUES (?type__id ?type__prefLabel) { 
     (crm:E53_Place "Place")
@@ -65,6 +68,12 @@ UNION
     ?related__id skos:prefLabel ?related__prefLabel .
     BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   }
+}
+UNION
+{
+  ?id geo:lat ?lat ; geo:long ?long .
+  BIND (CONCAT('lat ', STR(?lat), ', long ',STR(?long)) as ?location__prefLabel)
+  BIND (?location__prefLabel AS ?location__id)
 } 
 `
 
@@ -131,6 +140,7 @@ export const peopleRelatedTo = `
   } 
 `
 
+//  TODO add subplaces to counts
 // https://api.triplydb.com/s/gYYySP446
 export const sentReceivedByPlaceQuery = `
 SELECT DISTINCT (STR(?year) as ?category)
@@ -139,18 +149,19 @@ SELECT DISTINCT (STR(?year) as ?category)
   ((?sentCount + ?receivedCount) as ?allCount)
 WHERE {
   BIND(<ID> as ?id)
+  ?sub crm:P89_falls_within* ?id .
   {
-    ?sent_letter eschema:cofk_union_relationship_type-was_sent_from ?id ;
+    ?sent_letter eschema:cofk_union_relationship_type-was_sent_from ?sub ;
       a eschema:Letter ;
-      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-    BIND (year(?time_0) AS ?year)
-  }
-  UNION
+      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time .
+  BIND (STR(year(?time)) AS ?year)
+  } 
+  UNION 
   {
-    ?received_letter eschema:cofk_union_relationship_type-was_sent_to ?id ;
-      a eschema:Letter ;
-      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-    BIND (year(?time_0) AS ?year)
+    ?received_letter eschema:cofk_union_relationship_type-was_sent_to ?sub ;
+                     a eschema:Letter ;
+                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time .
+  BIND (STR(year(?time)) AS ?year)
   }
   FILTER (BOUND(?year))
 } GROUP BY ?year ORDER BY ?year `

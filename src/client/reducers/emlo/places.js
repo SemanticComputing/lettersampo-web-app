@@ -49,15 +49,6 @@ export const INITIAL_STATE = {
       priority: 5
     },
     {
-      id: 'country',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: false,
-      numberedList: false,
-      minWidth: 200
-    },
-    {
       id: 'altLabel',
       valueType: 'string',
       renderAsHTML: false,
@@ -68,6 +59,23 @@ export const INITIAL_STATE = {
       minWidth: 150,
       collapsedMaxWords: 12,
       onlyOnInstancePage: true
+    },
+    {
+      id: 'location',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false
+    },
+    {
+      id: 'country',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 200
     },
     {
       id: 'related',
@@ -87,7 +95,8 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: false,
       numberedList: false,
-      minWidth: 200
+      minWidth: 200,
+      onlyOnInstancePage: true
     },
     {
       id: 'to',
@@ -96,7 +105,8 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: false,
       numberedList: false,
-      minWidth: 200
+      minWidth: 200,
+      onlyOnInstancePage: true
     },
     {
       id: 'external',

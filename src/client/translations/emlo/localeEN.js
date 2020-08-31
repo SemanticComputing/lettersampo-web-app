@@ -509,6 +509,12 @@ export default {
             Related country.
           `
         },
+        location: {
+          label: 'Coordinates',
+          description: `
+            Latitude and longitude of the place.
+          `
+        },
         broader: {
           label: 'Parent place',
           description: `
