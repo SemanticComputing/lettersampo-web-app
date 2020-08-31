@@ -110,7 +110,7 @@ export const INITIAL_STATE = {
       makeLink: true,
       externalLink: false,
       sortValues: false,
-      numberedList: false,
+      numberedList: true,
       minWidth: 220,
       onlyOnInstancePage: true
     },
@@ -120,7 +120,7 @@ export const INITIAL_STATE = {
       makeLink: true,
       externalLink: false,
       sortValues: false,
-      numberedList: false,
+      numberedList: true,
       minWidth: 220,
       onlyOnInstancePage: true
     },
