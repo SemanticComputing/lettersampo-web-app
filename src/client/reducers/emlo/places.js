@@ -97,6 +97,24 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 200
+    },
+    {
+      id: 'from',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 200
+    },
+    {
+      id: 'to',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 200
     }
   ]
 }

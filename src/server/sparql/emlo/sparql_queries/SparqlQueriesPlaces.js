@@ -1,8 +1,7 @@
 import { sahaModel, sahaUrl } from './SparqlQueriesActors'
 const perspectiveID = 'places'
 
-export const placePropertiesInstancePage =
-`
+export const placePropertiesInstancePage = `
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
@@ -45,6 +44,17 @@ UNION
 }
 UNION
 { ?id skos:altLabel ?altLabel }
+{
+  ?id ^eschema:cofk_union_relationship_type-was_sent_from ?from__id .
+    ?from__id skos:prefLabel ?from__prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+} 
+UNION
+{
+  ?id ^eschema:cofk_union_relationship_type-was_sent_from ?to__id .
+    ?to__id skos:prefLabel ?to__prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+} 
 `
 
 export const placePropertiesFacetResults = `
@@ -90,23 +100,6 @@ export const eventPlacesQuery = `
         wgs84:long ?long .
   }
   GROUP BY ?id ?lat ?long
-`
-
-export const placePropertiesInstancePageOld = `
-    {
-      ?id skos:prefLabel ?prefLabel__id .
-      BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-      BIND(CONCAT("/perspective3/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-      BIND(?id as ?uri__id)
-      BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
-    }
-    UNION
-    {
-      ?id crm:P89_falls_within ?area__id .
-      ?area__id skos:prefLabel ?area__prefLabel .
-      BIND(CONCAT("/places/page/", REPLACE(STR(?area__id), "^.*\\\\/(.+)", "$1")) AS ?area__dataProviderUrl)
-    }
 `
 
 export const placePropertiesInfoWindow = `

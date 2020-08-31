@@ -544,16 +544,16 @@ export default {
             The type of the specific place(s) associated with the event.
           `
         },
-        note: {
-          label: 'Note',
+        from: {
+          label: 'Sent letters',
           description: `
-            Note
+          Letters sent from this place.
           `
         },
-        receiver: {
-          label: 'Custody received by',
+        to: {
+          label: 'Received letters',
           description: `
-            Custody received by
+          Letters sent to this place.
           `
         },
         source: {
