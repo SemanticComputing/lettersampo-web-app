@@ -73,6 +73,35 @@ export const INITIAL_STATE = {
       id: 'related',
       valueType: 'object',
       makeLink: true,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250,
+      priority: 8,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'from',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 200
+    },
+    {
+      id: 'to',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 200
+    },
+    {
+      id: 'external',
+      valueType: 'object',
+      makeLink: true,
       externalLink: true,
       sortValues: true,
       numberedList: false,
@@ -95,24 +124,6 @@ export const INITIAL_STATE = {
       makeLink: true,
       externalLink: false,
       sortValues: true,
-      numberedList: false,
-      minWidth: 200
-    },
-    {
-      id: 'from',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: false,
-      numberedList: false,
-      minWidth: 200
-    },
-    {
-      id: 'to',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: false,
       numberedList: false,
       minWidth: 200
     }

@@ -38,22 +38,33 @@ UNION
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
 }
 UNION
-{ ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
-  ?related__id skos:prefLabel ?related__prefLabel .
-  BIND(?related__id AS ?related__dataProviderUrl)
+{ ?id eschema:cofk_union_relationship_type-is_related_to ?external__id . 
+  ?external__id skos:prefLabel ?external__prefLabel .
+  BIND(?external__id AS ?external__dataProviderUrl)
 }
 UNION
 { ?id skos:altLabel ?altLabel }
+UNION
 {
   ?id ^eschema:cofk_union_relationship_type-was_sent_from ?from__id .
-    ?from__id skos:prefLabel ?from__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+  ?from__id skos:prefLabel ?from__prefLabel .
+  BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+  OPTIONAL { 
+    ?from__id ^eschema:cofk_union_relationship_type-created ?related__id .
+    ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+  }
 } 
 UNION
 {
   ?id ^eschema:cofk_union_relationship_type-was_sent_from ?to__id .
-    ?to__id skos:prefLabel ?to__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+  ?to__id skos:prefLabel ?to__prefLabel .
+  BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+  OPTIONAL { 
+    ?id eschema:cofk_union_relationship_type-was_addressed_to ?related__id .
+    ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+  }
 } 
 `
 

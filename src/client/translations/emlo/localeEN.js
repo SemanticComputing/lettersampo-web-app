@@ -532,10 +532,16 @@ export default {
             Alternative names of the place.
           `
         },
-        related: {
+        external: {
           label: 'External links',
           description: `
             External links.
+          `
+        },
+        related: {
+          label: 'Related actors',
+          description: `
+          Related actors, e.g. people or groups that have sent or received letters at this place.
           `
         },
         type: {
