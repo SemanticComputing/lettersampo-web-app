@@ -202,7 +202,7 @@ export const networkNodesQuery = `
 
 //  https://api.triplydb.com/s/f74HvbLN0
 export const sentReceivedQuery = `
-  SELECT DISTINCT (?year as ?category) 
+  SELECT DISTINCT (STR(?year) as ?category) 
     (count(distinct ?sent_letter) AS ?sentCount) 
     (count(distinct ?received_letter) AS ?receivedCount) 
     ((?sentCount + ?receivedCount) as ?allCount)
@@ -212,15 +212,27 @@ export const sentReceivedQuery = `
       ?id eschema:cofk_union_relationship_type-created ?sent_letter .
       ?sent_letter a eschema:Letter ;
                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-      BIND (STR(year(?time_0)) AS ?year)
+      BIND (year(?time_0) AS ?year)
     } 
     UNION 
     {
       ?received_letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
                        a eschema:Letter ;
                       crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-      BIND (STR(year(?time_0)) AS ?year)
+      BIND (year(?time_0) AS ?year)
     }
+
+    OPTIONAL {
+      ?id eschema:birthDate/crm:P82b_end_of_the_end ?birth_end .
+    BIND(year(?birth_end) AS ?birth)
+    }
+    FILTER ((bound(?birth) && ?birth<?year) || !bound(?birth))
+
+    OPTIONAL {
+        ?id eschema:deathDate/crm:P82b_end_of_the_end ?death_end .
+      BIND(year(?death_start) AS ?death)
+    }
+    FILTER ((bound(?death) && ?year<=?death) || !bound(?death))
   } 
   GROUP BY ?year 
   ORDER BY ?year 
