@@ -66,7 +66,8 @@ export const INITIAL_STATE = {
       makeLink: false,
       externalLink: false,
       sortValues: false,
-      numberedList: false
+      numberedList: false,
+      onlyOnInstancePage: true
     },
     {
       id: 'country',
@@ -94,7 +95,7 @@ export const INITIAL_STATE = {
       makeLink: true,
       externalLink: false,
       sortValues: false,
-      numberedList: false,
+      numberedList: true,
       minWidth: 200,
       onlyOnInstancePage: true
     },
@@ -104,7 +105,7 @@ export const INITIAL_STATE = {
       makeLink: true,
       externalLink: false,
       sortValues: false,
-      numberedList: false,
+      numberedList: true,
       minWidth: 200,
       onlyOnInstancePage: true
     },

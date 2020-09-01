@@ -8,7 +8,7 @@ BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
 
 { 
   SELECT ?id ?prefLabel__id ?prefLabel__prefLabel WHERE {
-  ?id (skos:prefLabel|rdfs:label) ?prefLabel__id .
+  ?id (rdfs:label|skos:prefLabel) ?prefLabel__id .
    BIND (?prefLabel__id as ?prefLabel__prefLabel)
    } LIMIT 1
 }
@@ -52,22 +52,24 @@ UNION
   ?id ^eschema:cofk_union_relationship_type-was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
-  OPTIONAL { 
-    ?from__id ^eschema:cofk_union_relationship_type-created ?related__id .
-    ?related__id skos:prefLabel ?related__prefLabel .
-    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
-  }
 } 
 UNION
 {
   ?id ^eschema:cofk_union_relationship_type-was_sent_from ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-  OPTIONAL { 
-    ?id eschema:cofk_union_relationship_type-was_addressed_to ?related__id .
-    ?related__id skos:prefLabel ?related__prefLabel .
-    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+}
+UNION {
+  {
+    ?id ^eschema:cofk_union_relationship_type-was_sent_from/^eschema:cofk_union_relationship_type-created ?related__id 
+  } 
+  UNION 
+  {
+    ?id ^eschema:cofk_union_relationship_type-was_sent_from/eschema:cofk_union_relationship_type-was_addressed_to ?related__id 
   }
+  FILTER (BOUND(?related__id))
+  ?related__id skos:prefLabel ?related__prefLabel .
+  BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
 }
 UNION
 {
@@ -82,6 +84,11 @@ BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
 
+VALUES (?type__id ?type__prefLabel) { 
+  (crm:E53_Place "Place")
+  (eschema:City "City")
+  (eschema:Country "Country")
+}
 ?id a ?type__id .
 BIND (?type__id as ?type_dataProviderUrl)
 
