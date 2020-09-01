@@ -8,7 +8,7 @@ BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
 
 { 
   SELECT ?id ?prefLabel__id ?prefLabel__prefLabel WHERE {
-  ?id skos:prefLabel ?prefLabel__id .
+  ?id (skos:prefLabel|rdfs:label) ?prefLabel__id .
    BIND (?prefLabel__id as ?prefLabel__prefLabel)
    } LIMIT 1
 }
