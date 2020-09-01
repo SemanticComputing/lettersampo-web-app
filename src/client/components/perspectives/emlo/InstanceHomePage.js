@@ -72,7 +72,7 @@ class InstanceHomePage extends React.Component {
         uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
       case 'places':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
+        uri = `http://emlo.bodleian.ox.ac.uk/id/${encodeURIComponent(localID)}`
         break
     }
     this.props.fetchByURI({
