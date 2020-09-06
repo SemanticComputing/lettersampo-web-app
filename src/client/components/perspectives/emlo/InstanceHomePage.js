@@ -12,7 +12,7 @@ import ApexChart from '../../facet_results/ApexChart'
 // import LeafletMap from '../../facet_results/LeafletMap'
 import { createMultipleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Export from '../../facet_results/Export'
-import { coseLayout, cytoscapeStyle } from '../../../configs/sampo/Cytoscape.js/NetworkConfig'
+import { coseLayout, cytoscapeStyle } from '../../../configs/emlo/Cytoscape.js/NetworkConfig'
 import { Route, Redirect } from 'react-router-dom'
 import { has } from 'lodash'
 
@@ -73,6 +73,8 @@ class InstanceHomePage extends React.Component {
         break
       case 'places':
         uri = `http://emlo.bodleian.ox.ac.uk/id/${encodeURIComponent(localID)}`
+        // uri = uri.replace(`'`, `%27`)
+        // console.log(uri)
         break
     }
     this.props.fetchByURI({
@@ -141,8 +143,8 @@ class InstanceHomePage extends React.Component {
                     fetchResults={this.props.fetchResults}
                     resultClass='letterNetwork'
                     uri={tableData.id}
-                    limit={100}
-                    optimize={5.0}
+                    limit={50}
+                    optimize={1.75}
                     style={cytoscapeStyle}
                     layout={coseLayout}
                   />}
