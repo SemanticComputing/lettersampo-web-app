@@ -262,6 +262,18 @@ export default {
             The number of mutually sent letters is in parenthesis at end of the label.
           `
         },
+        num_sent: {
+          label: 'Number of sent letters',
+          description: `
+            Number of sent letters.
+          `
+        },
+        num_received: {
+          label: 'Number of received letters',
+          description: `
+            Number of received letters.
+          `
+        },
         transferOfCustodyTimespan: {
           label: 'Transfer of Custody Date',
           description: `

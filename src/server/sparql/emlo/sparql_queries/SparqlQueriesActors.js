@@ -111,12 +111,10 @@ export const actorPropertiesFacetResults =
   ?id a ?type__id .
   BIND (?type__id as ?type_dataProviderUrl)
   
-  {
-    ?id skos:prefLabel ?prefLabel__id .
-    BIND (?prefLabel__id as ?prefLabel__prefLabel)
-    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-  }
-  UNION
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+  
   {
     ?id foaf:gender ?gender__id . 
     VALUES (?gender__id ?gender__prefLabel) { 
@@ -139,6 +137,18 @@ export const actorPropertiesFacetResults =
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
   }
+  UNION
+  {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent__prefLabel) (STR(?num_sent__prefLabel) AS ?num_sent__id) WHERE {
+      ?id eschema:cofk_union_relationship_type-created ?letter
+    } GROUPBY ?id
+  }
+  UNION 
+  {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received__prefLabel) (STR(?num_received__prefLabel) AS ?num_received__id) WHERE {
+      ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
+    } GROUPBY ?id
+  }
 `
 
 //  https://api.triplydb.com/s/U-6MA_haY
@@ -146,28 +156,31 @@ export const letterLinksQuery = `
 SELECT DISTINCT ?source ?target 
   (COUNT(DISTINCT ?letter) AS ?weight)
   (STR(COUNT(DISTINCT ?letter)) AS ?prefLabel)
-WHERE 
+WHERE {
+VALUES ?id { <ID> }
 {
-  VALUES ?id { <ID> }
-  {
-    ?id eschema:cofk_union_relationship_type-created ?letter .
-    ?letter a eschema:Letter ;
-      eschema:cofk_union_relationship_type-was_addressed_to ?target .
-    ?target skos:prefLabel ?target__label . 
-    FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
-  
-    BIND(?id AS ?source)
-  } UNION {
-    ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+?id eschema:cofk_union_relationship_type-created ?letter .
+?letter a eschema:Letter ;
+  eschema:cofk_union_relationship_type-was_addressed_to ?target .
+BIND(?id AS ?source)
+} UNION {
+?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
       a eschema:Letter .
-    ?source eschema:cofk_union_relationship_type-created ?letter ;
-      skos:prefLabel ?source__label . 
-    FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
+?source eschema:cofk_union_relationship_type-created ?letter ;
+BIND(?id AS ?target)
+}
 
-    BIND(?id AS ?target)
-  }
-  
-} GROUP BY ?source ?target `
+# filter 'unknown' etc entries
+?source skos:prefLabel ?source__label . 
+FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
+?target skos:prefLabel ?target__label . 
+FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
+
+# no self links
+FILTER (?source!=?target)
+
+} GROUP BY ?source ?target
+`
 
 //  https://api.triplydb.com/s/lhDOivCiG
 export const peopleEventPlacesQuery = `
@@ -220,7 +233,7 @@ export const sentReceivedQuery = `
       BIND (year(?time_0) AS ?year)
     }
     FILTER (BOUND(?year))
-    
+
     OPTIONAL {
       ?id eschema:birthDate/crm:P82b_end_of_the_end ?birth_end .
     BIND(year(?birth_end) AS ?birth)

@@ -37,7 +37,7 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 250
+      minWidth: 300
     },
     {
       id: 'gender',
@@ -79,7 +79,7 @@ export const INITIAL_STATE = {
       numberedList: false,
       showSource: true,
       sourceExternalLink: true,
-      minWidth: 250
+      minWidth: 150
     },
     {
       id: 'deathDateTimespan',
@@ -90,7 +90,29 @@ export const INITIAL_STATE = {
       numberedList: false,
       showSource: true,
       sourceExternalLink: true,
-      minWidth: 250
+      minWidth: 150
+    },
+    {
+      id: 'num_sent',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      showSource: false,
+      sourceExternalLink: false,
+      minWidth: 75
+    },
+    {
+      id: 'num_received',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      showSource: false,
+      sourceExternalLink: false,
+      minWidth: 75
     },
     {
       id: 'altLabel',
