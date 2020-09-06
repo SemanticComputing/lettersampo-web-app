@@ -5,16 +5,17 @@ export const cytoscapeStyle = [
     style: {
       shape: 'ellipse',
       'font-size': '10',
-      'background-color': ele => ele.data('color') || '#666',
+      // 'background-color': ele => ele.data('color') || '#90A0DE',
+      'background-color': ele => (ele.data('distance') < 1 ? '#F50057' : '#777'),
       label: ' data(prefLabel)',
-      height: ele => (ele.data('size') || 12 / (ele.data('distance') + 1) || '16px'),
-      width: ele => (ele.data('size') || 12 / (ele.data('distance') + 1) || '16px')
+      height: ele => (ele.data('size') || 16 / (ele.data('distance') + 1) || '16px'),
+      width: ele => (ele.data('size') || 16 / (ele.data('distance') + 1) || '16px')
     }
   },
   {
     selector: 'edge',
     style: {
-      width: ele => ele.data('weight'),
+      width: ele => constrainWidth(ele.data('weight')),
       'line-color': ele => ele.data('color') || '#D8D8D8',
       'curve-style': 'bezier',
       content: ' data(prefLabel) ',
