@@ -268,10 +268,22 @@ export default {
             Number of sent letters.
           `
         },
+        sentletter: {
+          label: 'Sent letters',
+          description: `
+            List of sent letters.
+          `
+        },
         num_received: {
           label: 'Number of received letters',
           description: `
             Number of received letters.
+          `
+        },
+        receivedletter: {
+          label: 'Received letters',
+          description: `
+            List of received letters.
           `
         },
         transferOfCustodyTimespan: {

@@ -93,28 +93,6 @@ export const INITIAL_STATE = {
       minWidth: 150
     },
     {
-      id: 'num_sent',
-      valueType: 'object',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      showSource: false,
-      sourceExternalLink: false,
-      minWidth: 75
-    },
-    {
-      id: 'num_received',
-      valueType: 'object',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      showSource: false,
-      sourceExternalLink: false,
-      minWidth: 75
-    },
-    {
       id: 'altLabel',
       valueType: 'string',
       renderAsHTML: false,
@@ -124,6 +102,48 @@ export const INITIAL_STATE = {
       numberedList: false,
       minWidth: 150,
       collapsedMaxWords: 12,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'num_sent',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      showSource: false,
+      sourceExternalLink: false,
+      minWidth: 75
+    },
+    {
+      id: 'sentletter',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: true,
+      minWidth: 220,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'num_received',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      showSource: false,
+      sourceExternalLink: false,
+      minWidth: 75
+    },
+    {
+      id: 'receivedletter',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: true,
+      minWidth: 220,
       onlyOnInstancePage: true
     },
     {

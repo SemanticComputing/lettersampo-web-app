@@ -3,100 +3,125 @@ export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri
 export const sahaModel = '"&model=emlo"'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
-export const actorPropertiesInstancePage =
-`   BIND(?id as ?uri__id)
-    BIND(?id as ?uri__prefLabel)
-    BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
-    
-    VALUES (?type__id ?type__prefLabel) { 
-      (crm:E21_Person "Person")
-      (crm:E74_Group "Group") }
-    ?id a ?type__id .
-    BIND (?type__id as ?type_dataProviderUrl)
-
-    {
-      ?id skos:prefLabel ?prefLabel__id .
-      BIND (?prefLabel__id as ?prefLabel__prefLabel)
+export const actorPropertiesInstancePage = `
+  BIND(?id as ?uri__id)
+  BIND(?id as ?uri__prefLabel)
+  BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
+  
+  VALUES (?type__id ?type__prefLabel) { 
+    (crm:E21_Person "Person")
+    (crm:E74_Group "Group") }
+  ?id a ?type__id .
+  BIND (?type__id as ?type_dataProviderUrl)
+  
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  
+  {
+    ?id foaf:gender ?gender . 
+    VALUES (?gender ?gender__prefLabel) { 
+      (sdmx-code:sex-M "Male") 
+      (sdmx-code:sex-F "Female") 
     }
-    UNION 
-    {
-      ?id foaf:gender ?gender . 
-      VALUES (?gender ?gender__prefLabel) { 
-        (sdmx-code:sex-M "Male") 
-        (sdmx-code:sex-F "Female") 
-      }
-      BIND(?gender as ?gender__dataProviderUrl)
+    BIND(?gender as ?gender__dataProviderUrl)
+  }
+  UNION 
+  { ?id skos:altLabel ?altLabel }
+  UNION
+  { ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
+    ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(?related__id AS ?related__dataProviderUrl)
+  }
+  UNION
+  {
+    ?id eschema:birthDate ?birthDateTimespan__id .
+    ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
+    OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
+    OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
+  }
+  UNION
+  {
+    ?id eschema:deathDate ?deathDateTimespan__id .
+    ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
+    OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
+    OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
+  }
+  UNION 
+  {
+    { ?id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?knownLocation__id }
+      UNION 
+    { ?id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?knownLocation__id }
+  ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
+  }
+  UNION
+  {
+    VALUES (?rel__prop ?rel__label) {
+      (eschema:cofk_union_relationship_type-sibling_of "Sibling of")
+      (eschema:cofk_union_relationship_type-spouse_of "Spouse of")
+      (eschema:cofk_union_relationship_type-parent_of "Parent of")
+      (eschema:cofk_union_relationship_type-acquaintance_of "Acquaintance of")
+      (eschema:cofk_union_relationship_type-collaborated_with "Collaborated with")
+      (eschema:cofk_union_relationship_type-employed "Employed")
+      (eschema:cofk_union_relationship_type-member_of "Member of")
+      (eschema:cofk_union_relationship_type-relative_of "Relative of")
+      (eschema:cofk_union_relationship_type-unspecified_relationship_with "Unspecified relationship with")
+      (eschema:cofk_union_relationship_type-friend_of "Friend of")
+      (eschema:cofk_union_relationship_type-colleague_of "Colleague of")
+      (eschema:cofk_union_relationship_type-was_patron_of "Was patron of")
     }
-    UNION 
-    { ?id skos:altLabel ?altLabel }
-    UNION
-    { ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
-      ?related__id skos:prefLabel ?related__prefLabel .
-      BIND(?related__id AS ?related__dataProviderUrl)
-    }
-    UNION
-    {
-      ?id eschema:birthDate ?birthDateTimespan__id .
-      ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
-      OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
-      OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
-    }
-    UNION
-    {
-      ?id eschema:deathDate ?deathDateTimespan__id .
-      ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
-      OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
-      OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
-    }
-    UNION 
-    {
-      { ?id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?knownLocation__id }
-        UNION 
-      { ?id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?knownLocation__id }
-    ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
-      BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
-    }
-    UNION
-    {
-      VALUES (?rel__prop ?rel__label) {
-        (eschema:cofk_union_relationship_type-sibling_of "Sibling of")
-        (eschema:cofk_union_relationship_type-spouse_of "Spouse of")
-        (eschema:cofk_union_relationship_type-parent_of "Parent of")
-        (eschema:cofk_union_relationship_type-acquaintance_of "Acquaintance of")
-        (eschema:cofk_union_relationship_type-collaborated_with "Collaborated with")
-        (eschema:cofk_union_relationship_type-employed "Employed")
-        (eschema:cofk_union_relationship_type-member_of "Member of")
-        (eschema:cofk_union_relationship_type-relative_of "Relative of")
-        (eschema:cofk_union_relationship_type-unspecified_relationship_with "Unspecified relationship with")
-        (eschema:cofk_union_relationship_type-friend_of "Friend of")
-        (eschema:cofk_union_relationship_type-colleague_of "Colleague of")
-        (eschema:cofk_union_relationship_type-was_patron_of "Was patron of")
-      }
-      ?id ?rel__prop ?rel__id .
-      ?rel__id skos:prefLabel ?rel__label2
-      BIND (CONCAT(?rel__label, ' ',?rel__label2) AS ?rel__prefLabel)
-      BIND(CONCAT("/actors/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
-    }
-    UNION
-    {
-      { SELECT DISTINCT ?id ?cor__id (COUNT(DISTINCT ?letter) AS ?cor__count)
-        WHERE {
-          {
-            ?id eschema:cofk_union_relationship_type-created ?letter .
-            ?letter a eschema:Letter ;
-                eschema:cofk_union_relationship_type-was_addressed_to ?cor__id .
-          } UNION {
-            ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
-                    a eschema:Letter ;
-                    ^eschema:cofk_union_relationship_type-created ?cor__id .
-          }
-        } GROUP BY ?id ?cor__id ORDER BY DESC(?cor__count) }
-      FILTER (BOUND(?id) && BOUND(?cor__id))
-      ?cor__id skos:prefLabel ?cor__label .
-      FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
-      BIND (CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
-      BIND(CONCAT("/actors/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
-    }
+    ?id ?rel__prop ?rel__id .
+    ?rel__id skos:prefLabel ?rel__label2
+    BIND (CONCAT(?rel__label, ' ',?rel__label2) AS ?rel__prefLabel)
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
+  }
+  UNION
+  {
+    { SELECT DISTINCT ?id ?cor__id (COUNT(DISTINCT ?letter) AS ?cor__count)
+      WHERE {
+        {
+          ?id eschema:cofk_union_relationship_type-created ?letter .
+          ?letter a eschema:Letter ;
+              eschema:cofk_union_relationship_type-was_addressed_to ?cor__id .
+        } UNION {
+          ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+                  a eschema:Letter ;
+                  ^eschema:cofk_union_relationship_type-created ?cor__id .
+        }
+      } GROUP BY ?id ?cor__id ORDER BY DESC(?cor__count) }
+    FILTER (BOUND(?id) && BOUND(?cor__id))
+    ?cor__id skos:prefLabel ?cor__label .
+    FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
+    BIND(CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
+  }
+  UNION
+  {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent__prefLabel) (STR(?num_sent__prefLabel) AS ?num_sent__id) WHERE {
+      ?id eschema:cofk_union_relationship_type-created ?letter
+    } GROUPBY ?id
+  }
+  UNION
+  {
+    ?id eschema:cofk_union_relationship_type-created ?sentletter__id .
+      ?sentletter__id a eschema:Letter ;
+        skos:prefLabel ?sentletter__prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
+  }
+  UNION 
+  {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received__prefLabel) (STR(?num_received__prefLabel) AS ?num_received__id) WHERE {
+      ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
+    } GROUPBY ?id
+  }
+  UNION
+  {
+    ?receivedletter__id
+      eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+      a eschema:Letter ;
+      skos:prefLabel ?receivedletter__prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)
+  }
 `
 
 export const actorPropertiesFacetResults =
@@ -139,13 +164,17 @@ export const actorPropertiesFacetResults =
   }
   UNION
   {
-    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent__prefLabel) (STR(?num_sent__prefLabel) AS ?num_sent__id) WHERE {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent__prefLabel) 
+      (STR(?num_sent__prefLabel) AS ?num_sent__id) 
+    WHERE {
       ?id eschema:cofk_union_relationship_type-created ?letter
     } GROUPBY ?id
   }
-  UNION 
+  UNION
   {
-    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received__prefLabel) (STR(?num_received__prefLabel) AS ?num_received__id) WHERE {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received__prefLabel) 
+      (STR(?num_received__prefLabel) AS ?num_received__id) 
+    WHERE {
       ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
     } GROUPBY ?id
   }
