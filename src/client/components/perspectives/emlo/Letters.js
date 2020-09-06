@@ -7,7 +7,7 @@ import Export from '../../facet_results/Export'
 import ApexChart from '../../facet_results/ApexChart'
 import { createSingleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Deck from '../../facet_results/Deck'
-import MigrationsMapLegend from '../sampo/MigrationsMapLegend'
+import MigrationsMapLegend from '../emlo/MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
 const Letters = props => {

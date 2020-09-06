@@ -24,11 +24,11 @@ const MigrationsMapLegend = props => {
     <Card className={classes.legend}>
       <CardContent>
         <Typography variant='h6' gutterBottom>Arc colouring:</Typography>
-        <Typography className={classes.blue} variant='body2' gutterBottom>Manuscript production place</Typography>
+        <Typography className={classes.blue} variant='body2' gutterBottom>Place of sending</Typography>
         <br />
         <Typography variant='body2' gutterBottom>
           <span className={classes.red}>
-                Last known location
+                Place of receiving
           </span>
         </Typography>
       </CardContent>
