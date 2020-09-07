@@ -60,17 +60,6 @@ export const INITIAL_STATE = {
       priority: 5
     },
     {
-      id: 'related',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      priority: 8,
-      onlyOnInstancePage: true
-    },
-    {
       id: 'birthDateTimespan',
       valueType: 'object',
       makeLink: false,
@@ -80,6 +69,17 @@ export const INITIAL_STATE = {
       showSource: true,
       sourceExternalLink: true,
       minWidth: 150
+    },
+    {
+      id: 'birthPlace',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      sourceExternalLink: true,
+      minWidth: 150,
+      onlyOnInstancePage: true
     },
     {
       id: 'deathDateTimespan',
@@ -93,6 +93,17 @@ export const INITIAL_STATE = {
       minWidth: 150
     },
     {
+      id: 'deathPlace',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      sourceExternalLink: true,
+      minWidth: 150,
+      onlyOnInstancePage: true
+    },
+    {
       id: 'altLabel',
       valueType: 'string',
       renderAsHTML: false,
@@ -102,6 +113,27 @@ export const INITIAL_STATE = {
       numberedList: false,
       minWidth: 150,
       collapsedMaxWords: 12,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'related',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250,
+      priority: 8,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'cor',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: true,
+      minWidth: 220,
       onlyOnInstancePage: true
     },
     {
@@ -148,16 +180,6 @@ export const INITIAL_STATE = {
     },
     {
       id: 'rel',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: false,
-      numberedList: true,
-      minWidth: 220,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'cor',
       valueType: 'object',
       makeLink: true,
       externalLink: false,

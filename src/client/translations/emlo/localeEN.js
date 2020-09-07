@@ -61,8 +61,8 @@ export default {
     by_year: 'by year',
     'by-period': 'by period',
     letterNetwork: 'Network of letters',
-    sentReceived: 'Sent and received letters',
-    sentReceivedByPlace: 'Sent and received letters',
+    sentReceived: 'Timeline of letters',
+    sentReceivedByPlace: 'Timeline of letters',
     map_clusters: 'clustered map',
     map_markers: 'map',
     heatmap: 'heatmap',
@@ -219,10 +219,22 @@ export default {
           Birth date of a person
           `
         },
+        birthPlace: {
+          label: 'Place of Birth',
+          description: `
+          Place of Birth
+          `
+        },
         deathDateTimespan: {
           label: 'Death date',
           description: `
           Death date of a person
+          `
+        },
+        deathPlace: {
+          label: 'Place of Death',
+          description: `
+          Place of Death
           `
         },
         altLabel: {

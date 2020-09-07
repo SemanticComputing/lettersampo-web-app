@@ -92,12 +92,10 @@ VALUES (?type__id ?type__prefLabel) {
 ?id a ?type__id .
 BIND (?type__id as ?type_dataProviderUrl)
 
-{
-  ?id skos:prefLabel ?prefLabel__id .
-  BIND (?prefLabel__id as ?prefLabel__prefLabel)
-  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-}
-UNION
+?id skos:prefLabel ?prefLabel__id .
+BIND (?prefLabel__id as ?prefLabel__prefLabel)
+BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+
 {
   ?id crm:P89_falls_within+ ?broader__id .
   ?broader__id skos:prefLabel ?broader__prefLabel .

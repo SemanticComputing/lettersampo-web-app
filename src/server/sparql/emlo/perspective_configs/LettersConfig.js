@@ -48,9 +48,9 @@ export const lettersConfig = {
       facetValueFilter: '',
       labelPath: 'eschema:cofk_union_relationship_type-was_sent_from/skos:prefLabel',
       predicate: 'eschema:cofk_union_relationship_type-was_sent_from',
-      //  parentProperty: 'crm:P89_falls_within',
-      //  parentPredicate: 'crm:P7_took_place_at/crm:P89_falls_within+',
-      //  type: 'hierarchical'
+      // parentProperty: 'crm:P89_falls_within',
+      // parentPredicate: 'eschema:cofk_union_relationship_type-was_sent_from/crm:P89_falls_within+',
+      // type: 'hierarchical'
       type: 'list'
     },
     to: {
@@ -59,6 +59,17 @@ export const lettersConfig = {
       labelPath: 'eschema:cofk_union_relationship_type-was_sent_to/skos:prefLabel',
       predicate: 'eschema:cofk_union_relationship_type-was_sent_to',
       type: 'list'
+    },
+    productionTimespan: {
+      id: 'productionTimespan',
+      facetValueFilter: '',
+      sortByAscPredicate: 'crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: 'crm:P4_has_time-span/crm:P82b_end_of_the_end',
+      predicate: 'crm:P4_has_time-span',
+      startProperty: 'crm:P82a_begin_of_the_begin',
+      endProperty: 'crm:P82b_end_of_the_end',
+      dataType: 'xsd:dateTime',
+      type: 'timespan'
     },
     language: {
       id: 'language',
@@ -91,17 +102,6 @@ export const lettersConfig = {
       labelPath: 'eschema:excipit/skos:prefLabel',
       predicate: 'eschema:excipit',
       type: 'list'
-    },
-    productionTimespan: {
-      id: 'productionTimespan',
-      facetValueFilter: '',
-      sortByAscPredicate: 'crm:P4_has_time-span/crm:P82a_begin_of_the_begin',
-      sortByDescPredicate: 'crm:P4_has_time-span/crm:P82b_end_of_the_end',
-      predicate: 'crm:P4_has_time-span',
-      startProperty: 'crm:P82a_begin_of_the_begin',
-      endProperty: 'crm:P82b_end_of_the_end',
-      dataType: 'xsd:dateTime',
-      type: 'timespan'
     }
   }
 }

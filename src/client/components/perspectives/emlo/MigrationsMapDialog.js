@@ -18,7 +18,7 @@ const styles = () => ({
 const MigrationsMapDialog = props => {
   const { classes, open, onClose, data } = props
   const hasData = data !== null && data.from && data.to && data.letter
-  
+
   return (
     <Dialog
       classes={{ paper: classes.dialogPaper }}

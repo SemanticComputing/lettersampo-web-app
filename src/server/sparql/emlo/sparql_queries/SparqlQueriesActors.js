@@ -2,6 +2,10 @@ const perspectiveID = 'actors'
 export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
 export const sahaModel = '"&model=emlo"'
 
+/**
+ * TODO: add reverse relation, e.g. members on page http://localhost:8080/en/actors/page/37a1c23b-c19f-4126-a99c-3f264f939f22/table
+ */
+
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const actorPropertiesInstancePage = `
   BIND(?id as ?uri__id)
@@ -41,15 +45,27 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
+    ?id eschema:cofk_union_relationship_type-was_born_in_location ?birthPlace__id .
+    ?birthPlace__id skos:prefLabel ?birthPlace__prefLabel .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
+  }
+  UNION
+  {
     ?id eschema:deathDate ?deathDateTimespan__id .
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
   }
-  UNION 
+  UNION
+  {
+    ?id eschema:cofk_union_relationship_type-died_at_location ?deathPlace__id .
+    ?deathPlace__id skos:prefLabel ?deathPlace__prefLabel .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
+  }
+  UNION
   {
     { ?id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?knownLocation__id }
-      UNION 
+      UNION
     { ?id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?knownLocation__id }
   ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
@@ -102,11 +118,14 @@ export const actorPropertiesInstancePage = `
     } GROUPBY ?id
   }
   UNION
-  {
-    ?id eschema:cofk_union_relationship_type-created ?sentletter__id .
-      ?sentletter__id a eschema:Letter ;
-        skos:prefLabel ?sentletter__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
+  { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
+    WHERE {
+      ?id eschema:cofk_union_relationship_type-created ?sentletter__id .
+        ?sentletter__id a eschema:Letter ;
+          skos:prefLabel ?sentletter__prefLabel .
+      BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
+      OPTIONAL { ?sentletter__id (crm:P4_has_time-span|eschema:inferredDate|eschema:approximateDate|eschema:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+    } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?sentletter__prefLabel))
   }
   UNION 
   {
@@ -115,12 +134,15 @@ export const actorPropertiesInstancePage = `
     } GROUPBY ?id
   }
   UNION
-  {
+  { SELECT DISTINCT ?id ?receivedletter__id ?receivedletter__prefLabel ?receivedletter__dataProviderUrl
+    WHERE {
     ?receivedletter__id
       eschema:cofk_union_relationship_type-was_addressed_to ?id ;
       a eschema:Letter ;
       skos:prefLabel ?receivedletter__prefLabel .
     BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)
+    OPTIONAL { ?receivedletter__id (crm:P4_has_time-span|eschema:inferredDate|eschema:approximateDate|eschema:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+    } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?receivedletter__prefLabel))
   }
 `
 
@@ -157,10 +179,22 @@ export const actorPropertiesFacetResults =
   }
   UNION
   {
+    ?id eschema:cofk_union_relationship_type-was_born_in_location ?birthPlace__id .
+    ?birthPlace__id skos:prefLabel ?birthPlace__prefLabel .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
+  }
+  UNION
+  {
     ?id eschema:deathDate ?deathDateTimespan__id .
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
+  }
+  UNION
+  {
+    ?id eschema:cofk_union_relationship_type-died_at_location ?deathPlace__id .
+    ?deathPlace__id skos:prefLabel ?deathPlace__prefLabel .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
   }
   UNION
   {

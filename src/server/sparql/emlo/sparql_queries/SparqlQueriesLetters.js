@@ -65,6 +65,13 @@ UNION
   ?id eschema:cofk_union_relationship_type-was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+  
+  OPTIONAL {
+    ?from__id crm:P89_falls_within+ ?countryfrom__id .
+    ?countryfrom__id a eschema:Country .
+    ?countryfrom__id skos:prefLabel ?countryfrom__prefLabel .
+    BIND(CONCAT("/places/page/", REPLACE(STR(?countryfrom__id), "^.*\\\\/(.+)", "$1")) AS ?countryfrom__dataProviderUrl)
+  }
 }
 UNION 
 {
@@ -75,7 +82,7 @@ UNION
 `
 
 /*
-... possible other properties: https://api.triplydb.com/s/dHjxJhy0U
+TODO ... possible other properties: https://api.triplydb.com/s/dHjxJhy0U
 
 https://api.triplydb.com/s/VeJA9dURr
 */
