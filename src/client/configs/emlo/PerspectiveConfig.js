@@ -12,8 +12,8 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 // import manuscriptsImage from '../../img/main_page/manuscripts-452x262.jpg'
 import worksImage from '../../img/main_page/works-452x262.jpg'
 // import eventsImage from '../../img/main_page/events-452x262.jpg'
-import actorImage from '../../img/main_page/people-452x262.jpg'
-import placesImage from '../../img/main_page/places-452x262.jpg'
+import actorImage from '../../img/main_page/people2-452x262.jpg'
+import placesImage from '../../img/main_page/places2-452x262.jpg'
 
 export const perspectiveConfig = [
   {
