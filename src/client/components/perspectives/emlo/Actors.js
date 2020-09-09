@@ -4,11 +4,7 @@ import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
 import LeafletMap from '../../facet_results/LeafletMap'
-// import Deck from '../../facet_results/Deck'
-// import Network from '../../facet_results/Network'
 import Export from '../../facet_results/Export'
-// import MigrationsMapLegend from './MigrationsMapLegend'
-// import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
 const Actors = props => {
   const { rootUrl, perspective } = props
