@@ -68,7 +68,9 @@ class Network extends React.Component {
     if (prevProps.resultUpdateID !== this.props.resultUpdateID) {
       // console.log(this.props.results.elements)
       this.cy.elements().remove()
-      this.preprocess(this.props.results.elements)
+      if (this.props.preprocess) {
+        this.preprocess(this.props.results.elements)
+      }
       this.cy.add(this.props.results.elements)
       this.cy.layout(this.props.layout).run()
     }
@@ -79,17 +81,6 @@ class Network extends React.Component {
         facetClass: this.props.facetClass
       })
     }
-  }
-
-  preprocess = elements => {
-    const vals = elements.edges.map(ele => ele.data.weight)
-    const valmax = Math.max(...vals)
-    const valmin = Math.min(...vals)
-    const wmax = 6.0
-    const wmin = 1.0
-    const a = (wmax - wmin) / (valmax - valmin)
-    const b = wmin - valmin * (wmax - wmin) / (valmax - valmin)
-    elements.edges.forEach((ele, i) => { ele.data.weight = vals[i] * a + b })
   }
 
   render = () => {
@@ -114,7 +105,8 @@ Network.propTypes = {
   limit: PropTypes.number.isRequired,
   optimize: PropTypes.number.isRequired,
   style: PropTypes.array.isRequired,
-  layout: PropTypes.object.isRequired
+  layout: PropTypes.object.isRequired,
+  preprocess: PropTypes.func
 }
 
 export default withStyles(styles)(Network)
