@@ -171,7 +171,7 @@ UNION
        "${delimiter}",
        REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")
        ) AS ?tie__id)
- BIND(?other__id AS ?tie__dataProviderUrl)
+ BIND(?tie__id AS ?tie__dataProviderUrl)
  BIND (CONCAT(?source__prefLabel, " <---> ", ?target__prefLabel) as ?tie__prefLabel)
 }
 `
