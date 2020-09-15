@@ -16,6 +16,9 @@ import {
   peopleRelatedTo,
   sentReceivedByPlaceQuery
 } from './sparql_queries/SparqlQueriesPlaces'
+import {
+  correspondencePropertiesInstancePage
+} from './sparql_queries/SparqlQueriesCorrespondences'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
@@ -25,6 +28,13 @@ export const backendSearchConfig = {
   actors: actorsConfig,
   letters: lettersConfig,
   places: placesConfig,
+  correspondences: {
+    perspectiveID: 'actors', // use endpoint config from people
+    instance: {
+      properties: correspondencePropertiesInstancePage,
+      relatedInstances: ''
+    }
+  },
   letterMigrations: {
     perspectiveID: 'letters',
     q: letterMigrationsQuery,
