@@ -93,27 +93,27 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    { SELECT DISTINCT ?id ?cor__id (COUNT(DISTINCT ?letter) AS ?cor__count)
+    { SELECT DISTINCT ?id ?alter__id (COUNT(DISTINCT ?letter) AS ?alter__count)
       WHERE {
         {
           ?id eschema:cofk_union_relationship_type-created ?letter .
           ?letter a eschema:Letter ;
-              eschema:cofk_union_relationship_type-was_addressed_to ?cor__id .
+              eschema:cofk_union_relationship_type-was_addressed_to ?alter__id .
         } UNION {
           ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
                   a eschema:Letter ;
-                  ^eschema:cofk_union_relationship_type-created ?cor__id .
+                  ^eschema:cofk_union_relationship_type-created ?alter__id .
         }
-      } GROUP BY ?id ?cor__id ORDER BY DESC(?cor__count) }
-    FILTER (BOUND(?id) && BOUND(?cor__id))
-    ?cor__id skos:prefLabel ?cor__label .
-    FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
-    BIND(CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
+      } GROUP BY ?id ?alter__id ORDER BY DESC(?alter__count) }
+    FILTER (BOUND(?id) && BOUND(?alter__id))
+    ?alter__id skos:prefLabel ?alter__label .
+    FILTER (!REGEX(?alter__label, '(unknown|no_recipient_given)', 'i'))
+    BIND(CONCAT(?alter__label, ' (',STR(?alter__count), ')') AS ?alter__prefLabel)
     BIND(CONCAT("/ties/page/", 
       REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),
       "__",
-      REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")
-      ) AS ?cor__dataProviderUrl)  
+      REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")
+      ) AS ?alter__dataProviderUrl)  
   }
   UNION
   {

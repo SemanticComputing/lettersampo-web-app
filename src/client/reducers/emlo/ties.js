@@ -22,19 +22,55 @@ export const INITIAL_STATE = {
     {
       id: 'prefLabel1',
       valueType: 'object',
-      makeLink: false,
+      makeLink: true,
       externalLink: false,
       sortValues: true,
       numberedList: false,
       minWidth: 150
     },
     {
-      id: 'uri1',
+      id: 'prefLabel2',
       valueType: 'object',
       makeLink: true,
-      externalLink: true,
+      externalLink: false,
       sortValues: true,
       numberedList: false,
+      minWidth: 150
+    },
+    {
+      id: 'ego',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 170
+    },
+    {
+      id: 'alter',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 170
+    },
+    {
+      id: 'letter',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: true,
+      minWidth: 170
+    },
+    {
+      id: 'other',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: false,
+      numberedList: true,
       minWidth: 170
     }
   ]

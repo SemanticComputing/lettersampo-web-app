@@ -127,7 +127,7 @@ export const INITIAL_STATE = {
       onlyOnInstancePage: true
     },
     {
-      id: 'cor',
+      id: 'alter',
       valueType: 'object',
       makeLink: true,
       externalLink: false,

@@ -267,7 +267,7 @@ export default {
             Related actors, e.g. parents, spouses, acquaintances.
           `
         },
-        cor: {
+        alter: {
           label: 'Correspondences',
           description: `
             Other actors who have been in correspondence with this actor. 
@@ -622,6 +622,40 @@ export default {
             TODO: description.
           </p>
         `
+      },
+      properties: {
+        ego: {
+          label: 'URI 1',
+          description: 'Uniform Resource Identifier'
+        },
+        prefLabel1: {
+          label: 'Actor 1',
+          description: `
+            Preferable actor label.
+          `
+        },
+        alter: {
+          label: 'URI 2',
+          description: 'Uniform Resource Identifier'
+        },
+        prefLabel2: {
+          label: 'Actor 2',
+          description: `
+            Preferable actor label.
+          `
+        },
+        letter: {
+          label: 'Sent letters',
+          description: `
+            All letters sent between the two people.
+          `
+        },
+        other: {
+          label: 'Related people',
+          description: `
+          People who have been in correspondence with both the sender and the receiver.
+          `
+        }
       }
     }
   },

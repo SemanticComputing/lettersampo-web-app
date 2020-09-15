@@ -199,7 +199,7 @@ SELECT DISTINCT ?id # ?letter__id
         geo:long ?from__long .
     BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
     
-    ?to__id skos:prefLabel ?to__prefLabel ; 
+    ?to__id skos:prefLabel ?to__prefLabel ;
         geo:lat ?to__lat ;
         geo:long ?to__long .
     BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
