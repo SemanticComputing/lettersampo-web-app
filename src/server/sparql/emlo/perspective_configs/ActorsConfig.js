@@ -75,6 +75,18 @@ export const actorsConfig = {
           } GROUP BY ?id
         }
       `
+    },
+    num_received: {
+      orderByPattern: `
+        {
+          SELECT ?id (COUNT(DISTINCT ?letter) AS ?orderBy)
+          WHERE {
+            VALUES ?facetClass { <FACET_CLASS> }
+            ?id a ?facetClass .
+            OPTIONAL { ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id }
+          } GROUP BY ?id
+        }
+      `
     }
   }
 }
