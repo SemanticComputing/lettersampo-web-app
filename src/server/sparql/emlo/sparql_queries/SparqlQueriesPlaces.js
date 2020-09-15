@@ -46,7 +46,10 @@ UNION
   BIND(?external__id AS ?external__dataProviderUrl)
 }
 UNION
-{ ?id skos:altLabel ?altLabel }
+{ 
+  ?id skos:altLabel ?altLabel . 
+  # FILTER (STR(?prefLabel__prefLabel) != STR(?altLabel)) 
+}
 UNION
 {
   ?id ^eschema:cofk_union_relationship_type-was_sent_from ?from__id .
@@ -169,4 +172,5 @@ WHERE {
   BIND (STR(year(?time)) AS ?year)
   }
   FILTER (BOUND(?year))
-} GROUP BY ?year ORDER BY ?year `
+} GROUP BY ?year ORDER BY ?year 
+`

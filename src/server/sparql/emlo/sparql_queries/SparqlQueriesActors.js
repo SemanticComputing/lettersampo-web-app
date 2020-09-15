@@ -109,7 +109,11 @@ export const actorPropertiesInstancePage = `
     ?cor__id skos:prefLabel ?cor__label .
     FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
     BIND(CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
-    BIND(CONCAT("/actors/page/", REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")) AS ?cor__dataProviderUrl)  
+    BIND(CONCAT("/correspondences/page/", 
+      REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),
+      "__",
+      REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")
+      ) AS ?cor__dataProviderUrl)  
   }
   UNION
   {
@@ -158,17 +162,10 @@ export const actorPropertiesFacetResults =
   ?id a ?type__id .
   BIND (?type__id as ?type_dataProviderUrl)
   
+  {
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-  
-  {
-    ?id foaf:gender ?gender__id . 
-    VALUES (?gender__id ?gender__prefLabel) { 
-      (sdmx-code:sex-M "Male" ) 
-      (sdmx-code:sex-F "Female" ) 
-    }
-    BIND(?gender__id as ?gender__dataProviderUrl)
   }
   UNION
   {
@@ -209,6 +206,15 @@ export const actorPropertiesFacetResults =
     WHERE {
       ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
     } GROUP BY ?id
+  }
+  UNION
+  {
+    ?id foaf:gender ?gender__id . 
+    VALUES (?gender__id ?gender__prefLabel) { 
+      (sdmx-code:sex-M "Male" ) 
+      (sdmx-code:sex-F "Female" ) 
+    }
+    BIND(?gender__id as ?gender__dataProviderUrl)
   }
 `
 
