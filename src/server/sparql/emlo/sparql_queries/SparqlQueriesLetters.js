@@ -1,4 +1,5 @@
 import { sahaModel, sahaUrl } from './SparqlQueriesActors'
+import { delimiter } from './SparqlQueriesTies'
 const perspectiveID = 'letters'
 
 export const letterProperties = `
@@ -112,25 +113,6 @@ UNION
   FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
   BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
 }
-UNION { 
-  SELECT DISTINCT ?id ?other__id ?other__dataProviderUrl ?other__prefLabel  WHERE {
-    ?id ^eschema:cofk_union_relationship_type-created ?u .
-    ?id eschema:cofk_union_relationship_type-was_addressed_to ?v .
-    {
-      ?other__id ^eschema:cofk_union_relationship_type-created ?v .
-      ?other__id eschema:cofk_union_relationship_type-was_addressed_to ?u .
-    } 
-    UNION 
-    {
-      ?other__id ^eschema:cofk_union_relationship_type-created ?u .
-      ?other__id eschema:cofk_union_relationship_type-was_addressed_to ?v .
-    }
-    ?other__id skos:prefLabel ?other__prefLabel .
-    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?other__id), "^.*\\\\/(.+)", "$1")) AS ?other__dataProviderUrl)
-
-    OPTIONAL { ?other__id (crm:P4_has_time-span|eschema:inferredDate|eschema:approximateDate|eschema:possibleDate)/crm:P82a_begin_of_the_begin ?other__timespan }
-  } ORDER BY COALESCE(STR(?other__timespan), CONCAT("9999", ?other__prefLabel))
-}
 UNION
 {
   { ?id crm:P4_has_time-span ?productionTimespan__id }
@@ -177,6 +159,20 @@ UNION
   ?id eschema:cofk_union_relationship_type-was_sent_to ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+}
+UNION
+{
+  ?id eschema:cofk_union_relationship_type-was_addressed_to ?target__id ;
+      ^eschema:cofk_union_relationship_type-created ?source__id .
+  ?source__id skos:prefLabel ?source__prefLabel .
+  ?target__id skos:prefLabel ?target__prefLabel .
+  BIND(CONCAT("/ties/page/",
+       REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1"),
+       "${delimiter}",
+       REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")
+       ) AS ?tie__id)
+ BIND(?other__id AS ?tie__dataProviderUrl)
+ BIND (CONCAT(?source__prefLabel, " <---> ", ?target__prefLabel) as ?tie__prefLabel)
 }
 `
 

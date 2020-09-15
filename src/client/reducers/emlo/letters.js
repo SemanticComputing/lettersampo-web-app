@@ -67,7 +67,7 @@ export const INITIAL_STATE = {
       minWidth: 400
     },
     {
-      id: 'other',
+      id: 'tie',
       valueType: 'object',
       makeLink: true,
       externalLink: false,

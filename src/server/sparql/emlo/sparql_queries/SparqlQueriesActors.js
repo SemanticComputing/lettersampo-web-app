@@ -1,4 +1,7 @@
+import { delimiter } from './SparqlQueriesTies'
+
 const perspectiveID = 'actors'
+
 export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
 export const sahaModel = '"&model=emlo"'
 
@@ -111,9 +114,9 @@ export const actorPropertiesInstancePage = `
     BIND(CONCAT(?alter__label, ' (',STR(?alter__count), ')') AS ?alter__prefLabel)
     BIND(CONCAT("/ties/page/", 
       REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),
-      "__",
+      "${delimiter}",
       REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")
-      ) AS ?alter__dataProviderUrl)  
+      ) AS ?alter__dataProviderUrl)
   }
   UNION
   {

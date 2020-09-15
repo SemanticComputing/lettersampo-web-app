@@ -471,7 +471,7 @@ export default {
           Receiver of the letter.
           `
         },
-        other: {
+        tie: {
           label: 'Correspondence',
           description: `
           Correspondence of all letters between the sender and the receiver.
