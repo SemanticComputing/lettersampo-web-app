@@ -201,14 +201,14 @@ export const actorPropertiesFacetResults =
     SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent)
     WHERE {
       ?id eschema:cofk_union_relationship_type-created ?letter
-    } GROUPBY ?id
+    } GROUP BY ?id
   }
   UNION
   {
     SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received)  
     WHERE {
       ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
-    } GROUPBY ?id
+    } GROUP BY ?id
   }
 `
 

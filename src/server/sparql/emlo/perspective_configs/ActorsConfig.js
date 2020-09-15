@@ -63,6 +63,18 @@ export const actorsConfig = {
       endProperty: 'crm:P82b_end_of_the_end',
       dataType: 'xsd:dateTime',
       type: 'timespan'
+    },
+    num_sent: {
+      orderByPattern: `
+        {
+          SELECT ?id (COUNT(DISTINCT ?letter) AS ?orderBy)
+          WHERE {
+            VALUES ?facetClass { <FACET_CLASS> }
+            ?id a ?facetClass .
+            OPTIONAL { ?id eschema:cofk_union_relationship_type-created ?letter }
+          } GROUP BY ?id
+        }
+      `
     }
   }
 }
