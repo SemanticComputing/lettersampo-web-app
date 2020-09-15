@@ -113,7 +113,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent__prefLabel) (STR(?num_sent__prefLabel) AS ?num_sent__id) WHERE {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent) WHERE {
       ?id eschema:cofk_union_relationship_type-created ?letter
     } GROUPBY ?id
   }
@@ -129,7 +129,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION 
   {
-    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received__prefLabel) (STR(?num_received__prefLabel) AS ?num_received__id) WHERE {
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received) WHERE {
       ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
     } GROUPBY ?id
   }
@@ -198,16 +198,14 @@ export const actorPropertiesFacetResults =
   }
   UNION
   {
-    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent__prefLabel) 
-      (STR(?num_sent__prefLabel) AS ?num_sent__id) 
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_sent)
     WHERE {
       ?id eschema:cofk_union_relationship_type-created ?letter
     } GROUPBY ?id
   }
   UNION
   {
-    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received__prefLabel) 
-      (STR(?num_received__prefLabel) AS ?num_received__id) 
+    SELECT ?id (COUNT(DISTINCT ?letter) AS ?num_received)  
     WHERE {
       ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id
     } GROUPBY ?id

@@ -138,7 +138,7 @@ export const INITIAL_STATE = {
     },
     {
       id: 'num_sent',
-      valueType: 'object',
+      valueType: 'string',
       makeLink: false,
       externalLink: false,
       sortValues: false,
@@ -159,7 +159,7 @@ export const INITIAL_STATE = {
     },
     {
       id: 'num_received',
-      valueType: 'object',
+      valueType: 'string',
       makeLink: false,
       externalLink: false,
       sortValues: false,
