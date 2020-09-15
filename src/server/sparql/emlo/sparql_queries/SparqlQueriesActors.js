@@ -314,5 +314,5 @@ export const sentReceivedQuery = `
     FILTER ((bound(?death) && ?year<=?death) || !bound(?death))
   } 
   GROUP BY ?year 
-  ORDER BY ?year 
+  ORDER BY ?year
 `

@@ -63,6 +63,7 @@ export default {
     letterNetwork: 'Network of letters',
     sentReceived: 'Timeline of letters',
     sentReceivedByPlace: 'Timeline of letters',
+    sentReceivedByTie: 'Timeline of letters',
     map_clusters: 'clustered map',
     map_markers: 'map',
     heatmap: 'heatmap',

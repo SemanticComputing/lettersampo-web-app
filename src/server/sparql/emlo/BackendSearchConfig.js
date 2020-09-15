@@ -17,7 +17,8 @@ import {
   sentReceivedByPlaceQuery
 } from './sparql_queries/SparqlQueriesPlaces'
 import {
-  tiePropertiesInstancePage
+  tiePropertiesInstancePage,
+  tieLettersQuery
 } from './sparql_queries/SparqlQueriesTies'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
@@ -78,6 +79,11 @@ export const backendSearchConfig = {
   sentReceivedByPlace: {
     perspectiveID: 'places',
     q: sentReceivedByPlaceQuery,
+    resultMapper: mapMultipleLineChart
+  },
+  sentReceivedByTie: {
+    perspectiveID: 'actors',
+    q: tieLettersQuery,
     resultMapper: mapMultipleLineChart
   }
 }

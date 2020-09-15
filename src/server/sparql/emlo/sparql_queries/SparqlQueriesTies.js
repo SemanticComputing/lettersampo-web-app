@@ -1,11 +1,12 @@
 // const perspectiveID = 'ties'
 export const sahaUrl = '"http://demo.seco.tkk.fi/saha/project/resource.shtml?uri="'
 export const sahaModel = '"&model=emlo"'
+export const delimiter = '__'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const tiePropertiesInstancePage = `
-BIND (URI(STRBEFORE(STR(?id),'__')) AS ?ego__id)
-BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?id),'__'))) AS ?alter__id)
+BIND (URI(STRBEFORE(STR(?id),'${delimiter}')) AS ?ego__id)
+BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)
 
 BIND(?ego__id as ?ego__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?ego__id), ${sahaModel}) AS ?ego__dataProviderUrl)
@@ -42,7 +43,7 @@ UNION
   {
     ?letter__id ^eschema:cofk_union_relationship_type-created ?ego__id .
     ?letter__id eschema:cofk_union_relationship_type-was_addressed_to ?alter__id .
-  } 
+  }
   UNION 
   {
     ?letter__id ^eschema:cofk_union_relationship_type-created ?alter__id .
@@ -57,4 +58,35 @@ UNION
 }
 
   BIND (CONCAT(?prefLabel1__id, " <---> ", ?prefLabel2__id) as ?prefLabel)
+`
+
+//  https://api.triplydb.com/s/19zSsxbWL
+export const tieLettersQuery = `
+SELECT DISTINCT (STR(?year) as ?category) 
+    (count(distinct ?sent_letter) AS ?sentCount) 
+    (count(distinct ?received_letter) AS ?receivedCount) 
+    ((?sentCount + ?receivedCount) as ?allCount)
+  WHERE {
+  
+  BIND(<ID> as ?id)
+  BIND (URI(STRBEFORE(STR(?id),'${delimiter}')) AS ?ego__id)
+  BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)
+    {
+      ?ego__id eschema:cofk_union_relationship_type-created ?sent_letter .
+      ?sent_letter eschema:cofk_union_relationship_type-was_addressed_to ?alter__id ;
+                   a eschema:Letter ;
+                   crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+      BIND (year(?time_0) AS ?year)
+    } 
+    UNION 
+    {
+      ?alter__id eschema:cofk_union_relationship_type-created ?received_letter .
+      ?received_letter eschema:cofk_union_relationship_type-was_addressed_to ?ego__id ;
+                       a eschema:Letter ;
+                      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+      BIND (year(?time_0) AS ?year)
+    }
+  } 
+  GROUP BY ?year 
+  ORDER BY ?year 
 `
