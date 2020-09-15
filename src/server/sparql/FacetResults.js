@@ -50,7 +50,6 @@ export const getAllResults = ({
   uri,
   constraints,
   resultFormat,
-  groupBy,
   optimize,
   limit
 }) => {
@@ -75,6 +74,7 @@ export const getAllResults = ({
       facetID: null
     }))
   }
+  q = q.replace(/<FACET_CLASS>/g, backendSearchConfig[config.perspectiveID].facetClass)
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
     return runNetworkQuery({
       endpoint: endpoint.url,
@@ -89,6 +89,7 @@ export const getAllResults = ({
     if (uri !== null) {
       q = q.replace('<ID>', `<${uri}>`)
     }
+    // console.log(endpoint.prefixes + q)
     return runSelectQuery({
       query: endpoint.prefixes + q,
       endpoint: endpoint.url,
@@ -113,7 +114,6 @@ export const getResultCount = async ({
   } else {
     endpoint = backendSearchConfig[config.perspectiveID].endpoint
   }
-  q = q.replace('<FACET_CLASS>', config.facetClass)
   if (constraints == null) {
     q = q.replace('<FILTER>', '# no filters')
   } else {
@@ -127,6 +127,7 @@ export const getResultCount = async ({
       filterTripleFirst: true
     }))
   }
+  q = q.replace(/<FACET_CLASS>/g, config.facetClass)
   // console.log(endpoint.prefixes + q)
   const response = await runSelectQuery({
     query: endpoint.prefixes + q,
@@ -172,7 +173,7 @@ const getPaginatedData = ({
       facetID: null
     }))
   }
-  q = q.replace('<FACET_CLASS>', config.facetClass)
+  q = q.replace(/<FACET_CLASS>/g, config.facetClass)
   if (sortBy == null) {
     q = q.replace('<ORDER_BY_TRIPLE>', '')
     q = q.replace('<ORDER_BY>', '# no sorting')
@@ -182,16 +183,19 @@ const getPaginatedData = ({
       sortByPredicate = sortDirection === 'asc'
         ? config.facets[sortBy].sortByAscPredicate
         : config.facets[sortBy].sortByDescPredicate
+    } else if (has(config.facets[sortBy], 'orderByPattern')) {
+      q = q.replace('<ORDER_BY_TRIPLE>', config.facets[sortBy].orderByPattern)
     } else {
       sortByPredicate = config.facets[sortBy].labelPath
-    }
-    q = q.replace('<ORDER_BY_TRIPLE>',
+      q = q.replace('<ORDER_BY_TRIPLE>',
       `OPTIONAL { ?id ${sortByPredicate} ?orderBy }`)
+    }
     q = q.replace('<ORDER_BY>',
       `ORDER BY (!BOUND(?orderBy)) ${sortDirection}(?orderBy)`)
   }
   q = q.replace('<PAGE>', `LIMIT ${pagesize} OFFSET ${page * pagesize}`)
   q = q.replace('<RESULT_SET_PROPERTIES>', config.paginatedResults.properties)
+  // console.log(endpoint.prefixes + q)
   return runSelectQuery({
     query: endpoint.prefixes + q,
     endpoint: endpoint.url,
