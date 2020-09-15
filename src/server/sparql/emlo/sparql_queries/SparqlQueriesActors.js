@@ -109,7 +109,7 @@ export const actorPropertiesInstancePage = `
     ?cor__id skos:prefLabel ?cor__label .
     FILTER (!REGEX(?cor__label, '(unknown|no_recipient_given)', 'i'))
     BIND(CONCAT(?cor__label, ' (',STR(?cor__count), ')') AS ?cor__prefLabel)
-    BIND(CONCAT("/correspondences/page/", 
+    BIND(CONCAT("/ties/page/", 
       REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),
       "__",
       REPLACE(STR(?cor__id), "^.*\\\\/(.+)", "$1")

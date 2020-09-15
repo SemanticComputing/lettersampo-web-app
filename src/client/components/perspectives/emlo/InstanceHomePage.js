@@ -76,7 +76,7 @@ class InstanceHomePage extends React.Component {
         // uri = uri.replace(`'`, `%27`)
         // console.log(uri)
         break
-      case 'correspondences':
+      case 'ties':
         uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
         break
     }

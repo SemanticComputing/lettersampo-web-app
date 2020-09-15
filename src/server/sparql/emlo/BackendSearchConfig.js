@@ -17,8 +17,8 @@ import {
   sentReceivedByPlaceQuery
 } from './sparql_queries/SparqlQueriesPlaces'
 import {
-  correspondencePropertiesInstancePage
-} from './sparql_queries/SparqlQueriesCorrespondences'
+  tiePropertiesInstancePage
+} from './sparql_queries/SparqlQueriesTies'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
@@ -28,10 +28,10 @@ export const backendSearchConfig = {
   actors: actorsConfig,
   letters: lettersConfig,
   places: placesConfig,
-  correspondences: {
+  ties: {
     perspectiveID: 'actors', // use endpoint config from people
     instance: {
-      properties: correspondencePropertiesInstancePage,
+      properties: tiePropertiesInstancePage,
       relatedInstances: ''
     }
   },

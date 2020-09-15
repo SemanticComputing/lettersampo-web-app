@@ -41,13 +41,13 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'correspondences'
+  'ties'
 ])
 
-const correspondences = (state = INITIAL_STATE, action) => {
+const ties = (state = INITIAL_STATE, action) => {
   if (resultClasses.has(action.resultClass)) {
     return handleDataFetchingAction(state, action)
   } else return state
 }
 
-export default correspondences
+export default ties

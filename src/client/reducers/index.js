@@ -11,7 +11,7 @@ import clientSideFacetedSearch from './emlo/clientSideFacetedSearch'
 import actors from './emlo/actors'
 import letters from './emlo/letters'
 import places from './emlo/places'
-import correspondences from './emlo/correspondences'
+import ties from './emlo/ties'
 import actorsFacets from './emlo/actorsFacets'
 import actorsFacetsConstrainSelf from './emlo/actorsFacetsConstrainSelf'
 import lettersFacets from './emlo/lettersFacets'
@@ -21,7 +21,7 @@ const reducer = combineReducers({
   actors,
   letters,
   places,
-  correspondences,
+  ties,
   actorsFacets,
   actorsFacetsConstrainSelf,
   lettersFacets,

@@ -614,7 +614,7 @@ export default {
         }
       }
     },
-    correspondences: {
+    ties: {
       instancePage: {
         label: 'Correspondence',
         description: `
