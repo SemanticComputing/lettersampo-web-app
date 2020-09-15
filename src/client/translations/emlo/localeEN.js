@@ -613,6 +613,16 @@ export default {
           `
         }
       }
+    },
+    correspondences: {
+      instancePage: {
+        label: 'Correspondence',
+        description: `
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+            TODO: description.
+          </p>
+        `
+      }
     }
   },
   aboutThePortal: `

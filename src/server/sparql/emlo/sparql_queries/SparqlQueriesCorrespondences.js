@@ -16,4 +16,6 @@ export const correspondencePropertiesInstancePage = `
 
   ?person2 skos:prefLabel ?prefLabel2__id .
   BIND (?prefLabel2__id as ?prefLabel2__prefLabel)
+
+  BIND (CONCAT(?prefLabel1__id, " <---> ", ?prefLabel2__id) as ?prefLabel)
 `
