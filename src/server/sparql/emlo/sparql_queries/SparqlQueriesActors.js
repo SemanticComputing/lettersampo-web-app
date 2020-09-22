@@ -110,7 +110,7 @@ export const actorPropertiesInstancePage = `
       } GROUP BY ?id ?alter__id ORDER BY DESC(?alter__count) }
     FILTER (BOUND(?id) && BOUND(?alter__id))
     ?alter__id skos:prefLabel ?alter__label .
-    FILTER (!REGEX(?alter__label, '(unknown|no_recipient_given)', 'i'))
+    # FILTER (!REGEX(?alter__label, '(unknown|no_recipient_given)', 'i'))
     BIND(CONCAT(?alter__label, ' (',STR(?alter__count), ')') AS ?alter__prefLabel)
     BIND(CONCAT("/ties/page/", 
       REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),
@@ -227,28 +227,28 @@ SELECT DISTINCT ?source ?target
   (COUNT(DISTINCT ?letter) AS ?weight)
   (STR(COUNT(DISTINCT ?letter)) AS ?prefLabel)
 WHERE {
-VALUES ?id { <ID> }
-{
-?id eschema:cofk_union_relationship_type-created ?letter .
-?letter a eschema:Letter ;
-  eschema:cofk_union_relationship_type-was_addressed_to ?target .
-BIND(?id AS ?source)
-} UNION {
-?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
-      a eschema:Letter .
-?source eschema:cofk_union_relationship_type-created ?letter ;
-BIND(?id AS ?target)
-}
+  VALUES ?id { <ID> }
+  {
+  ?id eschema:cofk_union_relationship_type-created ?letter .
+  ?letter a eschema:Letter ;
+    eschema:cofk_union_relationship_type-was_addressed_to ?target .
+  BIND(?id AS ?source)
+  } UNION {
+  ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+        a eschema:Letter .
+  ?source eschema:cofk_union_relationship_type-created ?letter ;
+  BIND(?id AS ?target)
+  }
 
-# filter 'unknown' etc entries
-?source skos:prefLabel ?source__label . 
-FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
-?target skos:prefLabel ?target__label . 
-FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
+  # filter 'unknown' etc entries
+  ?source skos:prefLabel ?source__label . 
+  FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
+  ?target skos:prefLabel ?target__label . 
+  FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
 
-# no self links
-FILTER (?source!=?target)
-
+  # no self links
+  FILTER (?source!=?target)
+  
 } GROUP BY ?source ?target
 `
 

@@ -15,13 +15,13 @@ BIND(?alter__id as ?alter__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?alter__id), ${sahaModel}) AS ?alter__dataProviderUrl)
 
 {
-?ego__id skos:prefLabel ?prefLabel1__id .
-BIND (?prefLabel1__id as ?prefLabel1__prefLabel)
-BIND(CONCAT("/actors/page/", REPLACE(STR(?ego__id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel1__dataProviderUrl)
+  ?ego__id skos:prefLabel ?prefLabel1__id .
+  BIND (?prefLabel1__id as ?prefLabel1__prefLabel)
+  BIND(CONCAT("/actors/page/", REPLACE(STR(?ego__id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel1__dataProviderUrl)
 
-?alter__id skos:prefLabel ?prefLabel2__id .
-BIND (?prefLabel2__id as ?prefLabel2__prefLabel)
-BIND(CONCAT("/actors/page/", REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel2__dataProviderUrl)
+  ?alter__id skos:prefLabel ?prefLabel2__id .
+  BIND (?prefLabel2__id as ?prefLabel2__prefLabel)
+  BIND(CONCAT("/actors/page/", REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel2__dataProviderUrl)
 } 
 UNION 
 {
