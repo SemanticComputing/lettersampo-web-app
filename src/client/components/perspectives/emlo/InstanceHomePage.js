@@ -12,7 +12,7 @@ import ApexChart from '../../facet_results/ApexChart'
 // import LeafletMap from '../../facet_results/LeafletMap'
 import { createMultipleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Export from '../../facet_results/Export'
-import { coseLayout, cytoscapeStyle, preprocess } from '../../../configs/emlo/Cytoscape.js/NetworkConfig'
+import { coseLayout, cytoscapeStyle, preprocess, preprocessTie } from '../../../configs/emlo/Cytoscape.js/NetworkConfig'
 import { Route, Redirect } from 'react-router-dom'
 import { has } from 'lodash'
 
@@ -211,6 +211,23 @@ class InstanceHomePage extends React.Component {
                     sparqlQuery={this.props.sparqlQuery}
                     pageType='instancePage'
                     id={tableData.id}
+                  />}
+              />
+              <Route
+                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/tieNetwork`}
+                render={() =>
+                  <Network
+                    pageType='instancePage'
+                    results={this.props.results}
+                    resultUpdateID={this.props.resultUpdateID}
+                    fetchResults={this.props.fetchResults}
+                    resultClass='tieNetwork'
+                    uri={tableData.id}
+                    limit={32}
+                    optimize={1.5}
+                    style={cytoscapeStyle}
+                    layout={coseLayout}
+                    preprocess={preprocessTie}
                   />}
               />
             </>}

@@ -90,3 +90,46 @@ SELECT DISTINCT (STR(?year) as ?category)
   GROUP BY ?year 
   ORDER BY ?year 
 `
+
+export const tieLinksQuery = `
+SELECT DISTINCT ?source ?target 
+  (COUNT(DISTINCT ?letter) AS ?weight)
+  (STR(COUNT(DISTINCT ?letter)) AS ?prefLabel)
+WHERE {  
+  { VALUES ?_id { <ID> }
+    ?_id a [] .
+    BIND(?_id as ?id)
+  } UNION { 
+    VALUES ?_id { <ID> }
+    BIND (URI(STRBEFORE(STR(?_id),'__')) AS ?id)
+    ?id a []
+  } UNION {
+    VALUES ?_id { <ID> }
+    BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?_id),'__'))) AS ?id)
+    ?id a []
+  }
+      
+  FILTER (BOUND(?id))
+  
+  {
+  ?id eschema:cofk_union_relationship_type-created ?letter .
+  ?letter a eschema:Letter ;
+    eschema:cofk_union_relationship_type-was_addressed_to ?target .
+  BIND(?id AS ?source)
+  } UNION {
+  ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
+        a eschema:Letter .
+  ?source eschema:cofk_union_relationship_type-created ?letter ;
+  BIND(?id AS ?target)
+  }
+
+  # filter 'unknown' etc entries
+  ?source skos:prefLabel ?source__label . 
+  FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
+  ?target skos:prefLabel ?target__label . 
+  FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
+
+  FILTER (?source!=?target)
+  
+} GROUP BY ?source ?target
+`

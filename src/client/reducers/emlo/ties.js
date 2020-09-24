@@ -77,7 +77,7 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'ties', 'sentReceivedByTie'
+  'ties', 'sentReceivedByTie', 'tieNetwork'
 ])
 
 const ties = (state = INITIAL_STATE, action) => {

@@ -24,10 +24,10 @@ export const cytoscapeStyle = [
       'edge-text-rotation': 'autorotate',
       'text-background-opacity': 1,
       'text-background-color': 'white',
-      'text-background-shape': 'roundrectangle'
+      'text-background-shape': 'roundrectangle',
       // 'text-halign': 'top',
-      // 'target-arrow-shape': 'triangle',
-      // 'target-arrow-color': ele => ele.data('color') || '#DDD',
+      'target-arrow-shape': 'triangle',
+      'target-arrow-color': ele => ele.data('color') || '#DDD'
     }
   }
 ]
@@ -132,5 +132,29 @@ export const preprocess = elements => {
 
   // node color
   res = (new ColorScaler('rgb(255,0,0)', 'rgb(0,0,0)')).fitTransform(arr)
+  elements.nodes.forEach((ele, i) => { ele.data.color = res[i] })
+}
+
+export const preprocessTie = elements => {
+  //  edges
+  let arr = elements.edges.map(ele => ele.data.weight)
+
+  //  edge width
+  let res = (new ValueScaler(1.0, maxEdgeWidth)).fitTransform(arr)
+  elements.edges.forEach((ele, i) => { ele.data.weight = res[i] })
+
+  //  edge color
+  res = (new ColorScaler('hsl(30, 64%, 85%)', 'hsl(30, 64%, 35%)')).fitTransform(arr)
+  elements.edges.forEach((ele, i) => { ele.data.color = res[i] })
+
+  // nodes
+  arr = elements.nodes.map(ele => 1000.0 * ele.data.pagerank)
+
+  // node size
+  res = (new ColorScaler('8px', '20px')).fitTransform(arr)
+  elements.nodes.forEach((ele, i) => { ele.data.size = res[i] })
+
+  // node color
+  res = (new ColorScaler('rgb(0,0,0)', 'rgb(255,0,0)')).fitTransform(arr)
   elements.nodes.forEach((ele, i) => { ele.data.color = res[i] })
 }

@@ -63,7 +63,8 @@ export default {
     letterNetwork: 'Network of letters',
     sentReceived: 'Timeline of letters',
     sentReceivedByPlace: 'Timeline of letters',
-    sentReceivedByTie: 'Timeline of letters',
+    sentReceivedByTie: 'Timeline',
+    tieNetwork: 'Network',
     map_clusters: 'clustered map',
     map_markers: 'map',
     heatmap: 'heatmap',
@@ -215,9 +216,9 @@ export default {
           description: 'The type is a Person or a Group.'
         },
         birthDateTimespan: {
-          label: 'Birth date',
+          label: 'Birth time',
           description: `
-          Birth date of a person
+          Birth time of a person
           `
         },
         birthPlace: {
@@ -227,9 +228,9 @@ export default {
           `
         },
         deathDateTimespan: {
-          label: 'Death date',
+          label: 'Death time',
           description: `
-          Death date of a person
+          Death time of a person
           `
         },
         deathPlace: {

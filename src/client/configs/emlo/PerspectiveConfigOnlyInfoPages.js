@@ -2,6 +2,7 @@ import React from 'react'
 import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import LineChartIcon from '@material-ui/icons/ShowChart'
+import BubbleChartIcon from '@material-ui/icons/BubbleChart'
 
 export const perspectiveConfigOnlyInfoPages = [
   {
@@ -19,8 +20,13 @@ export const perspectiveConfigOnlyInfoPages = [
         icon: <LineChartIcon />
       },
       {
-        id: 'export',
+        id: 'tieNetwork',
         value: 2,
+        icon: <BubbleChartIcon />
+      },
+      {
+        id: 'export',
+        value: 3,
         icon: <CloudDownloadIcon />
       }
     ]

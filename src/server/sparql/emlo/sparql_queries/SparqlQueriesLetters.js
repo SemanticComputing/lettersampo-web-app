@@ -52,7 +52,7 @@ UNION
   BIND (?subject__id AS ?subject__dataProviderUrl)
 }
 UNION 
-{ ?id eschema:source ?datasource__id . 
+{ ?id eschema:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND (?datasource__id AS ?datasource__dataProviderUrl)
 }
