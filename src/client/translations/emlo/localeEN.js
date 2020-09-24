@@ -154,7 +154,7 @@ export default {
     actors: {
       label: 'Actors',
       facetResultsType: 'actors',
-      shortDescription: 'Description',
+      shortDescription: 'Collection of 34 000 people or groups of people',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to physical manuscript objects.
@@ -239,9 +239,9 @@ export default {
           `
         },
         altLabel: {
-          label: 'Alternative names or occupations',
+          label: 'Alternative names or vocations',
           description: `
-            Alternative names or occupations of the actor.
+            Alternative names or vocations of the actor.
           `
         },
         related: {
@@ -384,7 +384,7 @@ export default {
     letters: {
       label: 'Letters',
       facetResultsType: 'letters',
-      shortDescription: 'Description',
+      shortDescription: 'Information about 160 000 letters',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: description.
@@ -495,7 +495,7 @@ export default {
     places: {
       label: 'Places',
       facetResultsType: 'Places',
-      shortDescription: 'Description',
+      shortDescription: '8200 towns, cities, or countries',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to events associated with the
