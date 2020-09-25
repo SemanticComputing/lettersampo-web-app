@@ -4,6 +4,8 @@ export const sahaModel = '"&model=emlo"'
 export const delimiter = '__'
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
+//  TODO: add suitable letter properties, e.g. subject etc.
+//  TODO: fix node links, e.g. copy and change url in networkNodesQuery
 export const tiePropertiesInstancePage = `
 BIND (URI(STRBEFORE(STR(?id),'${delimiter}')) AS ?ego__id)
 BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)

@@ -41,7 +41,7 @@ export const INITIAL_STATE = {
       id: 'ego',
       valueType: 'object',
       makeLink: true,
-      externalLink: false,
+      externalLink: true,
       sortValues: true,
       numberedList: false,
       minWidth: 170
@@ -50,7 +50,7 @@ export const INITIAL_STATE = {
       id: 'alter',
       valueType: 'object',
       makeLink: true,
-      externalLink: false,
+      externalLink: true,
       sortValues: true,
       numberedList: false,
       minWidth: 170

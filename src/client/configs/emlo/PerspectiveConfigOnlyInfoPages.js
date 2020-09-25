@@ -15,14 +15,14 @@ export const perspectiveConfigOnlyInfoPages = [
         icon: <CalendarViewDayIcon />
       },
       {
-        id: 'sentReceivedByTie',
+        id: 'tieNetwork',
         value: 1,
-        icon: <LineChartIcon />
+        icon: <BubbleChartIcon />
       },
       {
-        id: 'tieNetwork',
+        id: 'sentReceivedByTie',
         value: 2,
-        icon: <BubbleChartIcon />
+        icon: <LineChartIcon />
       },
       {
         id: 'export',
