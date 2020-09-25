@@ -135,3 +135,15 @@ WHERE {
   
 } GROUP BY ?source ?target
 `
+
+export const tieNodesQuery = `
+  SELECT DISTINCT ?id ?prefLabel ?class ?href
+  WHERE {
+    VALUES ?class { crm:E21_Person crm:E74_Group }
+    VALUES ?id { <ID_SET> }
+    ?id a ?class ;
+     skos:prefLabel ?_label .
+    BIND(REPLACE(?_label, ',[^,A-ZÜÅÄÖ]+$', '')AS ?prefLabel)
+    BIND(CONCAT("../../../actors/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)
+  }
+`
