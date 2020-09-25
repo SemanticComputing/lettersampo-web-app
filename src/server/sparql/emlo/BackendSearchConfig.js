@@ -19,7 +19,8 @@ import {
 import {
   tiePropertiesInstancePage,
   tieLettersQuery,
-  tieLinksQuery
+  tieLinksQuery,
+  tieNodesQuery
 } from './sparql_queries/SparqlQueriesTies'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
@@ -90,7 +91,7 @@ export const backendSearchConfig = {
   tieNetwork: {
     perspectiveID: 'actors',
     q: tieLinksQuery,
-    nodes: networkNodesQuery,
+    nodes: tieNodesQuery,
     useNetworkAPI: true
   }
 }
