@@ -67,6 +67,15 @@ export const INITIAL_STATE = {
       minWidth: 400
     },
     {
+      id: 'productionTimespan',
+      valueType: 'object',
+      makeLink: false,
+      externalLink: false,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250
+    },
+    {
       id: 'tie',
       valueType: 'object',
       makeLink: true,
@@ -130,15 +139,6 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 150
-    },
-    {
-      id: 'productionTimespan',
-      valueType: 'object',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250
     }
   ]
 }

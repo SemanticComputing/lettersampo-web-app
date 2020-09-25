@@ -1,6 +1,7 @@
 import { sahaModel, sahaUrl } from './SparqlQueriesActors'
 const perspectiveID = 'places'
 
+// TODO add migrations from the place
 export const placePropertiesInstancePage = `
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)

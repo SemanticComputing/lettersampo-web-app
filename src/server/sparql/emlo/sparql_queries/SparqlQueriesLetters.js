@@ -134,12 +134,12 @@ UNION
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION
-{ ?id dct:subject ?subject__id . 
+{ ?id dct:subject ?subject__id .
   ?subject__id skos:prefLabel ?subject__prefLabel .
   BIND (?subject__id AS ?subject__dataProviderUrl)
 }
 UNION 
-{ ?id eschema:source ?datasource__id . 
+{ ?id eschema:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND (?datasource__id AS ?datasource__dataProviderUrl)
 }
@@ -179,7 +179,7 @@ UNION
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 //  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
 export const letterMigrationsQuery = `
-SELECT DISTINCT ?id # ?letter__id 
+SELECT DISTINCT ?id 
 ?from__id ?from__prefLabel ?from__dataProviderUrl ?from__lat ?from__long
 ?to__id ?to__prefLabel ?to__dataProviderUrl ?to__lat ?to__long
   WHERE {
