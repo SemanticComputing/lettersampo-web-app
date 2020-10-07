@@ -46,15 +46,18 @@ class InstanceHomePage extends React.Component {
     }
   }
 
-  componentDidMount = () => this.fetchData()
+  componentDidMount = () => this.fetchTableData()
 
   componentDidUpdate = prevProps => {
-    if (prevProps.routeProps.location !== this.props.routeProps.location) {
-      this.fetchData()
+    // handle the case when the TABLE tab was not originally active
+    const prevPathname = prevProps.routeProps.location.pathname
+    const currentPathname = this.props.routeProps.location.pathname
+    if (prevPathname !== currentPathname && currentPathname.endsWith('table')) {
+      this.fetchTableData()
     }
   }
 
-  fetchData = () => {
+  fetchTableData = () => {
     let uri = ''
     const locationArr = this.props.routeProps.location.pathname.split('/')
     let localID = locationArr.pop()
@@ -102,7 +105,7 @@ class InstanceHomePage extends React.Component {
 
   render = () => {
     const { classes, tableData, isLoading, resultClass, rootUrl } = this.props
-    const hasData = tableData !== null && Object.values(tableData).length >= 1
+    const hasTableData = tableData !== null && Object.values(tableData).length >= 1
     return (
       <div className={classes.root}>
         <PerspectiveTabs
@@ -115,13 +118,13 @@ class InstanceHomePage extends React.Component {
             <div className={classes.spinnerContainer}>
               <CircularProgress style={{ color: purple[500] }} thickness={5} />
             </div>}
-          {!hasData &&
+          {!hasTableData &&
             <>
               <Typography variant='h6'>
                 No data found for id: <span style={{ fontStyle: 'italic' }}>{this.state.localID}</span>
               </Typography>
             </>}
-          {hasData &&
+          {hasTableData &&
             <>
               <Route
                 exact path={`${rootUrl}/${resultClass}/page/${this.state.localID}`}
