@@ -14,6 +14,8 @@ more information.
 
 Note for Linux users: if your home directory is mounted from a network drive, using the [Node Version Manager](https://github.com/nvm-sh/nvm) for installing Node.js highly recommended. 
 
+Currently using a password protected SPARQL endpoint. When running on a local machine, you need to put a `.env` file at the root of this repository and define `SPARQL_ENDPOINT_BASIC_AUTH=...` there.  
+
 ## Installation
 
 ### Local development

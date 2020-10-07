@@ -1939,6 +1939,68 @@ export default {
         }
       }
     },
+    hellerau: {
+      label: 'Hellerau',
+      facetResultsType: 'people',
+      shortDescription: 'Description',
+      longDescription: `
+        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+          Use this perspective to access data related to events associated with the
+          histories of manuscripts and manuscript collections over the centuries.
+          See <a href="/instructions">instructions</a> for using the filters.
+          The result view can be selected using the tabs:
+        </p>
+        <ul class="MuiTypography-root MuiTypography-body1">
+          <li>
+            <strong>TABLE</STRONG> view includes all events in the MMM data.
+          </li>
+          <li>
+            <strong>MAP</STRONG> view visualizes the events that have location information on a map.
+          </li>
+          <li>
+            <strong>EXPORT</strong> the SPARQL query used to generate the result
+            table view into YASGUI query editor.
+          </li>
+        </ul>
+      `,
+      // instancePage: {
+      //   label: 'Place',
+      //   description: `
+      //     <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      //       Events refer to various activities related to Manuscripts and Actors. Event
+      //       types include Production, Transfer of Custody, and Activity events.
+      //       Production events refer to the production of the physical manuscript.
+      //       Transfer of Custody events indicate a change of ownership that involved
+      //       a transaction of some kind, usually through an auction house or bookseller.
+      //       The generic Activity event type covers all other types of events.
+      //     </p>
+      //   `
+      // },
+      properties: {
+        uri: {
+          label: 'URI',
+          description: 'Uniform Resource Identifier'
+        },
+        prefLabel: {
+          label: 'Name',
+          description: `
+            Preferable place label.
+          `
+        },
+        home1930: {
+          label: 'Hometown 1930',
+          description: `
+            Hometown 1930 description.
+          `
+        },
+        home1937: {
+          label: 'Hometown 1937',
+          description: `
+            Hometown 1937 description.
+          `
+        }
+      }
+    },
     clientFSPlaces: {
       label: 'ClientFS',
       shortDescription: 'Client-side faceted search',
