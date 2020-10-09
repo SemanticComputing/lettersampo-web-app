@@ -160,6 +160,11 @@ UNION
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
+UNIOn
+{ ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
+  ?related__id skos:prefLabel ?related__prefLabel .
+  BIND(?related__id AS ?related__dataProviderUrl)
+}
 UNION
 {
   ?id eschema:cofk_union_relationship_type-was_addressed_to ?target__id ;

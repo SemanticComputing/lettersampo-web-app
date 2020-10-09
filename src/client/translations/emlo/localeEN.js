@@ -489,8 +489,13 @@ export default {
           description: `
           The receiving place of the letter.
           `
+        },
+        related: {
+          label: 'External links',
+          description: `
+            External links.
+          `
         }
-
       }
     },
     places: {

@@ -123,6 +123,17 @@ export const INITIAL_STATE = {
       minWidth: 150
     },
     {
+      id: 'related',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250,
+      priority: 8,
+      onlyOnInstancePage: true
+    },
+    {
       id: 'datasource',
       valueType: 'object',
       makeLink: true,
