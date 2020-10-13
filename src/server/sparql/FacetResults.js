@@ -10,140 +10,7 @@ import {
   instanceQuery
 } from './SparqlQueriesGeneral'
 
-export const getPaginatedResults = async ({
-  backendSearchConfig,
-  resultClass,
-  page,
-  pagesize,
-  constraints,
-  sortBy,
-  sortDirection,
-  resultFormat
-}) => {
-  const response = await getPaginatedData({
-    backendSearchConfig,
-    resultClass,
-    page,
-    pagesize,
-    constraints,
-    sortBy,
-    sortDirection,
-    resultFormat
-  })
-  if (resultFormat === 'json') {
-    return {
-      resultClass: resultClass,
-      page: page,
-      pagesize: pagesize,
-      data: response.data,
-      sparqlQuery: response.sparqlQuery
-    }
-  } else {
-    return response
-  }
-}
-
-export const getAllResults = ({
-  backendSearchConfig,
-  resultClass,
-  facetClass,
-  uri,
-  constraints,
-  resultFormat,
-  optimize,
-  limit
-}) => {
-  const config = backendSearchConfig[resultClass]
-  let endpoint
-  if (has(config, 'endpoint')) {
-    endpoint = config.endpoint
-  } else {
-    endpoint = backendSearchConfig[config.perspectiveID].endpoint
-  }
-  const { filterTarget, resultMapper } = config
-  let { q } = config
-  if (constraints == null) {
-    q = q.replace('<FILTER>', '# no filters')
-  } else {
-    q = q.replace('<FILTER>', generateConstraintsBlock({
-      resultClass: resultClass,
-      backendSearchConfig,
-      facetClass: facetClass,
-      constraints: constraints,
-      filterTarget: filterTarget,
-      facetID: null
-    }))
-  }
-  q = q.replace(/<FACET_CLASS>/g, backendSearchConfig[config.perspectiveID].facetClass)
-  if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
-    return runNetworkQuery({
-      endpoint: endpoint.url,
-      prefixes: endpoint.prefixes,
-      id: uri,
-      links: q,
-      nodes: config.nodes,
-      optimize,
-      limit
-    })
-  } else {
-    if (uri !== null) {
-      q = q.replace('<ID>', `<${uri}>`)
-    }
-    // console.log(endpoint.prefixes + q)
-    return runSelectQuery({
-      query: endpoint.prefixes + q,
-      endpoint: endpoint.url,
-      useAuth: endpoint.useAuth,
-      resultMapper,
-      resultFormat
-    })
-  }
-}
-
-export const getResultCount = async ({
-  backendSearchConfig,
-  resultClass,
-  constraints,
-  resultFormat
-}) => {
-  let q = countQuery
-  const config = backendSearchConfig[resultClass]
-  let endpoint
-  if (has(config, 'endpoint')) {
-    endpoint = config.endpoint
-  } else {
-    endpoint = backendSearchConfig[config.perspectiveID].endpoint
-  }
-  if (constraints == null) {
-    q = q.replace('<FILTER>', '# no filters')
-  } else {
-    q = q.replace('<FILTER>', generateConstraintsBlock({
-      backendSearchConfig,
-      resultClass: resultClass,
-      facetClass: resultClass,
-      constraints: constraints,
-      filterTarget: 'id',
-      facetID: null,
-      filterTripleFirst: true
-    }))
-  }
-  q = q.replace(/<FACET_CLASS>/g, config.facetClass)
-  // console.log(endpoint.prefixes + q)
-  const response = await runSelectQuery({
-    query: endpoint.prefixes + q,
-    endpoint: endpoint.url,
-    useAuth: endpoint.useAuth,
-    resultMapper: mapCount,
-    resultFormat
-  })
-  return ({
-    resultClass: resultClass,
-    data: response.data,
-    sparqlQuery: response.sparqlQuery
-  })
-}
-
-const getPaginatedData = ({
+export const getPaginatedResults = ({
   backendSearchConfig,
   resultClass,
   page,
@@ -156,19 +23,20 @@ const getPaginatedData = ({
   let q = facetResultSetQuery
   const config = backendSearchConfig[resultClass]
   let endpoint
-  if (has(config, 'endpoint')) {
-    endpoint = config.endpoint
+  let defaultConstraint = null
+  if (has(config, 'perspectiveID')) {
+    ({ endpoint, defaultConstraint } = backendSearchConfig[config.perspectiveID])
   } else {
-    endpoint = backendSearchConfig[config.perspectiveID].endpoint
+    ({ endpoint, defaultConstraint } = config)
   }
-  if (constraints == null) {
+  if (constraints == null && defaultConstraint == null) {
     q = q.replace('<FILTER>', '# no filters')
   } else {
     q = q.replace('<FILTER>', generateConstraintsBlock({
       backendSearchConfig,
-      resultClass: resultClass,
-      facetClass: resultClass,
-      constraints: constraints,
+      facetClass: resultClass, // use resultClass as facetClass
+      constraints,
+      defaultConstraint,
       filterTarget: 'id',
       facetID: null
     }))
@@ -204,6 +72,103 @@ const getPaginatedData = ({
     endpoint: endpoint.url,
     useAuth: endpoint.useAuth,
     resultMapper: makeObjectList,
+    resultFormat
+  })
+}
+
+export const getAllResults = ({
+  backendSearchConfig,
+  resultClass,
+  facetClass,
+  uri,
+  constraints,
+  resultFormat,
+  optimize,
+  limit
+}) => {
+  const config = backendSearchConfig[resultClass]
+  let endpoint
+  let defaultConstraint = null
+  if (has(config, 'perspectiveID')) {
+    ({ endpoint, defaultConstraint } = backendSearchConfig[config.perspectiveID])
+  } else {
+    ({ endpoint, defaultConstraint } = config)
+  }
+  const { filterTarget, resultMapper } = config
+  let { q } = config
+  if (constraints == null && defaultConstraint == null) {
+    q = q.replace('<FILTER>', '# no filters')
+  } else {
+    q = q.replace('<FILTER>', generateConstraintsBlock({
+      backendSearchConfig,
+      facetClass,
+      constraints,
+      defaultConstraint,
+      filterTarget: filterTarget,
+      facetID: null
+    }))
+  }
+  q = q.replace(/<FACET_CLASS>/g, backendSearchConfig[config.perspectiveID].facetClass)
+  if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
+    return runNetworkQuery({
+      endpoint: endpoint.url,
+      prefixes: endpoint.prefixes,
+      id: uri,
+      links: q,
+      nodes: config.nodes,
+      optimize,
+      limit
+    })
+  } else {
+    if (uri !== null) {
+      q = q.replace('<ID>', `<${uri}>`)
+    }
+    // console.log(endpoint.prefixes + q)
+    return runSelectQuery({
+      query: endpoint.prefixes + q,
+      endpoint: endpoint.url,
+      useAuth: endpoint.useAuth,
+      resultMapper,
+      resultFormat
+    })
+  }
+}
+
+export const getResultCount = ({
+  backendSearchConfig,
+  resultClass,
+  constraints,
+  resultFormat
+}) => {
+  let q = countQuery
+  const config = backendSearchConfig[resultClass]
+  let endpoint
+  let defaultConstraint = null
+  if (has(config, 'perspectiveID')) {
+    ({ endpoint, defaultConstraint } = backendSearchConfig[config.perspectiveID])
+  } else {
+    ({ endpoint, defaultConstraint } = config)
+  }
+  if (constraints == null && defaultConstraint == null) {
+    q = q.replace('<FILTER>', '# no filters')
+  } else {
+    q = q.replace('<FILTER>', generateConstraintsBlock({
+      backendSearchConfig,
+      facetClass: resultClass, // use resultClass as facetClass
+      constraints,
+      defaultConstraint,
+      filterTarget: 'id',
+      facetID: null,
+      filterTripleFirst: true
+    }))
+  }
+  q = q.replace(/<FACET_CLASS>/g, config.facetClass)
+  // console.log(endpoint.prefixes + q)
+  return runSelectQuery({
+    query: endpoint.prefixes + q,
+    endpoint: endpoint.url,
+    useAuth: endpoint.useAuth,
+    resultMapper: mapCount,
     resultFormat
   })
 }
