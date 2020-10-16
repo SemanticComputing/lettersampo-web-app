@@ -105,6 +105,16 @@ export const INITIAL_STATE = {
       minWidth: 200
     },
     {
+      id: 'mentions',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: false,
+      sortValues: true,
+      numberedList: true,
+      minWidth: 150,
+      onlyOnInstancePage: true
+    },
+    {
       id: 'language',
       valueType: 'object',
       makeLink: false,
