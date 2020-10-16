@@ -385,7 +385,7 @@ export default {
     letters: {
       label: 'Letters',
       facetResultsType: 'letters',
-      shortDescription: 'Information about 160 000 letters',
+      shortDescription: 'Information about 20 000 letters',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: description.
@@ -470,6 +470,18 @@ export default {
           label: 'Receiver',
           description: `
           Receiver of the letter.
+          `
+        },
+        mentions: {
+          label: 'Mentions',
+          description: `
+          An actor mentioned in the letter.
+          `
+        },
+        store: {
+          label: 'Stored in',
+          description: `
+          A place where this letter is stored.
           `
         },
         tie: {

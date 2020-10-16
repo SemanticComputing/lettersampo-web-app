@@ -1,7 +1,6 @@
 import { sahaModel, sahaUrl } from './SparqlQueriesActors'
 import { delimiter } from './SparqlQueriesTies'
-//  TODO: eschema:cofk_union_relationship_type-mentions
-//  TODO: eschema:cofk_union_relationship_type-stored_in
+
 const perspectiveID = 'letters'
 const datasources = ` <http://emlo.bodleian.ox.ac.uk/id/source_Barlaeus%2C+Caspar> 
   <http://emlo.bodleian.ox.ac.uk/id/source_Beeckman%2C+Isaac>
@@ -157,6 +156,11 @@ UNION
 { ?id eschema:cofk_union_relationship_type-mentions ?mentions__id .
   ?mentions__id skos:prefLabel ?mentions__prefLabel .
   BIND(CONCAT("/actors/page/", REPLACE(STR(?mentions__id), "^.*\\\\/(.+)", "$1")) AS ?mentions__dataProviderUrl)
+}
+UNION
+{ ?id eschema:cofk_union_relationship_type-stored_in ?store__id .
+  ?store__id skos:prefLabel ?store__prefLabel .
+  BIND(CONCAT("/places/page/", REPLACE(STR(?store__id), "^.*\\\\/(.+)", "$1")) AS ?store__dataProviderUrl)
 }
 UNION
 { ?id eschema:source ?datasource__id .
