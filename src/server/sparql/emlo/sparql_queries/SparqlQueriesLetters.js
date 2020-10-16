@@ -1,11 +1,26 @@
 import { sahaModel, sahaUrl } from './SparqlQueriesActors'
 import { delimiter } from './SparqlQueriesTies'
+//  TODO: eschema:cofk_union_relationship_type-mentions
+//  TODO: eschema:cofk_union_relationship_type-stored_in
 const perspectiveID = 'letters'
+const datasources = ` <http://emlo.bodleian.ox.ac.uk/id/source_Barlaeus%2C+Caspar> 
+  <http://emlo.bodleian.ox.ac.uk/id/source_Beeckman%2C+Isaac>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Descartes%2C+Ren%C3%A9>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Groot%2C+Hugo+de>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Huygens%2C+Christiaan>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Huygens%2C+Constantijn>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Leeuwenhoek%2C+Antoni+van>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Nierop%2C+Dirck+Rembrantsz+van>
+  <http://emlo.bodleian.ox.ac.uk/id/source_Swammerdam%2C+Jan> `
 
+//  162357
 export const letterProperties = `
 BIND(?id as ?uri__id)
 BIND(STR(?id) as ?uri__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
+
+VALUES ?datasource__id {${datasources}}
+?id eschema:source ?datasource__id .
 
 {
   ?id skos:prefLabel ?prefLabel__id .
@@ -138,7 +153,12 @@ UNION
   ?subject__id skos:prefLabel ?subject__prefLabel .
   BIND (?subject__id AS ?subject__dataProviderUrl)
 }
-UNION 
+UNION
+{ ?id eschema:cofk_union_relationship_type-mentions ?mentions__id .
+  ?mentions__id skos:prefLabel ?mentions__prefLabel .
+  BIND(CONCAT("/actors/page/", REPLACE(STR(?mentions__id), "^.*\\\\/(.+)", "$1")) AS ?mentions__dataProviderUrl)
+}
+UNION
 { ?id eschema:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND (?datasource__id AS ?datasource__dataProviderUrl)
