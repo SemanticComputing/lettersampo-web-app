@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import intl from 'react-intl-universal'
 import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
@@ -7,7 +8,6 @@ import Export from '../../facet_results/Export'
 import ApexChart from '../../facet_results/ApexChart'
 import { createSingleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Deck from '../../facet_results/Deck'
-import MigrationsMapLegend from '../emlo/MigrationsMapLegend'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../../configs/emlo/GeneralConfig'
 
 const Letters = props => {
@@ -49,8 +49,16 @@ const Letters = props => {
             facetClass='letters'
             fetchResults={props.fetchResults}
             fetching={props.placesResults.fetching}
-            legendComponent={<MigrationsMapLegend />}
             layerType='arcLayer'
+            fromText={intl.get('deckGlMap.letterMigrations.from')}
+            toText={intl.get('deckGlMap.letterMigrations.to')}
+            legendTitle={intl.get('deckGlMap.letterMigrations.legendTitle')}
+            legendFromText={intl.get('deckGlMap.letterMigrations.legendFrom')}
+            legendToText={intl.get('deckGlMap.letterMigrations.legendTo')}
+            showMoreText={intl.get('deckGlMap.showMoreInformation')}
+            listHeadingSingleInstance={intl.get('deckGlMap.letterMigrations.listHeadingSingleInstance')}
+            listHeadingMultipleInstances={intl.get('deckGlMap.letterMigrations.listHeadingMultipleInstances')}
+            showTooltips
             mapBoxAccessToken={MAPBOX_ACCESS_TOKEN}
             mapBoxStyle={MAPBOX_STYLE}
           />}

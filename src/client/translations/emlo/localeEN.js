@@ -50,7 +50,35 @@ export default {
     doNotSelectSubconcepts: 'Do not select subconcepts',
     sortingOptions: 'Sorting options',
     sortAlphabetically: 'Sort alphabetically',
-    sortByNumberOfSearchResults: 'Sort by number of search results'
+    sortByNumberOfSearchResults: 'Sort by number of search results',
+    useDisjunction: 'Use logical OR between selections',
+    useConjuction: 'Use logical AND between selections',
+    minYear: 'Min year',
+    maxYear: 'Max year',
+    min: 'Min',
+    max: 'Max',
+    applyFacetSelection: 'apply',
+    pieChart: {
+      tooltip: 'Pie chart'
+    },
+    barChart: {
+      tooltip: 'Bar chart',
+      language: {
+        title: 'Language',
+        xaxisTitle: 'Language',
+        yaxisTitle: 'Manuscript count',
+        seriesTitle: 'Manuscript count'
+      }
+    },
+    lineChart: {
+      tooltip: 'Line chart',
+      productionTimespan: {
+        title: 'Manuscript production by decade',
+        xaxisTitle: 'Decade',
+        yaxisTitle: 'Manuscript count',
+        seriesTitle: 'Manuscript count'
+      }
+    }
   },
   tabs: {
     table: 'table',
@@ -150,6 +178,28 @@ export default {
         to create the MMM record.
       </p>
     `
+  },
+  deckGlMap: {
+    arcColouring: 'Arc colouring:',
+    showMoreInformation: 'Click to show more information.',
+    manuscriptMigrations: {
+      legendTitle: 'Arc colouring',
+      legendFrom: 'Manuscript production place',
+      legendTo: 'Last known location',
+      from: 'Production place:',
+      to: 'Last known location:',
+      listHeadingSingleInstance: 'Manuscript:',
+      listHeadingMultipleInstances: 'Manuscripts:'
+    },
+    letterMigrations: {
+      legendTitle: 'Arc colouring',
+      legendFrom: 'Place of sending',
+      legendTo: 'Place of receiving',
+      from: 'Place of sending:',
+      to: 'Place of receiving:',
+      listHeadingSingleInstance: 'Letter:',
+      listHeadingMultipleInstances: 'Letters:'
+    }
   },
   perspectives: {
     actors: {
