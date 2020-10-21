@@ -15,10 +15,8 @@ export const actorPropertiesInstancePage = `
   BIND(?id as ?uri__prefLabel)
   BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
   
-  VALUES (?type__id ?type__prefLabel) { 
-    (crm:E21_Person "Person")
-    (crm:E74_Group "Group") }
   ?id a ?type__id .
+  ?type__id skos:prefLabel ?type__prefLabel .
   BIND (?type__id as ?type_dataProviderUrl)
   
   ?id skos:prefLabel ?prefLabel__id .
@@ -26,17 +24,15 @@ export const actorPropertiesInstancePage = `
   
   {
     ?id foaf:gender ?gender . 
-    VALUES (?gender ?gender__prefLabel) { 
-      (sdmx-code:sex-M "Male") 
-      (sdmx-code:sex-F "Female") 
-    }
+    ?gender skos:prefLabel ?gender__prefLabel .
     BIND(?gender as ?gender__dataProviderUrl)
   }
   UNION 
   { ?id skos:altLabel ?altLabel }
   UNION
   { ?id eschema:cofk_union_relationship_type-is_related_to ?related__id . 
-    ?related__id skos:prefLabel ?related__prefLabel .
+    # ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(?related__id AS ?related__prefLabel)
     BIND(?related__id AS ?related__dataProviderUrl)
   }
   UNION
@@ -151,6 +147,13 @@ export const actorPropertiesInstancePage = `
     OPTIONAL { ?receivedletter__id (crm:P4_has_time-span|eschema:inferredDate|eschema:approximateDate|eschema:possibleDate)/crm:P82a_begin_of_the_begin ?time }
     } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?receivedletter__prefLabel))
   }
+  UNION
+  {
+    ?id sch:image ?image__id ;
+      skos:prefLabel ?image__description ;
+      skos:prefLabel ?image__title .
+    BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
+  }
 `
 
 export const actorPropertiesFacetResults =
@@ -159,10 +162,8 @@ export const actorPropertiesFacetResults =
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)
 
-  VALUES (?type__id ?type__prefLabel) { 
-    (crm:E21_Person "Person")
-    (crm:E74_Group "Group") }
   ?id a ?type__id .
+  ?type__id skos:prefLabel ?type__prefLabel .
   BIND (?type__id as ?type_dataProviderUrl)
   
   {
@@ -213,11 +214,15 @@ export const actorPropertiesFacetResults =
   UNION
   {
     ?id foaf:gender ?gender__id . 
-    VALUES (?gender__id ?gender__prefLabel) { 
-      (sdmx-code:sex-M "Male" ) 
-      (sdmx-code:sex-F "Female" ) 
-    }
+    ?gender__id skos:prefLabel ?gender__prefLabel .
     BIND(?gender__id as ?gender__dataProviderUrl)
+  }
+  UNION
+  {
+    ?id sch:image ?image__id ;
+      skos:prefLabel ?image__description ;
+      skos:prefLabel ?image__title .
+    BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
   }
 `
 

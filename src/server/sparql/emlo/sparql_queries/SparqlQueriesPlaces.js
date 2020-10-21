@@ -7,7 +7,7 @@ BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
 
-{ 
+{
   SELECT ?id ?prefLabel__id ?prefLabel__prefLabel WHERE {
   ?id (rdfs:label|skos:prefLabel) ?prefLabel__id .
    BIND (?prefLabel__id as ?prefLabel__prefLabel)
@@ -43,7 +43,8 @@ UNION
 }
 UNION
 { ?id eschema:cofk_union_relationship_type-is_related_to ?external__id . 
-  ?external__id skos:prefLabel ?external__prefLabel .
+  # ?external__id skos:prefLabel ?external__prefLabel .
+  BIND(?external__id AS ?external__prefLabel)
   BIND(?external__id AS ?external__dataProviderUrl)
 }
 UNION
@@ -80,7 +81,14 @@ UNION
   ?id geo:lat ?lat ; geo:long ?long .
   BIND (CONCAT('lat ', STR(?lat), ', long ',STR(?long)) as ?location__prefLabel)
   BIND (?location__prefLabel AS ?location__id)
-} 
+}
+UNION
+{
+  ?id sch:image ?image__id ;
+    skos:prefLabel ?image__description ;
+    skos:prefLabel ?image__title .
+  BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
+}
 `
 
 export const placePropertiesFacetResults = `
@@ -116,6 +124,13 @@ UNION
   ?narrower__id crm:P89_falls_within ?id ;
     skos:prefLabel ?narrower__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
+}
+UNION
+{
+  ?id sch:image ?image__id ;
+    skos:prefLabel ?image__description ;
+    skos:prefLabel ?image__title .
+  BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
 }
 `
 

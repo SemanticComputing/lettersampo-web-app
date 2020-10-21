@@ -211,6 +211,12 @@ export default {
           label: 'Gender',
           description: 'The gender of a person.'
         },
+        image: {
+          label: 'Image',
+          description: `
+            A possible image of the person. Source: Wikimedia Commons.
+          `
+        },
         type: {
           label: 'Type',
           description: 'The type is a Person or a Group.'
@@ -622,6 +628,12 @@ export default {
           label: 'Received letters',
           description: `
           Letters sent to this place.
+          `
+        },
+        image: {
+          label: 'Image',
+          description: `
+            A possible image of the person. Source: Wikimedia Commons.
           `
         },
         source: {

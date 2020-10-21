@@ -40,6 +40,17 @@ export const INITIAL_STATE = {
       minWidth: 300
     },
     {
+      id: 'image',
+      valueType: 'image',
+      previewImageHeight: 160,
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 120,
+      hideHeader: false
+    },
+    {
       id: 'gender',
       valueType: 'object',
       makeLink: false,
