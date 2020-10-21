@@ -58,7 +58,7 @@ docker run -d -p 3006:3001 --name sampo-web-app sampo-web-app-image
 
  ### Coding style
 
-The [JavaScript style guide, linter, and formatter](https://standardjs.com) module (named "standard" in package.json) is installed by default as development dependency. Do not install or create any additional style definitions or configurations. Instead, install an appropriate [plugin](https://standardjs.com/index.html#are-there-text-editor-plugins) for your text editor. If there are no plugins  available for your favourite editor, it is highly recommended to switch into a supported editor. 
+The [JavaScript style guide, linter, and formatter](https://standardjs.com) module (named "standard" in package.json) is installed by default as development dependency. Do not install or create any additional style definitions or configurations. Instead, install an appropriate [plugin](https://standardjs.com/index.html#are-there-text-editor-plugins) for your text editor. If there are no plugins  available for your favorite editor, it is highly recommended to switch into a supported editor. 
 
 ### Configuration and folder structure
 
@@ -148,37 +148,3 @@ Sampo-UI's backend is based on the following JavaScript libraries:
 * [axios &ndash; Promise based HTTP client for the browser and Node.js](https://github.com/axios/axios)
 * [Lodash &ndash; A modern JavaScript utility library delivering modularity, performance & extras](https://lodash.com/)
 
-## Extra: forking into the same organization account
-
-In GitHub it's not possible to fork an organization's repository to that same organization. If a new repository needs to be created
-using the *SemanticComputing* organization account, here is an alternative workflow for forking:
-
-1. Clone this repository:
-`git clone git@github.com:SemanticComputing/sampo-ui.git`
-
-2. Set up a new GitHub repository. Do not initialize it with anything. It needs to be an empty repository.
-You can name it how you like and you can rename your local folder to match that.
-
-3. Copy the url of your new repository.
-
-4. With terminal go to the folder with the clone of this repository (sampo-web-app).
-
-5. Change remote origin from sampo-web-app to your new repository:
-`git remote set-url origin [your new github repo here]`
-
-6. Check that the origin changed to your new repository:
-`git remote -v`
-
-7. Push your local clone of sampo-web-app to your new repository:
-`git push`
-
-8. Set the original repository (sampo-web-app) as the upstream of your new repository:
-`git remote add upstream git@github.com:SemanticComputing/sampo-ui.git`
-
-9. When new commits appear on the original repository (sampo-web-app) you can fetch them to your new repository.
-The example fetches only master branch:
-`git fetch upstream master`
-
-10. Go to the branch of your new repository where you want to merge the changes in upstream.
-Merge, solve conflicts and enjoy:
-`git merge upstream/master`

@@ -154,13 +154,14 @@ class FacetBar extends React.Component {
           <SliderFacet
             facetID={facetID}
             facet={facet}
+            facetFilter={facet.timespanFilter}
             facetClass={this.props.facetClass}
-            resultClass={this.props.resultClass}
-            facetUpdateID={facetUpdateID}
             fetchFacet={this.props.fetchFacet}
             someFacetIsFetching={someFacetIsFetching}
             updateFacetOption={this.props.updateFacetOption}
             dataType='ISOString'
+            minLabel={intl.get('facetBar.minYear')}
+            maxLabel={intl.get('facetBar.maxYear')}
           />
         )
         break
@@ -183,13 +184,14 @@ class FacetBar extends React.Component {
           <SliderFacet
             facetID={facetID}
             facet={facet}
+            facetFilter={facet.integerFilter}
             facetClass={this.props.facetClass}
-            resultClass={this.props.resultClass}
-            facetUpdateID={facetUpdateID}
             fetchFacet={this.props.fetchFacet}
             someFacetIsFetching={someFacetIsFetching}
             updateFacetOption={this.props.updateFacetOption}
             dataType='integer'
+            minLabel={intl.get('facetBar.min')}
+            maxLabel={intl.get('facetBar.max')}
           />
         )
         break
