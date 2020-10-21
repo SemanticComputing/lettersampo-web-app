@@ -7,6 +7,7 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 export const lettersConfig = {
   endpoint: {
     url: 'http://ldf.fi/emlo/sparql',
+    //  url: 'http://localhost:3030/sparl/sparql',
     prefixes,
     useAuth: true
   },

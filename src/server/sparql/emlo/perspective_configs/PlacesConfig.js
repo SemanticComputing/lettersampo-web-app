@@ -7,6 +7,7 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 export const placesConfig = {
   endpoint: {
     url: 'http://ldf.fi/emlo/sparql',
+    //  url: 'http://localhost:3030/sparl/sparql',
     prefixes,
     useAuth: true
   },
@@ -28,11 +29,7 @@ export const placesConfig = {
     },
     type: {
       predicate: 'a',
-      facetValueFilter: `
-        FILTER(?id NOT IN (
-          <http://ldf.fi/mmm/schema/PlaceNationality>
-        ))  
-      `,
+      facetValueFilter: '',
       type: 'list',
       labelPath: 'a/(skos:prefLabel|rdfs:label)'
     },

@@ -15,13 +15,15 @@ export const actorPropertiesInstancePage = `
   BIND(?id as ?uri__prefLabel)
   BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
   
-  ?id a ?type__id .
-  ?type__id skos:prefLabel ?type__prefLabel .
-  BIND (?type__id as ?type_dataProviderUrl)
-  
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
-  
+
+  {
+    ?id a ?type__id .
+    ?type__id skos:prefLabel ?type__prefLabel .
+    BIND (?type__id as ?type_dataProviderUrl)
+  }
+  UNION
   {
     ?id foaf:gender ?gender . 
     ?gender skos:prefLabel ?gender__prefLabel .
@@ -162,10 +164,12 @@ export const actorPropertiesFacetResults =
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)
 
+  {
   ?id a ?type__id .
   ?type__id skos:prefLabel ?type__prefLabel .
   BIND (?type__id as ?type_dataProviderUrl)
-  
+  }
+  UNION
   {
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
