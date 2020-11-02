@@ -58,15 +58,6 @@ export const INITIAL_STATE = {
       minWidth: 200
     },
     {
-      id: 'description',
-      valueType: 'object',
-      makeLink: false,
-      externalLink: false,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 400
-    },
-    {
       id: 'productionTimespan',
       valueType: 'object',
       makeLink: false,
@@ -134,15 +125,6 @@ export const INITIAL_STATE = {
       minWidth: 150
     },
     {
-      id: 'subject',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
       id: 'related',
       valueType: 'object',
       makeLink: true,
@@ -155,15 +137,6 @@ export const INITIAL_STATE = {
     },
     {
       id: 'datasource',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 150
-    },
-    {
-      id: 'excipit',
       valueType: 'object',
       makeLink: true,
       externalLink: true,

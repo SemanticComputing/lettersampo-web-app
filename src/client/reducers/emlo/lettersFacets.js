@@ -102,7 +102,7 @@ export const INITIAL_STATE = {
       timespanFilter: null,
       type: 'timespan',
       priority: 6
-    },
+    }, /**
     language: {
       id: 'language',
       // predicate: defined in backend
@@ -135,7 +135,7 @@ export const INITIAL_STATE = {
       filterType: 'uriFilter',
       uriFilter: null,
       priority: 3
-    },
+    }, */
     datasource: {
       id: 'datasource',
       distinctValueCount: 0,

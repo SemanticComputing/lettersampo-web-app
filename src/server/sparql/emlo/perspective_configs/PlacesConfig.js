@@ -6,8 +6,7 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const placesConfig = {
   endpoint: {
-    url: 'http://ldf.fi/emlo/sparql',
-    //  url: 'http://localhost:3030/sparl/sparql',
+    url: 'http://ldf.fi/ckcc/sparql',
     prefixes,
     useAuth: true
   },
@@ -35,7 +34,7 @@ export const placesConfig = {
     },
     country: {
       id: 'country',
-      facetValueFilter: 'FILTER EXISTS { ?id a eschema:Country }',
+      facetValueFilter: 'FILTER EXISTS { ?id a ckccs:Country }',
       label: 'Country',
       labelPath: 'crm:P89_falls_within+/skos:prefLabel',
       predicate: 'crm:P89_falls_within+',

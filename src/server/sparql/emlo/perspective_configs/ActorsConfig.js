@@ -6,8 +6,7 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const actorsConfig = {
   endpoint: {
-    url: 'http://ldf.fi/emlo/sparql',
-    //  url: 'http://localhost:3030/sparl/sparql',
+    url: 'http://ldf.fi/ckcc/sparql',
     prefixes,
     useAuth: true
   },
@@ -46,9 +45,9 @@ export const actorsConfig = {
     birthDateTimespan: {
       id: 'birthDateTimespan',
       facetValueFilter: '',
-      sortByAscPredicate: 'eschema:birthDate/crm:P82a_begin_of_the_begin',
-      sortByDescPredicate: 'eschema:birthDate/crm:P82b_end_of_the_end',
-      predicate: 'eschema:birthDate',
+      sortByAscPredicate: 'ckccs:birthDate/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: 'ckccs:birthDate/crm:P82b_end_of_the_end',
+      predicate: 'ckccs:birthDate',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
       dataType: 'xsd:dateTime',
@@ -57,9 +56,9 @@ export const actorsConfig = {
     deathDateTimespan: {
       id: 'deathDateTimespan',
       facetValueFilter: '',
-      sortByAscPredicate: 'eschema:deathDate/crm:P82a_begin_of_the_begin',
-      sortByDescPredicate: 'eschema:deathDate/crm:P82b_end_of_the_end',
-      predicate: 'eschema:deathDate',
+      sortByAscPredicate: 'ckccs:deathDate/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: 'ckccs:deathDate/crm:P82b_end_of_the_end',
+      predicate: 'ckccs:deathDate',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
       dataType: 'xsd:dateTime',
@@ -68,24 +67,22 @@ export const actorsConfig = {
     num_sent: {
       orderByPattern: `
         {
-          SELECT ?id (COUNT(DISTINCT ?letter) AS ?orderBy)
+          SELECT ?id ?orderBy
           WHERE {
             VALUES ?facetClass { <FACET_CLASS> }
-            ?id a ?facetClass .
-            OPTIONAL { ?id eschema:cofk_union_relationship_type-created ?letter }
-          } GROUP BY ?id
+            ?id a ?facetClass ; ckccs:outdegree ?orderBy
+          } 
         }
       `
     },
     num_received: {
       orderByPattern: `
         {
-          SELECT ?id (COUNT(DISTINCT ?letter) AS ?orderBy)
+          SELECT ?id ?orderBy
           WHERE {
             VALUES ?facetClass { <FACET_CLASS> }
-            ?id a ?facetClass .
-            OPTIONAL { ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id }
-          } GROUP BY ?id
+            ?id a ?facetClass ; ckccs:indegree ?orderBy
+          } 
         }
       `
     }

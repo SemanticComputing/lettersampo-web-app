@@ -6,26 +6,12 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const lettersConfig = {
   endpoint: {
-    url: 'http://ldf.fi/emlo/sparql',
-    //  url: 'http://localhost:3030/sparl/sparql',
+    url: 'http://ldf.fi/ckcc/sparql',
     prefixes,
     useAuth: true
   },
-  facetClass: 'eschema:Letter',
-  defaultConstraint: `
-    VALUES ?source {
-      <http://emlo.bodleian.ox.ac.uk/id/source_Barlaeus%2C+Caspar>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Beeckman%2C+Isaac>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Descartes%2C+Ren%C3%A9>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Groot%2C+Hugo+de>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Huygens%2C+Christiaan>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Huygens%2C+Constantijn>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Leeuwenhoek%2C+Antoni+van>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Nierop%2C+Dirck+Rembrantsz+van>
-      <http://emlo.bodleian.ox.ac.uk/id/source_Swammerdam%2C+Jan>
-    }
-    <SUBJECT> eschema:source ?source .
-  `,
+  facetClass: 'ckccs:Letter',
+  defaultConstraint: '',
   paginatedResults: {
     properties: letterProperties
   },
@@ -44,15 +30,15 @@ export const lettersConfig = {
     source: {
       id: 'source',
       facetValueFilter: '',
-      labelPath: '^eschema:cofk_union_relationship_type-created/skos:prefLabel',
-      predicate: '^eschema:cofk_union_relationship_type-created',
+      labelPath: '^ckccs:created/skos:prefLabel',
+      predicate: '^ckccs:created',
       type: 'list'
     },
     target: {
       id: 'target',
       facetValueFilter: '',
-      labelPath: 'eschema:cofk_union_relationship_type-was_addressed_to/skos:prefLabel',
-      predicate: 'eschema:cofk_union_relationship_type-was_addressed_to',
+      labelPath: 'ckccs:was_addressed_to/skos:prefLabel',
+      predicate: 'ckccs:was_addressed_to',
       type: 'list'
     },
     description: {
@@ -61,18 +47,18 @@ export const lettersConfig = {
     from: {
       id: 'from',
       facetValueFilter: '',
-      labelPath: 'eschema:cofk_union_relationship_type-was_sent_from/skos:prefLabel',
-      predicate: 'eschema:cofk_union_relationship_type-was_sent_from',
+      labelPath: 'ckccs:was_sent_from/skos:prefLabel',
+      predicate: 'ckccs:was_sent_from',
       // parentProperty: 'crm:P89_falls_within',
-      // parentPredicate: 'eschema:cofk_union_relationship_type-was_sent_from/crm:P89_falls_within+',
+      // parentPredicate: 'ckccs:was_sent_from/crm:P89_falls_within+',
       // type: 'hierarchical'
       type: 'list'
     },
     to: {
       id: 'to',
       facetValueFilter: '',
-      labelPath: 'eschema:cofk_union_relationship_type-was_sent_to/skos:prefLabel',
-      predicate: 'eschema:cofk_union_relationship_type-was_sent_to',
+      labelPath: 'ckccs:was_sent_to/skos:prefLabel',
+      predicate: 'ckccs:was_sent_to',
       type: 'list'
     },
     productionTimespan: {
@@ -106,16 +92,16 @@ export const lettersConfig = {
       id: 'datasource',
       facetValueFilter: '',
       label: 'Data Source',
-      labelPath: 'eschema:source/skos:prefLabel',
-      predicate: 'eschema:source',
+      labelPath: 'ckccs:source/skos:prefLabel',
+      predicate: 'ckccs:source',
       type: 'list'
     },
     excipit: {
       id: 'excipit',
       facetValueFilter: '',
       label: 'Excipit',
-      labelPath: 'eschema:excipit/skos:prefLabel',
-      predicate: 'eschema:excipit',
+      labelPath: 'ckccs:excipit/skos:prefLabel',
+      predicate: 'ckccs:excipit',
       type: 'list'
     }
   }

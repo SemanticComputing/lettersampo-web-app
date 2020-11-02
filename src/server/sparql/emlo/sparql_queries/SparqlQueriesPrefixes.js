@@ -3,10 +3,12 @@ PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX eschema: <http://emlo.bodleian.ox.ac.uk/schema#>
 PREFIX emlo_id: <http://emlo.bodleian.ox.ac.uk/id/>
+PREFIX actors: <http://ldf.fi/ckcc/actors/>
+PREFIX letters: <http://ldf.fi/ckcc/letters/>
+PREFIX places: <http://ldf.fi/ckcc/places/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX mmm-schema: <http://ldf.fi/schema/mmm/>
 PREFIX spatial: <http://jena.apache.org/spatial#>
 PREFIX sch: <http://schema.org/>
 PREFIX sdmx-code: <http://purl.org/linked-data/sdmx/2009/code#>
@@ -16,4 +18,6 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX text: <http://jena.apache.org/text#>
 PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ckccs: <http://ldf.fi/schema/ckcc/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> 
 `

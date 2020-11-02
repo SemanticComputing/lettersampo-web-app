@@ -4,7 +4,7 @@ export default {
     short: 'LetterSampo',
     long: ' &nbsp; &nbsp; LetterSampo  &nbsp; &nbsp;',
     subheading: `
-      Republic of Letters
+      ePistolarium
     `
   },
   appDescription: `
@@ -26,7 +26,7 @@ export default {
   
   `,
   selectPerspective: 'Select a perspective to search and browse the knowledge graph:',
-  mainPageImageLicence: 'Images used under license from Shutterstock.com',
+  mainPageImageLicence: 'Images used under license from Wikimedia Commons',
   topBar: {
     feedback: 'feedback',
     info: {
@@ -205,7 +205,7 @@ export default {
     actors: {
       label: 'Actors',
       facetResultsType: 'actors',
-      shortDescription: 'Collection of 34 000 people or groups of people',
+      shortDescription: 'Collection of 2600 people or groups of people',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to physical manuscript objects.
@@ -523,9 +523,9 @@ export default {
           `
         },
         target: {
-          label: 'Receiver',
+          label: 'Recipient',
           description: `
-          Receiver of the letter.
+          Recipient of the letter.
           `
         },
         mentions: {
@@ -543,7 +543,7 @@ export default {
         tie: {
           label: 'Correspondence',
           description: `
-          Correspondence of all letters between the sender and the receiver.
+          Correspondence of all letters between the sender and the recipient.
           `
         },
         from: {
@@ -569,7 +569,7 @@ export default {
     places: {
       label: 'Places',
       facetResultsType: 'Places',
-      shortDescription: '8200 towns, cities, or countries',
+      shortDescription: '800 towns, cities, or countries',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to events associated with the
@@ -734,7 +734,7 @@ export default {
         other: {
           label: 'Related people',
           description: `
-          People who have been in correspondence with both the sender and the receiver.
+          People who have been in correspondence with both the sender and the recipient.
           `
         }
       }

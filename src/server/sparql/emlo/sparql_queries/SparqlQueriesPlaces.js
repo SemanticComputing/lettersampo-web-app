@@ -1,24 +1,22 @@
-import { sahaModel, sahaUrl } from './SparqlQueriesActors'
 const perspectiveID = 'places'
 
 // TODO add migrations from the place
 export const placePropertiesInstancePage = `
+
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
-BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
+BIND(?id as ?uri__dataProviderUrl)
 
 {
-  SELECT ?id ?prefLabel__id ?prefLabel__prefLabel WHERE {
-  ?id (rdfs:label|skos:prefLabel) ?prefLabel__id .
-   BIND (?prefLabel__id as ?prefLabel__prefLabel)
-   } LIMIT 1
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
 }
 UNION
 {
   VALUES (?type__id ?type__prefLabel) { 
     (crm:E53_Place "Place")
-    (eschema:City "City")
-    (eschema:Country "Country")
+    (ckccs:City "City")
+    (ckccs:Country "Country")
   }
   ?id a ?type__id .
   BIND (?type__id as ?type_dataProviderUrl)
@@ -29,7 +27,7 @@ UNION
   ?broader__id skos:prefLabel ?broader__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
   OPTIONAL {
-    ?broader__id a eschema:Country .
+    ?broader__id a ckccs:Country .
     BIND (?broader__id AS ?country__id)
     ?broader__id skos:prefLabel ?country__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?country__dataProviderUrl)
@@ -42,7 +40,7 @@ UNION
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
 }
 UNION
-{ ?id eschema:cofk_union_relationship_type-is_related_to ?external__id . 
+{ ?id ckccs:is_related_to ?external__id . 
   # ?external__id skos:prefLabel ?external__prefLabel .
   BIND(?external__id AS ?external__prefLabel)
   BIND(?external__id AS ?external__dataProviderUrl)
@@ -54,23 +52,23 @@ UNION
 }
 UNION
 {
-  ?id ^eschema:cofk_union_relationship_type-was_sent_from ?from__id .
+  ?id ^ckccs:was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
 } 
 UNION
 {
-  ?id ^eschema:cofk_union_relationship_type-was_sent_from ?to__id .
+  ?id ^ckccs:was_sent_from ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
 UNION {
   {
-    ?id ^eschema:cofk_union_relationship_type-was_sent_from/^eschema:cofk_union_relationship_type-created ?related__id 
+    ?id ^ckccs:was_sent_from/^ckccs:created ?related__id 
   } 
   UNION 
   {
-    ?id ^eschema:cofk_union_relationship_type-was_sent_from/eschema:cofk_union_relationship_type-was_addressed_to ?related__id 
+    ?id ^ckccs:was_sent_from/ckccs:was_addressed_to ?related__id 
   }
   FILTER (BOUND(?related__id))
   ?related__id skos:prefLabel ?related__prefLabel .
@@ -87,19 +85,19 @@ UNION
   ?id sch:image ?image__id ;
     skos:prefLabel ?image__description ;
     skos:prefLabel ?image__title .
-  BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
+  BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
 }
 `
 
 export const placePropertiesFacetResults = `
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
-BIND(CONCAT(${sahaUrl}, STR(?id), ${sahaModel}) AS ?uri__dataProviderUrl)
+BIND(?id as ?uri__dataProviderUrl)
 
 VALUES (?type__id ?type__prefLabel) { 
   (crm:E53_Place "Place")
-  (eschema:City "City")
-  (eschema:Country "Country")
+  (ckccs:City "City")
+  (ckccs:Country "Country")
 }
 ?id a ?type__id .
 BIND (?type__id as ?type_dataProviderUrl)
@@ -113,7 +111,7 @@ BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) 
   ?broader__id skos:prefLabel ?broader__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
   OPTIONAL {
-    ?broader__id a eschema:Country .
+    ?broader__id a ckccs:Country .
     BIND (?broader__id AS ?country__id)
     ?broader__id skos:prefLabel ?country__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?country__dataProviderUrl)
@@ -156,9 +154,9 @@ export const placePropertiesInfoWindow = `
 export const peopleRelatedTo = `
   OPTIONAL {
     <FILTER>
-    { ?related__id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_sent_from ?id }
+    { ?related__id ckccs:created/ckccs:was_sent_from ?id }
     UNION
-    { ?related__id ^eschema:cofk_union_relationship_type-was_addressed_to/eschema:cofk_union_relationship_type-was_sent_to ?id }
+    { ?related__id ^ckccs:was_addressed_to/ckccs:was_sent_to ?id }
     ?related__id skos:prefLabel ?related__prefLabel .
     BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   } 
@@ -175,15 +173,15 @@ WHERE {
   BIND(<ID> as ?id)
   ?sub crm:P89_falls_within* ?id .
   {
-    ?sent_letter eschema:cofk_union_relationship_type-was_sent_from ?sub ;
-      a eschema:Letter ;
+    ?sent_letter ckccs:was_sent_from ?sub ;
+      a ckccs:Letter ;
       crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time .
   BIND (STR(year(?time)) AS ?year)
   } 
   UNION 
   {
-    ?received_letter eschema:cofk_union_relationship_type-was_sent_to ?sub ;
-                     a eschema:Letter ;
+    ?received_letter ckccs:was_sent_to ?sub ;
+                     a ckccs:Letter ;
                     crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time .
   BIND (STR(year(?time)) AS ?year)
   }

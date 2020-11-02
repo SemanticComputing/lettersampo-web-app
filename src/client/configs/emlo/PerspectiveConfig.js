@@ -17,6 +17,46 @@ import placesImage from '../../img/main_page/places2-452x262.jpg'
 
 export const perspectiveConfig = [
   {
+    id: 'letters',
+    frontPageImage: worksImage,
+    perspectiveDescHeight: 160,
+    defaultActiveFacets: new Set(['prefLabel']),
+    tabs: [
+      {
+        id: 'table',
+        value: 0,
+        icon: <CalendarViewDayIcon />
+      },
+      {
+        id: 'migrations',
+        value: 1,
+        icon: <RedoIcon />
+      },
+      {
+        id: 'by_year',
+        value: 2,
+        icon: <LineChartIcon />
+      },
+      {
+        id: 'export',
+        value: 3,
+        icon: <CloudDownloadIcon />
+      }
+    ],
+    instancePageTabs: [
+      {
+        id: 'table',
+        value: 0,
+        icon: <CalendarViewDayIcon />
+      },
+      {
+        id: 'export',
+        value: 1,
+        icon: <CloudDownloadIcon />
+      }
+    ]
+  },
+  {
     id: 'actors',
     frontPageImage: actorImage,
     perspectiveDescHeight: 160,
@@ -57,46 +97,6 @@ export const perspectiveConfig = [
       {
         id: 'export',
         value: 3,
-        icon: <CloudDownloadIcon />
-      }
-    ]
-  },
-  {
-    id: 'letters',
-    frontPageImage: worksImage,
-    perspectiveDescHeight: 160,
-    defaultActiveFacets: new Set(['prefLabel']),
-    tabs: [
-      {
-        id: 'table',
-        value: 0,
-        icon: <CalendarViewDayIcon />
-      },
-      {
-        id: 'migrations',
-        value: 1,
-        icon: <RedoIcon />
-      },
-      {
-        id: 'by_year',
-        value: 2,
-        icon: <LineChartIcon />
-      },
-      {
-        id: 'export',
-        value: 3,
-        icon: <CloudDownloadIcon />
-      }
-    ],
-    instancePageTabs: [
-      {
-        id: 'table',
-        value: 0,
-        icon: <CalendarViewDayIcon />
-      },
-      {
-        id: 'export',
-        value: 1,
         icon: <CloudDownloadIcon />
       }
     ]

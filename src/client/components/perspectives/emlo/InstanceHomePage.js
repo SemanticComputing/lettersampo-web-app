@@ -69,18 +69,18 @@ class InstanceHomePage extends React.Component {
     this.setState({ localID: localID })
     switch (this.props.resultClass) {
       case 'actors':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${encodeURIComponent(localID)}`
+        uri = `http://ldf.fi/ckcc/actors/${encodeURIComponent(localID)}`
         break
       case 'letters':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
+        uri = `http://ldf.fi/ckcc/letters/${localID}`
         break
       case 'places':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${encodeURIComponent(localID)}`
+        uri = `http://ldf.fi/ckcc/places/${encodeURIComponent(localID)}`
         // uri = uri.replace(`'`, `%27`)
         // console.log(uri)
         break
       case 'ties':
-        uri = `http://emlo.bodleian.ox.ac.uk/id/${localID}`
+        uri = `http://ldf.fi/ckcc/actors/${localID}`
         break
     }
     this.props.fetchByURI({

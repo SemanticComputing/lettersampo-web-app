@@ -8,7 +8,7 @@ export const delimiter = '__'
 //  TODO: fix node links, e.g. copy and change url in networkNodesQuery
 export const tiePropertiesInstancePage = `
 BIND (URI(STRBEFORE(STR(?id),'${delimiter}')) AS ?ego__id)
-BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)
+BIND (URI(CONCAT("http://ldf.fi/ckcc/actors/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)
 
 BIND(?ego__id as ?ego__prefLabel)
 BIND(CONCAT(${sahaUrl}, STR(?ego__id), ${sahaModel}) AS ?ego__dataProviderUrl)
@@ -28,13 +28,13 @@ BIND(CONCAT(${sahaUrl}, STR(?alter__id), ${sahaModel}) AS ?alter__dataProviderUr
 UNION 
 {
   {
-  ?ego__id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_addressed_to ?other__id .
-  ?alter__id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_addressed_to ?other__id .
+  ?ego__id ckccs:created/ckccs:was_addressed_to ?other__id .
+  ?alter__id ckccs:created/ckccs:was_addressed_to ?other__id .
   }
   UNION
   {
-  ?other__id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_addressed_to ?ego__id .
-  ?other__id eschema:cofk_union_relationship_type-created/eschema:cofk_union_relationship_type-was_addressed_to ?alter__id .
+  ?other__id ckccs:created/ckccs:was_addressed_to ?ego__id .
+  ?other__id ckccs:created/ckccs:was_addressed_to ?alter__id .
   }
   FILTER (?other__id!=?ego__id && ?other__id!=?alter__id)
   ?other__id skos:prefLabel ?other__prefLabel .
@@ -43,18 +43,18 @@ UNION
 UNION
 { SELECT DISTINCT ?ego__id ?alter__id ?letter__id ?letter__prefLabel ?letter__dataProviderUrl  WHERE {
   {
-    ?letter__id ^eschema:cofk_union_relationship_type-created ?ego__id .
-    ?letter__id eschema:cofk_union_relationship_type-was_addressed_to ?alter__id .
+    ?letter__id ^ckccs:created ?ego__id .
+    ?letter__id ckccs:was_addressed_to ?alter__id .
   }
   UNION 
   {
-    ?letter__id ^eschema:cofk_union_relationship_type-created ?alter__id .
-    ?letter__id eschema:cofk_union_relationship_type-was_addressed_to ?ego__id .
+    ?letter__id ^ckccs:created ?alter__id .
+    ?letter__id ckccs:was_addressed_to ?ego__id .
   }
   ?letter__id skos:prefLabel ?letter__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?letter__id), "^.*\\\\/(.+)", "$1")) AS ?letter__dataProviderUrl)
 
-  OPTIONAL { ?letter__id (crm:P4_has_time-span|eschema:inferredDate|eschema:approximateDate|eschema:possibleDate)/crm:P82a_begin_of_the_begin ?letter__timespan }
+  OPTIONAL { ?letter__id (crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate)/crm:P82a_begin_of_the_begin ?letter__timespan }
   } 
   ORDER BY COALESCE(STR(?letter__timespan), CONCAT("9999", ?letter__prefLabel))
 }
@@ -72,19 +72,19 @@ SELECT DISTINCT (STR(?year) as ?category)
   
   BIND(<ID> as ?id)
   BIND (URI(STRBEFORE(STR(?id),'${delimiter}')) AS ?ego__id)
-  BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)
+  BIND (URI(CONCAT("http://ldf.fi/ckcc/actors/",STRAFTER(STR(?id),'${delimiter}'))) AS ?alter__id)
     {
-      ?ego__id eschema:cofk_union_relationship_type-created ?sent_letter .
-      ?sent_letter eschema:cofk_union_relationship_type-was_addressed_to ?alter__id ;
-                   a eschema:Letter ;
+      ?ego__id ckccs:created ?sent_letter .
+      ?sent_letter ckccs:was_addressed_to ?alter__id ;
+                   a ckccs:Letter ;
                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
     } 
     UNION 
     {
-      ?alter__id eschema:cofk_union_relationship_type-created ?received_letter .
-      ?received_letter eschema:cofk_union_relationship_type-was_addressed_to ?ego__id ;
-                       a eschema:Letter ;
+      ?alter__id ckccs:created ?received_letter .
+      ?received_letter ckccs:was_addressed_to ?ego__id ;
+                       a ckccs:Letter ;
                       crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
     }
@@ -107,21 +107,21 @@ WHERE {
     ?id a []
   } UNION {
     VALUES ?_id { <ID> }
-    BIND (URI(CONCAT("http://emlo.bodleian.ox.ac.uk/id/",STRAFTER(STR(?_id),'__'))) AS ?id)
+    BIND (URI(CONCAT("http://ldf.fi/ckcc/actors/",STRAFTER(STR(?_id),'__'))) AS ?id)
     ?id a []
   }
       
   FILTER (BOUND(?id))
   
   {
-  ?id eschema:cofk_union_relationship_type-created ?letter .
-  ?letter a eschema:Letter ;
-    eschema:cofk_union_relationship_type-was_addressed_to ?target .
+  ?id ckccs:created ?letter .
+  ?letter a ckccs:Letter ;
+    ckccs:was_addressed_to ?target .
   BIND(?id AS ?source)
   } UNION {
-  ?letter eschema:cofk_union_relationship_type-was_addressed_to ?id ;
-        a eschema:Letter .
-  ?source eschema:cofk_union_relationship_type-created ?letter ;
+  ?letter ckccs:was_addressed_to ?id ;
+        a ckccs:Letter .
+  ?source ckccs:created ?letter ;
   BIND(?id AS ?target)
   }
 
