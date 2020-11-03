@@ -85,6 +85,9 @@ export const actorsConfig = {
           } 
         }
       `
+    },
+    image: {
+      labelPath: 'sch:image'
     }
   }
 }

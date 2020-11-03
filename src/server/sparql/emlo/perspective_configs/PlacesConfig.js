@@ -55,6 +55,9 @@ export const placesConfig = {
       labelPath: '^crm:P89_falls_within/skos:prefLabel',
       predicate: '^crm:P89_falls_within',
       type: 'text'
+    },
+    image: {
+      labelPath: 'sch:image'
     }
   }
 }
