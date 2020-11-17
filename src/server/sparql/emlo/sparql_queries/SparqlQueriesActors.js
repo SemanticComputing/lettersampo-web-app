@@ -1,9 +1,8 @@
-import { delimiter } from './SparqlQueriesTies'
-
 const perspectiveID = 'actors'
 
 /**
  * TODO: add reverse relation, e.g. members on page http://localhost:8080/en/actors/page/37a1c23b-c19f-4126-a99c-3f264f939f22/table
+TODO: simplify property chain: crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate
  */
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
@@ -104,27 +103,16 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    { SELECT DISTINCT ?id ?alter__id (COUNT(DISTINCT ?letter) AS ?alter__count)
-      WHERE {
-        {
-          ?id ckccs:created ?letter .
-          ?letter a ckccs:Letter ;
-              ckccs:was_addressed_to ?alter__id .
-        } UNION {
-          ?letter ckccs:was_addressed_to ?id ;
-                  a ckccs:Letter ;
-                  ^ckccs:created ?alter__id .
-        }
-      } GROUP BY ?id ?alter__id ORDER BY DESC(?alter__count) }
-    FILTER (BOUND(?id) && BOUND(?alter__id))
-    ?alter__id skos:prefLabel ?alter__label .
-    # FILTER (!REGEX(?alter__label, '(unknown|no_recipient_given)', 'i'))
-    BIND(CONCAT(?alter__label, ' (',STR(?alter__count), ')') AS ?alter__prefLabel)
-    BIND(CONCAT("/ties/page/", 
-      REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),
-      "${delimiter}",
-      REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")
-      ) AS ?alter__dataProviderUrl)
+    { SELECT ?id ?alter__id ?alter__count ?alter__prefLabel WHERE {
+      { ?alter__id ckccs:actor1 ?id }
+      UNION 
+      { ?alter__id ckccs:actor2 ?id }
+      ?alter__id ckccs:num_letters ?alter__count ;
+                 skos:prefLabel ?_lbl .
+      BIND (CONCAT(?_lbl, ' (', STR(?alter__count), ')') AS ?alter__prefLabel)
+      } ORDER BY DESC(?alter__count) }
+    FILTER (BOUND(?alter__id))
+    BIND(CONCAT("/ties/page/", REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")) AS ?alter__dataProviderUrl)
   }
   UNION
   {

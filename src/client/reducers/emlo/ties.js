@@ -56,6 +56,15 @@ export const INITIAL_STATE = {
       minWidth: 170
     },
     {
+      id: 'num_letters',
+      valueType: 'string',
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 100
+    },
+    {
       id: 'letter',
       valueType: 'object',
       makeLink: true,

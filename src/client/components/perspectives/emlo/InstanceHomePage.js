@@ -80,7 +80,7 @@ class InstanceHomePage extends React.Component {
         // console.log(uri)
         break
       case 'ties':
-        uri = `http://ldf.fi/ckcc/actors/${localID}`
+        uri = `http://ldf.fi/ckcc/ties/${localID}`
         break
     }
     this.props.fetchByURI({

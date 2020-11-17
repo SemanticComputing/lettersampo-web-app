@@ -1,5 +1,3 @@
-import { delimiter } from './SparqlQueriesTies'
-
 const perspectiveID = 'letters'
 
 export const letterProperties = `
@@ -138,17 +136,9 @@ UNIOn
 }
 UNION
 {
-  ?id ckccs:was_addressed_to ?target__id ;
-      ^ckccs:created ?source__id .
-  ?source__id skos:prefLabel ?source__prefLabel .
-  ?target__id skos:prefLabel ?target__prefLabel .
-  BIND(CONCAT("/ties/page/",
-       REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1"),
-       "${delimiter}",
-       REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")
-       ) AS ?tie__id)
- BIND(?tie__id AS ?tie__dataProviderUrl)
- BIND (CONCAT(?source__prefLabel, " <---> ", ?target__prefLabel) as ?tie__prefLabel)
+?id ckccs:in_tie ?tie__id .
+?tie__id skos:prefLabel ?tie__prefLabel .
+ BIND(CONCAT("/ties/page/", REPLACE(STR(?tie__id), "^.*\\\\/(.+)", "$1")) AS ?tie__dataProviderUrl)
 }
 `
 

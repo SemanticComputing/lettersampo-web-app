@@ -725,10 +725,16 @@ export default {
             Preferable actor label.
           `
         },
-        letter: {
-          label: 'Sent letters',
+        num_letters: {
+          label: 'Number of letters',
           description: `
-            All letters sent between the two people.
+            Number of letters sent between the two actors.
+          `
+        },
+        letter: {
+          label: 'List of letters',
+          description: `
+            All letters sent between the two actors.
           `
         },
         other: {
