@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
       externalLink: true,
       sortValues: true,
       numberedList: false,
-      minWidth: 120,
+      minWidth: 100,
       hideHeader: false
     },
     {
@@ -57,7 +57,7 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 90,
+      minWidth: 70,
       priority: 5
     },
     {
@@ -67,7 +67,7 @@ export const INITIAL_STATE = {
       externalLink: false,
       sortValues: true,
       numberedList: false,
-      minWidth: 90,
+      minWidth: 70,
       priority: 5
     },
     {
@@ -79,7 +79,7 @@ export const INITIAL_STATE = {
       numberedList: false,
       showSource: true,
       sourceExternalLink: true,
-      minWidth: 150
+      minWidth: 90
     },
     {
       id: 'birthPlace',
@@ -101,7 +101,7 @@ export const INITIAL_STATE = {
       numberedList: false,
       showSource: true,
       sourceExternalLink: true,
-      minWidth: 150
+      minWidth: 90
     },
     {
       id: 'deathPlace',
@@ -156,7 +156,7 @@ export const INITIAL_STATE = {
       numberedList: false,
       showSource: false,
       sourceExternalLink: false,
-      minWidth: 75
+      minWidth: 70
     },
     {
       id: 'sentletter',
@@ -177,7 +177,7 @@ export const INITIAL_STATE = {
       numberedList: false,
       showSource: false,
       sourceExternalLink: false,
-      minWidth: 75
+      minWidth: 70
     },
     {
       id: 'receivedletter',
