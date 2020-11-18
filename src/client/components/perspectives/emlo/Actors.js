@@ -50,7 +50,7 @@ const Actors = props => {
             resultUpdateID={props.facetResults.resultUpdateID}
             fetchResults={props.fetchResults}
             fetching={props.facetResults.fetching}
-            resultClass='peopleNetwork'
+            resultClass='actorNetwork'
             facetClass='actors'
             limit={200}
             optimize={1.2}

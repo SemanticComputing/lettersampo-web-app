@@ -61,7 +61,7 @@ export const backendSearchConfig = {
     useNetworkAPI: true
   },
   // Network tab in people facet results
-  peopleNetwork: {
+  actorNetwork: {
     perspectiveID: 'actors',
     q: networkLinksQuery,
     nodes: networkNodesQuery,
