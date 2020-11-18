@@ -26,7 +26,7 @@ export const cytoscapeStyle = [
       'text-background-color': 'white',
       'text-background-shape': 'roundrectangle',
       // 'text-halign': 'top',
-      'target-arrow-shape': 'triangle',
+      // 'target-arrow-shape': 'triangle',
       'target-arrow-color': ele => ele.data('color') || '#DDD'
     }
   }

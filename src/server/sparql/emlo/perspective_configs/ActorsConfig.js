@@ -64,7 +64,7 @@ export const actorsConfig = {
       dataType: 'xsd:dateTime',
       type: 'timespan'
     },
-    num_sent: {
+    num_sent: { // TODO: is there now an easier way to do this?
       orderByPattern: `
         {
           SELECT ?id ?orderBy

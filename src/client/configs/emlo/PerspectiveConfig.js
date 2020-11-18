@@ -4,6 +4,7 @@ import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
 // import LocationOnIcon from '@material-ui/icons/LocationOn'
 import AddLocationIcon from '@material-ui/icons/AddLocation'
 import BubbleChartIcon from '@material-ui/icons/BubbleChart'
+import MailOutline from '@material-ui/icons/MailOutline'
 import LineChartIcon from '@material-ui/icons/ShowChart'
 // import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness'
 import RedoIcon from '@material-ui/icons/Redo'
@@ -85,18 +86,23 @@ export const perspectiveConfig = [
         icon: <CalendarViewDayIcon />
       },
       {
-        id: 'letterNetwork',
+        id: 'actorLetters',
         value: 1,
+        icon: <MailOutline />
+      },
+      {
+        id: 'letterNetwork',
+        value: 2,
         icon: <BubbleChartIcon />
       },
       {
         id: 'sentReceived',
-        value: 2,
+        value: 3,
         icon: <LineChartIcon />
       },
       {
         id: 'export',
-        value: 3,
+        value: 4,
         icon: <CloudDownloadIcon />
       }
     ]

@@ -95,6 +95,7 @@ export default {
     tieNetwork: 'Network',
     map_clusters: 'clustered map',
     map_markers: 'map',
+    actorLetters: 'Letters',
     heatmap: 'heatmap',
     statistics: 'statistics',
     download: 'download'
@@ -384,46 +385,6 @@ export default {
           label: 'Width',
           description: `
             The width of the manuscript in millimeters.
-          `
-        },
-        folios: {
-          label: 'Folios',
-          description: `
-            The number of folios (leaves).
-          `
-        },
-        lines: {
-          label: 'Lines',
-          description: `
-            The number of lines in a text block. Left blank if the number of lines
-            occurring throughout the manuscript is too irregular to be a useful
-            descriptor for searching.
-          `
-        },
-        columns: {
-          label: 'Columns',
-          description: `
-            The number of columns. Left blank if the number of columns
-            occurring throughout the manuscript is too irregular to be a useful
-            descriptor for searching.
-          `
-        },
-        miniatures: {
-          label: 'Miniatures',
-          description: `
-            The number of miniatures.
-          `
-        },
-        decoratedInitials: {
-          label: 'Decorated initials',
-          description: `
-            The number of decorated initials.
-          `
-        },
-        historiatedInitials: {
-          label: 'Historiated initials',
-          description: `
-            The number of historiated initials.
           `
         },
         source: {

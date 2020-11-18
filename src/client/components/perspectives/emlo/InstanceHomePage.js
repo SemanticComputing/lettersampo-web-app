@@ -76,8 +76,6 @@ class InstanceHomePage extends React.Component {
         break
       case 'places':
         uri = `http://ldf.fi/ckcc/places/${encodeURIComponent(localID)}`
-        // uri = uri.replace(`'`, `%27`)
-        // console.log(uri)
         break
       case 'ties':
         uri = `http://ldf.fi/ckcc/ties/${localID}`
@@ -106,6 +104,8 @@ class InstanceHomePage extends React.Component {
   render = () => {
     const { classes, tableData, isLoading, resultClass, rootUrl } = this.props
     const hasTableData = tableData !== null && Object.values(tableData).length >= 1
+    //  console.log(resultClass)
+    //  console.log(this.props)
     return (
       <div className={classes.root}>
         <PerspectiveTabs
@@ -140,6 +140,15 @@ class InstanceHomePage extends React.Component {
                   />}
               />
               <Route
+                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/actorLetters`}
+                render={() =>
+                  <InstanceHomePageTable
+                    resultClass={resultClass}
+                    data={tableData}
+                    properties={this.getVisibleRows(this.props.properties)}
+                  />}
+              />
+              <Route
                 path={`${rootUrl}/${resultClass}/page/${this.state.localID}/letterNetwork`}
                 render={() =>
                   <Network
@@ -149,8 +158,8 @@ class InstanceHomePage extends React.Component {
                     fetchResults={this.props.fetchResults}
                     resultClass='letterNetwork'
                     uri={tableData.id}
-                    limit={50}
-                    optimize={1.75}
+                    limit={100}
+                    optimize={2.0}
                     style={cytoscapeStyle}
                     layout={coseLayout}
                     preprocess={preprocess}

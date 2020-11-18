@@ -86,30 +86,28 @@ SELECT DISTINCT (STR(?year) as ?category)
 
 export const tieLinksQuery = `
 SELECT DISTINCT ?source ?target 
-  (COUNT(DISTINCT ?letter) AS ?weight)
-  (STR(COUNT(DISTINCT ?letter)) AS ?prefLabel)
-WHERE {  
+  ?weight (STR(?weight) AS ?prefLabel)
+WHERE {
   { VALUES ?id { <ID> }
     VALUES ?class { crm:E21_Person crm:E74_Group }
     ?id a ?class .
   } UNION { 
-    VALUES ?_id { <ID> }
-    ?_id ckccs:actor1|ckccs:actor2 ?id 
+    VALUES ?_tie { <ID> }
+    ?_tie ckccs:actor1|ckccs:actor2 ?id 
   } 
       
   FILTER (BOUND(?id))
   
   {
-  ?id ckccs:created ?letter .
-  ?letter a ckccs:Letter ;
-    ckccs:was_addressed_to ?target .
-  BIND(?id AS ?source)
+    ?tie ckccs:actor1 ?id ;
+      ckccs:actor2 ?target
+    BIND(?id AS ?source)
   } UNION {
-  ?letter ckccs:was_addressed_to ?id ;
-        a ckccs:Letter .
-  ?source ckccs:created ?letter ;
-  BIND(?id AS ?target)
+    ?tie ckccs:actor1 ?source ; 
+    ckccs:actor2 ?id
+    BIND(?id AS ?target)
   }
+  ?tie ckccs:num_letters ?weight .
 
   # filter 'unknown' etc entries
   ?source skos:prefLabel ?source__label . 
@@ -117,9 +115,8 @@ WHERE {
   ?target skos:prefLabel ?target__label . 
   FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
 
-  FILTER (?source!=?target)
-  
-} GROUP BY ?source ?target
+  FILTER (?source!=?target) 
+}
 `
 
 export const tieNodesQuery = `
