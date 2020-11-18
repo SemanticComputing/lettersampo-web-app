@@ -325,10 +325,10 @@ WHERE {
 
 //  query on people facet page tab 'Network'
 export const networkLinksQuery = `
-SELECT DISTINCT (?person as ?source) ?target ?weight (str(?weight) as ?prefLabel)
+SELECT DISTINCT (?actor as ?source) ?target ?weight (str(?weight) as ?prefLabel)
   WHERE {
     <FILTER>
-    ?_tie ckccs:actor1 ?person ;
+    ?_tie ckccs:actor1 ?actor ;
       ckccs:actor2 ?target ;
     ckccs:num_letters ?weight .
 }

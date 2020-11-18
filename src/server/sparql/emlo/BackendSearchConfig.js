@@ -62,10 +62,10 @@ export const backendSearchConfig = {
   },
   // Network tab in people facet results
   peopleNetwork: {
-    perspectiveID: 'people',
+    perspectiveID: 'actors',
     q: networkLinksQuery,
     nodes: networkNodesQuery,
-    filterTarget: 'person',
+    filterTarget: 'actor',
     useNetworkAPI: true
   },
   letterByYear: {

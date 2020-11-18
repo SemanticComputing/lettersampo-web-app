@@ -51,7 +51,7 @@ const Actors = props => {
             fetchResults={props.fetchResults}
             fetching={props.facetResults.fetching}
             resultClass='peopleNetwork'
-            facetClass='people'
+            facetClass='actors'
             limit={200}
             optimize={1.2}
             style={cytoscapeStyle}
