@@ -111,6 +111,7 @@ class ColorScaler extends ValueScaler {
 const maxEdgeWidth = 8
 
 export const preprocess = elements => {
+  console.log('preprocess')
   //  edges
   let arr = elements.edges.map(ele => ele.data.weight || 1)
 
@@ -137,6 +138,7 @@ export const preprocess = elements => {
 }
 
 export const preprocessEgo = elements => {
+  console.log('preprocessEgo')
   //  edges
   let arr = elements.edges.map(ele => ele.data.weight || 1)
 
@@ -150,7 +152,7 @@ export const preprocessEgo = elements => {
   elements.edges.forEach((ele, i) => { ele.data.color = res[i] })
 
   // nodes
-  arr = elements.nodes.map(ele => ele.data.distance || 5)
+  arr = elements.nodes.map(ele => ele.data.distance)
 
   // node size
   res = (new ColorScaler('20px', '8px')).fitTransform(arr)
