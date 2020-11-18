@@ -53,7 +53,7 @@ const Actors = props => {
             resultClass='actorNetwork'
             facetClass='actors'
             limit={200}
-            optimize={1.2}
+            optimize={1.5}
             style={cytoscapeStyle}
             layout={coseLayout}
             preprocess={preprocess}
