@@ -3,6 +3,7 @@ import { lettersConfig } from './perspective_configs/LettersConfig'
 import { placesConfig } from './perspective_configs/PlacesConfig'
 import {
   letterLinksQuery,
+  networkLinksQuery,
   networkNodesQuery,
   peopleEventPlacesQuery,
   sentReceivedQuery,
@@ -57,6 +58,14 @@ export const backendSearchConfig = {
     perspectiveID: 'actors',
     q: letterLinksQuery,
     nodes: networkNodesQuery,
+    useNetworkAPI: true
+  },
+  // Network tab in people facet results
+  peopleNetwork: {
+    perspectiveID: 'people',
+    q: networkLinksQuery,
+    nodes: networkNodesQuery,
+    filterTarget: 'person',
     useNetworkAPI: true
   },
   letterByYear: {

@@ -213,7 +213,7 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'actors', 'letterNetwork', 'sentReceived', 'actorLetters'
+  'actors', 'letterNetwork', 'sentReceived', 'actorLetters', 'peopleNetwork'
 ])
 
 const actors = (state = INITIAL_STATE, action) => {

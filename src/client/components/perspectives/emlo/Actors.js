@@ -3,8 +3,14 @@ import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 import PerspectiveTabs from '../../main_layout/PerspectiveTabs'
 import ResultTable from '../../facet_results/ResultTable'
+import Network from '../../facet_results/Network'
 import LeafletMap from '../../facet_results/LeafletMap'
 import Export from '../../facet_results/Export'
+import {
+  coseLayout,
+  cytoscapeStyle,
+  preprocess
+} from '../../../configs/emlo/Cytoscape.js/NetworkConfig'
 
 const Actors = props => {
   const { rootUrl, perspective } = props
@@ -33,6 +39,25 @@ const Actors = props => {
             sortResults={props.sortResults}
             routeProps={routeProps}
             rootUrl={rootUrl}
+          />}
+      />
+      <Route
+        path={`${rootUrl}/${perspective.id}/faceted-search/network`}
+        render={() =>
+          <Network
+            results={props.facetResults.results}
+            facetUpdateID={props.facetData.facetUpdateID}
+            resultUpdateID={props.facetResults.resultUpdateID}
+            fetchResults={props.fetchResults}
+            fetching={props.facetResults.fetching}
+            resultClass='peopleNetwork'
+            facetClass='people'
+            limit={200}
+            optimize={1.2}
+            style={cytoscapeStyle}
+            layout={coseLayout}
+            preprocess={preprocess}
+            pageType='facetResults'
           />}
       />
       <Route

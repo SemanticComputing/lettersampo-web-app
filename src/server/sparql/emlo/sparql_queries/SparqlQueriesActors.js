@@ -323,6 +323,17 @@ WHERE {
 } GROUP BY ?id ?lat ?long
 `
 
+//  query on people facet page tab 'Network'
+export const networkLinksQuery = `
+SELECT DISTINCT (?person as ?source) ?target ?weight (str(?weight) as ?prefLabel)
+  WHERE {
+    <FILTER>
+    ?_tie ckccs:actor1 ?person ;
+      ckccs:actor2 ?target ;
+    ckccs:num_letters ?weight .
+}
+`
+
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
   WHERE {
