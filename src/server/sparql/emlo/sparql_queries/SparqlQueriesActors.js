@@ -36,7 +36,12 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id (ckccs:birthDate|ckccs:approximateBirthDate) ?birthDateTimespan__id .
+    VALUES ?_bprop {
+      ckccs:birthDate
+      ckccs:approximateBirthDate
+      ckccs:possibleBirthDate
+    }
+    ?id ?_bprop ?birthDateTimespan__id .
     ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
     OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
     OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
@@ -49,7 +54,13 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id ckccs:deathDate ?deathDateTimespan__id .
+    VALUES ?_dprop { 
+      ckccs:deathDate
+      ckccs:inferredDeathDate
+      ckccs:approximateDeathDate
+      ckccs:possibleDeathDate 
+    }
+    ?id ?_dprop ?deathDateTimespan__id .
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
@@ -217,7 +228,12 @@ export const actorPropertiesFacetResults =
   }
   UNION
   {
-    ?id (ckccs:birthDate|ckccs:approximateBirthDate) ?birthDateTimespan__id .
+    VALUES ?_bprop {
+      ckccs:birthDate
+      ckccs:approximateBirthDate
+      ckccs:possibleBirthDate
+    }
+    ?id ?_bprop ?birthDateTimespan__id .
     ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
     OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
     OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
