@@ -102,7 +102,7 @@ class InstanceHomePage extends React.Component {
   }
 
   render = () => {
-    const { classes, tableData, isLoading, resultClass, rootUrl } = this.props
+    const { classes, tableData, results, isLoading, resultClass, rootUrl } = this.props
     const hasTableData = tableData !== null && Object.values(tableData).length >= 1
     //  console.log(resultClass)
     //  console.log(this.props)
@@ -144,8 +144,31 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <InstanceHomePageTable
                     resultClass={resultClass}
-                    data={tableData}
-                    properties={this.getVisibleRows(this.props.properties)}
+                    resultClassVariant='actorLetters'
+                    fetchResultsWhenMounted
+                    data={results ? results[0] : null}
+                    resultUpdateID={this.props.resultUpdateID}
+                    fetchResults={this.props.fetchResults}
+                    uri={tableData.id}
+                    properties={[
+                      {
+                        id: 'uri',
+                        valueType: 'object',
+                        makeLink: false,
+                        externalLink: false,
+                        sortValues: true,
+                        numberedList: false,
+                        onlyOnInstancePage: true
+                      },
+                      {
+                        id: 'prefLabel',
+                        valueType: 'object',
+                        makeLink: false,
+                        externalLink: false,
+                        sortValues: true,
+                        numberedList: false,
+                        onlyOnInstancePage: true
+                      }]}
                   />}
               />
               <Route
@@ -153,7 +176,7 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <Network
                     pageType='instancePage'
-                    results={this.props.results}
+                    results={results}
                     resultUpdateID={this.props.resultUpdateID}
                     fetchResults={this.props.fetchResults}
                     resultClass='letterNetwork'
@@ -170,7 +193,7 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <ApexChart
                     pageType='instancePage'
-                    rawData={this.props.results}
+                    rawData={results}
                     rawDataUpdateID={this.props.resultUpdateID}
                     fetching={isLoading}
                     fetchData={this.props.fetchResults}
@@ -187,7 +210,7 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <ApexChart
                     pageType='instancePage'
-                    rawData={this.props.results}
+                    rawData={results}
                     rawDataUpdateID={this.props.resultUpdateID}
                     fetching={isLoading}
                     fetchData={this.props.fetchResults}
@@ -204,7 +227,7 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <ApexChart
                     pageType='instancePage'
-                    rawData={this.props.results}
+                    rawData={results}
                     rawDataUpdateID={this.props.resultUpdateID}
                     fetching={isLoading}
                     fetchData={this.props.fetchResults}
@@ -230,7 +253,7 @@ class InstanceHomePage extends React.Component {
                 render={() =>
                   <Network
                     pageType='instancePage'
-                    results={this.props.results}
+                    results={results}
                     resultUpdateID={this.props.resultUpdateID}
                     fetchResults={this.props.fetchResults}
                     resultClass='tieNetwork'

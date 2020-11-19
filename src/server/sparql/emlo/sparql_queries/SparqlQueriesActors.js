@@ -152,61 +152,64 @@ export const actorPropertiesInstancePage = `
   }
 `
 
-export const actorLettersInstancePage = `
-
-  BIND(?id as ?uri__id)
-  BIND(?id as ?uri__prefLabel)
-  BIND(?id as ?uri__dataProviderUrl)
-
-  ?id skos:prefLabel ?prefLabel__id .
-  BIND (?prefLabel__id as ?prefLabel__prefLabel)
-
-  {
-    ?id a ?type__id .
-    ?type__id skos:prefLabel ?type__prefLabel .
-    BIND (?type__id as ?type_dataProviderUrl)
-  }
-  UNION
-  {
-    { SELECT ?id ?alter__id ?alter__count ?alter__prefLabel WHERE {
-      { ?alter__id ckccs:actor1 ?id }
-      UNION 
-      { ?alter__id ckccs:actor2 ?id }
-      ?alter__id ckccs:num_letters ?alter__count ;
-                 skos:prefLabel ?_lbl .
-      BIND (CONCAT(?_lbl, ' (', STR(?alter__count), ')') AS ?alter__prefLabel)
-      } ORDER BY DESC(?alter__count) }
-    FILTER (BOUND(?alter__id))
-    BIND(CONCAT("/ties/page/", REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")) AS ?alter__dataProviderUrl)
-  }
-  UNION
-  {
-    ?id ckccs:outdegree ?num_sent 
-  }
-  UNION
-  {
-    ?id ckccs:indegree ?num_received
-  }
-  UNION
-  { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
-    WHERE {
-      ?id ckccs:created ?sentletter__id .
-        ?sentletter__id a ckccs:Letter ;
-          skos:prefLabel ?sentletter__prefLabel .
-      BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
-      OPTIONAL { ?sentletter__id (crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate)/crm:P82a_begin_of_the_begin ?time }
-    } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?sentletter__prefLabel))
-  }
-  UNION 
-  { SELECT DISTINCT ?id ?receivedletter__id ?receivedletter__prefLabel ?receivedletter__dataProviderUrl
-    WHERE {
-    ?receivedletter__id
-      ckccs:was_addressed_to ?id ;
-      a ckccs:Letter ;
-      skos:prefLabel ?receivedletter__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)
-    OPTIONAL { ?receivedletter__id (crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate)/crm:P82a_begin_of_the_begin ?time }
-    } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?receivedletter__prefLabel))
+export const actorLettersInstancePageQuery = `
+  SELECT * 
+  WHERE {
+    BIND(<ID> as ?id)
+    BIND(?id as ?uri__id)
+    BIND(?id as ?uri__prefLabel)
+    BIND(?id as ?uri__dataProviderUrl)
+  
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  
+    {
+      ?id a ?type__id .
+      ?type__id skos:prefLabel ?type__prefLabel .
+      BIND (?type__id as ?type_dataProviderUrl)
+    }
+    UNION
+    {
+      { SELECT ?id ?alter__id ?alter__count ?alter__prefLabel WHERE {
+        { ?alter__id ckccs:actor1 ?id }
+        UNION 
+        { ?alter__id ckccs:actor2 ?id }
+        ?alter__id ckccs:num_letters ?alter__count ;
+                   skos:prefLabel ?_lbl .
+        BIND (CONCAT(?_lbl, ' (', STR(?alter__count), ')') AS ?alter__prefLabel)
+        } ORDER BY DESC(?alter__count) }
+      FILTER (BOUND(?alter__id))
+      BIND(CONCAT("/ties/page/", REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")) AS ?alter__dataProviderUrl)
+    }
+    UNION
+    {
+      ?id ckccs:outdegree ?num_sent 
+    }
+    UNION
+    {
+      ?id ckccs:indegree ?num_received
+    }
+    UNION
+    { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
+      WHERE {
+        ?id ckccs:created ?sentletter__id .
+          ?sentletter__id a ckccs:Letter ;
+            skos:prefLabel ?sentletter__prefLabel .
+        BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
+        OPTIONAL { ?sentletter__id (crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+      } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?sentletter__prefLabel))
+    }
+    UNION 
+    { SELECT DISTINCT ?id ?receivedletter__id ?receivedletter__prefLabel ?receivedletter__dataProviderUrl
+      WHERE {
+      ?receivedletter__id
+        ckccs:was_addressed_to ?id ;
+        a ckccs:Letter ;
+        skos:prefLabel ?receivedletter__prefLabel .
+      BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)
+      OPTIONAL { ?receivedletter__id (crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+      } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?receivedletter__prefLabel))
+    } 
   }
 `
 
