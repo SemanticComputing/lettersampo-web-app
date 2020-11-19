@@ -8,7 +8,7 @@ import {
   networkNodesFacetQuery,
   peopleEventPlacesQuery,
   sentReceivedQuery,
-  actorLettersInstancePage
+  actorLettersInstancePageQuery
 } from './sparql_queries/SparqlQueriesActors'
 import {
   letterMigrationsQuery,
@@ -36,14 +36,11 @@ export const backendSearchConfig = {
   places: placesConfig,
   actorLetters: {
     perspectiveID: 'actors',
-    resultMapper: makeObjectList,
-    instance: {
-      properties: actorLettersInstancePage,
-      relatedInstances: ''
-    }
+    q: actorLettersInstancePageQuery,
+    resultMapper: makeObjectList
   },
   ties: {
-    perspectiveID: 'actors', // use endpoint config from people
+    perspectiveID: 'actors',
     instance: {
       properties: tiePropertiesInstancePage,
       relatedInstances: ''
