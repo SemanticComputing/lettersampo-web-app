@@ -152,7 +152,7 @@ class InstanceHomePage extends React.Component {
                     uri={tableData.id}
                     properties={[
                       {
-                        id: 'uri',
+                        id: 'prefLabel',
                         valueType: 'object',
                         makeLink: false,
                         externalLink: false,
@@ -161,14 +161,58 @@ class InstanceHomePage extends React.Component {
                         onlyOnInstancePage: true
                       },
                       {
-                        id: 'prefLabel',
+                        id: 'alter',
                         valueType: 'object',
+                        makeLink: true,
+                        externalLink: false,
+                        sortValues: false,
+                        numberedList: true,
+                        minWidth: 220,
+                        onlyOnInstancePage: true
+                      },
+                      {
+                        id: 'num_sent',
+                        valueType: 'string',
                         makeLink: false,
                         externalLink: false,
-                        sortValues: true,
+                        sortValues: false,
                         numberedList: false,
+                        showSource: false,
+                        sourceExternalLink: false,
+                        minWidth: 70
+                      },
+                      {
+                        id: 'sentletter',
+                        valueType: 'object',
+                        makeLink: true,
+                        externalLink: false,
+                        sortValues: false,
+                        numberedList: true,
+                        minWidth: 220,
                         onlyOnInstancePage: true
-                      }]}
+                      },
+                      {
+                        id: 'num_received',
+                        valueType: 'string',
+                        makeLink: false,
+                        externalLink: false,
+                        sortValues: false,
+                        numberedList: false,
+                        showSource: false,
+                        sourceExternalLink: false,
+                        minWidth: 70
+                      },
+                      {
+                        id: 'receivedletter',
+                        valueType: 'object',
+                        makeLink: true,
+                        externalLink: false,
+                        sortValues: false,
+                        numberedList: true,
+                        minWidth: 220,
+                        onlyOnInstancePage: true
+                      }
+                    ]}
                   />}
               />
               <Route

@@ -127,27 +127,6 @@ export const INITIAL_STATE = {
       onlyOnInstancePage: true
     },
     {
-      id: 'related',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      minWidth: 250,
-      priority: 8,
-      onlyOnInstancePage: true
-    },
-    {
-      id: 'alter',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: false,
-      numberedList: true,
-      minWidth: 220,
-      onlyOnInstancePage: true
-    },
-    {
       id: 'num_sent',
       valueType: 'string',
       makeLink: false,
@@ -157,16 +136,6 @@ export const INITIAL_STATE = {
       showSource: false,
       sourceExternalLink: false,
       minWidth: 70
-    },
-    {
-      id: 'sentletter',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: false,
-      numberedList: true,
-      minWidth: 220,
-      onlyOnInstancePage: true
     },
     {
       id: 'num_received',
@@ -180,13 +149,14 @@ export const INITIAL_STATE = {
       minWidth: 70
     },
     {
-      id: 'receivedletter',
+      id: 'related',
       valueType: 'object',
       makeLink: true,
-      externalLink: false,
-      sortValues: false,
-      numberedList: true,
-      minWidth: 220,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      minWidth: 250,
+      priority: 8,
       onlyOnInstancePage: true
     },
     {
