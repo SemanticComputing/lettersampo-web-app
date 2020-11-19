@@ -5,6 +5,7 @@ import {
   letterLinksQuery,
   networkLinksQuery,
   networkNodesQuery,
+  networkNodesFacetQuery,
   peopleEventPlacesQuery,
   sentReceivedQuery,
   actorLettersInstancePage
@@ -64,7 +65,7 @@ export const backendSearchConfig = {
   actorNetwork: {
     perspectiveID: 'actors',
     q: networkLinksQuery,
-    nodes: networkNodesQuery,
+    nodes: networkNodesFacetQuery,
     filterTarget: 'actor',
     useNetworkAPI: true
   },

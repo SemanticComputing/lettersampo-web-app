@@ -1,3 +1,5 @@
+import { has } from 'lodash'
+
 // https://js.cytoscape.org/#style
 export const cytoscapeStyle = [
   {
@@ -109,8 +111,15 @@ class ColorScaler extends ValueScaler {
 }
 
 const maxEdgeWidth = 8
+/**
+ const rankSort = arr => {
+   const arr2 = arr.map(function (o, i) { return { idx: i, obj: o } }).sort((a, b) => a.obj - b.obj)
+   return arr2.map(function (o, i) { o.ord = i; return o }).sort((a, b) => a.idx - b.idx).map(o => o.ord)
+  }
+*/
 
 export const preprocess = elements => {
+  console.log('preprocess')
   //  edges
   let arr = elements.edges.map(ele => ele.data.weight || 1)
 
@@ -124,9 +133,9 @@ export const preprocess = elements => {
   elements.edges.forEach((ele, i) => { ele.data.color = res[i] })
 
   // nodes
-  // console.log(elements.nodes)
-  arr = elements.nodes.map(ele => ele.data.num_letters || 0)
+  arr = elements.nodes.map(ele => Math.sqrt(ele.data.num_letters || 0))
 
+  // TODO: adjust node sizes e.g. https://stackoverflow.com/questions/30167117/get-the-current-index-in-sort-function
   // node size
   res = (new ColorScaler('8px', '40px')).fitTransform(arr)
   elements.nodes.forEach((ele, i) => { ele.data.size = res[i] })
@@ -151,8 +160,7 @@ export const preprocessEgo = elements => {
   elements.edges.forEach((ele, i) => { ele.data.color = res[i] })
 
   // nodes
-  arr = elements.nodes.map(ele => ele.data.distance)
-
+  arr = elements.nodes.map(ele => has(ele.data, 'distance') ? ele.data.distance : 3)
   // node size
   res = (new ColorScaler('20px', '8px')).fitTransform(arr)
   elements.nodes.forEach((ele, i) => { ele.data.size = res[i] })
@@ -176,7 +184,6 @@ export const preprocessTie = elements => {
   elements.edges.forEach((ele, i) => { ele.data.color = res[i] })
 
   // nodes
-  console.log(elements.nodes)
   arr = elements.nodes.map(ele => ele.data.pagerank)
 
   // node size
