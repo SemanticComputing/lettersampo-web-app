@@ -326,6 +326,18 @@ export default {
             Related actors, e.g. parents, spouses, acquaintances.
           `
         },
+        measures: {
+          label: 'Network metrics',
+          description: `
+            Network metrics, e.g. centrality measures of the actor in the letter network.
+          `
+        },
+        num_correspondences: {
+          label: 'Number of correspondences',
+          description: `
+          Number of distinct correspondences.
+          `
+        },
         alter: {
           label: 'Correspondences',
           description: `

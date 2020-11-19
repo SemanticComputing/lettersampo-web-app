@@ -171,6 +171,26 @@ class InstanceHomePage extends React.Component {
                         onlyOnInstancePage: true
                       },
                       {
+                        id: 'measures',
+                        valueType: 'string',
+                        makeLink: false,
+                        externalLink: false,
+                        sortValues: false,
+                        numberedList: false,
+                        minWidth: 220,
+                        onlyOnInstancePage: true
+                      },
+                      {
+                        id: 'num_correspondences',
+                        valueType: 'string',
+                        makeLink: false,
+                        externalLink: false,
+                        sortValues: false,
+                        numberedList: false,
+                        minWidth: 220,
+                        onlyOnInstancePage: true
+                      },
+                      {
                         id: 'num_sent',
                         valueType: 'string',
                         makeLink: false,

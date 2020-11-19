@@ -103,11 +103,11 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id ckccs:outdegree ?num_sent 
+    ?id ckccs:out_degree ?num_sent 
   }
   UNION
   {
-    ?id ckccs:indegree ?num_received
+    ?id ckccs:in_degree ?num_received
   }
   UNION
   {
@@ -136,6 +136,21 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
+      VALUES (?_prop ?txt) {
+        (ckccs:betweenness_centrality "Betweenness Centrality")
+        (ckccs:clique_number "Clique Number")
+        (ckccs:clustering_coefficient "Clustering Coefficient")
+        (ckccs:core_number "Core Number")
+        (ckccs:eigenvector_centrality "Eigenvector Centrality")
+        (ckccs:pagerank "Pagerank Centrality")
+        (ckccs:in_degree "Weighted In-Degree")
+        (ckccs:out_degree "Weighted Out-Degree")
+      }
+      ?id ?_prop ?_stat .
+      BIND (CONCAT(?txt, ': ', str(?_stat)) AS ?measures)
+    }
+    UNION
+    {
       { SELECT ?id ?alter__id ?alter__count ?alter__prefLabel WHERE {
         { ?alter__id ckccs:actor1 ?id }
         UNION
@@ -149,11 +164,15 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
-      ?id ckccs:outdegree ?num_sent 
+      ?id ckccs:out_degree ?num_sent 
     }
     UNION
     {
-      ?id ckccs:indegree ?num_received
+      ?id ckccs:in_degree ?num_received
+    }
+    UNION
+    {
+      ?id ckccs:num_correspondences ?num_correspondences
     }
     UNION
     { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
@@ -210,8 +229,14 @@ export const actorPropertiesFacetResults =
     BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
   }
   UNION
-  {
-    ?id ckccs:deathDate ?deathDateTimespan__id .
+  { 
+    VALUES ?_dprop { 
+      ckccs:deathDate
+      ckccs:inferredDeathDate
+      ckccs:approximateDeathDate
+      ckccs:possibleDeathDate 
+    }
+    ?id ?_dprop ?deathDateTimespan__id .
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
@@ -224,11 +249,11 @@ export const actorPropertiesFacetResults =
   }
   UNION
   {
-    ?id ckccs:outdegree ?num_sent
+    ?id ckccs:out_degree ?num_sent
   }
   UNION
   {
-    ?id ckccs:indegree ?num_received
+    ?id ckccs:in_degree ?num_received
   }
   UNION
   {
@@ -311,8 +336,8 @@ export const networkNodesQuery = `
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
       skos:prefLabel ?_label .
-    OPTIONAL { ?id ckccs:outdegree ?_out }
-    OPTIONAL { ?id ckccs:indegree ?_in }
+    OPTIONAL { ?id ckccs:out_degree ?_out }
+    OPTIONAL { ?id ckccs:in_degree ?_in }
 
     BIND(REPLACE(?_label, ',[^,A-ZÜÅÄÖ]+$', '')AS ?prefLabel)
     BIND(CONCAT("../", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)
@@ -327,8 +352,8 @@ export const networkNodesFacetQuery = `
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
       skos:prefLabel ?_label .
-    OPTIONAL { ?id ckccs:outdegree ?_out }
-    OPTIONAL { ?id ckccs:indegree ?_in }
+    OPTIONAL { ?id ckccs:out_degree ?_out }
+    OPTIONAL { ?id ckccs:in_degree ?_in }
 
     BIND(REPLACE(?_label, ',[^,A-ZÜÅÄÖ]+$', '')AS ?prefLabel)
     BIND(CONCAT("../../actors/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)

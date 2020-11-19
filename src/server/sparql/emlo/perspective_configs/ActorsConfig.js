@@ -70,7 +70,7 @@ export const actorsConfig = {
           SELECT ?id ?orderBy
           WHERE {
             VALUES ?facetClass { <FACET_CLASS> }
-            ?id a ?facetClass ; ckccs:outdegree ?orderBy
+            ?id a ?facetClass ; ckccs:out_degree ?orderBy
           } 
         }
       `
@@ -81,7 +81,7 @@ export const actorsConfig = {
           SELECT ?id ?orderBy
           WHERE {
             VALUES ?facetClass { <FACET_CLASS> }
-            ?id a ?facetClass ; ckccs:indegree ?orderBy
+            ?id a ?facetClass ; ckccs:in_degree ?orderBy
           } 
         }
       `
