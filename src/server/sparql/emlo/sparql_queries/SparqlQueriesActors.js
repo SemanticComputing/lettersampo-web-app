@@ -147,18 +147,14 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
-      VALUES (?_prop ?txt) {
-        (ckccs:betweenness_centrality "Betweenness Centrality")
-        (ckccs:clique_number "Clique Number")
-        (ckccs:clustering_coefficient "Clustering Coefficient")
-        (ckccs:core_number "Core Number")
-        (ckccs:eigenvector_centrality "Eigenvector Centrality")
-        (ckccs:pagerank "Pagerank Centrality")
-        (ckccs:in_degree "Weighted In-Degree")
-        (ckccs:out_degree "Weighted Out-Degree")
+      SELECT DISTINCT ?id ?metrics
+      WHERE {
+          ?id ckccs:has_statistic ?stat .
+          ?stat ckccs:value ?stat_value ;
+                ckccs:rank ?stat_rank ;
+                a/skos:prefLabel ?stat_label .
+        BIND (CONCAT(?stat_label, ': ', STR(?stat_value), ' (#', STR(?stat_rank),")") AS ?metrics)
       }
-      ?id ?_prop ?_stat .
-      BIND (CONCAT(?txt, ': ', str(?_stat)) AS ?measures)
     }
     UNION
     {

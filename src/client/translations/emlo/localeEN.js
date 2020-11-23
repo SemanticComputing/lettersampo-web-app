@@ -327,10 +327,14 @@ export default {
             Related actors, e.g. parents, spouses, acquaintances.
           `
         },
-        measures: {
+        metrics: {
           label: 'Network metrics',
           description: `
-            Network metrics, e.g. centrality measures of the actor in the letter network.
+            Network metrics, e.g. centrality measures of the actor in the letter network. 
+            Each line has the label of the measure, its value, and the rank at the end in the parenthesis. 
+            (rank - 1 = the number of people who have a higher measure value).
+
+
           `
         },
         num_correspondences: {
