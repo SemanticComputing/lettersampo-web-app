@@ -10,7 +10,7 @@ import InstanceHomePageTable from '../../main_layout/InstanceHomePageTable'
 import Network from '../../facet_results/Network'
 import ApexChart from '../../facet_results/ApexChart'
 // import LeafletMap from '../../facet_results/LeafletMap'
-import { createMultipleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
+import { createMultipleLineChartData, createSignatureLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Export from '../../facet_results/Export'
 import { coseLayout, cytoscapeStyle, preprocessEgo, preprocessTie } from '../../../configs/emlo/Cytoscape.js/NetworkConfig'
 import { Route, Redirect } from 'react-router-dom'
@@ -250,6 +250,23 @@ class InstanceHomePage extends React.Component {
                     style={cytoscapeStyle}
                     layout={coseLayout}
                     preprocess={preprocessEgo}
+                  />}
+              />
+              <Route
+                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/socialSignature`}
+                render={() =>
+                  <ApexChart
+                    pageType='instancePage'
+                    rawData={results}
+                    rawDataUpdateID={this.props.resultUpdateID}
+                    fetching={isLoading}
+                    fetchData={this.props.fetchResults}
+                    uri={tableData.id}
+                    createChartData={createSignatureLineChartData}
+                    title='Signatures'
+                    xaxisTitle=''
+                    yaxisTitle=''
+                    resultClass='socialSignature'
                   />}
               />
               <Route

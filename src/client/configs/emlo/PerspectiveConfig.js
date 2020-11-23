@@ -1,18 +1,15 @@
 import React from 'react'
 import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
-// import TripOriginIcon from '@material-ui/icons/TripOrigin'
-// import LocationOnIcon from '@material-ui/icons/LocationOn'
 import AddLocationIcon from '@material-ui/icons/AddLocation'
 import BubbleChartIcon from '@material-ui/icons/BubbleChart'
 import MailOutline from '@material-ui/icons/MailOutline'
 import LineChartIcon from '@material-ui/icons/ShowChart'
-// import SettingsBrightnessIcon from '@material-ui/icons/SettingsBrightness'
 import RedoIcon from '@material-ui/icons/Redo'
-// import PieChartIcon from '@material-ui/icons/PieChart'
+import Person from '@material-ui/icons/Person'
+// import TrendingDown from '@material-ui/icons/TrendingDown'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
-// import manuscriptsImage from '../../img/main_page/manuscripts-452x262.jpg'
+
 import worksImage from '../../img/main_page/works-452x262.jpg'
-// import eventsImage from '../../img/main_page/events-452x262.jpg'
 import actorImage from '../../img/main_page/people2-452x262.jpg'
 import placesImage from '../../img/main_page/places2-452x262.jpg'
 
@@ -88,7 +85,7 @@ export const perspectiveConfig = [
       {
         id: 'table',
         value: 0,
-        icon: <CalendarViewDayIcon />
+        icon: <Person />
       },
       {
         id: 'actorLetters',
@@ -104,10 +101,15 @@ export const perspectiveConfig = [
         id: 'sentReceived',
         value: 3,
         icon: <LineChartIcon />
-      },
+      }, /**
+      {
+        id: 'socialSignature',
+        value: 4,
+        icon: <TrendingDown />
+      }, */
       {
         id: 'export',
-        value: 4,
+        value: 5,
         icon: <CloudDownloadIcon />
       }
     ]

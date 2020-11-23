@@ -119,7 +119,6 @@ const maxEdgeWidth = 8
 */
 
 export const preprocess = elements => {
-  console.log('preprocess')
   //  edges
   let arr = elements.edges.map(ele => ele.data.weight || 1)
 
@@ -146,7 +145,6 @@ export const preprocess = elements => {
 }
 
 export const preprocessEgo = elements => {
-  console.log('preprocessEgo')
   //  edges
   let arr = elements.edges.map(ele => ele.data.weight || 1)
 
@@ -171,7 +169,6 @@ export const preprocessEgo = elements => {
 }
 
 export const preprocessTie = elements => {
-  console.log('preprocessTie')
   //  edges
   let arr = elements.edges.map(ele => ele.data.weight)
 

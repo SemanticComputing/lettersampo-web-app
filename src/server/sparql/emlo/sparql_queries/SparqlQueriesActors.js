@@ -306,9 +306,9 @@ WHERE {
 
   # filter 'unknown' etc entries
   ?source skos:prefLabel ?source__label . 
-  FILTER (!REGEX(?source__label, '(unknown|no_recipient_given)', 'i'))
+  # FILTER (!REGEX(?source__label, 'unknown', 'i'))
   ?target skos:prefLabel ?target__label . 
-  FILTER (!REGEX(?target__label, '(unknown|no_recipient_given)', 'i'))
+  # FILTER (!REGEX(?target__label, 'unknown', 'i'))
 
   # no self links
   FILTER (?source!=?target)
@@ -333,6 +333,7 @@ WHERE {
 } GROUP BY ?id ?lat ?long
 `
 
+//  TODO: add href to tie
 //  query on people facet page tab 'Network'
 export const networkLinksQuery = `
 SELECT DISTINCT (?actor as ?source) ?target ?weight (str(?weight) as ?prefLabel)
@@ -343,6 +344,35 @@ SELECT DISTINCT (?actor as ?source) ?target ?weight (str(?weight) as ?prefLabel)
     ckccs:num_letters ?weight .
 }
 `
+
+export const socialSignatureQuery = `
+SELECT (?source AS ?id) (?source__label as ?id__label) 
+  ?target ?target__label
+  ?time_0
+WHERE 
+{
+  VALUES ?node { <ID> }
+  {
+    ?node ckccs:created ?letter .
+    ?letter a ckccs:Letter ;
+      ckccs:was_addressed_to ?target .
+    ?target skos:prefLabel ?_target__label . 
+    FILTER (!REGEX(?_target__label, '(unknown|no_recipient_given)', 'i'))
+  
+    BIND(?node AS ?source)
+  } UNION {
+    ?letter ckccs:was_addressed_to ?node ;
+      a ckccs:Letter .
+    ?source ckccs:created ?letter ;
+      skos:prefLabel ?_source__label . 
+    FILTER (!REGEX(?_source__label, '(unknown|no_recipient_given)', 'i'))
+
+    BIND(?node AS ?target)
+  }
+  ?target skos:prefLabel ?target__label .
+  ?source skos:prefLabel ?source__label .
+  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+} `
 
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href

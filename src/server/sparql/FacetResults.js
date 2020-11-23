@@ -110,6 +110,7 @@ export const getAllResults = ({
   }
   q = q.replace(/<FACET_CLASS>/g, backendSearchConfig[config.perspectiveID].facetClass)
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
+    console.log(config)
     return runNetworkQuery({
       endpoint: endpoint.url,
       prefixes: endpoint.prefixes,
@@ -117,7 +118,8 @@ export const getAllResults = ({
       links: q,
       nodes: config.nodes,
       optimize,
-      limit
+      limit,
+      queryType: config.queryType
     })
   } else {
     if (uri !== null) {

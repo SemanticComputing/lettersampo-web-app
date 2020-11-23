@@ -95,6 +95,47 @@ export const createMultipleLineChartData = ({
   return apexChartOptionsWithData
 }
 
+export const createSignatureLineChartData = ({
+  rawData,
+  title,
+  xaxisTitle,
+  yaxisTitle
+}) => {
+  console.log(rawData)
+  const apexChartOptionsWithData = {
+    ...multipleLineChartOptions,
+    series: rawData.series,
+    title: {
+      text: title
+    },
+    dataLabels: {
+      enabled: false
+    },
+    xaxis: {
+      labels: {
+        rotate: 0
+      },
+      title: {
+        text: xaxisTitle
+      }
+    },
+    yaxis: {
+      title: {
+        text: yaxisTitle
+      }
+    },
+    stroke: {
+      curve: 'straight',
+      width: 2
+    },
+    fill: {
+      type: 'solid',
+      opacity: 0.0
+    }
+  }
+  return apexChartOptionsWithData
+}
+
 const singleLineChartOptions = {
   // see https://apexcharts.com/docs --> Options
   chart: {

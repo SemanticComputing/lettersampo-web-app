@@ -7,8 +7,17 @@ export const runNetworkQuery = async ({
   limit,
   nodes,
   id,
-  optimize
+  optimize,
+  queryType
 }) => {
+  console.log(endpoint,
+    prefixes,
+    links,
+    limit,
+    nodes,
+    id,
+    optimize,
+    queryType)
   const payload = {
     endpoint,
     prefixes,
@@ -19,7 +28,8 @@ export const runNetworkQuery = async ({
     optimize,
     customHttpHeaders: { Authorization: `Basic ${process.env.SPARQL_ENDPOINT_BASIC_AUTH}` }
   }
-  const url = 'https://sparql-network.demo.seco.cs.aalto.fi/query' // 'http://127.0.0.1:5000/query'
+  const url = 'https://sparql-network.demo.seco.cs.aalto.fi/' + (queryType || 'query')
+  // const url = 'http://127.0.0.1:5000/' + (queryType || 'query')
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -27,6 +37,7 @@ export const runNetworkQuery = async ({
   }
   try {
     const response = await axios.post(url, payload, config)
+    console.log(response.data)
     return {
       data: response.data
     }

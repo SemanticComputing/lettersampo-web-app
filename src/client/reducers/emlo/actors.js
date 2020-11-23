@@ -22,15 +22,6 @@ export const INITIAL_STATE = {
   instanceSparqlQuery: null,
   properties: [
     {
-      id: 'uri',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      onlyOnInstancePage: true
-    },
-    {
       id: 'prefLabel',
       valueType: 'object',
       makeLink: true,
@@ -49,6 +40,15 @@ export const INITIAL_STATE = {
       numberedList: false,
       minWidth: 100,
       hideHeader: false
+    },
+    {
+      id: 'uri',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      onlyOnInstancePage: true
     },
     {
       id: 'gender',
@@ -183,7 +183,7 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'actors', 'letterNetwork', 'sentReceived', 'actorLetters', 'actorNetwork'
+  'actors', 'letterNetwork', 'sentReceived', 'actorLetters', 'actorNetwork', 'socialSignature'
 ])
 
 const actors = (state = INITIAL_STATE, action) => {

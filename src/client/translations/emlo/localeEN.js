@@ -91,6 +91,7 @@ export default {
     letterNetwork: 'Network of letters',
     sentReceived: 'Timeline of letters',
     sentReceivedByPlace: 'Timeline of letters',
+    socialSignature: 'Social Signatures',
     sentReceivedByTie: 'Timeline',
     tieNetwork: 'Network',
     map_clusters: 'clustered map',

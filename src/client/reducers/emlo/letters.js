@@ -33,9 +33,9 @@ export const INITIAL_STATE = {
     {
       id: 'prefLabel',
       valueType: 'object',
-      makeLink: true,
+      makeLink: false,
       externalLink: false,
-      sortValues: true,
+      sortValues: false,
       numberedList: false,
       minWidth: 250
     },
@@ -135,7 +135,7 @@ export const INITIAL_STATE = {
       priority: 8,
       onlyOnInstancePage: true
     },
-    {
+    { // TODO: link doesnt lead anywhere
       id: 'datasource',
       valueType: 'object',
       makeLink: true,

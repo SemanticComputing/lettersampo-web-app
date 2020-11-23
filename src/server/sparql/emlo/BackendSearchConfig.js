@@ -2,13 +2,14 @@ import { actorsConfig } from './perspective_configs/ActorsConfig'
 import { lettersConfig } from './perspective_configs/LettersConfig'
 import { placesConfig } from './perspective_configs/PlacesConfig'
 import {
+  actorLettersInstancePageQuery,
   letterLinksQuery,
   networkLinksQuery,
   networkNodesQuery,
   networkNodesFacetQuery,
+  socialSignatureQuery,
   peopleEventPlacesQuery,
-  sentReceivedQuery,
-  actorLettersInstancePageQuery
+  sentReceivedQuery
 } from './sparql_queries/SparqlQueriesActors'
 import {
   letterMigrationsQuery,
@@ -57,6 +58,14 @@ export const backendSearchConfig = {
     q: letterLinksQuery,
     nodes: networkNodesQuery,
     useNetworkAPI: true
+  },
+  socialSignature: {
+    perspectiveID: 'actors',
+    q: socialSignatureQuery,
+    nodes: '',
+    useNetworkAPI: true,
+    queryType: 'signature',
+    resultMapper: mapMultipleLineChart
   },
   // Network tab in people facet results
   actorNetwork: {
