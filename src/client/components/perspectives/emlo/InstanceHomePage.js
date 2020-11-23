@@ -171,7 +171,7 @@ class InstanceHomePage extends React.Component {
                         onlyOnInstancePage: true
                       },
                       {
-                        id: 'measures',
+                        id: 'metrics',
                         valueType: 'string',
                         makeLink: false,
                         externalLink: false,
