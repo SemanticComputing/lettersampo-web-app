@@ -32,9 +32,9 @@ export const INITIAL_STATE = {
       id: 'letter',
       valueType: 'object',
       makeLink: true,
-      externalLink: true,
+      externalLink: false,
       sortValues: true,
-      numberedList: false,
+      numberedList: true,
       minWidth: 170
     }
   ]

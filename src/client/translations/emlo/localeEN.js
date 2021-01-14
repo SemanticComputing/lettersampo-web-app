@@ -722,6 +722,30 @@ export default {
           `
         }
       }
+    },
+    sources: {
+      instancePage: {
+        label: 'Data source',
+        description: `
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+            TODO: description.
+          </p>
+        `
+      },
+      properties: {
+        prefLabel: {
+          label: 'Label',
+          description: `
+            Preferable data source label.
+          `
+        },
+        letter: {
+          label: 'List of letters',
+          description: `
+            List of letters from this data source.
+          `
+        }
+      }
     }
   },
   aboutThePortal: `
