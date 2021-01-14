@@ -10,10 +10,10 @@ const ResultTableCell = props => {
   const {
     data, valueType, makeLink, externalLink, sortValues, sortBy, numberedList, minWidth,
     container, columnId, expanded, linkAsButton, collapsedMaxWords, showSource,
-    sourceExternalLink, renderAsHTML, previewImageHeight
+    sourceExternalLink, renderAsHTML, HTMLParserTask, referencedTerm, previewImageHeight
   } = props
   let cellContent = null
-  const cellStyle = minWidth == null ? {} : { minWidth: minWidth }
+  const cellStyle = { minWidth }
   switch (valueType) {
     case 'object':
       cellContent =
@@ -38,6 +38,8 @@ const ResultTableCell = props => {
           expanded={expanded}
           collapsedMaxWords={collapsedMaxWords}
           renderAsHTML={renderAsHTML}
+          HTMLParserTask={HTMLParserTask}
+          referencedTerm={referencedTerm}
           numberedList={numberedList}
         />
       break
@@ -74,6 +76,7 @@ ResultTableCell.propTypes = {
   expanded: PropTypes.bool.isRequired,
   collapsedMaxWords: PropTypes.number,
   minWidth: PropTypes.number,
+  maxWidth: PropTypes.number,
   previewImageHeight: PropTypes.number,
   showSource: PropTypes.bool,
   sourceExternalLink: PropTypes.bool

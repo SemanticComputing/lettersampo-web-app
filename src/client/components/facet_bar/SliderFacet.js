@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Slider from '@material-ui/core/Slider'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { YearToISOString, ISOStringToYear } from './FacetHelpers'
+import { yearToISOString, ISOStringToYear } from './FacetHelpers'
 
 const styles = theme => ({
   root: {
@@ -62,6 +62,9 @@ class SliderFacet extends Component {
   }
 
   componentDidUpdate = prevProps => {
+    if (this.props.facet.min == null || this.props.facet.max == null) {
+      return
+    }
     if (prevProps.facet.min !== this.props.facet.min ||
       prevProps.facetFilter !== this.props.facetFilter ||
       (prevProps.facet.isFetching && !this.props.facet.isFetching)) {
@@ -119,21 +122,43 @@ class SliderFacet extends Component {
     this.setState({ end: newEnd })
   }
 
-  handleApplyOnClick = event => {
-    const { start, end } = this.state
-    let facetValues = []
-    if (this.props.dataType === 'ISOString') {
-      facetValues[0] = YearToISOString({ year: start, start: true })
-      facetValues[1] = YearToISOString({ year: end, start: false })
-    } else {
-      facetValues = [start, end]
+  handleApplyOnClick = () => this.updateFacetSelection()
+
+  handleOnKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.updateFacetSelection()
     }
-    this.props.updateFacetOption({
-      facetClass: this.props.facetClass,
-      facetID: this.props.facetID,
-      option: this.props.facet.filterType,
-      value: facetValues
-    })
+  }
+
+  updateFacetSelection = () => {
+    const { start, end, min, max } = this.state
+    if (this.isValidSelection({ start, end, min, max })) {
+      let facetValues = []
+      if (this.props.dataType === 'ISOString') {
+        facetValues[0] = yearToISOString({ year: start, start: true })
+        facetValues[1] = yearToISOString({ year: end, start: false })
+      } else {
+        facetValues = [start, end]
+      }
+      this.props.updateFacetOption({
+        facetClass: this.props.facetClass,
+        facetID: this.props.facetID,
+        option: this.props.facet.filterType,
+        value: facetValues
+      })
+    } else {
+      this.props.showError({
+        title: this.props.facetLabel,
+        text: intl.get('facets.sliderFacet.invalidStartOrEnd', { min, max })
+      })
+    }
+  }
+
+  isValidSelection = ({ start, end, min, max }) => {
+    if (start > end) { return false }
+    if (start < min || end < min) { return false }
+    if (start > max || end > max) { return false }
+    return true
   }
 
   render () {
@@ -167,6 +192,7 @@ class SliderFacet extends Component {
             disabled={someFacetIsFetching}
             value={start}
             onChange={this.handleMinInputOnChange}
+            onKeyPress={this.handleOnKeyPress}
             variant='outlined'
             className={classes.textField}
             InputLabelProps={{
@@ -196,6 +222,7 @@ class SliderFacet extends Component {
             disabled={someFacetIsFetching}
             value={end}
             onChange={this.handleMaxInputOnChange}
+            onKeyPress={this.handleOnKeyPress}
             variant='outlined'
             className={classes.textField}
             InputLabelProps={{
@@ -221,10 +248,12 @@ SliderFacet.propTypes = {
   facetID: PropTypes.string.isRequired,
   facet: PropTypes.object.isRequired,
   facetFilter: PropTypes.object,
+  facetLabel: PropTypes.string,
   facetClass: PropTypes.string,
   fetchFacet: PropTypes.func,
   someFacetIsFetching: PropTypes.bool.isRequired,
-  updateFacetOption: PropTypes.func,
+  updateFacetOption: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired,
   dataType: PropTypes.oneOf(['ISOString', 'integer']).isRequired
 }
 

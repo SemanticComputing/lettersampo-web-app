@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
 import { has } from 'lodash'
@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { withRouter, Route, Redirect, Switch } from 'react-router-dom'
 import classNames from 'classnames'
-import compose from 'recompose/compose'
+import { compose } from '@shakacode/recompose'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import moment from 'moment'
@@ -45,6 +45,7 @@ import {
   fetchFacet,
   fetchFacetConstrainSelf,
   clearFacet,
+  clearAllFacets,
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
   clearGeoJSONLayers,
@@ -267,6 +268,10 @@ const SemanticPortal = props => {
   const rootUrlWithLang = `${rootUrl}/${props.options.currentLocale}`
   const noResults = props.clientFS.results == null
 
+  useEffect(() => {
+    document.title = intl.get('appTitle.short')
+  }, [props.options.currentLocale])
+
   return (
     <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={props.options.currentLocale}>
       <div className={classes.root}>
@@ -363,8 +368,10 @@ const SemanticPortal = props => {
                                   fetchFacetConstrainSelf={props.fetchFacetConstrainSelf}
                                   fetchResults={props.fetchResults}
                                   clearFacet={props.clearFacet}
+                                  clearAllFacets={props.clearAllFacets}
                                   fetchResultCount={props.fetchResultCount}
                                   updateFacetOption={props.updateFacetOption}
+                                  showError={props.showError}
                                   defaultActiveFacets={perspective.defaultActiveFacets}
                                   rootUrl={rootUrlWithLang}
                                 />
@@ -632,6 +639,7 @@ const mapDispatchToProps = ({
   fetchFacet,
   fetchFacetConstrainSelf,
   clearFacet,
+  clearAllFacets,
   fetchGeoJSONLayers,
   fetchGeoJSONLayersBackend,
   clearGeoJSONLayers,

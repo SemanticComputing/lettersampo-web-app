@@ -26,7 +26,7 @@ export const getFacet = async ({
   constrainSelf
 }) => {
   const facetConfig = backendSearchConfig[facetClass].facets[facetID]
-  const { endpoint, defaultConstraint = null } = backendSearchConfig[facetClass]
+  const { endpoint, defaultConstraint = null, langTag = null } = backendSearchConfig[facetClass]
   // choose query template and result mapper:
   let q = ''
   let mapper = null
@@ -93,18 +93,19 @@ export const getFacet = async ({
     /* if this facet has previous selections (exluding <http://ldf.fi/MISSING_VALUE>),
        they need to be binded as selected */
     if (currentSelectionsWithoutUnknown.length > 0 && hasPreviousSelections) {
-      selectedBlock = generateSelectedBlock({ currentSelectionsWithoutUnknown })
+      selectedBlock = generateSelectedBlock({ currentSelectionsWithoutUnknown, literal: facetConfig.literal })
     }
     /* if there is previous selections in this facet AND in some other facet, we need an
         additional block for facet values that return 0 hits */
-    if (previousSelectionsExist && previousSelectionsFromOtherFacetsExist) {
+    if (previousSelectionsExist && previousSelectionsFromOtherFacetsExist && currentSelectionsWithoutUnknown.length > 0) {
       selectedNoHitsBlock = generateSelectedNoHitsBlock({
         backendSearchConfig,
         facetClass,
         facetID,
         constraints,
         // no defaultConstraint here
-        currentSelectionsWithoutUnknown
+        currentSelectionsWithoutUnknown,
+        literal: facetConfig.literal
       })
     }
   }
@@ -152,6 +153,12 @@ export const getFacet = async ({
     q = q.replace('<START_PROPERTY>', facetConfig.startProperty)
     q = q.replace('<END_PROPERTY>', facetConfig.endProperty)
   }
+  if (langTag) {
+    q = q.replace(/<LANG>/g, langTag)
+  }
+  // if (facetID === '...') {
+  //   console.log(endpoint.prefixes + q)
+  // }
   const response = await runSelectQuery({
     query: endpoint.prefixes + q,
     endpoint: endpoint.url,
@@ -178,11 +185,13 @@ export const getFacet = async ({
 }
 
 const generateSelectedBlock = ({
-  currentSelectionsWithoutUnknown
+  currentSelectionsWithoutUnknown,
+  literal
 }) => {
   const selectedFilter = generateSelectedFilter({
     currentSelectionsWithoutUnknown,
-    inverse: false
+    inverse: false,
+    literal
   })
   return `
           OPTIONAL {
@@ -197,7 +206,8 @@ const generateSelectedNoHitsBlock = ({
   facetClass,
   facetID,
   constraints,
-  currentSelectionsWithoutUnknown
+  currentSelectionsWithoutUnknown,
+  literal
 }) => {
   const noHitsFilter = generateConstraintsBlock({
     backendSearchConfig,
@@ -207,11 +217,12 @@ const generateSelectedNoHitsBlock = ({
     facetID: facetID,
     inverse: true
   })
+  const selections = literal ? `'${currentSelectionsWithoutUnknown.join(', ')}'` : `<${currentSelectionsWithoutUnknown.join('>, <')}>`
   return `
   UNION
   # facet values that have been selected but return no results
   {
-    VALUES ?id { <${currentSelectionsWithoutUnknown.join('> <')}> }
+    VALUES ?id { ${selections} }
     ${noHitsFilter}
     BIND(true AS ?selected_)
   }
@@ -296,9 +307,11 @@ const getUriFilters = (constraints, facetID) => {
 
 export const generateSelectedFilter = ({
   currentSelectionsWithoutUnknown,
-  inverse
+  inverse,
+  literal
 }) => {
+  const selections = literal ? `'${currentSelectionsWithoutUnknown.join(', ')}'` : `<${currentSelectionsWithoutUnknown.join('>, <')}>`
   return (`
-          FILTER(?id ${inverse ? 'NOT' : ''} IN ( <${currentSelectionsWithoutUnknown.join('>, <')}> ))
+          FILTER(?id ${inverse ? 'NOT' : ''} IN ( ${selections} ))
   `)
 }
