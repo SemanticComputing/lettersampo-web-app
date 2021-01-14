@@ -69,7 +69,8 @@ SELECT DISTINCT (STR(?year) as ?category)
   ?letter ckccs:in_tie ?id ;
           crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
   BIND (year(?time_0) AS ?year)
-
+  FILTER (BOUND(?year))
+  
   {
     ?id ckccs:actor1/ckccs:created ?letter .
     BIND (?letter AS ?sent_letter)
