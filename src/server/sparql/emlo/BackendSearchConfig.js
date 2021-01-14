@@ -26,6 +26,10 @@ import {
   tieLinksQuery,
   tieNodesQuery
 } from './sparql_queries/SparqlQueriesTies'
+import {
+  sourcePropertiesInstancePage
+} from './sparql_queries/SparqlQueriesSources'
+
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
@@ -45,6 +49,13 @@ export const backendSearchConfig = {
     perspectiveID: 'actors',
     instance: {
       properties: tiePropertiesInstancePage,
+      relatedInstances: ''
+    }
+  },
+  sources: {
+    perspectiveID: 'actors',
+    instance: {
+      properties: sourcePropertiesInstancePage,
       relatedInstances: ''
     }
   },

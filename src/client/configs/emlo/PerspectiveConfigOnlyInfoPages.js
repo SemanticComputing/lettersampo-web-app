@@ -30,5 +30,21 @@ export const perspectiveConfigOnlyInfoPages = [
         icon: <CloudDownloadIcon />
       }
     ]
+  },
+  {
+    id: 'sources',
+    perspectiveDescHeight: 160,
+    instancePageTabs: [
+      {
+        id: 'table',
+        value: 0,
+        icon: <CalendarViewDayIcon />
+      },
+      {
+        id: 'export',
+        value: 3,
+        icon: <CloudDownloadIcon />
+      }
+    ]
   }
 ]

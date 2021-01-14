@@ -610,6 +610,7 @@ const mapStateToProps = state => {
     lettersFacets: state.lettersFacets,
     places: state.places,
     placesFacets: state.placesFacets,
+    sources: state.sources,
     ties: state.ties,
     leafletMap: state.leafletMap,
     fullTextSearch: state.fullTextSearch,

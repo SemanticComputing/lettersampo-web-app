@@ -42,7 +42,7 @@ UNION
 UNION 
 { ?id ckccs:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
-  BIND (?datasource__id AS ?datasource__dataProviderUrl)
+  BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
 UNION 
 {
@@ -113,7 +113,7 @@ UNION
 UNION
 { ?id ckccs:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
-  BIND (?datasource__id AS ?datasource__dataProviderUrl)
+  BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
 UNION 
 {
