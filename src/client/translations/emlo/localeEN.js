@@ -744,6 +744,12 @@ export default {
           description: `
             List of letters from this data source.
           `
+        },
+        numletters: {
+          label: 'Number of letters',
+          description: `
+            Number of letters from this data source.
+          `
         }
       }
     }
