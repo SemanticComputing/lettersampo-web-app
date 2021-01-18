@@ -157,7 +157,7 @@ export const INITIAL_STATE = {
 
 const lettersFacets = (state = INITIAL_STATE, action) => {
   if (action.facetClass === 'letters') {
-    return handleFacetAction(state, action)
+    return handleFacetAction(state, action, INITIAL_STATE)
   } else return state
 }
 
