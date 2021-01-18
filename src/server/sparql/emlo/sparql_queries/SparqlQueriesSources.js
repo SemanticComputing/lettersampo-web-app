@@ -5,15 +5,20 @@ export const sourcePropertiesInstancePage = `
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(?id as ?uri__dataProviderUrl)
-
 {
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
 }
 UNION
+{
+  SELECT ?id (COUNT(DISTINCT ?ltr) AS ?numletters) {
+    ?ltr ckccs:source ?id
+  } GROUPBY ?id
+}
+UNION
 { 
   ?letter__id ckccs:source ?id .
   ?letter__id skos:prefLabel ?letter__prefLabel .
-  BIND (?letter__id AS ?letter__dataProviderUrl)
+  BIND(CONCAT("/letters/page/", REPLACE(STR(?letter__id), "^.*\\\\/(.+)", "$1")) AS ?letter__dataProviderUrl)
 }
 `

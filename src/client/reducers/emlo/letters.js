@@ -139,7 +139,7 @@ export const INITIAL_STATE = {
       id: 'datasource',
       valueType: 'object',
       makeLink: true,
-      externalLink: true,
+      externalLink: false,
       sortValues: true,
       numberedList: false,
       minWidth: 150
