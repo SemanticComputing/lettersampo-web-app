@@ -50,7 +50,6 @@ export const lettersConfig = {
       labelPath: 'ckccs:was_sent_from/skos:prefLabel',
       predicate: 'ckccs:was_sent_from',
       // parentProperty: 'crm:P89_falls_within',
-      // parentPredicate: 'ckccs:was_sent_from/crm:P89_falls_within+',
       // type: 'hierarchical'
       type: 'list'
     },
