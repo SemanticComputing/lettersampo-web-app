@@ -57,7 +57,7 @@ const Letters = props => {
             getArcWidth={d => d.instanceCountScaled}
             fromText={intl.get('deckGlMap.letterMigrations.from')}
             toText={intl.get('deckGlMap.letterMigrations.to')}
-            countText={intl.get('deckGlMap.manuscriptMigrations.count')}
+            countText={intl.get('deckGlMap.letterMigrations.count')}
             legendTitle={intl.get('deckGlMap.letterMigrations.legendTitle')}
             legendFromText={intl.get('deckGlMap.letterMigrations.legendFrom')}
             legendToText={intl.get('deckGlMap.letterMigrations.legendTo')}
