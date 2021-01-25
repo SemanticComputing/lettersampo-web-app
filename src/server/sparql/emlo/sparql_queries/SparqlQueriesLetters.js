@@ -145,28 +145,41 @@ UNION
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 //  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
 export const letterMigrationsQuery = `
-SELECT DISTINCT ?id 
-?from__id ?from__prefLabel ?from__dataProviderUrl ?from__lat ?from__long
-?to__id ?to__prefLabel ?to__dataProviderUrl ?to__lat ?to__long
-  WHERE {
+  SELECT DISTINCT ?id 
+  ?from__id ?from__prefLabel ?from__lat ?from__long ?from__dataProviderUrl
+  ?to__id ?to__prefLabel ?to__lat ?to__long ?to__dataProviderUrl
+  (COUNT(DISTINCT ?letter) as ?instanceCount)
+    WHERE {
+      <FILTER>
+      ?letter ckccs:was_sent_from ?from__id ;
+              ckccs:was_sent_to ?to__id ;
+              a ckccs:Letter .   
+      ?from__id skos:prefLabel ?from__prefLabel ; 
+                geo:lat ?from__lat ;
+                geo:long ?from__long .
+      BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+      ?to__id skos:prefLabel ?to__prefLabel ;
+              geo:lat ?to__lat ;
+              geo:long ?to__long .
+      BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+      BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
+      FILTER(?from__id != ?to__id)
+    }
+    GROUP BY ?id 
+    ?from__id ?from__prefLabel ?from__lat ?from__long ?from__dataProviderUrl
+    ?to__id ?to__prefLabel ?to__lat ?to__long ?to__dataProviderUrl
+    ORDER BY desc(?instanceCount)
+`
+
+export const letterMigrationsDialogQuery = `
+  SELECT * {
     <FILTER>
-    ?letter__id a ckccs:Letter ;
-      ckccs:was_sent_from ?from__id ;
-      ckccs:was_sent_to ?to__id ;
-      crm:P4_has_time-span ?time__id ;
-      skos:prefLabel ?letter__prefLabel .
-    
-    ?from__id skos:prefLabel ?from__prefLabel ; 
-        geo:lat ?from__lat ;
-        geo:long ?from__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
-    
-    ?to__id skos:prefLabel ?to__prefLabel ;
-        geo:lat ?to__lat ;
-        geo:long ?to__long .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-    BIND(IRI(CONCAT(STR(?from__id), "-", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1") )) as ?id)
-  } `
+    ?id ckccs:was_sent_from <FROM_ID> ;
+        ckccs:was_sent_to <TO_ID> ;
+        skos:prefLabel ?prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?dataProviderUrl)
+  }
+`
 
 //  https://api.triplydb.com/s/JJ8pW_uH3
 export const letterByYearQuery = `

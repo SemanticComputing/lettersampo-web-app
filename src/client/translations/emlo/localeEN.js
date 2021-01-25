@@ -187,21 +187,13 @@ export default {
   deckGlMap: {
     arcColouring: 'Arc colouring:',
     showMoreInformation: 'Click to show more information.',
-    manuscriptMigrations: {
-      legendTitle: 'Arc colouring',
-      legendFrom: 'Manuscript production place',
-      legendTo: 'Last known location',
-      from: 'Production place:',
-      to: 'Last known location:',
-      listHeadingSingleInstance: 'Manuscript:',
-      listHeadingMultipleInstances: 'Manuscripts:'
-    },
     letterMigrations: {
       legendTitle: 'Arc colouring',
       legendFrom: 'Place of sending',
       legendTo: 'Place of receiving',
       from: 'Place of sending:',
       to: 'Place of receiving:',
+      count: 'Letter count:',
       listHeadingSingleInstance: 'Letter:',
       listHeadingMultipleInstances: 'Letters:'
     }

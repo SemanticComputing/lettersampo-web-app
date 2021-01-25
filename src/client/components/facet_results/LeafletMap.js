@@ -6,6 +6,7 @@ import L from 'leaflet'
 import { has, orderBy, isEqual } from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { purple } from '@material-ui/core/colors'
+import history from '../../History'
 import { MAPBOX_ACCESS_TOKEN, MAPBOX_STYLE } from '../../configs/sampo/GeneralConfig'
 // import { apiUrl } from '../../epics'
 import 'leaflet/dist/leaflet.css' // Official Leaflet styles
@@ -711,17 +712,23 @@ class LeafletMap extends React.Component {
           events: result.events ? result.events : null
         })
       }
-      if (this.props.pageType === 'facetResults' || this.props.pageType === 'instancePage') {
+      if (this.props.pageType === 'facetResults') {
         marker.on('click', this.markerOnClickFacetResults)
       }
-      // if (this.props.pageType === 'instancePage') {
-      //   marker.bindPopup(this.createPopUpContent(marker.options))
-      // }
+      if (this.props.pageType === 'instancePage') {
+        marker.bindPopup(this.createPopUpContentFindSampo(result))
+      }
       if (this.props.pageType === 'clientFSResults') {
         marker.bindPopup(this.createPopUpContentNameSampo(result))
       }
       return marker
     }
+  }
+
+  createNavButton = ({ href, text }) => {
+    const el = document.createElement('button')
+    el.textContent = text
+    el.addEventListener('click', history.push(href))
   }
 
   markerOnClickFacetResults = event => {
@@ -732,44 +739,41 @@ class LeafletMap extends React.Component {
     })
   };
 
-  // TODO: add click events instead of a tags:
-  // https://stackoverflow.com/questions/54744762/click-event-on-leaflet-popup-content
-  createPopUpContent = result => {
-    let popUpTemplate = ''
-    if (Array.isArray(result.prefLabel)) {
-      result.prefLabel = result.prefLabel[0]
+  createPopUpContent = data => {
+    if (Array.isArray(data.prefLabel)) {
+      data.prefLabel = data.prefLabel[0]
     }
-    if (has(result.prefLabel, 'dataProviderUrl')) {
-      popUpTemplate += `<a href=${result.prefLabel.dataProviderUrl}><h3>${result.prefLabel.prefLabel}</h3></a>`
+    const container = document.createElement('div')
+    const h3 = document.createElement('h3')
+    if (has(data.prefLabel, 'dataProviderUrl')) {
+      const link = document.createElement('a')
+      link.addEventListener('click', () => history.push(data.prefLabel.dataProviderUrl))
+      link.textContent = data.prefLabel.prefLabel
+      link.style.cssText = 'cursor: pointer; text-decoration: underline'
+      h3.appendChild(link)
     } else {
-      popUpTemplate += `<h3>${result.prefLabel.prefLabel}</h3>`
+      h3.textContent = data.prefLabel.prefLabel
     }
-    if (has(result, 'sameAs')) {
-      popUpTemplate += `<p>Place authority: <a target="_blank" rel="noopener noreferrer" href=${result.sameAs}>${result.sameAs}</a></p>`
-    }
+    container.appendChild(h3)
     if (this.props.resultClass === 'placesMsProduced') {
-      popUpTemplate += '<p>Manuscripts produced here:</p>'
-      popUpTemplate += this.createInstanceListing(result.related)
+      const p = document.createElement('p')
+      p.textContent = 'Manuscripts produced here:'
+      container.appendChild(p)
+      container.appendChild(this.createInstanceListing(data.related))
     }
     if (this.props.resultClass === 'lastKnownLocations') {
-      popUpTemplate += '<p>Last known location of:</p>'
-      popUpTemplate += this.createInstanceListing(result.related)
+      const p = document.createElement('p')
+      p.textContent = 'Last known location of:'
+      container.appendChild(p)
+      container.appendChild(this.createInstanceListing(data.related))
     }
     if (this.props.resultClass === 'placesActors') {
-      popUpTemplate += '<p>Actors:</p>'
-      popUpTemplate += this.createInstanceListing(result.related)
+      const p = document.createElement('p')
+      p.textContent = 'Actors:'
+      container.appendChild(p)
+      container.appendChild(this.createInstanceListing(data.related))
     }
-    if (this.props.resultClass === 'instanceEvents') {
-      popUpTemplate += '<p>Events:</p>'
-      popUpTemplate += this.createInstanceListing(result.events)
-    }
-    //  rename 'peoplePlaces' to 'placesActors' ?
-    if (this.props.resultClass === 'peoplePlaces') {
-      popUpTemplate += '<p>People:</p>'
-      popUpTemplate += this.createInstanceListing(result.related)
-    }
-    // console.log(popUpTemplate)
-    return popUpTemplate
+    return container
   }
 
   createPopUpContentNameSampo = data => {
@@ -807,6 +811,65 @@ class LeafletMap extends React.Component {
       }
     }
     return popUpTemplate
+  }
+
+  createPopUpContentFindSampo = data => {
+    const container = document.createElement('div')
+    const heading = document.createElement('h3')
+    const headingLink = document.createElement('a')
+    headingLink.href = ''
+    headingLink.textContent = data.prefLabel.prefLabel
+    headingLink.addEventListener('click', () => history.push(data.dataProviderUrl))
+    heading.appendChild(headingLink)
+    container.appendChild(heading)
+    if (has(data, 'type')) {
+      container.appendChild(this.createPopUpElement({
+        label: intl.get('perspectives.finds.properties.type.label'),
+        value: data.type
+      }))
+    }
+    if (has(data, 'subCategory')) {
+      container.appendChild(this.createPopUpElement({
+        label: intl.get('perspectives.finds.properties.subCategory.label'),
+        value: data.subCategory
+      }))
+    }
+    if (has(data, 'material')) {
+      container.appendChild(this.createPopUpElement({
+        label: intl.get('perspectives.finds.properties.material.label'),
+        value: data.material.prefLabel
+      }))
+    }
+    if (has(data, 'period')) {
+      container.appendChild(this.createPopUpElement({
+        label: intl.get('perspectives.finds.properties.period.label'),
+        value: data.period
+      }))
+    }
+    if (has(data, 'municipality')) {
+      container.appendChild(this.createPopUpElement({
+        label: intl.get('perspectives.finds.properties.municipality.label'),
+        value: data.municipality.prefLabel
+      }))
+    }
+    if (has(data, 'id')) {
+      container.appendChild(this.createPopUpElement({
+        label: intl.get('perspectives.finds.properties.uri.label'),
+        value: data.id
+      }))
+    }
+    return container
+  }
+
+  createPopUpElement = ({ label, value }) => {
+    const p = document.createElement('p')
+    const b = document.createElement('b')
+    const span = document.createElement('span')
+    b.textContent = (`${label}: `)
+    span.textContent = value
+    p.appendChild(b)
+    p.appendChild(span)
+    return p
   }
 
   createPopUpContentGeoJSON = (layerID, properties) => {
@@ -848,18 +911,28 @@ class LeafletMap extends React.Component {
   }
 
   createInstanceListing = instances => {
-    let html = ''
+    let root
     if (Array.isArray(instances)) {
+      root = document.createElement('ul')
       instances = orderBy(instances, 'prefLabel')
-      html += '<ul>'
       instances.forEach(i => {
-        html += '<li><a href=' + i.dataProviderUrl + '>' + i.prefLabel + '</a></li>'
+        const li = document.createElement('li')
+        const link = document.createElement('a')
+        link.addEventListener('click', () => history.push(i.dataProviderUrl))
+        link.textContent = i.prefLabel
+        link.style.cssText = 'cursor: pointer; text-decoration: underline'
+        li.appendChild(link)
+        root.appendChild(li)
       })
-      html += '</ul>'
     } else {
-      html += '<p><a href=' + instances.dataProviderUrl + '>' + instances.prefLabel + '</a></p>'
+      root = document.createElement('p')
+      const link = document.createElement('a')
+      link.addEventListener('click', () => history.push(instances.dataProviderUrl))
+      link.textContent = instances.prefLabel
+      link.style.cssText = 'cursor: pointer; text-decoration: underline'
+      root.appendChild(link)
     }
-    return html
+    return root
   }
 
   createOpacitySlider = overlayLayers => {

@@ -20,6 +20,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
             clearGeoJSONLayers={props.clearGeoJSONLayers}
@@ -46,6 +47,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
             clearGeoJSONLayers={props.clearGeoJSONLayers}
@@ -72,6 +74,7 @@ const FacetedSearchPerspective = props => {
             facetData={props.facetData}
             fetchPaginatedResults={props.fetchPaginatedResults}
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
             clearGeoJSONLayers={props.clearGeoJSONLayers}

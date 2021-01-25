@@ -5,6 +5,7 @@ export const runSelectQuery = async ({
   query,
   endpoint,
   resultMapper,
+  postprocess = null,
   previousSelections = null, // not in use
   resultFormat,
   useAuth = true
@@ -30,6 +31,9 @@ export const runSelectQuery = async ({
     })
     if (resultFormat === 'json') {
       const mappedResults = resultMapper(response.data.results.bindings, previousSelections)
+      if (postprocess) {
+        postprocess.func({ data: mappedResults, config: postprocess.config })
+      }
       return {
         data: mappedResults,
         sparqlQuery: query
