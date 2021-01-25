@@ -45,13 +45,19 @@ const Letters = props => {
           <Deck
             results={props.placesResults.results}
             facetUpdateID={props.facetData.facetUpdateID}
+            instanceAnalysisData={props.placesResults.instanceAnalysisData}
+            instanceAnalysisDataUpdateID={props.placesResults.instanceAnalysisDataUpdateID}
             resultClass='letterMigrations'
             facetClass='letters'
             fetchResults={props.fetchResults}
+            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
             fetching={props.placesResults.fetching}
+            fetchingInstanceAnalysisData={props.placesResults.fetchingInstanceAnalysisData}
             layerType='arcLayer'
+            getArcWidth={d => d.instanceCountScaled}
             fromText={intl.get('deckGlMap.letterMigrations.from')}
             toText={intl.get('deckGlMap.letterMigrations.to')}
+            countText={intl.get('deckGlMap.manuscriptMigrations.count')}
             legendTitle={intl.get('deckGlMap.letterMigrations.legendTitle')}
             legendFromText={intl.get('deckGlMap.letterMigrations.legendFrom')}
             legendToText={intl.get('deckGlMap.letterMigrations.legendTo')}

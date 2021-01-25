@@ -13,6 +13,7 @@ import {
 } from './sparql_queries/SparqlQueriesActors'
 import {
   letterMigrationsQuery,
+  letterMigrationsDialogQuery,
   letterByYearQuery
 } from './sparql_queries/SparqlQueriesLetters'
 import {
@@ -33,7 +34,7 @@ import {
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces, mapLineChart } from '../Mappers'
+import { mapPlaces, mapLineChart, linearScale } from '../Mappers'
 import { mapMultipleLineChart } from '../cckc_Mappers'
 
 export const backendSearchConfig = {
@@ -62,7 +63,21 @@ export const backendSearchConfig = {
   letterMigrations: {
     perspectiveID: 'letters',
     q: letterMigrationsQuery,
-    filterTarget: 'letter__id',
+    filterTarget: 'letter',
+    resultMapper: makeObjectList,
+    postprocess: {
+      func: linearScale,
+      config: {
+        variable: 'instanceCount',
+        minAllowed: 3,
+        maxAllowed: 30
+      }
+    }
+  },
+  letterMigrationsDialog: {
+    perspectiveID: 'letters',
+    q: letterMigrationsDialogQuery,
+    filterTarget: 'id',
     resultMapper: makeObjectList
   },
   letterNetwork: {
