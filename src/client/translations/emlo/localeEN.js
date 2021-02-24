@@ -1,10 +1,14 @@
 export default {
   languageLabel: 'English',
+  html: {
+    title: 'LetterSampo – Historical Letters on the Semantic Web',
+    description: 'LetterSampo can be used for analysing epistolary data in different data repositories in different countries, or for aggegated international datasets, such as Republic of Letters Data.'
+  },
   appTitle: {
     short: 'LetterSampo',
-    long: ' &nbsp; &nbsp; LetterSampo  &nbsp; &nbsp;',
+    long: ' LetterSampo',
     subheading: `
-      ePistolarium
+      Historical Letters on the Semantic Web
     `
   },
   appDescription: `
