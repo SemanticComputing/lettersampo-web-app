@@ -11,6 +11,7 @@ import { loadLocales } from './actions'
 import { defaultLocale } from './configs/emlo/GeneralConfig'
 import { updateLocaleToPathname } from './helpers/helpers'
 
+
 import './index.css'
 import 'react-sortable-tree/style.css'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
