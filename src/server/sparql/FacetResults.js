@@ -134,7 +134,7 @@ export const getAllResults = ({
     q = q.replace(/<TO_ID>/g, `<${toID}>`)
   }
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
-    console.log(config)
+    // console.log(config)
     return runNetworkQuery({
       endpoint: endpoint.url,
       prefixes: endpoint.prefixes,

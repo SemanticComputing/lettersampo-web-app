@@ -52,10 +52,12 @@ class InstanceHomePage extends React.Component {
     // handle the case when the TABLE tab was not originally active
     const prevPathname = prevProps.routeProps.location.pathname
     const currentPathname = this.props.routeProps.location.pathname
-    if (prevPathname !== currentPathname && currentPathname.endsWith('table')) {
+    if (!this.hasTableData() && prevPathname !== currentPathname && currentPathname.endsWith('table')) {
       this.fetchTableData()
     }
   }
+
+  hasTableData = () => this.props.tableData !== null && Object.values(this.props.tableData).length >= 1
 
   fetchTableData = () => {
     let uri = ''
@@ -106,9 +108,7 @@ class InstanceHomePage extends React.Component {
 
   render = () => {
     const { classes, tableData, results, isLoading, resultClass, rootUrl } = this.props
-    const hasTableData = tableData !== null && Object.values(tableData).length >= 1
-    //  console.log(resultClass)
-    //  console.log(this.props)
+    const hasTableData = this.hasTableData()
     return (
       <div className={classes.root}>
         <PerspectiveTabs
@@ -117,11 +117,11 @@ class InstanceHomePage extends React.Component {
           screenSize={this.props.screenSize}
         />
         <Paper square className={classes.content}>
-          {isLoading &&
+          {isLoading && !hasTableData &&
             <div className={classes.spinnerContainer}>
               <CircularProgress style={{ color: purple[500] }} thickness={5} />
             </div>}
-          {!hasTableData &&
+          {!hasTableData && !results &&
             <>
               <Typography variant='h6'>
                 No data found for id: <span style={{ fontStyle: 'italic' }}>{this.state.localID}</span>

@@ -10,14 +10,14 @@ export const runNetworkQuery = async ({
   optimize,
   queryType
 }) => {
-  console.log(endpoint,
-    prefixes,
-    links,
-    limit,
-    nodes,
-    id,
-    optimize,
-    queryType)
+  // console.log(endpoint,
+  //   prefixes,
+  //   links,
+  //   limit,
+  //   nodes,
+  //   id,
+  //   optimize,
+  //   queryType)
   const payload = {
     endpoint,
     prefixes,
@@ -37,7 +37,7 @@ export const runNetworkQuery = async ({
   }
   try {
     const response = await axios.post(url, payload, config)
-    console.log(response.data)
+    // console.log(response.data)
     return {
       data: response.data
     }
