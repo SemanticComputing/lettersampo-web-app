@@ -35,13 +35,17 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     color: '#fff'
   },
+  bannerHeading: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
   bannerSubheading: {
     marginTop: theme.spacing(1.5),
-    display: 'flex',
-    '& div': {
-      flexGrow: 1,
-      width: 0
-    }
+    display: 'flex'
+    // '& div': {
+    //   flexGrow: 1,
+    //   width: 0
+    // }
   },
   layout: {
     width: 'auto',

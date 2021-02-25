@@ -134,7 +134,7 @@ export const getAllResults = ({
     q = q.replace(/<TO_ID>/g, `<${toID}>`)
   }
   if (has(config, 'useNetworkAPI') && config.useNetworkAPI) {
-    console.log(config)
+    // console.log(config)
     return runNetworkQuery({
       endpoint: endpoint.url,
       prefixes: endpoint.prefixes,
@@ -217,11 +217,11 @@ export const getByURI = ({
   } else {
     ({ endpoint, langTag, langTagSecondary } = config)
   }
-  const { properties, relatedInstances } = config.instance
+  const { properties, relatedInstances, noFilterForRelatedInstances = false } = config.instance
   let q = instanceQuery
   q = q.replace('<PROPERTIES>', properties)
   q = q.replace('<RELATED_INSTANCES>', relatedInstances)
-  if (constraints == null) {
+  if (constraints == null || noFilterForRelatedInstances) {
     q = q.replace('<FILTER>', '# no filters')
   } else {
     q = q.replace('<FILTER>', generateConstraintsBlock({

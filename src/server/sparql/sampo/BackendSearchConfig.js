@@ -54,6 +54,7 @@ import {
 import { hellerauMigrationsQuery } from './sparql_queries/SparqlQueriesHellerau'
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
+import { sitemapInstancePageQuery } from '../SparqlQueriesGeneral'
 import { makeObjectList } from '../SparqlObjectMapper'
 import {
   mapPlaces,
@@ -78,6 +79,8 @@ export const backendSearchConfig = {
   },
   works: {
     perspectiveID: 'perspective1',
+    rdfType: 'frbroo:F1_Work',
+    includeInSitemap: true,
     instance: {
       properties: workProperties,
       relatedInstances: ''
@@ -257,5 +260,13 @@ export const backendSearchConfig = {
   },
   federatedSearch: {
     datasets: federatedSearchDatasets
+  },
+  sitemapConfig: {
+    baseUrl: 'https://sampo-ui.demo.seco.cs.aalto.fi',
+    langPrimary: 'en',
+    langSecondary: 'fi',
+    outputDir: './src/server/sitemap_generator/sitemap_output',
+    sitemapUrl: 'https://sampo-ui.demo.seco.cs.aalto.fi/sitemap',
+    sitemapInstancePageQuery
   }
 }

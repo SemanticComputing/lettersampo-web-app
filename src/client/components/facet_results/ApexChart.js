@@ -43,7 +43,8 @@ class ApexChart extends React.Component {
       resultClass: this.state.resultClass,
       facetClass: this.props.facetClass,
       facetID: this.props.facetID,
-      uri: this.props.uri
+      uri: this.props.uri,
+      clearTableData: false
     })
   }
 
@@ -57,14 +58,16 @@ class ApexChart extends React.Component {
       this.props.fetchData({
         resultClass: this.state.resultClass,
         facetClass: this.props.facetClass,
-        facetID: this.props.facetID
+        facetID: this.props.facetID,
+        clearTableData: false
       })
     }
     if (prevState.resultClass !== this.state.resultClass) {
       this.props.fetchData({
         resultClass: this.state.resultClass,
         facetClass: this.props.facetClass,
-        facetID: this.props.facetID
+        facetID: this.props.facetID,
+        clearTableData: false
       })
     }
     if (prevState.chartType !== this.state.chartType) {
@@ -133,7 +136,6 @@ class ApexChart extends React.Component {
       }
     }
     const spinnerContainerStyle = {
-      ...rootStyle,
       display: 'flex',
       width: '100%',
       height: '100%',
@@ -207,5 +209,7 @@ ApexChart.propTypes = {
   facetResultsType: PropTypes.string,
   resultClasses: PropTypes.array
 }
+
+export const ApexChartComponent = ApexChart
 
 export default withStyles(styles)(ApexChart)
