@@ -56,9 +56,9 @@ export const actorsConfig = {
     flourish: {
       id: 'flourish',
       facetValueFilter: '',
-      sortByAscPredicate: 'ckccs:has_flourish/crm:P82a_begin_of_the_begin',
-      sortByDescPredicate: 'ckccs:has_flourish/crm:P82b_end_of_the_end',
-      predicate: 'ckccs:has_flourish',
+      sortByAscPredicate: 'ckccs:flourished/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: 'ckccs:flourished/crm:P82b_end_of_the_end',
+      predicate: 'ckccs:flourished',
       startProperty: 'crm:P82a_begin_of_the_begin',
       endProperty: 'crm:P82b_end_of_the_end',
       dataType: 'xsd:dateTime',

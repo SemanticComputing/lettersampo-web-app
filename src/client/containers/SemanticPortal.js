@@ -25,7 +25,7 @@ import FacetBar from '../components/facet_bar/FacetBar'
 // ** Portal specific components and configs **
 import TopBar from '../components/perspectives/emlo/TopBar'
 import FacetedSearchPerspective from '../components/perspectives/emlo/FacetedSearchPerspective'
-import FullTextSearch from '../components/perspectives/sampo/FullTextSearch'
+import FullTextSearch from '../components/perspectives/emlo/FullTextSearch'
 import ClientFSPerspective from '../components/perspectives/sampo/client_fs/ClientFSPerspective'
 import ClientFSMain from '../components/perspectives/sampo/client_fs/ClientFSMain'
 import InstanceHomePage from '../components/perspectives/emlo/InstanceHomePage'

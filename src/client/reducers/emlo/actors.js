@@ -94,6 +94,17 @@ export const INITIAL_STATE = {
       onlyOnInstancePage: true
     },
     {
+      id: 'flourish',
+      valueType: 'string',
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 70,
+      priority: 5,
+      onlyOnInstancePage: true
+    },
+    {
       id: 'deathDateTimespan',
       valueType: 'object',
       makeLink: false,

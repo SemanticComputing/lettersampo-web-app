@@ -7,6 +7,7 @@ import {
 export const INITIAL_STATE = {
   query: '',
   results: null,
+  pagesize: 20,
   fetching: false
 }
 
