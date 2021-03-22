@@ -284,6 +284,12 @@ export default {
           Place of Birth
           `
         },
+        flourish: {
+          label: 'Flourishing time',
+          description: `
+          Flourishing time, e.g. time of activity.
+          `
+        },
         deathDateTimespan: {
           label: 'Death time',
           description: `

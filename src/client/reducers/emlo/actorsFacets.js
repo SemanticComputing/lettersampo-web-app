@@ -78,6 +78,25 @@ export const INITIAL_STATE = {
       type: 'timespan',
       priority: 8
     },
+    flourish: {
+      id: 'flourish',
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: null,
+      sortDirection: null,
+      sortButton: false,
+      spatialFilterButton: false,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'four',
+      filterType: 'timespanFilter',
+      min: null,
+      max: null,
+      timespanFilter: null,
+      type: 'timespan',
+      priority: 8
+    },
     deathDateTimespan: {
       id: 'deathDateTimespan',
       // predicate: defined in backend

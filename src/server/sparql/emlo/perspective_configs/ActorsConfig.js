@@ -53,6 +53,17 @@ export const actorsConfig = {
       dataType: 'xsd:dateTime',
       type: 'timespan'
     },
+    flourish: {
+      id: 'flourish',
+      facetValueFilter: '',
+      sortByAscPredicate: 'ckccs:has_flourish/crm:P82a_begin_of_the_begin',
+      sortByDescPredicate: 'ckccs:has_flourish/crm:P82b_end_of_the_end',
+      predicate: 'ckccs:has_flourish',
+      startProperty: 'crm:P82a_begin_of_the_begin',
+      endProperty: 'crm:P82b_end_of_the_end',
+      dataType: 'xsd:dateTime',
+      type: 'timespan'
+    },
     deathDateTimespan: {
       id: 'deathDateTimespan',
       facetValueFilter: '',

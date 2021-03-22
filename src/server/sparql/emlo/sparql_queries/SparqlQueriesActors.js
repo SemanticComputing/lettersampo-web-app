@@ -260,6 +260,13 @@ export const actorPropertiesFacetResults =
     BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
   }
   UNION
+  { 
+    ?id ckccs:has_flourish ?flourish__id .
+    ?flourish__id skos:prefLabel ?flourish__prefLabel ;
+      crm:P82a_begin_of_the_begin ?flourish__start; 
+      crm:P82b_end_of_the_end ?flourish__end 
+  }
+  UNION
   {
     ?id ckccs:out_degree ?num_sent
   }
@@ -281,6 +288,25 @@ export const actorPropertiesFacetResults =
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
   }
 `
+
+/** TODO: add flourished years
+ *
+  UNION
+  {
+    SELECT DISTINCT ?id
+      (min(?ts__start) AS ?flourished__start)
+      (max(?ts__end) AS ?flourished__end)
+      (IF(year(?flourished__start)=year(?flourished__end),
+          STR(year(?flourished__start)),
+          CONCAT(STR(year(?flourished__start)),'-',STR(year(?flourished__end))))
+          AS ?flourished__prefLabel)
+    WHERE {
+    ?id ckccs:created/crm:P4_has_time-span ?ts .
+    OPTIONAL { ?ts crm:P82a_begin_of_the_begin ?ts__start }
+    OPTIONAL { ?ts crm:P82b_end_of_the_end ?ts__end }
+    } GROUPBY ?id
+  }
+*/
 
 //  https://api.triplydb.com/s/U-6MA_haY
 export const letterLinksQuery = `
