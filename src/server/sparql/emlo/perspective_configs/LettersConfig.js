@@ -93,7 +93,9 @@ export const lettersConfig = {
       label: 'Data Source',
       labelPath: 'ckccs:source/skos:prefLabel',
       predicate: 'ckccs:source',
-      type: 'list'
+      parentProperty: 'skos:broader',
+      parentPredicate: 'ckccs:source/skos:broader*',
+      type: 'hierarchical'
     },
     excipit: {
       id: 'excipit',

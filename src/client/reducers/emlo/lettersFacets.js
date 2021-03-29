@@ -149,6 +149,7 @@ export const INITIAL_STATE = {
       searchField: true,
       containerClass: 'ten',
       filterType: 'uriFilter',
+      type: 'hierarchical',
       uriFilter: null,
       priority: 3
     }
