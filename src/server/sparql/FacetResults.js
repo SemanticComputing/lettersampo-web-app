@@ -106,7 +106,7 @@ export const getAllResults = ({
   } else {
     ({ endpoint, defaultConstraint, langTag, langTagSecondary } = config)
   }
-  const { filterTarget, resultMapper, postprocess = null } = config
+  const { filterTarget, resultMapper, resultMapperConfig, postprocess = null } = config
   let { q } = config
   if (constraints == null && defaultConstraint == null) {
     q = q.replace(/<FILTER>/g, '# no filters')
@@ -155,6 +155,7 @@ export const getAllResults = ({
       endpoint: endpoint.url,
       useAuth: endpoint.useAuth,
       resultMapper,
+      resultMapperConfig,
       postprocess,
       resultFormat
     })
@@ -233,7 +234,7 @@ export const getByURI = ({
       facetID: null
     }))
   }
-  q = q.replace('<ID>', `<${uri}>`)
+  q = q.replace(/<ID>/g, `<${uri}>`)
   if (langTag) {
     q = q.replace(/<LANG>/g, langTag)
   }

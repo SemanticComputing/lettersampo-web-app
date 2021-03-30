@@ -43,8 +43,7 @@ class ApexChart extends React.Component {
       resultClass: this.state.resultClass,
       facetClass: this.props.facetClass,
       facetID: this.props.facetID,
-      uri: this.props.uri,
-      clearTableData: false
+      uri: this.props.uri
     })
   }
 
@@ -58,16 +57,14 @@ class ApexChart extends React.Component {
       this.props.fetchData({
         resultClass: this.state.resultClass,
         facetClass: this.props.facetClass,
-        facetID: this.props.facetID,
-        clearTableData: false
+        facetID: this.props.facetID
       })
     }
     if (prevState.resultClass !== this.state.resultClass) {
       this.props.fetchData({
         resultClass: this.state.resultClass,
         facetClass: this.props.facetClass,
-        facetID: this.props.facetID,
-        clearTableData: false
+        facetID: this.props.facetID
       })
     }
     if (prevState.chartType !== this.state.chartType) {
@@ -93,7 +90,12 @@ class ApexChart extends React.Component {
         title: this.props.title, 
         xaxisTitle: this.props.xaxisTitle || '',
         yaxisTitle: this.props.yaxisTitle || '',
-        seriesTitle: this.props.seriesTitle || ''
+        seriesTitle: this.props.seriesTitle || '',
+        xaxisType: this.props.xaxisType || null,
+        xaxisTickAmount: this.props.xaxisTickAmount || null,
+        xaxisLabels: this.props.xaxisLabels || null,
+        stroke: this.props.stroke || null,
+        tooltip: this.props.tooltip || null
       })
     )
     this.chart.render()
