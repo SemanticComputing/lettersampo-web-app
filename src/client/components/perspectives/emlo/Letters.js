@@ -82,8 +82,14 @@ const Letters = props => {
             createChartData={createSingleLineChartData}
             title='Letters by year'
             xaxisTitle='Year'
+            xaxisType='category'
+            xaxisTickAmount={20}
             yaxisTitle='Number of letters'
             seriesTitle='Number of letters'
+            stroke={{
+              curve: 'straight',
+              width: 2
+            }}
             resultClass='letterByYear'
             facetClass='letters'
           />}

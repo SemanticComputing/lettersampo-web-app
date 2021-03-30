@@ -34,8 +34,7 @@ import {
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
 import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces, mapLineChart, linearScale } from '../Mappers'
-import { mapMultipleLineChart } from '../cckc_Mappers'
+import { mapPlaces, mapLineChart, mapMultipleLineChart, linearScale } from '../Mappers'
 
 export const backendSearchConfig = {
   actors: actorsConfig,
@@ -92,7 +91,10 @@ export const backendSearchConfig = {
     nodes: '',
     useNetworkAPI: true,
     queryType: 'signature',
-    resultMapper: mapMultipleLineChart
+    resultMapper: mapMultipleLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
   },
   // Network tab in people facet results
   actorNetwork: {
@@ -106,7 +108,10 @@ export const backendSearchConfig = {
     perspectiveID: 'letters',
     q: letterByYearQuery,
     filterTarget: 'letter__id',
-    resultMapper: mapLineChart
+    resultMapper: mapLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
   },
   placesActors: {
     perspectiveID: 'actors',
@@ -128,17 +133,26 @@ export const backendSearchConfig = {
   sentReceived: {
     perspectiveID: 'actors',
     q: sentReceivedQuery,
-    resultMapper: mapMultipleLineChart
+    resultMapper: mapMultipleLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
   },
   sentReceivedByPlace: {
     perspectiveID: 'places',
     q: sentReceivedByPlaceQuery,
-    resultMapper: mapMultipleLineChart
+    resultMapper: mapMultipleLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
   },
   sentReceivedByTie: {
     perspectiveID: 'actors',
     q: tieLettersQuery,
-    resultMapper: mapMultipleLineChart
+    resultMapper: mapMultipleLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
   },
   tieNetwork: {
     perspectiveID: 'actors',

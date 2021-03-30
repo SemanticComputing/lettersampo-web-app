@@ -10,7 +10,7 @@ import InstanceHomePageTable from '../../main_layout/InstanceHomePageTable'
 import Network from '../../facet_results/Network'
 import ApexChart from '../../facet_results/ApexChart'
 // import LeafletMap from '../../facet_results/LeafletMap'
-import { createMultipleLineChartData, createSignatureLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
+import { createSingleLineChartData, createMultipleLineChartData } from '../../../configs/emlo/ApexCharts/LineChartConfig'
 import Export from '../../facet_results/Export'
 import { coseLayout, cytoscapeStyle, preprocessEgo, preprocessTie } from '../../../configs/emlo/Cytoscape.js/NetworkConfig'
 import { Route, Redirect } from 'react-router-dom'
@@ -265,10 +265,18 @@ class InstanceHomePage extends React.Component {
                     fetching={isLoading}
                     fetchData={this.props.fetchResults}
                     uri={tableData.id}
-                    createChartData={createSignatureLineChartData}
+                    createChartData={createSingleLineChartData}
                     title='Signatures'
                     xaxisTitle=''
                     yaxisTitle=''
+                    stroke={{
+                      curve: 'straight',
+                      width: 2
+                    }}
+                    fill={{
+                      type: 'solid',
+                      opacity: 0.0
+                    }}
                     resultClass='socialSignature'
                   />}
               />
@@ -285,7 +293,23 @@ class InstanceHomePage extends React.Component {
                     createChartData={createMultipleLineChartData}
                     title='Letters by year'
                     xaxisTitle='Year'
+                    xaxisType='category'
+                    xaxisTickAmount={20}
                     yaxisTitle='Number of letters'
+                    stroke={{
+                      curve: 'straight',
+                      width: 2
+                    }}
+                    fill={{
+                      type: 'gradient',
+                      gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.6,
+                        opacityTo: 0.05,
+                        stops: [20, 60, 100, 100]
+                      }
+                    }}
                     resultClass='sentReceived'
                   />}
               />
@@ -302,7 +326,23 @@ class InstanceHomePage extends React.Component {
                     createChartData={createMultipleLineChartData}
                     title='Letters by year'
                     xaxisTitle='Year'
+                    xaxisType='category'
+                    xaxisTickAmount={20}
                     yaxisTitle='Number of letters'
+                    stroke={{
+                      curve: 'straight',
+                      width: 2
+                    }}
+                    fill={{
+                      type: 'gradient',
+                      gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.6,
+                        opacityTo: 0.05,
+                        stops: [20, 60, 100, 100]
+                      }
+                    }}
                     resultClass='sentReceivedByPlace'
                   />}
               />
@@ -319,7 +359,23 @@ class InstanceHomePage extends React.Component {
                     createChartData={createMultipleLineChartData}
                     title='Letters by year'
                     xaxisTitle='Year'
+                    xaxisType='category'
+                    xaxisTickAmount={20}
                     yaxisTitle='Number of letters'
+                    stroke={{
+                      curve: 'straight',
+                      width: 2
+                    }}
+                    fill={{
+                      type: 'gradient',
+                      gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.6,
+                        opacityTo: 0.05,
+                        stops: [20, 60, 100, 100]
+                      }
+                    }}
                     resultClass='sentReceivedByTie'
                   />}
               />
