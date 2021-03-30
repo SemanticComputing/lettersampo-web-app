@@ -12,8 +12,13 @@ export const actorPropertiesInstancePage = `
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
 
-  ?id skos:prefLabel ?prefLabel__id .
-  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  { SELECT DISTINCT ?id 
+    (SAMPLE(?_prefLabel__id) AS ?prefLabel__id)
+    (SAMPLE(?_prefLabel__prefLabel) AS ?prefLabel__prefLabel) WHERE {
+  ?id skos:prefLabel ?_prefLabel__id .
+  BIND (?_prefLabel__id as ?_prefLabel__prefLabel)
+    } GROUPBY ?id
+  }
 
   {
     ?id a ?type__id .

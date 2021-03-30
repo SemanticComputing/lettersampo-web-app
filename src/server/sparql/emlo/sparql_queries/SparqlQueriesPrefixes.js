@@ -1,8 +1,8 @@
 export const prefixes = `
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX eschema: <http://emlo.bodleian.ox.ac.uk/schema#>
 PREFIX emlo_id: <http://emlo.bodleian.ox.ac.uk/id/>
+PREFIX eschema: <http://emlo.bodleian.ox.ac.uk/schema#>
 PREFIX actors: <http://ldf.fi/ckcc/actors/>
 PREFIX letters: <http://ldf.fi/ckcc/letters/>
 PREFIX places: <http://ldf.fi/ckcc/places/>
