@@ -78,10 +78,11 @@ export const actorsConfig = {
     num_sent: { // TODO: is there now an easier way to do this?
       orderByPattern: `
         {
-          SELECT ?id ?orderBy
+          SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy)
           WHERE {
-            VALUES ?facetClass { <FACET_CLASS> }
-            ?id a ?facetClass ; ckccs:out_degree ?orderBy
+            VALUES ?facetClass { crm:E21_Person }
+            ?id a ?facetClass .
+            OPTIONAL { ?id ckccs:out_degree ?_orderBy }
           } 
         }
       `
@@ -89,10 +90,11 @@ export const actorsConfig = {
     num_received: {
       orderByPattern: `
         {
-          SELECT ?id ?orderBy
+          SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy)
           WHERE {
-            VALUES ?facetClass { <FACET_CLASS> }
-            ?id a ?facetClass ; ckccs:in_degree ?orderBy
+            VALUES ?facetClass { crm:E21_Person }
+            ?id a ?facetClass .
+            OPTIONAL { ?id ckccs:in_degree ?_orderBy }
           } 
         }
       `
