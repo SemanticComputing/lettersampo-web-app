@@ -116,6 +116,23 @@ export const INITIAL_STATE = {
       timespanFilter: null,
       type: 'timespan',
       priority: 8
+    },
+    datasource: {
+      id: 'datasource',
+      distinctValueCount: 0,
+      values: [],
+      flatValues: [],
+      sortBy: 'instanceCount',
+      sortDirection: 'desc',
+      sortButton: false,
+      spatialFilterButton: false,
+      chartButton: true,
+      isFetching: false,
+      searchField: false,
+      containerClass: 'three',
+      filterType: 'uriFilter',
+      uriFilter: null,
+      priority: 9
     }
   }
 }

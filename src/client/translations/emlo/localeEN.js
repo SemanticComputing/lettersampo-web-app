@@ -338,8 +338,6 @@ export default {
             Network metrics, e.g. centrality measures of the actor in the letter network. 
             Each line has the label of the measure, its value, and the rank at the end in the parenthesis. 
             (rank - 1 = the number of people who have a higher measure value).
-
-
           `
         },
         num_correspondences: {
@@ -379,10 +377,10 @@ export default {
             List of received letters.
           `
         },
-        transferOfCustodyTimespan: {
-          label: 'Transfer of Custody Date',
+        datasource: {
+          label: 'Data source',
           description: `
-            The dates of “Transfer of Custody” events related to the manuscript.
+            The data source where this actor is mentioned.
           `
         },
         knownLocation: {

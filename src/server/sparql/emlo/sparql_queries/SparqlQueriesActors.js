@@ -7,18 +7,13 @@ TODO: simplify property chain: crm:P4_has_time-span|ckccs:inferredDate|ckccs:app
 
 //  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const actorPropertiesInstancePage = `
-
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
 
-  { SELECT DISTINCT ?id 
-    (SAMPLE(?_prefLabel__id) AS ?prefLabel__id)
-    (SAMPLE(?_prefLabel__prefLabel) AS ?prefLabel__prefLabel) WHERE {
-  ?id skos:prefLabel ?_prefLabel__id .
-  BIND (?_prefLabel__id as ?_prefLabel__prefLabel)
-    } GROUPBY ?id
-  }
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 
   {
     ?id a ?type__id .
@@ -136,6 +131,10 @@ export const actorPropertiesInstancePage = `
       skos:prefLabel ?image__title .
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
   }
+  UNION
+  {
+    ?id ckccs:source/skos:prefLabel ?datasource
+  }
 `
 
 /** TODO: add flourished years also to the result page */
@@ -215,8 +214,7 @@ export const actorLettersInstancePageQuery = `
   }
 `
 
-export const actorPropertiesFacetResults =
-  `
+export const actorPropertiesFacetResults = `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)

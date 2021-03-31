@@ -190,6 +190,17 @@ export const INITIAL_STATE = {
       numberedList: false,
       minWidth: 220,
       onlyOnInstancePage: true
+    },
+    {
+      id: 'datasource',
+      valueType: 'string',
+      makeLink: false,
+      externalLink: false,
+      sortValues: false,
+      numberedList: false,
+      minWidth: 70,
+      priority: 5,
+      onlyOnInstancePage: true
     }
   ]
 }

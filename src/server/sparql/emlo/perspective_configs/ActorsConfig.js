@@ -34,6 +34,14 @@ export const actorsConfig = {
       predicate: 'foaf:gender',
       type: 'text'
     },
+    datasource: {
+      id: 'datasource',
+      facetValueFilter: '',
+      label: 'Source',
+      labelPath: 'ckccs:source',
+      predicate: 'ckccs:source',
+      type: 'text'
+    },
     type: {
       id: 'type',
       facetValueFilter: '',
