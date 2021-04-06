@@ -356,6 +356,37 @@ SELECT DISTINCT (?actor as ?source) ?target ?weight (str(?weight) as ?prefLabel)
 }
 `
 
+export const correspondenceTimelineQuery = `SELECT DISTINCT ?id ?source ?source__label ?target ?target__label ?date ?type ?year
+WHERE 
+{
+VALUES ?node { <ID> } # actors:p11301 p300075
+{
+  ?node ckccs:created ?letter .
+  ?letter a ckccs:Letter ;
+    ckccs:was_addressed_to ?target .
+  ?target skos:prefLabel ?_target__label .
+  BIND ("sender" AS ?type)
+  # FILTER (!REGEX(?_target__label, '(unknown|no_recipient_given)', 'i'))
+
+  BIND(?node AS ?source)
+} UNION {
+  ?letter ckccs:was_addressed_to ?node ;
+    a ckccs:Letter .
+  ?source ckccs:created ?letter ;
+    skos:prefLabel ?_source__label .
+  # FILTER (!REGEX(?_source__label, '(unknown|no_recipient_given)', 'i'))
+
+  BIND(?node AS ?target)
+  BIND ("receiver" AS ?type)
+
+}
+?target skos:prefLabel ?target__label .
+?source skos:prefLabel ?source__label .
+?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?date .
+BIND(year(?date) AS ?year)
+} ORDER BY ?date
+`
+
 export const socialSignatureQuery = `
 SELECT (?source AS ?id) (?source__label as ?id__label) 
   ?target ?target__label

@@ -116,6 +116,8 @@ export const mapLineChart = ({ sparqlBindings, config }) => {
 }
 
 export const mapMultipleLineChart = ({ sparqlBindings, config }) => {
+  // console.log('mapMultipleLineChart')
+  // console.log(sparqlBindings)
   const res = {}
   sparqlBindings.forEach(b => {
     for (const p in b) {
@@ -154,6 +156,7 @@ export const mapMultipleLineChart = ({ sparqlBindings, config }) => {
       .sort((a, b) => ((a[0] < b[0]) ? -1 : ((a[0] > b[0]) ? 1 : 0)))
     res[p] = trimResult(arr)
   }
+  // console.log(res)
   return res
 }
 
@@ -172,7 +175,7 @@ export const linearScale = ({ data, config }) => {
   const { variable, minAllowed, maxAllowed } = config
   const length = data.length
   const min = data[length - 1][variable]
-  const max = data[0].[variable]
+  const max = data[0][variable]
   data.forEach(item => {
     if (item[variable]) {
       const unscaledNum = item[variable]

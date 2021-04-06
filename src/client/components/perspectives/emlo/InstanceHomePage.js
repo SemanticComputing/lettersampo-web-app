@@ -265,7 +265,7 @@ class InstanceHomePage extends React.Component {
                     fetching={isLoading}
                     fetchData={this.props.fetchResults}
                     uri={tableData.id}
-                    createChartData={createSingleLineChartData}
+                    createChartData={createMultipleLineChartData}
                     title='Signatures'
                     xaxisTitle=''
                     yaxisTitle=''
@@ -278,6 +278,31 @@ class InstanceHomePage extends React.Component {
                       opacity: 0.0
                     }}
                     resultClass='socialSignature'
+                  />}
+              />
+              <Route
+                path={`${rootUrl}/${resultClass}/page/${this.state.localID}/correspondenceTimeline`}
+                render={() =>
+                  <ApexChart
+                    pageType='instancePage'
+                    rawData={results}
+                    rawDataUpdateID={this.props.resultUpdateID}
+                    fetching={isLoading}
+                    fetchData={this.props.fetchResults}
+                    uri={tableData.id}
+                    createChartData={createSingleLineChartData}
+                    title='correspondenceTimeline'
+                    xaxisTitle=''
+                    yaxisTitle=''
+                    stroke={{
+                      curve: 'straight',
+                      width: 2
+                    }}
+                    fill={{
+                      type: 'solid',
+                      opacity: 0.0
+                    }}
+                    resultClass='correspondenceTimeline'
                   />}
               />
               <Route

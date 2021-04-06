@@ -9,7 +9,8 @@ import {
   networkNodesFacetQuery,
   socialSignatureQuery,
   peopleEventPlacesQuery,
-  sentReceivedQuery
+  sentReceivedQuery,
+  correspondenceTimelineQuery
 } from './sparql_queries/SparqlQueriesActors'
 import {
   letterMigrationsQuery,
@@ -93,7 +94,7 @@ export const backendSearchConfig = {
     queryType: 'signature',
     resultMapper: mapMultipleLineChart,
     resultMapperConfig: {
-      fillEmptyValues: true
+      fillEmptyValues: false
     }
   },
   // Network tab in people facet results
@@ -133,6 +134,14 @@ export const backendSearchConfig = {
   sentReceived: {
     perspectiveID: 'actors',
     q: sentReceivedQuery,
+    resultMapper: mapMultipleLineChart,
+    resultMapperConfig: {
+      fillEmptyValues: true
+    }
+  },
+  correspondenceTimeline: {
+    perspectiveID: 'actors',
+    q: correspondenceTimelineQuery,
     resultMapper: mapMultipleLineChart,
     resultMapperConfig: {
       fillEmptyValues: true

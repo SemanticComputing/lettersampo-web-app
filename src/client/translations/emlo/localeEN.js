@@ -99,6 +99,7 @@ export default {
     sentReceived: 'Timeline of letters',
     sentReceivedByPlace: 'Timeline of letters',
     socialSignature: 'Social Signatures',
+    correspondenceTimeline: 'Letter Timeline',
     sentReceivedByTie: 'Timeline',
     tieNetwork: 'Network',
     map_clusters: 'clustered map',
@@ -118,7 +119,8 @@ export default {
     observationCount: 'Observation',
     sentCount: 'Sent',
     receivedCount: 'Received',
-    allCount: 'All'
+    allCount: 'All',
+    average: 'Average'
   },
   exportToYasgui: 'open the result table query in yasgui sparql editor',
   openInLinkedDataBrowser: 'open in linked data browser',

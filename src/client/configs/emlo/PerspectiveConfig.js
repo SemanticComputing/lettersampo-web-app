@@ -6,7 +6,7 @@ import MailOutline from '@material-ui/icons/MailOutline'
 import LineChartIcon from '@material-ui/icons/ShowChart'
 import RedoIcon from '@material-ui/icons/Redo'
 import Person from '@material-ui/icons/Person'
-// import TrendingDown from '@material-ui/icons/TrendingDown'
+import TrendingDown from '@material-ui/icons/TrendingDown'
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 
 import worksImage from '../../img/main_page/works-452x262.jpg'
@@ -101,15 +101,20 @@ export const perspectiveConfig = [
         id: 'sentReceived',
         value: 3,
         icon: <LineChartIcon />
-      }, /**
+      },
       {
         id: 'socialSignature',
         value: 4,
         icon: <TrendingDown />
+      }, /**
+      {
+        id: 'correspondenceTimeline',
+        value: 5,
+        icon: <TrendingDown />
       }, */
       {
         id: 'export',
-        value: 5,
+        value: 6,
         icon: <CloudDownloadIcon />
       }
     ]
