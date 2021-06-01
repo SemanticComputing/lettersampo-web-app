@@ -5,13 +5,10 @@ BIND(?id as ?uri__id)
 BIND(STR(?id) as ?uri__prefLabel)
 BIND(?id as ?uri__dataProviderUrl)
 
-{
-  OPTIONAL { ?id skos:prefLabel ?_prefLabel }
-  BIND (COALESCE(?_prefLabel, ?id) AS ?prefLabel__id)
-  BIND (COALESCE(?_prefLabel, 'letter') as ?prefLabel__prefLabel)
-  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-}
-UNION
+?id skos:prefLabel ?prefLabel__id .
+BIND (?prefLabel__id as ?prefLabel__prefLabel)
+BIND(CONCAT("/letters/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+
 {
   ?id ^ckccs:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
@@ -72,12 +69,10 @@ BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(?id as ?uri__dataProviderUrl)
 
-{ 
-  OPTIONAL { ?id skos:prefLabel ?prefLabel__id }
-  BIND (COALESCE(?prefLabel__id, 'letter') as ?prefLabel__prefLabel)
-  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-}
-UNION 
+?id skos:prefLabel ?prefLabel__id .
+BIND (?prefLabel__id as ?prefLabel__prefLabel)
+BIND(CONCAT("//${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+
 {
   ?id ^ckccs:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
