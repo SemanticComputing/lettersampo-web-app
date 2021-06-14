@@ -21,6 +21,12 @@ export const INITIAL_STATE = {
   instanceAnalysisData: null,
   instanceAnalysisDataUpdateID: 0,
   instanceSparqlQuery: null,
+  maps: {
+    placesActors: {
+      center: [22.43, 10.37],
+      zoom: 2
+    }
+  },
   properties: [
     {
       id: 'prefLabel',
@@ -206,7 +212,14 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'actors', 'letterNetwork', 'sentReceived', 'actorLetters', 'actorNetwork', 'socialSignature', 'correspondenceTimeline'
+  'actors',
+  'placesActors',
+  'letterNetwork',
+  'sentReceived',
+  'actorLetters',
+  'actorNetwork',
+  'socialSignature',
+  'correspondenceTimeline'
 ])
 
 const actors = (state = INITIAL_STATE, action) => {

@@ -205,6 +205,16 @@ export default {
     }
   },
   perspectives: {
+    fullTextSearch: {
+      properties: {
+        prefLabel: {
+          label: 'Label'
+        },
+        type: {
+          label: 'Type'
+        }
+      }
+    },
     actors: {
       label: 'Actors',
       facetResultsType: 'actors',

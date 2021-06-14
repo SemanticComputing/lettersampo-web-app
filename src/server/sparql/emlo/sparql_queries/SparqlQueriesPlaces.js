@@ -93,19 +93,19 @@ export const placePropertiesFacetResults = `
 BIND(?id as ?uri__id)
 BIND(?id as ?uri__prefLabel)
 BIND(?id as ?uri__dataProviderUrl)
-
-VALUES (?type__id ?type__prefLabel) { 
-  (crm:E53_Place "Place")
-  (ckccs:City "City")
-  (ckccs:Country "Country")
-}
-?id a ?type__id .
-BIND (?type__id as ?type_dataProviderUrl)
-
 ?id skos:prefLabel ?prefLabel__id .
 BIND (?prefLabel__id as ?prefLabel__prefLabel)
 BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-
+{
+  VALUES (?type__id ?type__prefLabel) { 
+    (crm:E53_Place "Place")
+    (ckccs:City "City")
+    (ckccs:Country "Country")
+  }
+  ?id a ?type__id .
+  BIND (?type__id as ?type_dataProviderUrl)
+}
+UNION
 {
   ?id crm:P89_falls_within+ ?broader__id .
   ?broader__id skos:prefLabel ?broader__prefLabel .

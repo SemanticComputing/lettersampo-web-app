@@ -20,6 +20,12 @@ export const INITIAL_STATE = {
   instanceAnalysisData: null,
   instanceAnalysisDataUpdateID: 0,
   instanceSparqlQuery: null,
+  maps: {
+    letterMigrations: {
+      center: [22.43, 10.37],
+      zoom: 2
+    }
+  },
   properties: [
     {
       id: 'uri',
@@ -148,7 +154,10 @@ export const INITIAL_STATE = {
 }
 
 const resultClasses = new Set([
-  'letters', 'letterByYear'
+  'letters',
+  'letterMigrations',
+  'letterMigrationsDialog',
+  'letterByYear'
 ])
 
 const actors = (state = INITIAL_STATE, action) => {

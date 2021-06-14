@@ -13,84 +13,15 @@ const FacetedSearchPerspective = props => {
     switch (props.perspective.id) {
       case 'actors':
         perspectiveElement =
-          <Actors
-            facetResults={props.facetResults}
-            placesResults={props.placesResults}
-            leafletMapLayers={props.leafletMap}
-            facetData={props.facetData}
-            fetchPaginatedResults={props.fetchPaginatedResults}
-            fetchResults={props.fetchResults}
-            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
-            fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
-            clearGeoJSONLayers={props.clearGeoJSONLayers}
-            fetchByURI={props.fetchByURI}
-            updatePage={props.updatePage}
-            updateRowsPerPage={props.updateRowsPerPage}
-            updateFacetOption={props.updateFacetOption}
-            sortResults={props.sortResults}
-            showError={props.showError}
-            routeProps={props.routeProps}
-            perspective={props.perspective}
-            animationValue={props.animationValue}
-            animateMap={props.animateMap}
-            screenSize={props.screenSize}
-            rootUrl={props.rootUrl}
-          />
+          <Actors {...props} />
         break
       case 'letters':
         perspectiveElement =
-          <Letters
-            facetResults={props.facetResults}
-            placesResults={props.placesResults}
-            leafletMapLayers={props.leafletMap}
-            facetData={props.facetData}
-            fetchPaginatedResults={props.fetchPaginatedResults}
-            fetchResults={props.fetchResults}
-            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
-            fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
-            clearGeoJSONLayers={props.clearGeoJSONLayers}
-            fetchByURI={props.fetchByURI}
-            updatePage={props.updatePage}
-            updateRowsPerPage={props.updateRowsPerPage}
-            updateFacetOption={props.updateFacetOption}
-            sortResults={props.sortResults}
-            showError={props.showError}
-            routeProps={props.routeProps}
-            perspective={props.perspective}
-            animationValue={props.animationValue}
-            animateMap={props.animateMap}
-            screenSize={props.screenSize}
-            rootUrl={props.rootUrl}
-          />
+          <Letters {...props} />
         break
       case 'places':
         perspectiveElement =
-          <Places
-            facetResults={props.facetResults}
-            placesResults={props.placesResults}
-            leafletMapLayers={props.leafletMap}
-            facetData={props.facetData}
-            fetchPaginatedResults={props.fetchPaginatedResults}
-            fetchResults={props.fetchResults}
-            fetchInstanceAnalysis={props.fetchInstanceAnalysis}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
-            fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
-            clearGeoJSONLayers={props.clearGeoJSONLayers}
-            fetchByURI={props.fetchByURI}
-            updatePage={props.updatePage}
-            updateRowsPerPage={props.updateRowsPerPage}
-            updateFacetOption={props.updateFacetOption}
-            sortResults={props.sortResults}
-            showError={props.showError}
-            routeProps={props.routeProps}
-            perspective={props.perspective}
-            animationValue={props.animationValue}
-            animateMap={props.animateMap}
-            screenSize={props.screenSize}
-            rootUrl={props.rootUrl}
-          />
+          <Places {...props} />
         break
       default:
         perspectiveElement = <div />
@@ -109,19 +40,19 @@ FacetedSearchPerspective.propTypes = {
   /**
    * Faceted search configs and results of this perspective.
    */
-  facetResults: PropTypes.object.isRequired,
+  perspectiveState: PropTypes.object.isRequired,
   /**
    * Faceted search configs and results of places related to this perspective.
    */
-  placesResults: PropTypes.object.isRequired,
+  facetState: PropTypes.object.isRequired,
   /**
-   * Facet configs and values.
+   * Facet values where facets constrain themselves, used for statistics.
    */
-  facetData: PropTypes.object.isRequired,
+  facetConstrainSelfState: PropTypes.object,
   /**
    * Leaflet map config and external layers.
    */
-  leafletMap: PropTypes.object.isRequired,
+  leafletMapState: PropTypes.object.isRequired,
   /**
    * Redux action for fetching paginated results.
    */
@@ -130,6 +61,10 @@ FacetedSearchPerspective.propTypes = {
    * Redux action for fetching all results.
    */
   fetchResults: PropTypes.func.isRequired,
+  /**
+   * Redux action for fetching facet values for statistics.
+   */
+  fetchFacetConstrainSelf: PropTypes.func.isRequired,
   /**
    * Redux action for loading external GeoJSON layers.
    */
@@ -189,7 +124,8 @@ FacetedSearchPerspective.propTypes = {
   /**
    * Root url of the application.
    */
-  rootUrl: PropTypes.string.isRequired
+  rootUrl: PropTypes.string.isRequired,
+  layoutConfig: PropTypes.object.isRequired
 }
 
 export default FacetedSearchPerspective
