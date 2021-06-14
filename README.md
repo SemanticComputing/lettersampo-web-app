@@ -1,4 +1,4 @@
-# LetterSampo portal
+# User Interface for LetterSampo portal
 
 Based on [Sampo-UI - A framework for building semantic portal user interfaces](https://github.com/SemanticComputing/sampo-ui)
 

@@ -13,7 +13,7 @@ import { combineEpics, ofType } from 'redux-observable'
 import intl from 'react-intl-universal'
 import localeEN from '../translations/emlo/localeEN'
 import localeFI from '../translations/emlo/localeFI'
-import localeSV from '../translations/emlo/localeSV'
+// import localeSV from '../translations/emlo/localeSV'
 import { stateToUrl, pickSelectedDatasets } from '../helpers/helpers'
 import querystring from 'querystring'
 import {
@@ -64,8 +64,7 @@ const apiUrl = process.env.API_URL
 
 export const availableLocales = {
   en: localeEN,
-  fi: localeFI,
-  sv: localeSV
+  fi: localeFI
 }
 
 let backendErrorText = null
@@ -158,13 +157,15 @@ const fetchInstanceAnalysisEpic = (action$, state$) => action$.pipe(
   ofType(FETCH_INSTANCE_ANALYSIS),
   withLatestFrom(state$),
   mergeMap(([action, state]) => {
-    const { resultClass, facetClass, fromID, toID } = action
+    const { resultClass, facetClass, fromID, toID, period, province } = action
     const params = stateToUrl({
       facets: facetClass ? state[`${facetClass}Facets`].facets : null,
       facetClass,
       uri: action.uri ? action.uri : null,
       fromID,
-      toID
+      toID,
+      period,
+      province
     })
     const requestUrl = `${apiUrl}/faceted-search/${resultClass}/all`
     // https://rxjs-dev.firebaseapp.com/api/ajax/ajax
@@ -386,13 +387,14 @@ const clientFSFetchResultsEpic = (action$, state$) => action$.pipe(
   debounceTime(500),
   switchMap(([action, state]) => {
     const { jenaIndex } = action
-    const selectedDatasets = pickSelectedDatasets(state.clientSideFacetedSearch.datasets)
+    const { clientSideFacetedSearch } = state
+    const selectedDatasets = pickSelectedDatasets(clientSideFacetedSearch.datasets)
     const dsParams = selectedDatasets.map(ds => `dataset=${ds}`).join('&')
     let requestUrl
     if (action.jenaIndex === 'text') {
       requestUrl = `${apiUrl}/federated-search?q=${action.query}&${dsParams}`
     } else if (action.jenaIndex === 'spatial') {
-      const { latMin, longMin, latMax, longMax } = state.leafletMap
+      const { latMin, longMin, latMax, longMax } = clientSideFacetedSearch.maps.clientFSBboxSearch
       requestUrl = `${apiUrl}/federated-search?latMin=${latMin}&longMin=${longMin}&latMax=${latMax}&longMax=${longMax}&${dsParams}`
     }
     return ajax.getJSON(requestUrl).pipe(
@@ -502,6 +504,7 @@ const fetchGeoJSONLayersEpic = action$ => action$.pipe(
 
 const fetchGeoJSONLayer = async (layerID, bounds) => {
   const baseUrl = 'https://kartta.nba.fi/arcgis/services/WFS/MV_Kulttuuriymparisto/MapServer/WFSServer'
+  // const baseUrl = 'https://kartta.nba.fi/arcgis/services/WFS/MV_KulttuuriymparistoSuojellut/MapServer/WFSServer'
   // const baseUrl = 'http://avaa.tdata.fi/geoserver/kotus/ows'
   // const baseUrl = 'http://avaa.tdata.fi/geoserver/paituli/wfs'
   const boundsStr =
