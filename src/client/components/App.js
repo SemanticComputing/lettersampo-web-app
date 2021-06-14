@@ -1,11 +1,12 @@
 import React from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import SemanticPortal from '../containers/SemanticPortal'
-import deepPurple from '@material-ui/core/colors/deepPurple'
 
 const theme = createMuiTheme({
   palette: {
-    primary: deepPurple
+    primary: {
+      main: '#282331'
+    }
   },
   overrides: {
     MuiTooltip: {
