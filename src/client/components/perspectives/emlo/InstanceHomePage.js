@@ -462,6 +462,7 @@ class InstanceHomePage extends React.Component {
                     results={perspectiveState.results}
                     resultUpdateID={perspectiveState.resultUpdateID}
                     fetchResults={this.props.fetchResults}
+                    fetching={fetching}
                     resultClass='tieNetwork'
                     uri={instanceTableData.id}
                     limit={32}
