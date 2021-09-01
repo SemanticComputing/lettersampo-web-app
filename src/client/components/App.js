@@ -5,7 +5,10 @@ import SemanticPortal from '../containers/SemanticPortal'
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#282331'
+      main: '#212121'
+    },
+    secondary: {
+      main: '#EB1806'
     }
   },
   overrides: {

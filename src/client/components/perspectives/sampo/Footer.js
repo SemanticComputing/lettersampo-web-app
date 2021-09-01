@@ -53,27 +53,27 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center'
   },
-  logo: props => ({
-    height: 40,
-    [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-      height: 40
-    }
-  }),
   aaltoLogo: props => ({
+    width: 143,
     height: 29,
     [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+      width: 167,
       height: 34
     }
   }),
   hyLogo: props => ({
+    width: 157,
     height: 42,
     [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+      width: 168,
       height: 45
     }
   }),
   heldigLogo: props => ({
+    width: 118,
     height: 30,
     [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+      width: 130,
       height: 33
     }
   })
@@ -90,17 +90,17 @@ const Footer = props => {
         <Grid className={classes.gridContainer} container spacing={3}>
           <Grid item xs className={classes.gridItem}>
             <a className={classes.link} href='https://www.aalto.fi/en/school-of-science' target='_blank' rel='noopener noreferrer'>
-              <img className={classes.aaltoLogo} src={aaltoLogo} alt='logo' />
+              <img className={classes.aaltoLogo} src={aaltoLogo} alt='Aalto University logo' />
             </a>
           </Grid>
           <Grid item xs className={classes.gridItem}>
             <a className={classes.link} href='https://www.helsinki.fi/en' target='_blank' rel='noopener noreferrer'>
-              <img className={classes.hyLogo} src={hyLogo} alt='logo' />
+              <img className={classes.hyLogo} src={hyLogo} alt='University of Helsinki logo' />
             </a>
           </Grid>
           <Grid item xs className={classes.gridItem}>
             <a className={classes.link} href='https://www.helsinki.fi/en/helsinki-centre-for-digital-humanities' target='_blank' rel='noopener noreferrer'>
-              <img className={classes.heldigLogo} src={heldigLogo} alt='logo' />
+              <img className={classes.heldigLogo} src={heldigLogo} alt='Helsinki Centre for Digital Humanities logo' />
             </a>
           </Grid>
         </Grid>

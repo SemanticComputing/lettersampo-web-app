@@ -40,9 +40,17 @@ app.use(function (req, res, next) {
   next()
 })
 
-let publicPath = null
+// Generate API docs from YAML file with Swagger UI
+let swaggerDocument
+try {
+  swaggerDocument = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './openapi.yaml'), 'utf8'))
+} catch (e) {
+  console.log(e)
+}
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Express server is used to serve the React app only in production
+let publicPath = null
 if (!isDevelopment) {
   // The root directory from which to serve static assets
   publicPath = path.join(__dirname, './../public/')
@@ -52,16 +60,6 @@ if (!isDevelopment) {
 
 // React app makes requests to these api urls
 const apiPath = '/api/v1'
-
-// Generate API docs from YAML file with Swagger UI
-let swaggerDocument
-try {
-  swaggerDocument = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './openapi.yaml'), 'utf8'))
-} catch (e) {
-  console.log(e)
-}
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 new OpenApiValidator({
   apiSpec: swaggerDocument,
@@ -252,6 +250,7 @@ new OpenApiValidator({
       }
     })
 
+    // https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-wmts
     app.get(`${apiPath}/nls-wmts`, async (req, res, next) => {
       const url = `https://karttakuva.maanmittauslaitos.fi/maasto/wmts/1.0.0/${req.query.layerID}/default/WGS84_Pseudo-Mercator/${req.query.z}/${req.query.y}/${req.query.x}.png`
       const headers = {
@@ -266,6 +265,44 @@ new OpenApiValidator({
           headers
         })
         res.end(response.data, 'base64')
+      } catch (error) {
+        next(error)
+      }
+    })
+
+    // https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-wmts
+    app.get(`${apiPath}/nls-wmts-open`, async (req, res, next) => {
+      const url = `https://avoin-karttakuva.maanmittauslaitos.fi/avoin/wmts/1.0.0/${req.query.layerID}/default/WGS84_Pseudo-Mercator/${req.query.z}/${req.query.y}/${req.query.x}.png`
+      const headers = {
+        'Content-Type': 'image/png',
+        Authorization: `Basic ${process.env.NLS_API_KEY_BASE64}`
+      }
+      try {
+        const response = await axios({
+          method: 'get',
+          url,
+          responseType: 'arraybuffer',
+          headers
+        })
+        res.end(response.data, 'base64')
+      } catch (error) {
+        next(error)
+      }
+    })
+
+    // // https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-vektoritiilet
+    app.get(`${apiPath}/nls-vectortiles-open`, async (req, res, next) => {
+      const url = 'https://avoin-karttakuva.maanmittauslaitos.fi/vectortiles/stylejson/v20/taustakartta.json?TileMatrixSet=WGS84_Pseudo-Mercator'
+      const headers = {
+        Authorization: `Basic ${process.env.NLS_API_KEY_BASE64}`
+      }
+      try {
+        const response = await axios({
+          method: 'get',
+          url,
+          headers
+        })
+        res.json(response.data)
       } catch (error) {
         next(error)
       }

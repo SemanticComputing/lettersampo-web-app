@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import intl from 'react-intl-universal'
 import L from 'leaflet'
-import { has, isEqual } from 'lodash'
-import buffer from '@turf/buffer'
+import { has } from 'lodash'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { purple } from '@material-ui/core/colors'
 import history from '../../History'
@@ -30,7 +29,8 @@ import 'leaflet.zoominfo/dist/L.Control.Zoominfo'
 import 'leaflet.zoominfo/dist/L.Control.Zoominfo.css'
 import 'leaflet-usermarker/src/leaflet.usermarker.js'
 import 'leaflet-usermarker/src/leaflet.usermarker.css'
-// import 'leaflet.gridlayer.googlemutant/Leaflet.GoogleMutant.js'
+// import 'leaflet.gridlayer.googlemutant/Leaflet.GoogleMutant.js' // used for Google Maps basemap
+// import 'mapbox-gl-leaflet/leaflet-mapbox-gl.js' // used for National Land Survey of Finland's vectortiles background map
 
 import markerShadowIcon from '../../img/markers/marker-shadow.png'
 import markerIconViolet from '../../img/markers/marker-icon-violet.png'
@@ -38,6 +38,9 @@ import markerIconGreen from '../../img/markers/marker-icon-green.png'
 import markerIconRed from '../../img/markers/marker-icon-red.png'
 import markerIconOrange from '../../img/markers/marker-icon-orange.png'
 import markerIconYellow from '../../img/markers/marker-icon-yellow.png'
+
+// const buffer = lazy(() => import('@turf/buffer'))
+import buffer from '@turf/buffer'
 
 const styles = theme => ({
   leafletContainerfacetResults: props => ({
@@ -103,7 +106,10 @@ class LeafletMap extends React.Component {
       prevZoomLevel: null,
       enlargedBounds: null,
       mapMode: props.mapMode,
-      showBuffer: true
+      showBuffer: true,
+      popupID: null,
+      popupOpen: false,
+      popupBinded: false
     }
   }
 
@@ -180,17 +186,32 @@ class LeafletMap extends React.Component {
       })
     }
 
-    // check if instance have changed
-    if ((this.props.instance !== null) && !isEqual(prevProps.instance, this.props.instance)) {
-      this.markers[this.props.instance.id]
-        .bindPopup(this.props.createPopUpContent({
-          data: this.props.instance,
-          resultClass: this.props.resultClass
-        }), {
-          ...(this.props.popupMaxHeight && { maxHeight: this.props.popupMaxHeight }),
-          ...(this.props.popupMinWidth && { minWidth: this.props.popupMinWidth })
-        })
+    // check if should open a popup
+    if (this.props.instance && this.state.popupOpen && !this.state.popupBinded &&
+      this.props.instance.id === this.state.popupID) {
+      const marker = this.markers[this.props.instance.id]
+      marker
+        .bindPopup(
+          this.props.createPopUpContent({
+            data: this.props.instance,
+            resultClass: this.props.resultClass
+          }),
+          {
+            closeButton: true,
+            ...(this.props.popupMaxHeight && { maxHeight: this.props.popupMaxHeight }),
+            ...(this.props.popupMaxWidth && { maxWidth: this.props.popupMaxWidth }),
+            ...(this.props.popupMinWidth && { minWidth: this.props.popupMinWidth })
+          })
         .openPopup()
+        .on('popupclose', () => {
+          marker.unbindPopup()
+          this.setState({
+            popupID: null,
+            popupOpen: false,
+            popupBinded: false
+          })
+        })
+      this.setState({ popupBinded: true })
     }
 
     if (this.props.showExternalLayers &&
@@ -273,27 +294,33 @@ class LeafletMap extends React.Component {
   initMap = () => {
     // Base layer(s)
     const mapboxBaseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${this.props.mapBoxStyle}/tiles/{z}/{x}/{y}?access_token=${this.props.mapBoxAccessToken}`, {
-      attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noopener">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
       tileSize: 512,
       zoomOffset: -1
     })
 
     /*
-      Password protected base layers from https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-wmts
+      Base layers from https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-wmts
       Routed via backend.
     */
     // const backgroundMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts?z={z}&x={x}&y={y}&layerID=taustakartta`, {
     //   attribution: 'National Land Survey of Finland',
     //   maxZoom: 18
     // })
-    // const topographicalMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts?z={z}&x={x}&y={y}&layerID=maastokartta`, {
+    // https://github.com/mapbox/mapbox-gl-leaflet
+    // const nlsVectortilesBackgroundmap = L.mapboxGL({
+    //   accessToken: this.props.mapBoxAccessToken,
+    //   style: `${process.env.API_URL}/nls-vectortiles-open`
+    // })
+    // const topographicalMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts-open?z={z}&x={x}&y={y}&layerID=maastokartta`, {
     //   attribution: 'National Land Survey of Finland',
     //   maxZoom: 18
     // })
-    // const airMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts?z={z}&x={x}&y={y}&layerID=ortokuva`, {
+    // const airMapNLS = L.tileLayer(`${process.env.API_URL}/nls-wmts-open?z={z}&x={x}&y={y}&layerID=ortokuva`, {
     //   attribution: 'National Land Survey of Finland',
     //   maxZoom: 18
     // })
+
     // const googleRoadmap = L.gridLayer.googleMutant({
     //   type: 'roadmap'
     // })
@@ -341,7 +368,7 @@ class LeafletMap extends React.Component {
     if (this.props.showExternalLayers) {
       const basemaps = {
         [intl.get(`leafletMap.basemaps.mapbox.${this.props.mapBoxStyle}`)]: mapboxBaseLayer
-        // [intl.get('leafletMap.basemaps.backgroundMapNLS')]: backgroundMapNLS,
+        // [intl.get('leafletMap.basemaps.backgroundMapNLS')]: nlsVectortilesBackgroundmap,
         // [intl.get('leafletMap.basemaps.topographicalMapNLS')]: topographicalMapNLS,
         // [intl.get('leafletMap.basemaps.airMapNLS')]: airMapNLS
         // [intl.get('leafletMap.basemaps.googleRoadmap')]: googleRoadmap,
@@ -381,8 +408,8 @@ class LeafletMap extends React.Component {
     const currentCenter = this.leafletMap.getCenter()
     return (
       currentZoom === this.props.zoom &&
-      currentCenter[0] === this.props.center[0] &&
-      currentCenter[1] === this.props.center[1]
+      currentCenter.lat === this.props.center[0] &&
+      currentCenter.lng === this.props.center[1]
     )
   }
 
@@ -957,10 +984,15 @@ class LeafletMap extends React.Component {
   }
 
   markerOnClickFacetResults = event => {
+    const { id } = event.target.options
+    this.setState({
+      popupID: id,
+      popupOpen: true
+    })
     this.props.fetchByURI({
       resultClass: this.props.resultClass,
       facetClass: this.props.facetClass,
-      uri: event.target.options.id
+      uri: id
     })
   };
 

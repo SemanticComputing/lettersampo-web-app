@@ -31,10 +31,7 @@ const styles = theme => ({
     width: '100%'
   },
   facetLabel: props => ({
-    fontSize: '0.875rem',
-    [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-      fontSize: '1rem'
-    }
+    fontSize: '0.875rem'
   }),
   facetValuesContainerTen: {
     height: 345,
@@ -301,6 +298,7 @@ class FacetHeader extends React.Component {
             icon={<PieChartIcon />}
             tooltip={intl.get('facetBar.pieChart.tooltip')}
             dialogTitle={this.props.facetLabel}
+            layoutConfig={this.props.layoutConfig}
           />}
         {barChartButton &&
           <ChartDialog
@@ -317,6 +315,7 @@ class FacetHeader extends React.Component {
             xaxisTitle={intl.get(`facetBar.barChart.${this.props.facetID}.xaxisTitle`)}
             yaxisTitle={intl.get(`facetBar.barChart.${this.props.facetID}.yaxisTitle`)}
             seriesTitle={intl.get(`facetBar.barChart.${this.props.facetID}.seriesTitle`)}
+            layoutConfig={this.props.layoutConfig}
           />}
         {lineChartButton &&
           <ChartDialog
@@ -334,6 +333,7 @@ class FacetHeader extends React.Component {
             yaxisTitle={intl.get(`facetBar.lineChart.${this.props.facetID}.yaxisTitle`)}
             seriesTitle={intl.get(`facetBar.lineChart.${this.props.facetID}.seriesTitle`)}
             lineChartConfig={this.props.facet.lineChartConfig}
+            layoutConfig={this.props.layoutConfig}
           />}
         {menuButtons.length > 0 &&
           <>
@@ -374,7 +374,7 @@ class FacetHeader extends React.Component {
           title={facetDescription}
           enterDelay={300}
         >
-          <IconButton>
+          <IconButton aria-label='description'>
             <InfoIcon />
           </IconButton>
         </Tooltip>
