@@ -77,11 +77,11 @@ const TopBar = lazy(() => import('../components/perspectives/' + portalID + '/To
 const Main = lazy(() => import('../components/perspectives/' + portalID + '/Main'))
 const FacetedSearchPerspective = lazy(() => import('../components/perspectives/' + portalID + '/FacetedSearchPerspective'))
 const FullTextSearch = lazy(() => import('../components/perspectives/' + portalID + '/FullTextSearch'))
-const ClientFSPerspective = lazy(() => import('../components/perspectives/' + portalID + '/client_fs/ClientFSPerspective'))
-const ClientFSMain = lazy(() => import('../components/perspectives/' + portalID + '/client_fs/ClientFSMain'))
+// const ClientFSPerspective = lazy(() => import('../components/perspectives/' + portalID + '/client_fs/ClientFSPerspective'))
+// const ClientFSMain = lazy(() => import('../components/perspectives/' + portalID + '/client_fs/ClientFSMain'))
 const InstanceHomePage = lazy(() => import('../components/perspectives/' + portalID + '/InstanceHomePage'))
 const Footer = lazy(() => import('../components/perspectives/' + portalID + '/Footer'))
-const KnowledgeGraphMetadataTable = lazy(() => import('../components/perspectives/' + portalID + '/KnowledgeGraphMetadataTable'))
+// const KnowledgeGraphMetadataTable = lazy(() => import('../components/perspectives/' + portalID + '/KnowledgeGraphMetadataTable'))
 // ** Portal specific components and configs end **
 
 const useStyles = makeStyles(theme => ({
@@ -252,7 +252,7 @@ const SemanticPortal = props => {
   if (lgScreen) { screenSize = 'lg' }
   if (xlScreen) { screenSize = 'xl' }
   const rootUrlWithLang = `${rootUrl}/${props.options.currentLocale}`
-  const noClientFSResults = props.clientFSState.results == null
+  // const noClientFSResults = props.clientFSState.results == null
 
   useEffect(() => {
     document.title = intl.get('html.title')
