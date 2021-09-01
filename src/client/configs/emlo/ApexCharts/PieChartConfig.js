@@ -1,4 +1,6 @@
-export const createApexPieChartData = ({ rawData }) => {
+import { generateLabelForMissingValue } from '../../../helpers/helpers'
+
+export const createApexPieChartData = ({ rawData, screenSize, facetClass, facetID }) => {
   const labels = []
   const series = []
   let otherCount = 0
@@ -9,6 +11,9 @@ export const createApexPieChartData = ({ rawData }) => {
     if (portion < threshold) {
       otherCount += parseInt(item.instanceCount)
     } else {
+      if (item.id === 'http://ldf.fi/MISSING_VALUE') {
+        item.prefLabel = generateLabelForMissingValue({ facetClass, facetID })
+      }
       labels.push(item.prefLabel)
       series.push(parseInt(item.instanceCount))
     }
@@ -27,6 +32,16 @@ export const createApexPieChartData = ({ rawData }) => {
     chartColors = pieChartColors
   }
   chartColors = chartColors.slice(0, series.length)
+  if (screenSize === 'xs' || screenSize === 'sm') {
+    apexPieChartOptions.legend = {
+      ...apexPieChartOptions.legend,
+      position: 'bottom',
+      width: '100%',
+      fontSize: 12,
+      horizontalAlign: 'left'
+    }
+    apexPieChartOptions.dataLabels = { enabled: false }
+  }
   const apexChartOptionsWithData = {
     ...apexPieChartOptions,
     colors: chartColors,
