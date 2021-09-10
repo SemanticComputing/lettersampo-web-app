@@ -218,7 +218,7 @@ export default {
     actors: {
       label: 'Actors',
       facetResultsType: 'actors',
-      shortDescription: 'Collection of 20 000 people or groups of people',
+      shortDescription: 'Collection of 2000 people or groups of people',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           Use this perspective to access data related to physical manuscript objects.
@@ -434,7 +434,7 @@ export default {
     letters: {
       label: 'Letters',
       facetResultsType: 'letters',
-      shortDescription: 'Information about 150 000 letters',
+      shortDescription: 'Information about 20 000 letters',
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: description.
