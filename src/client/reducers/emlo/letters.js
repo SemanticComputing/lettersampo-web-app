@@ -28,15 +28,6 @@ export const INITIAL_STATE = {
   },
   properties: [
     {
-      id: 'uri',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      onlyOnInstancePage: true
-    },
-    {
       id: 'prefLabel',
       valueType: 'object',
       makeLink: true,
@@ -112,16 +103,6 @@ export const INITIAL_STATE = {
       onlyOnInstancePage: true
     },
     {
-      id: 'store',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: false,
-      sortValues: true,
-      numberedList: true,
-      minWidth: 150,
-      onlyOnInstancePage: true
-    },
-    {
       id: 'language',
       valueType: 'object',
       makeLink: false,
@@ -149,6 +130,15 @@ export const INITIAL_STATE = {
       sortValues: true,
       numberedList: false,
       minWidth: 150
+    },
+    {
+      id: 'uri',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
+      onlyOnInstancePage: true
     }
   ]
 }

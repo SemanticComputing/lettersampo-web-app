@@ -49,15 +49,6 @@ export const INITIAL_STATE = {
       hideHeader: false
     },
     {
-      id: 'uri',
-      valueType: 'object',
-      makeLink: true,
-      externalLink: true,
-      sortValues: true,
-      numberedList: false,
-      onlyOnInstancePage: true
-    },
-    {
       id: 'gender',
       valueType: 'object',
       makeLink: false,
@@ -206,6 +197,15 @@ export const INITIAL_STATE = {
       numberedList: false,
       minWidth: 70,
       priority: 5,
+      onlyOnInstancePage: true
+    },
+    {
+      id: 'uri',
+      valueType: 'object',
+      makeLink: true,
+      externalLink: true,
+      sortValues: true,
+      numberedList: false,
       onlyOnInstancePage: true
     }
   ]
