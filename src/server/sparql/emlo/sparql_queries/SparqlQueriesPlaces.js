@@ -47,7 +47,7 @@ UNION
 }
 UNION
 { 
-  ?id skos:altLabel ?altLabel . 
+  ?id skos:altLabel ?altLabel .
   # FILTER (STR(?prefLabel__prefLabel) != STR(?altLabel)) 
 }
 UNION
@@ -58,7 +58,7 @@ UNION
 } 
 UNION
 {
-  ?id ^ckccs:was_sent_from ?to__id .
+  ?id ^ckccs:was_sent_to ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
