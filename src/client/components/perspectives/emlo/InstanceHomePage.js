@@ -86,7 +86,7 @@ class InstanceHomePage extends React.Component {
         uri = `http://ldf.fi/ckcc/places/${encodeURIComponent(localID)}`
         break
       case 'ties':
-        uri = `http://ldf.fi/ckcc/ties/${localID}`
+        uri = `http://ldf.fi/lssc/ties/${localID}`
         break
       case 'sources':
         uri = `http://ldf.fi/ckcc/sources/${localID}`

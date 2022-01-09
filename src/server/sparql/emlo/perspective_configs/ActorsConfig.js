@@ -6,6 +6,7 @@ import { prefixes } from '../sparql_queries/SparqlQueriesPrefixes'
 
 export const actorsConfig = {
   endpoint: {
+    // url: 'http://localhost:3030/lettersampo/query',
     url: 'http://ldf.fi/ckcc/sparql',
     prefixes,
     useAuth: true
