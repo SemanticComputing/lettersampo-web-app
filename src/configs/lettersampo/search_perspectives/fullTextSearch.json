@@ -1,11 +1,11 @@
 {
     "id": "fullTextSearch",
     "endpoint": {
-        "url": "https://ldf.fi/mmm/sparql",
+        "url": "https://ldf.fi/ckcc/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
-    "sparqlQueriesFile": "SparqlQueriesFullTextSearch.js",
+    "sparqlQueriesFile": "SparqlQueriesFullText.js",
     "propertiesQueryBlock": "fullTextSearchProperties",
     "hideCardOnFrontPage": true,
     "hideTopPerspectiveButton": true,
@@ -28,16 +28,6 @@
             "sortValues": false,
             "numberedList": false,
             "minWidth": 300
-        },
-        {
-            "id": "note",
-            "valueType": "string",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": false,
-            "numberedList": false,
-            "minWidth": 400,
-            "collapsedMaxWords": 4
         }
     ]
 }

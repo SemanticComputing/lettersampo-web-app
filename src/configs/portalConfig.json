@@ -3,7 +3,8 @@
     "rootUrl": "",
     "perspectives": {
         "searchPerspectives": [
-            "letters"
+            "letters",
+            "fullTextSearch"
         ],
         "onlyInstancePages": [
            
