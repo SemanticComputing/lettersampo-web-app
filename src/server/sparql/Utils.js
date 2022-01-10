@@ -3,8 +3,8 @@ import { has } from 'lodash'
 
 import { backendSearchConfig as oldBackendSearchConfig } from './lettersampo/BackendSearchConfig'
 
-import { lettersConfig as oldPerspectiveConfig } from './lettersampo/perspective_configs/LettersConfig'
-import { INITIAL_STATE } from '../../client/reducers/lettersampo/lettersFacets'
+import { actorsConfig as oldPerspectiveConfig } from './lettersampo/perspective_configs/ActorsConfig'
+import { INITIAL_STATE } from '../../client/reducers/lettersampo/actorsFacets'
 
 export const createBackendSearchConfig = async () => {
   const portalConfigJSON = await readFile('src/configs/portalConfig.json')

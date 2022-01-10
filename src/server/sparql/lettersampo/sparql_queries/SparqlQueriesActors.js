@@ -118,11 +118,11 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id lssc:out_degree ?num_sent 
+    ?id lssc:out_degree ?numSent 
   }
   UNION
   {
-    ?id lssc:in_degree ?num_received
+    ?id lssc:in_degree ?numReceived
   }
   UNION
   {
@@ -180,15 +180,15 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
-      ?id lssc:out_degree ?num_sent 
+      ?id lssc:out_degree ?numSent 
     }
     UNION
     {
-      ?id lssc:in_degree ?num_received
+      ?id lssc:in_degree ?numReceived
     }
     UNION
     {
-      ?id lssc:num_correspondences ?num_correspondences
+      ?id lssc:num_correspondences ?numCorrespondences
     }
     UNION
     { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
@@ -276,11 +276,11 @@ export const actorPropertiesFacetResults = `
   }
   UNION
   {
-    ?id lssc:out_degree ?num_sent
+    ?id lssc:out_degree ?numSent
   }
   UNION
   {
-    ?id lssc:in_degree ?num_received
+    ?id lssc:in_degree ?numReceived
   }
   UNION
   {
@@ -342,6 +342,24 @@ WHERE {
     geo:long ?long .
   
 } GROUP BY ?id ?lat ?long
+`
+
+//  https://api.triplydb.com/s/ck2-SDpCO
+export const peopleRelatedTo = `
+  OPTIONAL {
+    <FILTER>
+    { ?related__id lssc:created/lssc:was_sent_from ?id }
+    UNION
+    { ?related__id ^lssc:was_addressed_to/lssc:was_sent_to ?id }
+    ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
+  } 
+`
+
+export const placePropertiesInfoWindow = `
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND(?prefLabel__id AS ?prefLabel__prefLabel)
+    BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 `
 
 //  TODO: add href to tie
@@ -418,7 +436,7 @@ WHERE
 
 export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
-    (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?num_letters)
+    (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?numLetters)
   WHERE {
     VALUES ?class { crm:E21_Person crm:E74_Group }
     VALUES ?id { <ID_SET> }
@@ -434,7 +452,7 @@ export const networkNodesQuery = `
 
 export const networkNodesFacetQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
-    (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?num_letters)
+    (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?numLetters)
   WHERE {
     VALUES ?class { crm:E21_Person crm:E74_Group }
     VALUES ?id { <ID_SET> }

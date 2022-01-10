@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import MainCard from './MainCard'
+import has from 'lodash'
 
 const useStyles = makeStyles(theme => ({
   root: props => ({
@@ -44,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center'
   },
   bannerSubheading: {
-    marginTop: theme.spacing(1.5)
+    marginTop: theme.spacing(1.5),
     // [theme.breakpoints.up('md')]: {
     //   display: 'flex',
     //   '& div': {
@@ -122,13 +123,13 @@ const Main = props => {
       <div className={classes.banner}>
         <div className={classes.bannerContent}>
           <div className={classes.bannerHeading}>
-            <Typography component='span' variant={headingVariant} align='center'>
+            <Typography component='h1' variant={headingVariant} align='center'>
               {intl.getHTML('appTitle.long')}
             </Typography>
           </div>
           <div className={classes.bannerSubheading}>
             <div>
-              <Typography component='h2' variant={subheadingVariant} align='center'>
+              <Typography component='p' variant={subheadingVariant} align='center'>
                 {intl.getHTML('appTitle.subheading')}
               </Typography>
             </div>
@@ -151,7 +152,8 @@ const Main = props => {
           justify={screenSize === 'xs' || screenSize === 'sm' ? 'center' : 'flex-start'}
         >
           {perspectives.map(perspective => {
-            if (!perspective.isHidden) {
+            const hideCard = (has(perspective.hideCardOnFrontPage) && perspective.hideCardOnFrontPage)
+            if (!hideCard) {
               return (
                 <MainCard
                   key={perspective.id}
@@ -161,6 +163,7 @@ const Main = props => {
                 />
               )
             }
+            return null
           })}
         </Grid>
         <div className={classes.licenceTextContainer}>

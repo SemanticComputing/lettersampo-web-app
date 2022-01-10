@@ -224,15 +224,8 @@ export default {
           description: 'Uniform Resource Identifier'
         },
         prefLabel: {
-          label: 'Label',
-          description: 'A short label describing the manuscript.'
-        },
-        author: {
-          label: 'Author',
-          description: `
-            The author(s) who have contributed to the intellectual content (works)
-            contained in the manuscript.
-          `
+          label: 'Name',
+          description: ''
         },
         gender: {
           label: 'Gender',
@@ -241,12 +234,12 @@ export default {
         image: {
           label: 'Image',
           description: `
-            A possible image of the person. Source: Wikimedia Commons.
+            Image source: Wikimedia Commons.
           `
         },
         type: {
           label: 'Type',
-          description: 'The type is a Person or a Group.'
+          description: 'Person or Group'
         },
         birthDateTimespan: {
           label: 'Birth time',
@@ -316,7 +309,7 @@ export default {
             (rank - 1 = the number of people who have a higher measure value).
           `
         },
-        num_correspondences: {
+        numCorrespondences: {
           label: 'Number of correspondences',
           description: `
           Number of distinct correspondences.
@@ -329,7 +322,7 @@ export default {
             The number of mutually sent letters is in parenthesis at end of the label.
           `
         },
-        num_sent: {
+        numSent: {
           label: 'Number of sent letters',
           description: `
             Number of sent letters.
@@ -341,7 +334,7 @@ export default {
             List of sent letters.
           `
         },
-        num_received: {
+        numReceived: {
           label: 'Number of received letters',
           description: `
             Number of received letters.
@@ -640,7 +633,7 @@ export default {
             Preferable actor label.
           `
         },
-        num_letters: {
+        numLetters: {
           label: 'Number of letters',
           description: `
             Number of letters sent between the two actors.

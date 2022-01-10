@@ -144,24 +144,6 @@ export const eventPlacesQuery = `
   GROUP BY ?id ?lat ?long
 `
 
-export const placePropertiesInfoWindow = `
-    ?id skos:prefLabel ?prefLabel__id .
-    BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-    BIND(CONCAT("/places/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-`
-
-//  https://api.triplydb.com/s/ck2-SDpCO
-export const peopleRelatedTo = `
-  OPTIONAL {
-    <FILTER>
-    { ?related__id lssc:created/lssc:was_sent_from ?id }
-    UNION
-    { ?related__id ^lssc:was_addressed_to/lssc:was_sent_to ?id }
-    ?related__id skos:prefLabel ?related__prefLabel .
-    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
-  } 
-`
-
 //  TODO add subplaces to counts
 // https://api.triplydb.com/s/gYYySP446
 export const sentReceivedByPlaceQuery = `

@@ -4,6 +4,7 @@
     "perspectives": {
         "searchPerspectives": [
             "letters",
+            "actors",
             "fullTextSearch"
         ],
         "onlyInstancePages": [
