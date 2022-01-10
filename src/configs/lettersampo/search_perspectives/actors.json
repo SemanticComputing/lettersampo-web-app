@@ -40,14 +40,204 @@
             "instanceConfig": {
                 "propertiesQueryBlock": "actorPropertiesInstancePage",
                 "instancePageResultClasses": {
-                    "instancePageTable": {
+                    "actorInstancePageTable": {
                         "tabID": 0,
                         "component": "InstancePageTable",
                         "tabPath": "table",
                         "tabIcon": "CalendarViewDay"
                     },
-                    "instancePageExport": {
+                    "actorInstancePageLetters": {
                         "tabID": 1,
+                        "component": "InstancePageTable",
+                        "tabPath": "letters",
+                        "tabIcon": "MailOutline",
+                        "fetchResultsWhenMounted": true,
+                        "sparqlQuery": "actorLettersInstancePageQuery",
+                        "properties": [
+                            {
+                                "id": "alter",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": true
+                            },
+                            {
+                                "id": "metrics",
+                                "valueType": "string",
+                                "makeLink": false,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": false,
+                                "minWidth": 220,
+                                "onlyOnInstancePage": true
+                            },
+                            {
+                                "id": "numCorrespondences",
+                                "valueType": "string",
+                                "makeLink": false,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": false
+                            },
+                            {
+                                "id": "numSent",
+                                "valueType": "string",
+                                "makeLink": false,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": false
+                            },
+                            {
+                                "id": "sentletter",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": true
+                            },
+                            {
+                                "id": "numReceived",
+                                "valueType": "string",
+                                "makeLink": false,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": false
+                            },
+                            {
+                                "id": "receivedletter",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": true
+                            }
+                        ]
+                    },
+                    "actorInstancePageLetterNetwork": {
+                        "tabID": 2,
+                        "component": "Network",
+                        "tabPath": "letter-network",
+                        "tabIcon": "BubbleChart",
+                        "pageType": "instancePage",
+                        "sparqlQuery": "letterLinksQuery",
+                        "sparqlQueryNodes": "networkNodesQuery",
+                        "useNetworkAPI": true,
+                        "limit": 100,
+                        "optimize": 2.0,
+                        "preprocess": "preprocessEgo",
+                        "style": [
+                            {
+                                "selector": "node",
+                                "style": {
+                                    "shape": "ellipse",
+                                    "font-size": 10,
+                                    "background-color": "data(color)",
+                                    "label": "data(prefLabel)",
+                                    "height": "data(size)",
+                                    "width": "data(size)"
+                                }
+                            },
+                            {
+                                "selector": "edge",
+                                "style": {
+                                    "width": "data(weight)",
+                                    "line-color": "data(color)",
+                                    "curve-style": "bezier",
+                                    "content": "data(prefLabel)",
+                                    "color": "hsl(30, 64%, 35%)",
+                                    "target-arrow-shape": "triangle",
+                                    "target-arrow-color": "data(color)",
+                                    "font-size": "8",
+                                    "text-valign": "center",
+                                    "edge-text-rotation": "autorotate",
+                                    "text-background-opacity": 1,
+                                    "text-background-color": "white",
+                                    "text-background-shape": "roundrectangle"
+                                }
+                            }
+                        ],
+                        "layout": {
+                            "name": "cose",
+                            "idealEdgeLength": 100,
+                            "nodeOverlap": 20,
+                            "refresh": 20,
+                            "fit": true,
+                            "padding": 30,
+                            "randomize": false,
+                            "componentSpacing": 100,
+                            "nodeRepulsion": 400000,
+                            "edgeElasticity": 100,
+                            "nestingFactor": 5,
+                            "gravity": 80,
+                            "numIter": 1347,
+                            "initialTemp": 200,
+                            "coolingFactor": 0.95,
+                            "minTemp": 1
+                        }
+                    },
+                    "actorInstancePageLettersByYear": {
+                        "tabID": 3,
+                        "component": "ApexCharts",
+                        "pageType": "instancePage",
+                        "createChartData": "createMultipleLineChartData",
+                        "stroke": {
+                            "curve": "straight",
+                            "width": 2
+                        },
+                        "fill": {
+                            "type": "gradient",
+                            "gradient": {
+                                "shadeIntensity": 1,
+                                "inverseColors": false,
+                                "opacityFrom": 0.6,
+                                "opacityTo": 0.05,
+                                "stops": [
+                                    20,
+                                    60,
+                                    100,
+                                    100
+                                ]
+                            }
+                        },
+                        "title": "Letters by year",
+                        "xaxisTitle": "Year",
+                        "xaxisType": "category",
+                        "xaxisTickAmount": 20,
+                        "yaxisTitle": "Number of letters",
+                        "tabPath": "letters-by-year",
+                        "tabIcon": "ShowChart",
+                        "sparqlQuery": "sentReceivedQuery",
+                        "resultMapper": "mapMultipleLineChart",
+                        "resultMapperConfig": {
+                            "fillEmptyValues": true
+                        }
+                    },
+                    "actorInstancePageSocialSignatures": {
+                        "tabID": 4,
+                        "component": "ApexCharts",
+                        "pageType": "instancePage",
+                        "createChartData": "createMultipleLineChartData",
+                        "stroke": {
+                            "curve": "straight",
+                            "width": 2
+                        },
+                        "fill": {
+                            "type": "solid",
+                            "opacity": 0.0
+                        },
+                        "title": "Social signatures",
+                        "xaxisTitle": "",
+                        "yaxisTitle": "",
+                        "tabPath": "social-signatures",
+                        "tabIcon": "TrendingDown",
+                        "sparqlQuery": "socialSignatureQuery",
+                        "resultMapper": "mapMultipleLineChart",
+                        "useNetworkAPI": true,
+                        "queryType": "signature"
+                    },
+                    "instancePageExport": {
+                        "tabID": 5,
                         "component": "Export",
                         "tabPath": "export",
                         "tabIcon": "CloudDownload",
