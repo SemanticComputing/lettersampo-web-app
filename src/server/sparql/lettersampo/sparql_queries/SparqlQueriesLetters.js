@@ -1,14 +1,14 @@
-const perspectiveID = 'letters'
-
 export const letterProperties = `
-BIND(?id as ?uri__id)
-BIND(STR(?id) as ?uri__prefLabel)
-BIND(?id as ?uri__dataProviderUrl)
+{
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  BIND(CONCAT("/letters/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 
-?id skos:prefLabel ?prefLabel__id .
-BIND (?prefLabel__id as ?prefLabel__prefLabel)
-BIND(CONCAT("/letters/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-
+  BIND(?id as ?uri__id)
+  BIND(STR(?id) as ?uri__prefLabel)
+  BIND(?id as ?uri__dataProviderUrl)
+}
+UNION
 {
   ?id ^lssc:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
@@ -33,12 +33,14 @@ UNION
   OPTIONAL { ?productionTimespan__id crm:P82b_end_of_the_end ?productionTimespan__end }
 }
 UNION
-{ ?id dct:language  ?language__id . 
+{ 
+  ?id dct:language  ?language__id . 
   ?language__id skos:prefLabel ?language__prefLabel .
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION 
-{ ?id lssc:source ?datasource__id .
+{ 
+  ?id lssc:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
@@ -65,14 +67,15 @@ UNION
 
 export const letterPropertiesInstancePage = `
 
-BIND(?id as ?uri__id)
-BIND(?id as ?uri__prefLabel)
-BIND(?id as ?uri__dataProviderUrl)
+{
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
 
-?id skos:prefLabel ?prefLabel__id .
-BIND (?prefLabel__id as ?prefLabel__prefLabel)
-BIND(CONCAT("//${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-
+  BIND(?id as ?uri__id)
+  BIND(STR(?id) as ?uri__prefLabel)
+  BIND(?id as ?uri__dataProviderUrl)
+}
+UNION
 {
   ?id ^lssc:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
@@ -97,17 +100,20 @@ UNION
   OPTIONAL { ?productionTimespan__id crm:P82b_end_of_the_end ?productionTimespan__end }
 }
 UNION
-{ ?id dct:language  ?language__id . 
+{ 
+  ?id dct:language  ?language__id . 
   ?language__id skos:prefLabel ?language__prefLabel .
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION
-{ ?id lssc:mentions ?mentions__id .
+{ 
+  ?id lssc:mentions ?mentions__id .
   ?mentions__id skos:prefLabel ?mentions__prefLabel .
   BIND(CONCAT("/actors/page/", REPLACE(STR(?mentions__id), "^.*\\\\/(.+)", "$1")) AS ?mentions__dataProviderUrl)
 }
 UNION
-{ ?id lssc:source ?datasource__id .
+{ 
+  ?id lssc:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
@@ -132,15 +138,15 @@ UNIOn
 }
 UNION
 {
-?id lssc:in_tie ?tie__id .
-?tie__id skos:prefLabel ?tie__prefLabel .
- BIND(CONCAT("/ties/page/", REPLACE(STR(?tie__id), "^.*\\\\/(.+)", "$1")) AS ?tie__dataProviderUrl)
+  ?id lssc:in_tie ?tie__id .
+  ?tie__id skos:prefLabel ?tie__prefLabel .
+  BIND(CONCAT("/ties/page/", REPLACE(STR(?tie__id), "^.*\\\\/(.+)", "$1")) AS ?tie__dataProviderUrl)
 }
 `
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
 //  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
-export const letterMigrationsQuery = `
+export const lettersMigrationsQuery = `
   SELECT DISTINCT ?id 
   ?from__id ?from__prefLabel ?from__lat ?from__long ?from__dataProviderUrl
   ?to__id ?to__prefLabel ?to__lat ?to__long ?to__dataProviderUrl
@@ -167,7 +173,7 @@ export const letterMigrationsQuery = `
     ORDER BY desc(?instanceCount)
 `
 
-export const letterMigrationsDialogQuery = `
+export const lettersMigrationsDialogQuery = `
   SELECT * {
     <FILTER>
     ?id lssc:was_sent_from <FROM_ID> ;
@@ -178,17 +184,16 @@ export const letterMigrationsDialogQuery = `
 `
 
 //  https://api.triplydb.com/s/JJ8pW_uH3
-export const letterByYearQuery = `
-SELECT DISTINCT ?category (COUNT(DISTINCT ?letter__id) AS ?count)
+export const lettersByYearQuery = `
+SELECT DISTINCT ?category (COUNT(DISTINCT ?letter) AS ?count)
 WHERE {
   <FILTER>
-  ?id lssc:created ?letter__id .
-  ?letter__id lssc:was_addressed_to ?target .
-
-  ?letter__id crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
-
+  ?id lssc:created ?letter .
+  ?letter lssc:was_addressed_to ?target .
+  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
   BIND (STR(year(?time_0)) AS ?category)
   FILTER (BOUND(?category))
-} GROUP BY ?category 
-  ORDER BY ?category
+} 
+GROUP BY ?category 
+ORDER BY ?category
 `

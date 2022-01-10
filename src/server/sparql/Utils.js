@@ -1,10 +1,10 @@
 import { readFile } from 'fs/promises'
 import { has } from 'lodash'
 
-// import { backendSearchConfig as oldBackendSearchConfig } from './veterans/BackendSearchConfig'
+import { backendSearchConfig as oldBackendSearchConfig } from './lettersampo/BackendSearchConfig'
 
-// import { battlesPerspectiveConfig as oldPerspectiveConfig } from './sotasurmat/perspective_configs/BattlesPerspectiveConfig'
-// import { INITIAL_STATE } from '../../client/reducers/sotasurmat/battlesFacets'
+import { lettersConfig as oldPerspectiveConfig } from './lettersampo/perspective_configs/LettersConfig'
+import { INITIAL_STATE } from '../../client/reducers/lettersampo/lettersFacets'
 
 export const createBackendSearchConfig = async () => {
   const portalConfigJSON = await readFile('src/configs/portalConfig.json')
@@ -341,4 +341,4 @@ export const createExtraResultClassesForJSONConfig = async oldBackendSearchConfi
 }
 
 // createExtraResultClassesForJSONConfig(oldBackendSearchConfig)
-// mergeFacetConfigs(INITIAL_STATE.facets, oldPerspectiveConfig.facets)
+mergeFacetConfigs(INITIAL_STATE.facets, oldPerspectiveConfig.facets)

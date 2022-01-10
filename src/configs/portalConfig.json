@@ -1,22 +1,12 @@
 {
-    "portalID": "sampo",
+    "portalID": "lettersampo",
     "rootUrl": "",
     "perspectives": {
         "searchPerspectives": [
-            "perspective1",
-            "perspective2",
-            "perspective3",
-            "perspective4",
-            "fullTextSearch"
+            "letters"
         ],
         "onlyInstancePages": [
-            "manuscripts",
-            "collections",
-            "works",
-            "expressions",
-            "events",
-            "actors",
-            "places"
+           
         ]
     },
     "localeConfig": {
@@ -26,12 +16,8 @@
             {
                 "id": "en",
                 "label": "English",
-                "filename": "localeEN.json"
-            },
-            {
-                "id": "fi",
-                "label": "English",
-                "filename": "localeFI.json"
+                "filename": "localeEN",
+                "format": "js"
             }
         ]
     },
@@ -62,24 +48,20 @@
         "paginationToolbarHeight": 37,
         "tableFontSize": "0.8rem",
         "topBar": {
-            "showLanguageButton": true,
+            "logoTextTransform": "none",
+            "showLanguageButton": false,
             "feedbackLink": "https://link.webropolsurveys.com/...",
-            "externalInstructions": false,
-            "externalAboutPage": false,
+            "externalInstructions": true,
+            "externalAboutPage": true,
             "reducedHeight": 44,
             "defaultHeight": 64,
             "mobileMenuBreakpoint": 1360,
             "infoDropdown": [
                 {
-                    "id": "about",
-                    "translatedText": "aboutThePortal",
-                    "internalLink": "/about"
-                },
-                {
-                    "id": "blog",
+                    "id": "aboutTheProject",
                     "externalLink": true,
-                    "translatedUrl": "blogUrl",
-                    "translatedText": "blog"
+                    "translatedUrl": "aboutTheProjectUrl",
+                    "translatedText": "aboutTheProject"
                 }
             ]
         },
@@ -117,7 +99,7 @@
         "yasguiParams": {
             "contentTypeConstruct": "text/turtle",
             "contentTypeSelect": "application/sparql-results+json",
-            "endpoint": "https://ldf.fi/mmm/sparql",
+            "endpoint": "https://ldf.fi/ckcc/sparql",
             "requestMethod": "POST",
             "tabTitle": "Exported query"
         }

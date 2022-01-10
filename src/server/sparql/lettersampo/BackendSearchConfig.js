@@ -34,8 +34,7 @@ import {
 
 import { federatedSearchDatasets } from './sparql_queries/SparqlQueriesFederatedSearch'
 import { fullTextSearchProperties } from './sparql_queries/SparqlQueriesFullText'
-import { makeObjectList } from '../SparqlObjectMapper'
-import { mapPlaces, mapLineChart, mapMultipleLineChart, linearScale } from '../Mappers'
+import { makeObjectList, mapPlaces, mapLineChart, mapMultipleLineChart, linearScale } from '../Mappers'
 
 export const backendSearchConfig = {
   actors: actorsConfig,
