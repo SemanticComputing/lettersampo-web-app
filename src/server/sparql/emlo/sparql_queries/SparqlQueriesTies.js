@@ -7,9 +7,9 @@ export const sahaModel = '"&model=ckcc"'
 //  TODO: fix node links, e.g. copy and change url in networkNodesQuery
 export const tiePropertiesInstancePage = `
 
-?id ckccs:actor1 ?ego__id ;
-  ckccs:actor2 ?alter__id ;
-  ckccs:num_letters ?num_letters ;
+?id lssc:actor1 ?ego__id ;
+  lssc:actor2 ?alter__id ;
+  lssc:num_letters ?num_letters ;
   skos:prefLabel ?prefLabel .
 
 BIND(?ego__id as ?ego__prefLabel)
@@ -34,8 +34,8 @@ OPTIONAL
 
 OPTIONAL
 {
-  [] ckccs:actor1|ckccs:actor2 ?ego__id ; ckccs:actor1|ckccs:actor2 ?other__id .
-  [] ckccs:actor1|ckccs:actor2 ?alter__id ; ckccs:actor1|ckccs:actor2 ?other__id .
+  [] lssc:actor1|lssc:actor2 ?ego__id ; lssc:actor1|lssc:actor2 ?other__id .
+  [] lssc:actor1|lssc:actor2 ?alter__id ; lssc:actor1|lssc:actor2 ?other__id .
   FILTER (?other__id!=?ego__id && ?other__id!=?alter__id)
 
   ?other__id skos:prefLabel ?other__prefLabel .
@@ -45,12 +45,12 @@ OPTIONAL
 OPTIONAL
 {
   SELECT DISTINCT ?id ?letter__id ?letter__prefLabel ?letter__dataProviderUrl  WHERE {
-    ?letter__id ckccs:in_tie ?id ;
+    ?letter__id lssc:in_tie ?id ;
                 skos:prefLabel ?letter__prefLabel . 
 
     BIND(CONCAT("/letters/page/", REPLACE(STR(?letter__id), "^.*\\\\/(.+)", "$1")) AS ?letter__dataProviderUrl)
 
-    OPTIONAL { ?letter__id (crm:P4_has_time-span|ckccs:inferredDate|ckccs:approximateDate|ckccs:possibleDate)/crm:P82a_begin_of_the_begin ?letter__timespan }
+    OPTIONAL { ?letter__id (crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?letter__timespan }
   } 
   ORDER BY COALESCE(STR(?letter__timespan), CONCAT("9999", ?letter__prefLabel))
 }
@@ -66,18 +66,18 @@ SELECT DISTINCT (STR(?year) as ?category)
   
   BIND(<ID> as ?id)
   
-  ?letter ckccs:in_tie ?id ;
+  ?letter lssc:in_tie ?id ;
           crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
   BIND (year(?time_0) AS ?year)
   FILTER (BOUND(?year))
   
   {
-    ?id ckccs:actor1/ckccs:created ?letter .
+    ?id lssc:actor1/lssc:created ?letter .
     BIND (?letter AS ?sent_letter)
   }
   UNION
   {
-    ?id ckccs:actor2/ckccs:created ?letter .
+    ?id lssc:actor2/lssc:created ?letter .
     BIND (?letter AS ?received_letter)
   }
   } 
@@ -94,21 +94,21 @@ WHERE {
     ?id a ?class .
   } UNION { 
     VALUES ?_tie { <ID> }
-    ?_tie ckccs:actor1|ckccs:actor2 ?id 
+    ?_tie lssc:actor1|lssc:actor2 ?id 
   } 
       
   FILTER (BOUND(?id))
   
   {
-    ?tie ckccs:actor1 ?id ;
-      ckccs:actor2 ?target
+    ?tie lssc:actor1 ?id ;
+      lssc:actor2 ?target
     BIND(?id AS ?source)
   } UNION {
-    ?tie ckccs:actor1 ?source ; 
-    ckccs:actor2 ?id
+    ?tie lssc:actor1 ?source ; 
+    lssc:actor2 ?id
     BIND(?id AS ?target)
   }
-  ?tie ckccs:num_letters ?weight .
+  ?tie lssc:num_letters ?weight .
 
   # filter 'unknown' etc entries
   ?source skos:prefLabel ?source__label . 

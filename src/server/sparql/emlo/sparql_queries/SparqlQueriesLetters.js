@@ -10,14 +10,14 @@ BIND (?prefLabel__id as ?prefLabel__prefLabel)
 BIND(CONCAT("/letters/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 
 {
-  ?id ^ckccs:created ?source__id . 
+  ?id ^lssc:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
   # FILTER (!REGEX(STR(?source__prefLabel), 'unknown', 'i'))
   BIND(CONCAT("/actors/page/", REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1")) AS ?source__dataProviderUrl)
 }
 UNION
 {
-  ?id ckccs:was_addressed_to ?target__id . 
+  ?id lssc:was_addressed_to ?target__id . 
   ?target__id skos:prefLabel ?target__prefLabel . 
   # FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
   BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
@@ -26,7 +26,7 @@ UNION
 {
   { ?id crm:P4_has_time-span ?productionTimespan__id }
   UNION
-  { ?id ckccs:inferredDate ?productionTimespan__id }
+  { ?id lssc:inferredDate ?productionTimespan__id }
 
   OPTIONAL { ?productionTimespan__id skos:prefLabel ?productionTimespan__prefLabel }
   OPTIONAL { ?productionTimespan__id crm:P82a_begin_of_the_begin ?productionTimespan__start }
@@ -38,26 +38,26 @@ UNION
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION 
-{ ?id ckccs:source ?datasource__id .
+{ ?id lssc:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
 UNION 
 {
-  ?id ckccs:was_sent_from ?from__id .
+  ?id lssc:was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
   
   OPTIONAL {
     ?from__id crm:P89_falls_within+ ?countryfrom__id .
-    ?countryfrom__id a ckccs:Country .
+    ?countryfrom__id a lssc:Country .
     ?countryfrom__id skos:prefLabel ?countryfrom__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?countryfrom__id), "^.*\\\\/(.+)", "$1")) AS ?countryfrom__dataProviderUrl)
   }
 }
 UNION
 {
-  ?id ckccs:was_sent_to ?to__id .
+  ?id lssc:was_sent_to ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
@@ -74,14 +74,14 @@ BIND (?prefLabel__id as ?prefLabel__prefLabel)
 BIND(CONCAT("//${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 
 {
-  ?id ^ckccs:created ?source__id . 
+  ?id ^lssc:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
   FILTER (!REGEX(STR(?source__prefLabel), 'unknown', 'i'))
   BIND(CONCAT("/actors/page/", REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1")) AS ?source__dataProviderUrl)
 }
 UNION 
 {
-  ?id ckccs:was_addressed_to ?target__id . 
+  ?id lssc:was_addressed_to ?target__id . 
   ?target__id skos:prefLabel ?target__prefLabel . 
   FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
   BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
@@ -90,7 +90,7 @@ UNION
 {
   { ?id crm:P4_has_time-span ?productionTimespan__id }
   UNION
-  { ?id ckccs:inferredDate ?productionTimespan__id }
+  { ?id lssc:inferredDate ?productionTimespan__id }
 
   OPTIONAL { ?productionTimespan__id skos:prefLabel ?productionTimespan__prefLabel }
   OPTIONAL { ?productionTimespan__id crm:P82a_begin_of_the_begin ?productionTimespan__start }
@@ -102,37 +102,37 @@ UNION
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION
-{ ?id ckccs:mentions ?mentions__id .
+{ ?id lssc:mentions ?mentions__id .
   ?mentions__id skos:prefLabel ?mentions__prefLabel .
   BIND(CONCAT("/actors/page/", REPLACE(STR(?mentions__id), "^.*\\\\/(.+)", "$1")) AS ?mentions__dataProviderUrl)
 }
 UNION
-{ ?id ckccs:source ?datasource__id .
+{ ?id lssc:source ?datasource__id .
   ?datasource__id skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
 UNION 
 {
-  ?id ckccs:was_sent_from ?from__id .
+  ?id lssc:was_sent_from ?from__id .
   ?from__id skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
 }
 UNION 
 {
-  ?id ckccs:was_sent_to ?to__id .
+  ?id lssc:was_sent_to ?to__id .
   ?to__id skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
 UNIOn
 { 
-  ?id ckccs:is_related_to ?related__id . 
+  ?id lssc:is_related_to ?related__id . 
   OPTIONAL { ?related__id skos:prefLabel ?related__label }
   BIND(COALESCE(?related__label, ?related__id) AS ?related__prefLabel)
   BIND(?related__id AS ?related__dataProviderUrl)
 }
 UNION
 {
-?id ckccs:in_tie ?tie__id .
+?id lssc:in_tie ?tie__id .
 ?tie__id skos:prefLabel ?tie__prefLabel .
  BIND(CONCAT("/ties/page/", REPLACE(STR(?tie__id), "^.*\\\\/(.+)", "$1")) AS ?tie__dataProviderUrl)
 }
@@ -147,9 +147,9 @@ export const letterMigrationsQuery = `
   (COUNT(DISTINCT ?letter) as ?instanceCount)
     WHERE {
       <FILTER>
-      ?letter ckccs:was_sent_from ?from__id ;
-              ckccs:was_sent_to ?to__id ;
-              a ckccs:Letter .   
+      ?letter lssc:was_sent_from ?from__id ;
+              lssc:was_sent_to ?to__id ;
+              a lssc:Letter .   
       ?from__id skos:prefLabel ?from__prefLabel ; 
                 geo:lat ?from__lat ;
                 geo:long ?from__long .
@@ -170,8 +170,8 @@ export const letterMigrationsQuery = `
 export const letterMigrationsDialogQuery = `
   SELECT * {
     <FILTER>
-    ?id ckccs:was_sent_from <FROM_ID> ;
-        ckccs:was_sent_to <TO_ID> ;
+    ?id lssc:was_sent_from <FROM_ID> ;
+        lssc:was_sent_to <TO_ID> ;
         skos:prefLabel ?prefLabel .
     BIND(CONCAT("/letters/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?dataProviderUrl)
   }
@@ -182,8 +182,8 @@ export const letterByYearQuery = `
 SELECT DISTINCT ?category (COUNT(DISTINCT ?letter__id) AS ?count)
 WHERE {
   <FILTER>
-  ?id ckccs:created ?letter__id .
-  ?letter__id ckccs:was_addressed_to ?target .
+  ?id lssc:created ?letter__id .
+  ?letter__id lssc:was_addressed_to ?target .
 
   ?letter__id crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
 

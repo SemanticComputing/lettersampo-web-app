@@ -12,12 +12,12 @@ BIND(?id as ?uri__dataProviderUrl)
 UNION
 {
   SELECT ?id (COUNT(DISTINCT ?ltr) AS ?numletters) {
-    ?ltr ckccs:source ?id
+    ?ltr lssc:source ?id
   } GROUPBY ?id
 }
 UNION
 { 
-  ?letter__id ckccs:source ?id .
+  ?letter__id lssc:source ?id .
   ?letter__id skos:prefLabel ?letter__prefLabel .
   BIND(CONCAT("/letters/page/", REPLACE(STR(?letter__id), "^.*\\\\/(.+)", "$1")) AS ?letter__dataProviderUrl)
 }
