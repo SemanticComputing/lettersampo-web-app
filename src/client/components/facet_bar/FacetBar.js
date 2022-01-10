@@ -19,6 +19,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
+import { has } from 'lodash'
 
 const styles = theme => ({
   root: {
@@ -249,7 +250,6 @@ class FacetBar extends React.Component {
       <Accordion
         key={facetID}
         expanded={isActive}
-        // onClick={this.handleExpandButtonOnClick(facetID)}
       >
         <AccordionSummary
           classes={{
@@ -262,6 +262,8 @@ class FacetBar extends React.Component {
           id={`${facetID}-header`}
         >
           <FacetHeader
+            portalConfig={this.props.portalConfig}
+            perspectiveConfig={this.props.perspectiveConfig}
             facetID={facetID}
             facetLabel={label}
             facet={facet}
@@ -272,15 +274,20 @@ class FacetBar extends React.Component {
             isActive={isActive}
             facetClass={this.props.facetClass}
             resultClass={this.props.resultClass}
+            perspectiveState={this.props.perspectiveState}
             fetchFacet={this.props.fetchFacet}
             fetchFacetConstrainSelf={this.props.fetchFacetConstrainSelf}
             fetchResults={this.props.fetchResults}
-            facetResults={this.props.facetResults}
             clearFacet={this.props.clearFacet}
             updateFacetOption={this.props.updateFacetOption}
             facetDescription={description}
             rootUrl={this.props.rootUrl}
             layoutConfig={this.props.layoutConfig}
+            mapBoxAccessToken={this.props.mapBoxAccessToken}
+            mapBoxStyle={this.props.mapBoxStyle}
+            apexChartsConfig={this.props.apexChartsConfig}
+            leafletConfig={this.props.leafletConfig}
+            networkConfig={this.props.networkConfig}
           />
         </AccordionSummary>
         <AccordionDetails
@@ -322,6 +329,7 @@ class FacetBar extends React.Component {
           />
           {facets && Object.keys(facets).map(facetID => {
             if (facetID === 'datasetSelector') { return null }
+            if (!has(facets[facetID], 'filterType')) { return null }
             return this.renderFacet(facetID, someFacetIsFetching)
           })}
         </Accordion>
@@ -331,6 +339,7 @@ class FacetBar extends React.Component {
         <>
           {facets && Object.keys(facets).map(facetID => {
             if (facetID === 'datasetSelector') { return null }
+            if (!has(facets[facetID], 'filterType')) { return null }
             return this.renderFacet(facetID, someFacetIsFetching)
           })}
         </>
@@ -365,6 +374,7 @@ class FacetBar extends React.Component {
           />}
         {facetedSearchMode === 'clientFS' &&
           <LeafletMapDialog
+            portalConfig={this.props.portalConfig}
             clientFSState={this.props.clientFSState}
             clientFSFetchResults={this.props.clientFSFetchResults}
             clientFSClearResults={this.props.clientFSClearResults}
@@ -372,6 +382,7 @@ class FacetBar extends React.Component {
             showError={this.props.showError}
             perspectiveID={facetClass}
             layoutConfig={this.props.layoutConfig}
+            leafletConfig={this.props.leafletConfig}
           />}
         {(facetedSearchMode === 'serverFS' || hasClientFSResults) &&
           <Paper className={classes.facetInfoContainer}>
@@ -404,7 +415,7 @@ FacetBar.propTypes = {
   facetedSearchMode: PropTypes.string.isRequired,
   facetData: PropTypes.object.isRequired,
   facetDataConstrainSelf: PropTypes.object,
-  facetResults: PropTypes.object,
+  perspectiveState: PropTypes.object,
   facetClass: PropTypes.string.isRequired,
   resultClass: PropTypes.string.isRequired,
   resultCount: PropTypes.number,

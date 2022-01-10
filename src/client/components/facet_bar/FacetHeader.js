@@ -12,9 +12,6 @@ import InfoIcon from '@material-ui/icons/InfoOutlined'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import history from '../../History'
 import ChartDialog from './ChartDialog'
-import { createApexPieChartData } from '../../configs/emlo/ApexCharts/PieChartConfig'
-import { createApexBarChartData } from '../../configs/emlo/ApexCharts/BarChartConfig'
-import { createSingleLineChartData } from '../../configs/emlo/ApexCharts/LineChartConfig'
 import PieChartIcon from '@material-ui/icons/PieChart'
 import LineChartIcon from '@material-ui/icons/ShowChart'
 import BarChartIcon from '@material-ui/icons/BarChart'
@@ -177,7 +174,7 @@ class FacetHeader extends React.Component {
       spatialFilterButton,
       sortBy,
       filterType,
-      type,
+      facetType,
       barChartButton = false,
       pieChartButton = false,
       lineChartButton = false,
@@ -245,7 +242,7 @@ class FacetHeader extends React.Component {
           {intl.get('facetBar.selectionOptions')}
         </ListSubheader>
       )
-      if (type === 'hierarchical' && selectAlsoSubconceptsButton) {
+      if (facetType === 'hierarchical' && selectAlsoSubconceptsButton) {
         menuButtons.push(
           <MenuItem
             key='selectAlsoSubconcepts'
@@ -290,52 +287,60 @@ class FacetHeader extends React.Component {
       <>
         {pieChartButton &&
           <ChartDialog
-            rawData={this.props.facetConstrainSelf.values}
-            rawDataUpdateID={this.props.facetConstrainSelfUpdateID}
+            portalConfig={this.props.portalConfig}
+            perspectiveConfig={this.props.perspectiveConfig}
+            apexChartsConfig={this.props.apexChartsConfig}
+            results={this.props.facetConstrainSelf.values}
+            resultUpdateID={this.props.facetConstrainSelfUpdateID}
             fetching={this.props.facetConstrainSelf.isFetching}
             fetchData={this.props.fetchFacetConstrainSelf}
-            createChartData={createApexPieChartData}
-            facetID={this.props.facetID}
             facetClass={this.props.facetClass}
+            facetID={this.props.facetID}
             icon={<PieChartIcon />}
             tooltip={intl.get('facetBar.pieChart.tooltip')}
             dialogTitle={this.props.facetLabel}
-            layoutConfig={this.props.layoutConfig}
+            resultClassConfig={{
+              createChartData: 'createApexPieChartData',
+              property: this.props.facetID
+            }}
           />}
         {barChartButton &&
           <ChartDialog
-            rawData={this.props.facetConstrainSelf.values}
-            rawDataUpdateID={this.props.facetConstrainSelfUpdateID}
+            portalConfig={this.props.portalConfig}
+            perspectiveConfig={this.props.perspectiveConfig}
+            apexChartsConfig={this.props.apexChartsConfig}
+            results={this.props.facetConstrainSelf.values}
+            resultUpdateID={this.props.facetConstrainSelfUpdateID}
             fetching={this.props.facetConstrainSelf.isFetching}
             fetchData={this.props.fetchFacetConstrainSelf}
-            createChartData={createApexBarChartData}
-            facetID={this.props.facetID}
             facetClass={this.props.facetClass}
+            facetID={this.props.facetID}
             icon={<BarChartIcon />}
             tooltip={intl.get('facetBar.barChart.tooltip')}
-            title={intl.get(`facetBar.barChart.${this.props.facetID}.title`)}
-            xaxisTitle={intl.get(`facetBar.barChart.${this.props.facetID}.xaxisTitle`)}
-            yaxisTitle={intl.get(`facetBar.barChart.${this.props.facetID}.yaxisTitle`)}
-            seriesTitle={intl.get(`facetBar.barChart.${this.props.facetID}.seriesTitle`)}
-            layoutConfig={this.props.layoutConfig}
+            resultClassConfig={{
+              createChartData: 'createApexBarChartData',
+              property: this.props.facetID,
+              title: intl.get(`facetBar.barChart.${this.props.facetID}.title`),
+              xaxisTitle: intl.get(`facetBar.barChart.${this.props.facetID}.xaxisTitle`),
+              yaxisTitle: intl.get(`facetBar.barChart.${this.props.facetID}.yaxisTitle`),
+              seriesTitle: intl.get(`facetBar.barChart.${this.props.facetID}.seriesTitle`)
+            }}
           />}
         {lineChartButton &&
           <ChartDialog
-            rawData={this.props.facetResults.results}
-            rawDataUpdateID={this.props.facetResults.resultUpdateID}
-            fetching={this.props.facetResults.fetching}
+            portalConfig={this.props.portalConfig}
+            perspectiveConfig={this.props.perspectiveConfig}
+            apexChartsConfig={this.props.apexChartsConfig}
+            results={this.props.perspectiveState.results}
+            resultUpdateID={this.props.perspectiveState.resultUpdateID}
+            fetching={this.props.perspectiveState.fetching}
             fetchData={this.props.fetchResults}
-            createChartData={createSingleLineChartData}
             resultClass={`${this.props.facetID}LineChart`}
             facetClass={this.props.facetClass}
+            facetID={this.props.facetID}
             icon={<LineChartIcon />}
             tooltip={intl.get('facetBar.lineChart.tooltip')}
-            title={intl.get(`facetBar.lineChart.${this.props.facetID}.title`)}
-            xaxisTitle={intl.get(`facetBar.lineChart.${this.props.facetID}.xaxisTitle`)}
-            yaxisTitle={intl.get(`facetBar.lineChart.${this.props.facetID}.yaxisTitle`)}
-            seriesTitle={intl.get(`facetBar.lineChart.${this.props.facetID}.seriesTitle`)}
-            lineChartConfig={this.props.facet.lineChartConfig}
-            layoutConfig={this.props.layoutConfig}
+            resultClassConfig={this.props.perspectiveConfig.resultClasses[`${this.props.facetID}LineChart`]}
           />}
         {menuButtons.length > 0 &&
           <>
