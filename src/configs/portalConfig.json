@@ -9,7 +9,8 @@
             "fullTextSearch"
         ],
         "onlyInstancePages": [
-            "ties"
+            "ties",
+            "sources"
         ]
     },
     "localeConfig": {

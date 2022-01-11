@@ -649,7 +649,7 @@ export default {
             List of letters from this data source.
           `
         },
-        numletters: {
+        numLetters: {
           label: 'Number of letters',
           description: `
             Number of letters from this data source.
