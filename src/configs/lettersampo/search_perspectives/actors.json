@@ -270,7 +270,7 @@
             "tabIcon": "BubbleChart",
             "sparqlQuery": "networkLinksQuery",
             "facetClass": "actors",
-            "sparqlQueryNodes": "networkNodesQuery",
+            "sparqlQueryNodes": "networkNodesFacetQuery",
             "filterTarget": "actor",
             "useNetworkAPI": true,
             "limit": 200,

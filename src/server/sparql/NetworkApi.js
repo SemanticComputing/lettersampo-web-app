@@ -10,14 +10,7 @@ export const runNetworkQuery = async ({
   optimize,
   queryType
 }) => {
-  // console.log(endpoint,
-  //   prefixes,
-  //   links,
-  //   limit,
-  //   nodes,
-  //   id,
-  //   optimize,
-  //   queryType)
+  // console.log('networkqueyr', endpoint, limit, optimize, queryType)
   const payload = {
     endpoint,
     prefixes,

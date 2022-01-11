@@ -446,23 +446,23 @@ export const networkNodesQuery = `
     OPTIONAL { ?id lssc:in_degree ?_in }
 
     BIND(REPLACE(?_label, ',[^,A-ZÜÅÄÖ]+$', '')AS ?prefLabel)
-    BIND(CONCAT("../", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)
+    BIND(CONCAT("../../page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letter-network") AS ?href)
   }
 `
 
 export const networkNodesFacetQuery = `
-  SELECT DISTINCT ?id ?prefLabel ?class ?href
-    (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?numLetters)
-  WHERE {
-    VALUES ?class { crm:E21_Person crm:E74_Group }
+ SELECT DISTINCT ?id ?prefLabel ?class ?href
+ (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?numLetters)
+ WHERE {
+   VALUES ?class { crm:E21_Person crm:E74_Group }
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
-      skos:prefLabel ?_label .
+    skos:prefLabel ?_label .
     OPTIONAL { ?id lssc:out_degree ?_out }
     OPTIONAL { ?id lssc:in_degree ?_in }
-
+    
     BIND(REPLACE(?_label, ',[^,A-ZÜÅÄÖ]+$', '')AS ?prefLabel)
-    BIND(CONCAT("../../actors/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letterNetwork") AS ?href)
+    BIND(CONCAT("../../actors/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letter-network") AS ?href)
   }
 `
 
