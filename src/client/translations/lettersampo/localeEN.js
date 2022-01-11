@@ -149,30 +149,6 @@ export default {
     wrongZoomLevelFHA: 'The map zoom level has to be at least 13 in order to show this layer',
     tooManyResults: 'More than 3000 results, please use clustered map or heatmap'
   },
-  instancePageGeneral: {
-    introduction: `
-      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-        This landing page provides a human-readable summary of the data points that link
-        to this {entity}. The data included in this summary reflect only those data points
-        used in the MMM Portal. Click the Open in Linked Data Browser on button on the
-        Export tab to view the complete set of classes and properties linked to this record.
-      </p>
-      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-        To cite this record, use its url. You can use also use the url to return directly
-        to the record at any time.
-      </p>
-    `,
-    repetition: `
-      <h6 class="MuiTypography-root MuiTypography-h6">
-        Repetition of data
-      </h6>
-      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-        The same or similar data may appear within a single data field multiple times.
-        This repetition occurs due to the merging of multiple records from different datasets
-        to create the MMM record.
-      </p>
-    `
-  },
   deckGlMap: {
     arcColouring: 'Arc colouring:',
     showMoreInformation: 'Click to show more information.',
@@ -515,9 +491,9 @@ export default {
           description: 'Uniform Resource Identifier'
         },
         prefLabel: {
-          label: 'Label',
+          label: 'Name',
           description: `
-            Preferable place label.
+            Place name.
           `
         },
         country: {

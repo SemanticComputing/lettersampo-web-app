@@ -5,10 +5,11 @@
         "searchPerspectives": [
             "letters",
             "actors",
+            "places",
             "fullTextSearch"
         ],
         "onlyInstancePages": [
-           
+            "ties"
         ]
     },
     "localeConfig": {
@@ -24,11 +25,10 @@
         ]
     },
     "sitemapConfig": {
-        "baseUrl": "https://sampo-ui.demo.seco.cs.aalto.fi",
+        "baseUrl": "",
         "langPrimary": "en",
-        "langSecondary": "fi",
         "outputDir": "./src/server/sitemap_generator",
-        "sitemapUrl": "https://sampo-ui.demo.seco.cs.aalto.fi/sitemap",
+        "sitemapUrl": "",
         "sitemapInstancePageQuery": "sitemapInstancePageQuery"
     },
     "knowledgeGraphMetadataConfig": {

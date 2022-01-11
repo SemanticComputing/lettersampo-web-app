@@ -9,7 +9,7 @@ export const tiePropertiesInstancePage = `
 
 ?id lssc:actor1 ?ego__id ;
   lssc:actor2 ?alter__id ;
-  lssc:num_letters ?num_letters ;
+  lssc:num_letters ?numLetters ;
   skos:prefLabel ?prefLabel .
 
 BIND(?ego__id as ?ego__prefLabel)

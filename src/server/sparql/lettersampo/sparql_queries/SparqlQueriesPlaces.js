@@ -23,7 +23,7 @@ UNION
 }
 UNION
 {
-  ?id crm:P89_falls_within+ ?broader__id .
+  ?id crm:P89_falls_within ?broader__id .
   ?broader__id skos:prefLabel ?broader__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
   OPTIONAL {
@@ -107,7 +107,7 @@ BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) 
 }
 UNION
 {
-  ?id crm:P89_falls_within+ ?broader__id .
+  ?id crm:P89_falls_within ?broader__id .
   ?broader__id skos:prefLabel ?broader__prefLabel .
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
   OPTIONAL {
