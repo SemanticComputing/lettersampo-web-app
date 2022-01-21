@@ -504,3 +504,33 @@ export const sentReceivedQuery = `
   GROUP BY ?year 
   ORDER BY ?year
 `
+
+export const topCorrespondenceQuery = `
+SELECT ?id ?source ?source__label ?target ?target__label ?date ?type ?year
+WHERE 
+{
+    VALUES ?id { <ID> }
+  {
+    ?id ckccs:created ?letter .
+    ?letter a ckccs:Letter ;
+      ckccs:was_addressed_to ?target .
+    ?target skos:prefLabel ?_target__label .
+    BIND ("sender" AS ?type)
+  
+    BIND(?id AS ?source)
+  } UNION {
+    ?letter ckccs:was_addressed_to ?id ;
+      a ckccs:Letter .
+    ?source ckccs:created ?letter ;
+      skos:prefLabel ?_source__label . 
+
+    BIND(?id AS ?target)
+    BIND ("receiver" AS ?type)
+
+  }
+  ?target skos:prefLabel ?target__label .
+  ?source skos:prefLabel ?source__label .
+  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?date .
+  BIND(year(?date) AS ?year)
+  } ORDER BY ?date
+`

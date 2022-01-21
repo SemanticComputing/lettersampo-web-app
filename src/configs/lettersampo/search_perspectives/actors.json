@@ -238,8 +238,22 @@
                         "useNetworkAPI": true,
                         "queryType": "signature"
                     },
-                    "instancePageExport": {
+                    "actorInstancePageTopCorrespondences": {
                         "tabID": 5,
+                        "component": "ApexCharts",
+                        "pageType": "instancePage",
+                        "createChartData": "createTopTimelineChartData", 
+                        "title": "Top Correspondences",
+                        "tabPath": "top-correspondences",
+                        "tabIcon": "Tune",
+                        "sparqlQuery": "topCorrespondenceQuery",
+                        "resultMapper": "createCorrespondenceChartData",
+                        "resultMapperConfig": {
+                            "numTopResults": 10
+                        }
+                    },
+                    "instancePageExport": {
+                        "tabID": 6,
                         "component": "Export",
                         "tabPath": "export",
                         "tabIcon": "CloudDownload",

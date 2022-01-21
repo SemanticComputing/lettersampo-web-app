@@ -128,6 +128,87 @@ export const createMultipleLineChartData = ({
   return apexChartOptionsWithData
 }
 
+export const createTopTimelineChartData = ({
+  resultClass,
+  facetClass,
+  perspectiveState,
+  results,
+  resultClassConfig,
+  screenSize
+}) => {
+  console.log('topN', results.topN)
+  const yLabels = results.topTies.concat('other')
+  const apexChartOptionsWithData = {
+    chart: {
+      id: 'topN',
+      type: 'scatter',
+      width: '100%',
+      height: '75%',
+      fontFamily: 'Roboto',
+      toolbar: {
+        autoSelected: 'pan',
+        show: true
+      }
+    },
+    series: results.series,
+    title: {
+      text: 'Top ' + (results.topN.toString()) + ' correspondences',
+      align: 'left'
+    },
+    xaxis: {
+      type: 'datetime',
+      min: results.minUTC,
+      max: results.maxUTC,
+      lines: {
+        show: true
+      }
+    },
+    yaxis: {
+      min: -1,
+      max: results.topN + 1,
+      tickAmount: results.topN + 2,
+      reversed: true,
+      labels: {
+        formatter: function (value) {
+          return (value >= 0) ? yLabels[value] || '' : ''
+        },
+        minWidth: 150,
+        maxWidth: 300,
+        align: 'right'
+      }
+    },
+    grid: {
+      row: {
+        colors: ['#d5d5d5', 'transparent'],
+        opacity: 0.5
+      },
+      column: {
+        colors: ['#a8a8a8', 'transparent']
+      },
+      xaxis: {
+        lines: {
+          show: true
+        }
+      },
+      yaxis: {
+        lines: {
+          show: true
+        }
+      }
+    },
+    fill: {
+      opacity: [0.7, 0.5]
+    },
+    legend: {
+      position: 'bottom'
+    },
+    tooltip: {
+      x: { format: 'dd MMM yyyy' }
+    }
+  }
+  return apexChartOptionsWithData
+}
+
 export const createApexPieChartData = ({
   resultClass,
   facetClass,

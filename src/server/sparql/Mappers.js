@@ -177,8 +177,6 @@ export const mapLineChart = ({ sparqlBindings, config }) => {
 }
 
 export const mapMultipleLineChart = ({ sparqlBindings, config }) => {
-  // console.log('mapMultipleLineChart')
-  // console.log(sparqlBindings)
   const res = {}
   sparqlBindings.forEach(b => {
     for (const p in b) {
@@ -551,3 +549,187 @@ const arrayToObject = (array, keyField) =>
     obj[item[keyField].value] = newItem
     return obj
   }, {})
+
+class DefaultDict {
+  proxy;
+
+  constructor (DefaultClass) {
+    this.proxy = new Proxy({}, {
+      get: (target, name) => {
+        if (!(name in target)) {
+          target[name] = new DefaultClass()
+        }
+        return target[name]
+      }
+    })
+    return this.proxy
+  }
+  // Object.keys(dc)
+  // Object.entries(dc)
+}
+
+class Counter {
+  dct;
+
+  constructor (arr) {
+    this.dct = {}
+    this.update(arr)
+  }
+
+  mostCommon (n) {
+    const lst = Object.entries(this.dct)
+    lst.sort((a, b) => {
+      return b[1] - a[1]
+    })
+    return lst.slice(0, n)
+  }
+
+  mostCommonLabels (n) {
+    const lst = this.mostCommon(n)
+    return lst.map(x => { return x[0] })
+  }
+
+  update (arr) {
+    if (arr) {
+      arr.forEach(x => this.addItem(x))
+    }
+  }
+
+  combine (other) {
+    for (const x of Object.keys(other.dct)) {
+      if (x in this.dct) {
+        this.dct[x] += other.dct[x]
+      } else {
+        this.dct[x] = other.dct[x]
+      }
+    }
+  }
+
+  addItem (x) {
+    if (x in this.dct) {
+      this.dct[x] += 1
+    } else {
+      this.dct[x] = 1
+    }
+  }
+}
+
+export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
+  const topN = config.numTopResults || 10
+
+  sparqlBindings.forEach(b => { Object.keys(b).forEach(key => { b[key] = b[key].value }) })
+
+  //  Datetimes '1663-10-26T00:00:00' to UTC -9662204389000
+  sparqlBindings.forEach(b => { b.date = Date.parse(b.date) })
+
+  function sortTimestamps (arr, labels) {
+    const cn = new Counter(arr)
+    return labels.map(k => { return [k, cn[k] | 0] })
+  }
+
+  const cnSenders = new Counter(sparqlBindings.filter(ob => ob.type === 'receiver').map(ob => ob.source__label))
+  // cnSenders.update([x.get('source__label') for x in res if x.get('type')=="receiver"])
+  const cnReceiver = new Counter(sparqlBindings.filter(ob => ob.type === 'sender').map(ob => ob.target__label))
+
+  const cnAll = new Counter()
+  cnAll.combine(cnSenders)
+  cnAll.combine(cnReceiver)
+
+  const topSenders = cnSenders.mostCommonLabels(topN)
+  const topReceivers = cnReceiver.mostCommonLabels(topN)
+  const topTies = cnAll.mostCommonLabels(topN)
+
+  const senderLetters = new DefaultDict(Array)
+  const receiverLetters = new DefaultDict(Array)
+
+  sparqlBindings.forEach(ob => {
+    if (ob.type === 'sender') {
+      senderLetters[ob.date].push('all')
+      if (ob.source__label in topSenders) {
+        senderLetters[ob.date].push(ob.source__label)
+      }
+    } else if (ob.type === 'receiver') {
+      receiverLetters[ob.date].push('all')
+      if (ob.target__label in topReceivers) {
+        receiverLetters[ob.date].push(ob.target__label)
+      }
+    }
+  })
+
+  let series = new DefaultDict(Array)
+  Object.entries(senderLetters).forEach(ob => {
+    const arr = sortTimestamps(ob[1], topSenders.concat(['all']))
+    arr.forEach(x => {
+      series[x[0]].push([ob[0], x[1]])
+    })
+  })
+  // const senderSeries = Object.entries(series).map(ob => { return { name: ob[0], data: ob[1] } })
+
+  series = new DefaultDict(Array)
+  Object.entries(receiverLetters).forEach(ob => {
+    const arr = sortTimestamps(ob[1], topReceivers.concat(['all']))
+    arr.forEach(x => {
+      series[x[0]].push([ob[0], x[1]])
+    })
+  })
+
+  const sentData = []
+  const receivedData = []
+  const yearsCounter = new DefaultDict(Number)
+  const yearsTopCounter = new DefaultDict(Number)
+
+  sparqlBindings.forEach(ob => {
+    const yst = parseInt(ob.year)
+    yearsCounter[yst] += 1
+    yearsTopCounter[yst] += 0
+
+    if (ob.type === 'sender') {
+      const v = topTies.indexOf(ob.target__label)
+      if (v > -1) {
+        sentData.push([ob.date, v])
+        yearsTopCounter[yst] += 1
+      } else sentData.push([ob.date, topTies.length])
+    } else if (ob.type === 'receiver') {
+      const v = topTies.indexOf(ob.source__label)
+      if (v > -1) {
+        receivedData.push([ob.date, v])
+        yearsTopCounter[yst] += 1
+      } else receivedData.push([ob.date, topTies.length])
+    }
+  })
+
+  // console.log(Object.entries(yearsTopCounter))
+
+  const yearMin = Math.min(...Object.keys(yearsCounter))
+  const yearMax = Math.max(...Object.keys(yearsCounter))
+
+  for (let y = yearMin; y <= yearMax; y++) {
+    yearsCounter[y] += 0
+    yearsTopCounter[y] += 0
+  }
+
+  const yearlyData = Object.entries(yearsCounter).map(ob => {
+    return [Date.UTC(ob[0], 1, 1), ob[1]]
+  })
+
+  const yearlyTopData = Object.entries(yearsTopCounter).map(ob => {
+    return [Date.UTC(ob[0], 1, 1), ob[1]]
+  })
+
+  return {
+    series: [
+      { name: 'to', data: sentData },
+      { name: 'from', data: receivedData }
+    ],
+    yearlySeries: [
+      { name: 'all', data: yearlyData },
+      { name: 'top ' + topN.toString() + ' correspondences', data: yearlyTopData }
+    ],
+    topTies: topTies,
+    topN: topTies.length,
+    yearMin: yearMin,
+    minUTC: Date.UTC(yearMin, 1, 1),
+    yearMax: yearMax,
+    maxUTC: Date.UTC(yearMax, 12, 31)
+  }
+}

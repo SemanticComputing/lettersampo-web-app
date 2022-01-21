@@ -83,6 +83,7 @@ export default {
     'by-period': 'by period',
     'letter-network': 'network of letters',
     'social-signatures': 'social signatures',
+    'top-correspondences': 'top correspondences',
     sentReceivedByPlace: 'timeline of letters',
     correspondenceTimeline: 'Letter Timeline',
     sentReceivedByTie: 'Timeline',

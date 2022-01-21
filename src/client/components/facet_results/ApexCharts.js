@@ -107,10 +107,12 @@ class ApexChart extends React.Component {
 
   renderChart = () => {
     if (this.props.results) {
+      // console.log(this.props)
       // Destroy the previous chart
       if (this.chart !== undefined) {
         this.chart.destroy()
       }
+      // console.log(this.state)
       this.chart = new ApexCharts(
         this.chartRef.current,
         this.state.createChartData({ ...this.props })
