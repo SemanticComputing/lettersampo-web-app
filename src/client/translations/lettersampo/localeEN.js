@@ -178,7 +178,7 @@ export default {
     actors: {
       label: 'Actors',
       facetResultsType: 'actors',
-      shortDescription: 'Collection of 2000 people or groups of people', // altogether 19716
+      shortDescription: 'People or groups of people in the collection', // altogether 19716
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: short instructions here
@@ -344,7 +344,7 @@ export default {
     letters: {
       label: 'Letters',
       facetResultsType: 'letters',
-      shortDescription: 'Information about 20 000 letters', // altogether 152166
+      shortDescription: 'Information about the letters in the database', // altogether 152166
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: short instructions here
@@ -472,7 +472,7 @@ export default {
     places: {
       label: 'Places',
       facetResultsType: 'Places',
-      shortDescription: '800 towns, cities, or countries', // 4532
+      shortDescription: 'Related towns, cities, or countries', // 4532
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
           TODO: short instructions here
