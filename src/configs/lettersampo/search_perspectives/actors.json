@@ -537,6 +537,9 @@
         "numReceived": {
             "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id ckccs:in_degree ?_orderBy }} }"
         },
+        "image": {
+            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,'z') AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id sch:image ?_orderBy }} }"
+        },
         "prefLabel": {
             "containerClass": "one",
             "facetType": "text",
