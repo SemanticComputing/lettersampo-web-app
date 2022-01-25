@@ -1,20 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import { withStyles } from '@material-ui/core/styles'
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import Typography from '@material-ui/core/Typography'
-import InfoIcon from '@material-ui/icons/InfoOutlined'
-import ListSubheader from '@material-ui/core/ListSubheader'
+import withStyles from '@mui/styles/withStyles'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import Typography from '@mui/material/Typography'
+import InfoIcon from '@mui/icons-material/InfoOutlined'
+import ListSubheader from '@mui/material/ListSubheader'
 import history from '../../History'
 import ChartDialog from './ChartDialog'
-import PieChartIcon from '@material-ui/icons/PieChart'
-import LineChartIcon from '@material-ui/icons/ShowChart'
-import BarChartIcon from '@material-ui/icons/BarChart'
+import PieChartIcon from '@mui/icons-material/PieChart'
+import LineChartIcon from '@mui/icons-material/ShowChart'
+import BarChartIcon from '@mui/icons-material/BarChart'
 
 const styles = theme => ({
   root: {
@@ -27,9 +27,9 @@ const styles = theme => ({
     // justifyContent: 'space-between',
     width: '100%'
   },
-  facetLabel: props => ({
-    fontSize: '0.875rem'
-  }),
+  // facetLabel: props => ({
+  //   f
+  // }),
   facetValuesContainerTen: {
     height: 345,
     padding: theme.spacing(1)
@@ -57,9 +57,10 @@ class FacetHeader extends React.Component {
   handleMenuButtonClick = event => {
     event.stopPropagation()
     this.setState({ anchorEl: event.currentTarget })
-  };
+  }
 
-  handleSortOnClick = buttonID => () => {
+  handleSortOnClick = buttonID => event => {
+    event.stopPropagation()
     this.setState({ anchorEl: null })
     let sortDirection
     if (buttonID === 'prefLabel') {
@@ -92,7 +93,7 @@ class FacetHeader extends React.Component {
       option: 'sortBy',
       value: buttonID
     })
-  };
+  }
 
   handleFilterTypeOnClick = buttonID => () => {
     this.setState({ anchorEl: null })
@@ -140,7 +141,7 @@ class FacetHeader extends React.Component {
       option: 'selectAlsoSubconcepts',
       value: selectAlsoSubconcepts
     })
-  };
+  }
 
   handleConjuctionOnClick = buttonID => () => {
     this.setState({ anchorEl: null })
@@ -161,7 +162,7 @@ class FacetHeader extends React.Component {
       option: 'useConjuction',
       value: useConjuction
     })
-  };
+  }
 
   handleMenuClose = () => {
     this.setState({ anchorEl: null })
@@ -351,6 +352,7 @@ class FacetHeader extends React.Component {
                 aria-owns={open ? 'facet-option-menu' : undefined}
                 aria-haspopup='true'
                 onClick={this.handleMenuButtonClick}
+                size='large'
               >
                 <MoreVertIcon />
               </IconButton>
@@ -376,12 +378,19 @@ class FacetHeader extends React.Component {
 
     return (
       <div className={classes.headingContainer}>
-        <Typography className={classes.facetLabel} variant='body1'>{facetLabel}</Typography>
+        <Typography
+          sx={{
+            fontSize: '0.875rem'
+          }}
+          variant='body1'
+        >
+          {facetLabel}
+        </Typography>
         <Tooltip
           title={facetDescription}
           enterDelay={300}
         >
-          <IconButton aria-label='description'>
+          <IconButton aria-label='description' size='large'>
             <InfoIcon />
           </IconButton>
         </Tooltip>

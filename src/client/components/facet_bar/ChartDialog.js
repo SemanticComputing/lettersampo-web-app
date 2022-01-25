@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import GeneralDialog from '../main_layout/GeneralDialog'
 import ApexCharts from '../facet_results/ApexCharts'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles(theme => ({
   chartContainer: {
@@ -25,11 +25,13 @@ const ChartDialog = props => {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
-  const handleClickOpen = () => {
+  const handleClickOpen = event => {
+    event.stopPropagation()
     setOpen(true)
   }
 
-  const handleClose = () => {
+  const handleClose = event => {
+    event.stopPropagation()
     setOpen(false)
   }
 
@@ -41,6 +43,7 @@ const ChartDialog = props => {
           aria-owns={open ? 'facet-option-menu' : undefined}
           aria-haspopup='true'
           onClick={handleClickOpen}
+          size='large'
         >
           {props.icon}
         </IconButton>

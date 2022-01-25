@@ -21,7 +21,7 @@ import {
   MailOutline,
   TrendingDown,
   Tune
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import has from 'lodash'
 
 const MuiIcon = props => {

@@ -1,30 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import intl from 'react-intl-universal'
-import { withStyles } from '@material-ui/core/styles'
 import ApexCharts from 'apexcharts'
-import purple from '@material-ui/core/colors/purple'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
-import Typography from '@material-ui/core/Typography'
+import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import Typography from '@mui/material/Typography'
 import GeneralDialog from '../main_layout/GeneralDialog'
 import InstaceList from '../main_layout/InstanceList'
 
 const defaultPadding = 32
 const smallScreenPadding = 8
-
-const styles = theme => ({
-  selectContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(1)
-  },
-  formControl: {
-    marginLeft: theme.spacing(1)
-  }
-})
 
 /**
  * A component for rendering charts with ApexCharts.
@@ -33,13 +21,15 @@ class ApexChart extends React.Component {
   constructor (props) {
     super(props)
     this.chartRef = React.createRef()
-    const { resultClassConfig, apexChartsConfig } = this.props
-    let resultClass = this.props.resultClass
+    const { apexChartsConfig } = this.props
+    let { resultClass, resultClassConfig } = this.props
     if (resultClassConfig.dropdownForResultClasses) {
       resultClass = resultClassConfig.defaultResultClass
+      resultClassConfig = resultClassConfig.resultClasses[resultClass]
     }
     this.state = {
       resultClass,
+      resultClassConfig,
       createChartData: resultClassConfig.createChartData
         ? apexChartsConfig[resultClassConfig.createChartData]
         : apexChartsConfig[resultClassConfig.chartTypes[0].createChartData],
@@ -49,24 +39,20 @@ class ApexChart extends React.Component {
   }
 
   componentDidMount = () => {
-    const { results } = this.props
-    const { doNotRenderOnMount } = this.props.resultClassConfig
-    if (results && results.length > 0 && !doNotRenderOnMount) {
-      this.renderChart()
-    }
     this.props.fetchData({
       perspectiveID: this.props.perspectiveConfig.id,
       resultClass: this.state.resultClass,
       facetClass: this.props.facetClass,
       facetID: this.props.facetID,
-      uri: this.props.perspectiveState.instanceTableData
+      uri: this.props.perspectiveState && this.props.perspectiveState.instanceTableData
         ? this.props.perspectiveState.instanceTableData.id
-        : null
+        : null,
+      order: this.props.order
     })
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.resultUpdateID !== this.props.resultUpdateID) {
+    if (this.props.resultUpdateID !== 0 && prevProps.resultUpdateID !== this.props.resultUpdateID) {
       this.renderChart()
     }
     const { pageType = 'facetResults' } = this.props
@@ -75,7 +61,8 @@ class ApexChart extends React.Component {
         perspectiveID: this.props.perspectiveConfig.id,
         resultClass: this.state.resultClass,
         facetClass: this.props.facetClass,
-        facetID: this.props.facetID
+        facetID: this.props.facetID,
+        order: this.props.order
       })
     }
     if (prevState.resultClass !== this.state.resultClass) {
@@ -83,7 +70,8 @@ class ApexChart extends React.Component {
         perspectiveID: this.props.perspectiveConfig.id,
         resultClass: this.state.resultClass,
         facetClass: this.props.facetClass,
-        facetID: this.props.facetID
+        facetID: this.props.facetID,
+        order: this.props.order
       })
     }
     if (prevState.chartType !== this.state.chartType) {
@@ -100,32 +88,53 @@ class ApexChart extends React.Component {
   }
 
   componentWillUnmount () {
-    if (!this.chart == null) {
+    if (this.chart !== undefined) {
       this.chart.destroy()
     }
   }
 
   renderChart = () => {
     if (this.props.results) {
-      // console.log(this.props)
       // Destroy the previous chart
       if (this.chart !== undefined) {
         this.chart.destroy()
       }
-      // console.log(this.state)
+      let chartTypeObj = null
+      const { resultClassConfig, chartType } = this.state
+      if (resultClassConfig.dropdownForChartTypes) {
+        chartTypeObj = resultClassConfig.chartTypes.find(chartTypeObj => chartTypeObj.id === chartType)
+      }
       this.chart = new ApexCharts(
         this.chartRef.current,
-        this.state.createChartData({ ...this.props })
+        this.state.createChartData({
+          ...this.props,
+          resultClassConfig: this.state.resultClassConfig,
+          chartTypeObj,
+          fetchInstanceAnalysis: this.props.fetchInstanceAnalysis
+        })
       )
       this.chart.render()
     }
   }
 
-  handleResultClassOnChanhge = event => this.setState({ resultClass: event.target.value })
+  handleResultClassOnChange = event => {
+    const { apexChartsConfig } = this.props
+    const newResultClass = event.target.value
+    const resultClassConfig = this.props.resultClassConfig.resultClasses[newResultClass]
+    this.setState({
+      resultClass: newResultClass,
+      resultClassConfig,
+      createChartData: resultClassConfig.createChartData
+        ? apexChartsConfig[resultClassConfig.createChartData]
+        : apexChartsConfig[resultClassConfig.chartTypes[0].createChartData],
+      chartType: resultClassConfig.dropdownForChartTypes ? resultClassConfig.chartTypes[0].id : null
+    })
+  }
 
-  handleChartTypeOnChanhge = event => {
+  handleChartTypeOnChange = event => {
+    const { resultClassConfig } = this.state
     const chartType = event.target.value
-    const chartTypeObj = this.props.resultClassConfig.chartTypes.find(chartTypeObj => chartTypeObj.id === chartType)
+    const chartTypeObj = resultClassConfig.chartTypes.find(chartTypeObj => chartTypeObj.id === chartType)
     this.setState({
       chartType,
       createChartData: this.props.apexChartsConfig[chartTypeObj.createChartData]
@@ -139,12 +148,18 @@ class ApexChart extends React.Component {
     return screenSize === 'xs' || screenSize === 'sm'
   }
 
-  getHeightForRootContainer = () => {
+  getHeightForRootContainer = ({ targetHeight }) => {
     if (this.isSmallScreen()) {
       return 'auto'
     }
-    const rootHeightReduction = this.props.portalConfig.layoutConfig.tabHeight + 2 * defaultPadding + 1
-    return `calc(100% - ${rootHeightReduction}px)`
+    const doNotReduceTabHeight = this.props.component === 'ApexChartsDouble' && this.props.order === 'lower'
+    if (doNotReduceTabHeight) {
+      const rootHeightReduction = 2 * defaultPadding + 1
+      return `calc(${targetHeight} - ${rootHeightReduction}px)`
+    } else {
+      const rootHeightReduction = this.props.portalConfig.layoutConfig.tabHeight + 2 * defaultPadding + 1
+      return `calc(${targetHeight} - ${rootHeightReduction}px)`
+    }
   }
 
   getHeightForChartContainer = () => {
@@ -163,8 +178,11 @@ class ApexChart extends React.Component {
   }
 
   render () {
-    const { classes, fetching, resultClassConfig } = this.props
-    const { pageType = 'facetResults', dropdownForResultClasses, resultClasses, dropdownForChartTypes, chartTypes } = resultClassConfig
+    // static configs from props
+    const { fetching, resultClassConfig = null } = this.props
+    const { pageType = 'facetResults', dropdownForResultClasses, resultClasses, height = '100%' } = resultClassConfig
+    // dynamic configs from state
+    const { dropdownForChartTypes, chartTypes } = this.state.resultClassConfig
     let rootStyle = {
       width: '100%',
       height: '100%'
@@ -172,7 +190,7 @@ class ApexChart extends React.Component {
     if (pageType === 'facetResults' || pageType === 'instancePage') {
       const padding = this.isSmallScreen() ? smallScreenPadding : defaultPadding
       rootStyle = {
-        height: this.getHeightForRootContainer(),
+        height: this.getHeightForRootContainer({ targetHeight: height }),
         width: `calc(100% - ${2 * padding}px)`,
         padding: padding,
         backgroundColor: '#fff',
@@ -197,38 +215,60 @@ class ApexChart extends React.Component {
     return (
       <div style={rootStyle}>
         {dropdownForResultClasses &&
-          <div className={classes.selectContainer}>
+          <Box
+            sx={theme => ({
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: theme.spacing(1)
+            })}
+          >
             <Typography>{dropdownText}</Typography>
-            <FormControl className={classes.formControl}>
+            <FormControl
+              sx={theme => ({
+                marginLeft: theme.spacing(1)
+              })}
+            >
               <Select
+                variant='standard'
                 id='select-result-class'
                 value={this.state.resultClass}
-                onChange={this.handleResultClassOnChanhge}
+                onChange={this.handleResultClassOnChange}
               >
                 {Object.keys(resultClasses).map(resultClass =>
                   <MenuItem key={resultClass} value={resultClass}>{intl.get(`apexCharts.resultClasses.${resultClass}`)}</MenuItem>
                 )}
               </Select>
             </FormControl>
-          </div>}
+          </Box>}
         {dropdownForChartTypes &&
-          <div className={classes.selectContainer}>
+          <Box
+            sx={theme => ({
+              display: 'flex',
+              alignItems: 'center',
+              marginBottom: theme.spacing(1)
+            })}
+          >
             <Typography>{intl.get('apexCharts.chartType')}</Typography>
-            <FormControl className={classes.formControl}>
+            <FormControl
+              sx={theme => ({
+                marginLeft: theme.spacing(1)
+              })}
+            >
               <Select
+                variant='standard'
                 id='select-chart-type'
                 value={this.state.chartType}
-                onChange={this.handleChartTypeOnChanhge}
+                onChange={this.handleChartTypeOnChange}
               >
                 {chartTypes.map(chartType =>
                   <MenuItem key={chartType.id} value={chartType.id}>{intl.get(`apexCharts.${chartType.id}`)}</MenuItem>
                 )}
               </Select>
             </FormControl>
-          </div>}
+          </Box>}
         {fetching &&
           <div style={spinnerContainerStyle}>
-            <CircularProgress style={{ color: purple[500] }} thickness={5} />
+            <CircularProgress />
           </div>}
         {!fetching &&
           <div style={chartContainerStyle}>
@@ -255,6 +295,4 @@ ApexChart.propTypes = {
   facetClass: PropTypes.string
 }
 
-export const ApexChartComponent = ApexChart
-
-export default withStyles(styles)(ApexChart)
+export default ApexChart
