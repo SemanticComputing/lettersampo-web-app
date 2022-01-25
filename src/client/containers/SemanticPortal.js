@@ -77,7 +77,7 @@ const TextPage = lazy(() => import('../components/main_layout/TextPage'))
 const Message = lazy(() => import('../components/main_layout/Message'))
 const FullTextSearch = lazy(() => import('../components/main_layout/FullTextSearch'))
 const FacetedSearchPerspective = lazy(() => import('../components/facet_results/FacetedSearchPerspective'))
-const FederatedSearchPerspective = lazy(() => import('../components/facet_results/FederatedSearchPerspective'))
+// const FederatedSearchPerspective = lazy(() => import('../components/facet_results/FederatedSearchPerspective'))
 const InstancePagePerspective = lazy(() => import('../components/main_layout/InstancePagePerspective'))
 const KnowledgeGraphMetadataTable = lazy(() => import('../components/main_layout/KnowledgeGraphMetadataTable'))
 // ** General components end **
@@ -97,7 +97,7 @@ const SemanticPortal = props => {
   const location = useLocation()
   const rootUrlWithLang = `${rootUrl}/${props.options.currentLocale}`
   const screenSize = getScreenSize()
-  const noClientFSResults = props.clientFSState && props.clientFSState.results === null
+  // const noClientFSResults = props.clientFSState && props.clientFSState.results === null
 
   // trigger a new “page view” event whenever a new page loads
   usePageViews()
@@ -310,7 +310,7 @@ const SemanticPortal = props => {
           </Switch>
         )}
         {/* optional: create a route for client side faceted search */}
-        <Route path={`${rootUrlWithLang}/perspective4/federated-search`}>
+        {/* <Route path={`${rootUrlWithLang}/perspective4/federated-search`}>
           <FederatedSearchPerspective
             portalConfig={portalConfig}
             layoutConfig={layoutConfig}
@@ -344,7 +344,7 @@ const SemanticPortal = props => {
             fetchGeoJSONLayers={props.fetchGeoJSONLayers}
             clearGeoJSONLayers={props.clearGeoJSONLayers}
           />
-        </Route>
+        </Route> */}
         {/* create routes for top bar info buttons */}
         {!layoutConfig.topBar.externalAboutPage &&
           <Route path={`${rootUrlWithLang}/about`}>
