@@ -628,6 +628,34 @@ export default {
         }
       }
     },
+    metrics: {
+      instancePage: {
+        label: 'Network Metrics',
+        description: `
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+            TODO: short instructions here
+          </p>
+        `
+      },
+      properties: {
+        highest: {
+          label: 'Actors with highest values',
+          description: 'Actors with highest values'
+        },
+        prefLabel: {
+          label: 'Actor 1',
+          description: `
+            Label for Network Metric.
+          `
+        },
+        related: {
+          label: 'Related network metrics',
+          description: `
+          Other network metrics available in the data.
+          `
+        }
+      }
+    },
     sources: {
       instancePage: {
         label: 'Data source',

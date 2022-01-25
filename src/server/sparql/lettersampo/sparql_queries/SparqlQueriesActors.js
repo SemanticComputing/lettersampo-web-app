@@ -156,13 +156,15 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
-      SELECT DISTINCT ?id ?metrics
+      SELECT DISTINCT ?id ?metrics__id ?metrics__dataProviderUrl ?metrics__prefLabel
       WHERE {
-          ?id lssc:has_statistic ?stat .
-          ?stat lssc:value ?stat_value ;
-                lssc:rank ?stat_rank ;
-                a/skos:prefLabel ?stat_label .
-        BIND (CONCAT(?stat_label, ': ', STR(?stat_value), ' (#', STR(?stat_rank),")") AS ?metrics)
+        ?id lssc:has_statistic [
+          lssc:value ?stat_value ;
+          lssc:rank ?stat_rank ;
+          a ?metrics__id ] .
+        ?metrics__id skos:prefLabel ?stat_label .
+        BIND (CONCAT(?stat_label, ': ', STR(?stat_value), ' (#', STR(?stat_rank),")") AS ?metrics__prefLabel)
+        BIND(CONCAT("/metrics/page/", REPLACE(STR(?metrics__id), "^.*\\\\/(.+)", "$1")) AS ?metrics__dataProviderUrl)
       }
     }
     UNION

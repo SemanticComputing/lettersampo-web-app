@@ -10,7 +10,8 @@
         ],
         "onlyInstancePages": [
             "ties",
-            "sources"
+            "sources",
+            "metrics"
         ]
     },
     "localeConfig": {

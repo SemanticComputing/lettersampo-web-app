@@ -66,10 +66,10 @@
                             },
                             {
                                 "id": "metrics",
-                                "valueType": "string",
-                                "makeLink": false,
+                                "valueType": "object",
+                                "makeLink": true,
                                 "externalLink": false,
-                                "sortValues": false,
+                                "sortValues": true,
                                 "numberedList": false,
                                 "minWidth": 220,
                                 "onlyOnInstancePage": true
