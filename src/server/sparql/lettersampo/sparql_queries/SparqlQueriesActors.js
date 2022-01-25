@@ -334,15 +334,15 @@ SELECT DISTINCT ?id ?lat ?long
 (COUNT(DISTINCT ?person) AS ?instanceCount)
 WHERE {
 
-  {
-    ?person lssc:created/lssc:was_sent_from ?id .
-  } UNION {
-    ?person ^lssc:was_addressed_to/lssc:was_sent_to ?id .
-  } 
-  
+  { ?person lssc:created/lssc:was_sent_from ?id } 
+  UNION 
+  { ?person ^lssc:was_addressed_to/lssc:was_sent_to ?id } 
+  UNION
+  { ?person lssc:was_born_in_location ?id }
+  UNION
+  { ?person lssc:died_at_location ?id }
   ?id geo:lat ?lat ;
     geo:long ?long .
-  
 } GROUP BY ?id ?lat ?long
 `
 
@@ -353,6 +353,10 @@ export const peopleRelatedTo = `
     { ?related__id lssc:created/lssc:was_sent_from ?id }
     UNION
     { ?related__id ^lssc:was_addressed_to/lssc:was_sent_to ?id }
+    UNION
+    { ?related__id lssc:was_born_in_location ?id }
+    UNION
+    { ?related__id lssc:died_at_location ?id }
     ?related__id skos:prefLabel ?related__prefLabel .
     BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   } 
