@@ -444,7 +444,7 @@ export const networkNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
     (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?numLetters)
   WHERE {
-    VALUES ?class { crm:E21_Person crm:E74_Group }
+    VALUES ?class { crm:E21_Person crm:E39_Actor crm:E74_Group }
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
       skos:prefLabel ?_label .
@@ -460,7 +460,7 @@ export const networkNodesFacetQuery = `
  SELECT DISTINCT ?id ?prefLabel ?class ?href
  (COALESCE(?_out, 0)+COALESCE(?_in, 0) AS ?numLetters)
  WHERE {
-   VALUES ?class { crm:E21_Person crm:E74_Group }
+   VALUES ?class { crm:E21_Person crm:E39_Actor crm:E74_Group }
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
     skos:prefLabel ?_label .

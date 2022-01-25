@@ -90,7 +90,7 @@ SELECT DISTINCT ?source ?target
   ?weight (STR(?weight) AS ?prefLabel)
 WHERE {
   { VALUES ?id { <ID> }
-    VALUES ?class { crm:E21_Person crm:E74_Group }
+    VALUES ?class { crm:E21_Person crm:E39_Actor crm:E74_Group }
     ?id a ?class .
   } UNION { 
     VALUES ?_tie { <ID> }
@@ -123,7 +123,7 @@ WHERE {
 export const tieNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
   WHERE {
-    VALUES ?class { crm:E21_Person crm:E74_Group }
+    VALUES ?class { crm:E21_Person crm:E39_Actor crm:E74_Group }
     VALUES ?id { <ID_SET> }
     ?id a ?class ;
      skos:prefLabel ?_label .
