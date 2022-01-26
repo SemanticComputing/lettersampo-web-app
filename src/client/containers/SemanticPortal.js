@@ -49,7 +49,8 @@ import {
 } from '../helpers/helpers'
 import * as apexChartsConfig from '../library_configs/ApexCharts/ApexChartsConfig'
 import * as leafletConfig from '../library_configs/Leaflet/LeafletConfig'
-import * as networkConfig from '../library_configs/Cytoscape.js/NetworkConfig'
+import * as networkToolsGeneral from '../library_configs/Cytoscape.js/NetworkToolsGeneral'
+import * as networkToolsPortalSpecific from '../library_configs/Cytoscape.js/NetworkToolsPortalSpecific'
 
 // ** Generate portal configuration based on JSON configs **
 import portalConfig from '../../configs/portalConfig.json'
@@ -69,6 +70,10 @@ const perspectiveConfigOnlyInfoPages = await createPerspectiveConfigOnlyInfoPage
   portalID,
   onlyInstancePagePerspectives: perspectives.onlyInstancePages
 })
+const networkConfig = {
+  ...networkToolsGeneral,
+  ...networkToolsPortalSpecific
+}
 // ** portal configuration end **
 
 // ** Import general components **
@@ -77,7 +82,7 @@ const TextPage = lazy(() => import('../components/main_layout/TextPage'))
 const Message = lazy(() => import('../components/main_layout/Message'))
 const FullTextSearch = lazy(() => import('../components/main_layout/FullTextSearch'))
 const FacetedSearchPerspective = lazy(() => import('../components/facet_results/FacetedSearchPerspective'))
-// const FederatedSearchPerspective = lazy(() => import('../components/facet_results/FederatedSearchPerspective'))
+const FederatedSearchPerspective = lazy(() => import('../components/facet_results/FederatedSearchPerspective'))
 const InstancePagePerspective = lazy(() => import('../components/main_layout/InstancePagePerspective'))
 const KnowledgeGraphMetadataTable = lazy(() => import('../components/main_layout/KnowledgeGraphMetadataTable'))
 // ** General components end **
@@ -97,9 +102,16 @@ const SemanticPortal = props => {
   const location = useLocation()
   const rootUrlWithLang = `${rootUrl}/${props.options.currentLocale}`
   const screenSize = getScreenSize()
-  // const noClientFSResults = props.clientFSState && props.clientFSState.results === null
+  const federatedSearchPerspectives = []
+  let noClientFSResults = true
+  perspectiveConfig.forEach(perspective => {
+    if (perspective.searchMode === 'federated-search') {
+      federatedSearchPerspectives.push(perspective)
+      noClientFSResults = props.clientFSState && props.clientFSState.results === null
+    }
+  })
 
-  // trigger a new “page view” event whenever a new page loads
+  // trigger a new "page view" event whenever a new page loads
   usePageViews()
 
   // set HTML title and description dynamically based on translations
@@ -309,42 +321,45 @@ const SemanticPortal = props => {
             </Route>
           </Switch>
         )}
-        {/* optional: create a route for client side faceted search */}
-        {/* <Route path={`${rootUrlWithLang}/perspective4/federated-search`}>
-          <FederatedSearchPerspective
-            portalConfig={portalConfig}
-            layoutConfig={layoutConfig}
-            facetedSearchMode='clientFS'
-            facetClass='perspective4'
-            resultClass='perspective4'
-            facetState={props.clientFSState}
-            clientFSFacetValues={props.clientFSFacetValues}
-            fetchingResultCount={props.clientFSState.textResultsFetching}
-            resultCount={noClientFSResults ? 0 : props.clientFSState.results.length}
-            noClientFSResults={noClientFSResults}
-            clientFSState={props.clientFSState}
-            clientFSToggleDataset={props.clientFSToggleDataset}
-            clientFSFetchResults={props.clientFSFetchResults}
-            clientFSClearResults={props.clientFSClearResults}
-            clientFSUpdateQuery={props.clientFSUpdateQuery}
-            clientFSUpdateFacet={props.clientFSUpdateFacet}
-            defaultActiveFacets={perspectiveConfig.find(p => p.id === 'perspective4').defaultActiveFacets}
-            updateMapBounds={props.updateMapBounds}
-            screenSize={screenSize}
-            showError={props.showError}
-            rootUrl={rootUrlWithLang}
-            apexChartsConfig={apexChartsConfig}
-            leafletConfig={leafletConfig}
-            networkConfig={networkConfig}
-            perspective={perspectiveConfig.find(p => p.id === 'perspective4')}
-            clientFSResults={props.clientFSResults}
-            clientFSSortResults={props.clientFSSortResults}
-            leafletMapState={props.leafletMap}
-            fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
-            fetchGeoJSONLayers={props.fetchGeoJSONLayers}
-            clearGeoJSONLayers={props.clearGeoJSONLayers}
-          />
-        </Route> */}
+        {/* optional: create routes for client side faceted search */}
+        {federatedSearchPerspectives.length > 0 &&
+          federatedSearchPerspectives.map(perspective =>
+            <Route key={perspective.id} path={`${rootUrlWithLang}/${perspective.id}/federated-search`}>
+              <FederatedSearchPerspective
+                portalConfig={portalConfig}
+                layoutConfig={layoutConfig}
+                facetedSearchMode='clientFS'
+                facetClass={perspective.id}
+                resultClass={perspective.id}
+                facetState={props.clientFSState}
+                clientFSFacetValues={props.clientFSFacetValues}
+                fetchingResultCount={props.clientFSState.textResultsFetching}
+                resultCount={noClientFSResults ? 0 : props.clientFSState.results.length}
+                noClientFSResults={noClientFSResults}
+                clientFSState={props.clientFSState}
+                clientFSToggleDataset={props.clientFSToggleDataset}
+                clientFSFetchResults={props.clientFSFetchResults}
+                clientFSClearResults={props.clientFSClearResults}
+                clientFSUpdateQuery={props.clientFSUpdateQuery}
+                clientFSUpdateFacet={props.clientFSUpdateFacet}
+                defaultActiveFacets={perspective.defaultActiveFacets}
+                updateMapBounds={props.updateMapBounds}
+                screenSize={screenSize}
+                showError={props.showError}
+                rootUrl={rootUrlWithLang}
+                apexChartsConfig={apexChartsConfig}
+                leafletConfig={leafletConfig}
+                networkConfig={networkConfig}
+                perspective={perspective}
+                clientFSResults={props.clientFSResults}
+                clientFSSortResults={props.clientFSSortResults}
+                leafletMapState={props.leafletMap}
+                fetchGeoJSONLayersBackend={props.fetchGeoJSONLayersBackend}
+                fetchGeoJSONLayers={props.fetchGeoJSONLayers}
+                clearGeoJSONLayers={props.clearGeoJSONLayers}
+              />
+            </Route>
+          )}
         {/* create routes for top bar info buttons */}
         {!layoutConfig.topBar.externalAboutPage &&
           <Route path={`${rootUrlWithLang}/about`}>
