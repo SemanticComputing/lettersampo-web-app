@@ -242,7 +242,7 @@
                         "tabID": 5,
                         "component": "ApexCharts",
                         "pageType": "instancePage",
-                        "createChartData": "createTopTimelineChartData", 
+                        "createChartData": "createTopTimelineChartData",
                         "title": "Top Correspondences",
                         "tabPath": "top-correspondences",
                         "tabIcon": "Tune",
@@ -252,8 +252,57 @@
                             "numTopResults": 10
                         }
                     },
-                    "instancePageExport": {
+                    "actorInstancePageDoubleTest": {
                         "tabID": 6,
+                        "component": "ApexChartsDouble",
+                        "pageType": "instancePage",
+                        "tabPath": "double-test",
+                        "tabIcon": "Tune",
+                        "upperResultClass": "productionTimespanLineChartUpper",
+                        "lowerResultClass": "productionTimespanLineChartLower",
+                        "resultClasses": {
+                            "productionTimespanLineChartUpper": {
+                                "height": "60%",
+                                "sparqlQuery": "sentReceivedQuery",
+                                "filterTarget": "instance",
+                                "resultMapper": "mapMultipleLineChart",
+                                "resultMapperConfig": {
+                                    "fillEmptyValues": true
+                                },
+                                "createChartData": "createMultipleLineChartData",
+                                "title": "Manuscript production by decade",
+                                "xaxisTitle": "Decade",
+                                "xaxisType": "category",
+                                "xaxisTickAmount": 30,
+                                "yaxisTitle": "Manuscript count",
+                                "seriesTitle": "Manuscript count",
+                                "stroke": {
+                                    "width": 2
+                                }
+                            },
+                            "productionTimespanLineChartLower": {
+                                "height": "30%",
+                                "sparqlQuery": "sentReceivedQuery",
+                                "filterTarget": "instance",
+                                "resultMapper": "mapMultipleLineChart",
+                                "resultMapperConfig": {
+                                    "fillEmptyValues": true
+                                },
+                                "createChartData": "createMultipleLineChartData",
+                                "title": "Manuscript production by decade",
+                                "xaxisTitle": "Decade",
+                                "xaxisType": "category",
+                                "xaxisTickAmount": 30,
+                                "yaxisTitle": "Manuscript count",
+                                "seriesTitle": "Manuscript count",
+                                "stroke": {
+                                    "width": 2
+                                }
+                            }
+                        }
+                    },
+                    "instancePageExport": {
+                        "tabID": 7,
                         "component": "Export",
                         "tabPath": "export",
                         "tabIcon": "CloudDownload",
