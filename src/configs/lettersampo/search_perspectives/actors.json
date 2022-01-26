@@ -258,10 +258,11 @@
                         "pageType": "instancePage",
                         "tabPath": "double-test",
                         "tabIcon": "Tune",
-                        "upperResultClass": "productionTimespanLineChartUpper",
-                        "lowerResultClass": "productionTimespanLineChartLower",
+                        "upperResultClass": "actorInstancePageDoubleUpper",
+                        "lowerResultClass": "actorInstancePageDoubleLower",
                         "resultClasses": {
-                            "productionTimespanLineChartUpper": {
+                            "actorInstancePageDoubleUpper": {
+                                "pageType": "instancePage",
                                 "height": "60%",
                                 "sparqlQuery": "sentReceivedQuery",
                                 "filterTarget": "instance",
@@ -280,8 +281,9 @@
                                     "width": 2
                                 }
                             },
-                            "productionTimespanLineChartLower": {
-                                "height": "30%",
+                            "actorInstancePageDoubleLower": {
+                                "pageType": "instancePage",
+                                "height": "40%",
                                 "sparqlQuery": "sentReceivedQuery",
                                 "filterTarget": "instance",
                                 "resultMapper": "mapMultipleLineChart",
