@@ -229,9 +229,9 @@ export default {
           `
         },
         flourish: {
-          label: 'Flourishing time',
+          label: 'Floruit',
           description: `
-          Flourishing time, e.g. time of activity.
+          Floruit, e.g. time of flourishing, time of activity.
           `
         },
         deathDateTimespan: {
@@ -252,10 +252,10 @@ export default {
             Alternative names or vocations of the actor.
           `
         },
-        related: {
-          label: 'External links',
+        external: {
+          label: 'External databases',
           description: `
-            External links.
+            Links to External databases.
           `
         },
         event: {
