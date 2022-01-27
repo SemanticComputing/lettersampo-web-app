@@ -136,14 +136,23 @@ export const createTopTimelineChartData = ({
   resultClassConfig,
   screenSize
 }) => {
-  console.log('topN', results.topN)
-  const yLabels = results.topTies.concat('other')
+  // console.log('topN', results.topN)
+  const {
+    title,
+    fill,
+    tooltip,
+    legend,
+    grid,
+    lastLabel
+  } = resultClassConfig
+  const topN = results.topN.toString()
+  const yLabels = results.topTies.concat(lastLabel)
   const apexChartOptionsWithData = {
     chart: {
       id: 'topN',
       type: 'scatter',
       width: '100%',
-      height: '75%',
+      height: '100%',
       fontFamily: 'Roboto',
       toolbar: {
         autoSelected: 'pan',
@@ -152,7 +161,7 @@ export const createTopTimelineChartData = ({
     },
     series: results.series,
     title: {
-      text: 'Top ' + (results.topN.toString()) + ' correspondences',
+      text: title.replace(/{}/g, topN),
       align: 'left'
     },
     xaxis: {
@@ -177,34 +186,55 @@ export const createTopTimelineChartData = ({
         align: 'right'
       }
     },
-    grid: {
-      row: {
-        colors: ['#d5d5d5', 'transparent'],
-        opacity: 0.5
-      },
-      column: {
-        colors: ['#a8a8a8', 'transparent']
-      },
-      xaxis: {
-        lines: {
-          show: true
-        }
-      },
-      yaxis: {
-        lines: {
-          show: true
+    ...(grid) && { grid },
+    ...(tooltip) && { tooltip },
+    ...(legend) && { legend },
+    ...(fill) && { fill }
+  }
+  return apexChartOptionsWithData
+}
+
+export const createTopTimelineChartData2 = ({
+  resultClass,
+  facetClass,
+  perspectiveState,
+  results,
+  resultClassConfig,
+  screenSize
+}) => {
+  console.log('bottomN', resultClassConfig)
+  const {
+    title,
+    stroke,
+    fill,
+    tooltip,
+    xaxis,
+    yaxis,
+    grid
+  } = resultClassConfig
+  const apexChartOptionsWithData = {
+    series: results.yearlySeries,
+    chart: {
+      id: 'area-datetime',
+      type: 'area',
+      height: '100%',
+      // brush: { target: 'topN', enabled: true },
+      selection: {
+        enabled: true,
+        xaxis: {
+          min: results.minUTC,
+          max: results.maxUTC2
         }
       }
     },
-    fill: {
-      opacity: [0.7, 0.5]
-    },
-    legend: {
-      position: 'bottom'
-    },
-    tooltip: {
-      x: { format: 'dd MMM yyyy' }
-    }
+    dataLabels: { enabled: false },
+    ...(title) && { title },
+    ...(xaxis) && { xaxis },
+    ...(yaxis) && { yaxis },
+    ...(grid) && { grid },
+    ...(tooltip) && { tooltip },
+    ...(stroke) && { stroke },
+    ...(fill) && { fill }
   }
   return apexChartOptionsWithData
 }

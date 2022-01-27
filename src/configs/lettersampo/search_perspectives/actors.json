@@ -178,8 +178,75 @@
                             "minTemp": 1
                         }
                     },
-                    "actorInstancePageLettersByYear": {
+                    "actorInstancePageTopCorrespondences": {
                         "tabID": 3,
+                        "component": "ApexChartsDouble",
+                        "pageType": "instancePage",
+                        "tabPath": "top-correspondences",
+                        "tabIcon": "Tune",
+                        "upperResultClass": "actorInstancePageDoubleUpper",
+                        "lowerResultClass": "actorInstancePageDoubleLower",
+                        "resultClasses": {
+                            "actorInstancePageDoubleUpper": {
+                                "title": "Top {} Correspondences",
+                                "lastLabel": "Other",
+                                "pageType": "instancePage",
+                                "height": "60%",
+                                "sparqlQuery": "topCorrespondenceQuery",
+                                "filterTarget": "instance",
+                                "resultMapper": "createCorrespondenceChartData",
+                                "resultMapperConfig": {
+                                    "numTopResults": 10
+                                },
+                                "createChartData": "createTopTimelineChartData",
+                                "tooltip": { "x": { "format": "yyyy" } },
+                                "fill": { "opacity": [0.7, 0.5] },
+                                "legend": { "position": "bottom"},
+                                "grid": {
+                                    "row": {
+                                      "colors": ["#d5d5d5", "transparent"], "opacity": 0.5
+                                    },
+                                    "column": { "colors": ["#a8a8a8", "transparent"] },
+                                    "xaxis": { "lines": { "show": true } },
+                                    "yaxis": { "lines": { "show": true } }
+                                }
+                            },
+                            "actorInstancePageDoubleLower": {
+                                "pageType": "instancePage",
+                                "height": "40%",
+                                "sparqlQuery": "topCorrespondenceQuery",
+                                "filterTarget": "instance",
+                                "resultMapper": "createCorrespondenceChartData",
+                                "resultMapperConfig": { "numTopResults": 10 },
+                                "createChartData": "createTopTimelineChartData2",
+                                "title": { "text": "Letters by Year", "align": "left" },
+                                "xaxis": {
+                                    "type": "datetime",
+                                    "tooltip": { "enabled": true }
+                                },
+                                "yaxis": {
+                                    "labels": { "minWidth": 150, "maxWidth": 300 }
+                                },
+                                "grid": {
+                                    "column": { "colors": ["#a8a8a8", "transparent"] },
+                                    "xaxis": { "lines": { "show": true } },
+                                    "yaxis": { "lines": { "show": true } }
+                                },
+                                "tooltip": { "x": { "format": "yyyy" } },
+                                "stroke": { "curve": "stepline", "width": 1 },
+                                "fill": {
+                                    "type": "gradient",
+                                    "gradient": {
+                                        "shadeIntensity": 1,
+                                        "opacityFrom": 0.7,
+                                        "opacityTo": 0.9
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "actorInstancePageLettersByYear": {
+                        "tabID": 4,
                         "component": "ApexCharts",
                         "pageType": "instancePage",
                         "createChartData": "createMultipleLineChartData",
@@ -216,7 +283,7 @@
                         }
                     },
                     "actorInstancePageSocialSignatures": {
-                        "tabID": 4,
+                        "tabID": 5,
                         "component": "ApexCharts",
                         "pageType": "instancePage",
                         "createChartData": "createMultipleLineChartData",
@@ -237,71 +304,6 @@
                         "resultMapper": "mapMultipleLineChart",
                         "useNetworkAPI": true,
                         "queryType": "signature"
-                    },
-                    "actorInstancePageTopCorrespondences": {
-                        "tabID": 5,
-                        "component": "ApexCharts",
-                        "pageType": "instancePage",
-                        "createChartData": "createTopTimelineChartData",
-                        "title": "Top Correspondences",
-                        "tabPath": "top-correspondences",
-                        "tabIcon": "Tune",
-                        "sparqlQuery": "topCorrespondenceQuery",
-                        "resultMapper": "createCorrespondenceChartData",
-                        "resultMapperConfig": {
-                            "numTopResults": 10
-                        }
-                    },
-                    "actorInstancePageDoubleTest": {
-                        "tabID": 6,
-                        "component": "ApexChartsDouble",
-                        "pageType": "instancePage",
-                        "tabPath": "double-test",
-                        "tabIcon": "Tune",
-                        "upperResultClass": "actorInstancePageDoubleUpper",
-                        "lowerResultClass": "actorInstancePageDoubleLower",
-                        "resultClasses": {
-                            "actorInstancePageDoubleUpper": {
-                                "pageType": "instancePage",
-                                "height": "60%",
-                                "sparqlQuery": "sentReceivedQuery",
-                                "filterTarget": "instance",
-                                "resultMapper": "mapMultipleLineChart",
-                                "resultMapperConfig": {
-                                    "fillEmptyValues": true
-                                },
-                                "createChartData": "createMultipleLineChartData",
-                                "title": "Manuscript production by decade",
-                                "xaxisTitle": "Decade",
-                                "xaxisType": "category",
-                                "xaxisTickAmount": 30,
-                                "yaxisTitle": "Manuscript count",
-                                "seriesTitle": "Manuscript count",
-                                "stroke": {
-                                    "width": 2
-                                }
-                            },
-                            "actorInstancePageDoubleLower": {
-                                "pageType": "instancePage",
-                                "height": "40%",
-                                "sparqlQuery": "sentReceivedQuery",
-                                "filterTarget": "instance",
-                                "resultMapper": "mapMultipleLineChart",
-                                "resultMapperConfig": {
-                                    "fillEmptyValues": true
-                                },
-                                "createChartData": "createMultipleLineChartData",
-                                "title": "Manuscript production by decade",
-                                "xaxisTitle": "Decade",
-                                "xaxisType": "category",
-                                "xaxisTickAmount": 30,
-                                "yaxisTitle": "Manuscript count",
-                                "seriesTitle": "Manuscript count",
-                                "stroke": {
-                                    "width": 2
-                                }
-                            }
-                        }
                     },
                     "instancePageExport": {
                         "tabID": 7,

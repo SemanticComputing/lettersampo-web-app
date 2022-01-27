@@ -708,12 +708,13 @@ export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
     yearsTopCounter[y] += 0
   }
 
+  // NB, UTC-months start from zero=January ... December=11
   const yearlyData = Object.entries(yearsCounter).map(ob => {
-    return [Date.UTC(ob[0], 1, 1), ob[1]]
+    return [Date.UTC(ob[0], 0, 1), ob[1]]
   })
 
   const yearlyTopData = Object.entries(yearsTopCounter).map(ob => {
-    return [Date.UTC(ob[0], 1, 1), ob[1]]
+    return [Date.UTC(ob[0], 0, 1), ob[1]]
   })
 
   return {
@@ -728,8 +729,9 @@ export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
     topTies: topTies,
     topN: topTies.length,
     yearMin: yearMin,
-    minUTC: Date.UTC(yearMin, 1, 1),
     yearMax: yearMax,
-    maxUTC: Date.UTC(yearMax, 12, 31)
+    minUTC: Date.UTC(yearMin, 0, 1),
+    maxUTC: Date.UTC(yearMax, 11, 31),
+    maxUTC2: Date.UTC(yearMax + 1, 11, 31)
   }
 }
