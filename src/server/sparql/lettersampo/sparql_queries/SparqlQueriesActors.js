@@ -29,10 +29,11 @@ export const actorPropertiesInstancePage = `
   UNION 
   { ?id skos:altLabel ?altLabel }
   UNION
-  { ?id lssc:is_related_to ?related__id . 
-    OPTIONAL { ?related__id skos:prefLabel ?related__label }
-    BIND(COALESCE(?related__label, ?related__id) AS ?related__prefLabel)
-    BIND(?related__id AS ?related__dataProviderUrl)
+  { ?id lssc:is_related_to ?external__id . 
+    OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
+    OPTIONAL { ?external__id skos:prefLabel ?external__label }
+    BIND(COALESCE(?external__classlabel, ?external__label, ?external__id) AS ?external__prefLabel)
+    BIND(?external__id AS ?external__dataProviderUrl)
   }
   UNION
   {
@@ -275,6 +276,13 @@ export const actorPropertiesFacetResults = `
     ?flourish__id skos:prefLabel ?flourish__prefLabel ;
       crm:P82a_begin_of_the_begin ?flourish__start; 
       crm:P82b_end_of_the_end ?flourish__end 
+  }
+  UNION
+  { ?id lssc:is_related_to ?external__id . 
+    OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
+    OPTIONAL { ?external__id skos:prefLabel ?external__label }
+    BIND(COALESCE(?external__classlabel, ?external__label, ?external__id) AS ?external__prefLabel)
+    BIND(?external__id AS ?external__dataProviderUrl)
   }
   UNION
   {
