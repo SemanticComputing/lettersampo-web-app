@@ -530,7 +530,7 @@
             "minWidth": 70
         },
         {
-            "id": "related",
+            "id": "external",
             "valueType": "object",
             "makeLink": true,
             "externalLink": true,
@@ -538,7 +538,7 @@
             "numberedList": false,
             "minWidth": 250,
             "priority": 8,
-            "onlyOnInstancePage": true
+            "onlyOnInstancePage": false
         },
         {
             "id": "rel",
@@ -654,6 +654,15 @@
             "sortByAscPredicate": "ckccs:deathDate/crm:P82a_begin_of_the_begin",
             "sortByDescPredicate": "ckccs:deathDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
+        },
+        "external": {
+            "containerClass": "six",
+            "facetType": "list",
+            "predicate": "lssc:is_related_to/a",
+            "filterType": "uriFilter",
+            "sortBy": "instanceCount",
+            "sortDirection": "desc",
+            "sortByPredicate": "lssc:is_related_to/a/skos:prefLabel"
         }
     }
 }
