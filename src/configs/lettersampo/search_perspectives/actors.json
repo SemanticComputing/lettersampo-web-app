@@ -33,7 +33,7 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "actorPropertiesFacetResults",
-                "pagesize": 10,
+                "pagesize": 30,
                 "paginatedResultsAlwaysExpandRows": true,
                 "paginatedResultsRowContentMaxHeight": 150,
                 "sortBy": "numSent",
@@ -199,7 +199,7 @@
                                     "numTopResults": 10
                                 },
                                 "createChartData": "createTopTimelineChartData",
-                                "tooltip": { "x": { "format": "yyyy" } },
+                                "tooltip": { "x": { "format": "d MMM yyyy" } },
                                 "fill": { "opacity": [0.7, 0.5] },
                                 "legend": { "position": "bottom"},
                                 "grid": {
