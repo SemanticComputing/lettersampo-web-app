@@ -1,7 +1,7 @@
 {
   "id": "ties",
   "endpoint": {
-    "url": "https://ldf.fi/ckcc/sparql",
+    "url": "http://localhost:3030/lettersampo/query",
     "useAuth": false,
     "prefixesFile": "SparqlQueriesPrefixes.js"
   },
@@ -58,7 +58,7 @@
                     "height": "50%",
                     "filterTarget": "instance",
                     "sparqlQuery": "tieTimelineYearsQuery",
-                    "resultMapper": "createCorrespondenceChartData2",
+                    "resultMapper": "createCorrespondenceChartDataLower",
                     "resultMapperConfig": {
                         "fillEmptyValues": true
                     },

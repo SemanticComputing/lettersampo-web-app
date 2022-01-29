@@ -1,7 +1,7 @@
 {
     "id": "actors",
     "endpoint": {
-        "url": "https://ldf.fi/ckcc/sparql",
+        "url": "http://localhost:3030/lettersampo/query",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -217,7 +217,7 @@
                                 "height": "40%",
                                 "filterTarget": "instance",
                                 "sparqlQuery": "sentReceivedQuery",
-                                "resultMapper": "createCorrespondenceChartData2",
+                                "resultMapper": "createCorrespondenceChartDataLower",
                                 "resultMapperConfig": {
                                     "fillEmptyValues": true
                                 },

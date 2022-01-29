@@ -656,7 +656,7 @@ export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
   }
 }
 
-export const createCorrespondenceChartData2 = ({ sparqlBindings, config }) => {
+export const createCorrespondenceChartDataLower = ({ sparqlBindings, config }) => {
   const series = []
   Object.entries(mapMultipleLineChart({ sparqlBindings, config })).forEach(([key, arr]) => {
     // filter out empty result arrays, e.g. 'sent_letters' : []
