@@ -214,10 +214,12 @@
                             "actorInstancePageDoubleLower": {
                                 "pageType": "instancePage",
                                 "height": "40%",
-                                "sparqlQuery": "topCorrespondenceQuery",
                                 "filterTarget": "instance",
-                                "resultMapper": "createCorrespondenceChartData",
-                                "resultMapperConfig": { "numTopResults": 10 },
+                                "sparqlQuery": "sentReceivedQuery",
+                                "resultMapper": "createCorrespondenceChartData2",
+                                "resultMapperConfig": {
+                                    "fillEmptyValues": true
+                                },
                                 "createChartData": "createTopTimelineChartData2",
                                 "title": { "text": "Letters by Year", "align": "left" },
                                 "xaxis": {
@@ -238,8 +240,8 @@
                                     "type": "gradient",
                                     "gradient": {
                                         "shadeIntensity": 1,
-                                        "opacityFrom": 0.7,
-                                        "opacityTo": 0.9
+                                        "opacityFrom": 0.3,
+                                        "opacityTo": 0.6
                                     }
                                 }
                             }

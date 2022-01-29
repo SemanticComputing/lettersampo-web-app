@@ -735,3 +735,21 @@ export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
     maxUTC2: Date.UTC(yearMax + 1, 11, 31)
   }
 }
+
+export const createCorrespondenceChartData2 = ({ sparqlBindings, config }) => {
+  const series = []
+  Object.entries(mapMultipleLineChart({ sparqlBindings, config })).forEach(x => {
+    // filter out empty result arrays, e.g. 'sent_letters' : []
+    if (x[1] && x[1].length) {
+      const arr = x[1]
+      const lastX = arr[arr.length - 1]
+      // add an extra zero to the end to show the whole last result in browser
+      arr.push([lastX[0] + 1, 0])
+      series.push({
+        name: x[0],
+        data: arr.map(y => [Date.UTC(y[0], 0, 1), y[1]])
+      })
+    }
+  })
+  return series
+}

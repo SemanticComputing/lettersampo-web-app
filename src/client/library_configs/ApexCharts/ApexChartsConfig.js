@@ -202,7 +202,6 @@ export const createTopTimelineChartData2 = ({
   resultClassConfig,
   screenSize
 }) => {
-  console.log('bottomN', resultClassConfig)
   const {
     title,
     stroke,
@@ -212,20 +211,23 @@ export const createTopTimelineChartData2 = ({
     yaxis,
     grid
   } = resultClassConfig
+  results.forEach(x => { x.name = intl.get(`lineChart.${x.name}`) || x.name })
   const apexChartOptionsWithData = {
-    series: results.yearlySeries,
+    series: results,
     chart: {
       id: 'area-datetime',
       type: 'area',
-      height: '100%',
-      // brush: { target: 'topN', enabled: true },
-      selection: {
-        enabled: true,
-        xaxis: {
-          min: results.minUTC,
-          max: results.maxUTC2
+      height: '100%'
+      /**
+       brush: { target: 'topN', enabled: true },
+       selection: {
+         enabled: true,
+         xaxis: {
+           min: results.minUTC,
+           max: results.maxUTC2
+          }
         }
-      }
+        */
     },
     dataLabels: { enabled: false },
     ...(title) && { title },
