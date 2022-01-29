@@ -127,6 +127,30 @@ export default {
       inputLabel: 'Etsi nimellä'
     }
   },
+  instancePageGeneral: {
+    introduction: `
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+        This landing page provides a human-readable summary of the data points that link
+        to this {entity}. The data included in this summary reflect only those data points
+        used in the LetterSampo Portal. Click the Open in Linked Data Browser on button on the
+        Export tab to view the complete set of classes and properties linked to this record.
+      </p>
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+        To cite this record, use its url. You can use also use the url to return directly
+        to the record at any time.
+      </p>
+    `,
+    repetition: `
+      <h6 class="MuiTypography-root MuiTypography-h6">
+        Computationally generated data
+      </h6>
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+        Plenty of the data is computationally generated.
+        There might be missing, erroneous, or repeting data records
+        due to the errors or inadequate amount of source data.
+      </p>
+    `
+  },
   leafletMap: {
     basemaps: {
       mapbox: {
@@ -185,16 +209,68 @@ export default {
       shortDescription: 'People or groups of people in the collection', // altogether 19716
       longDescription: `
         <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-          TODO: short instructions here
+          Use this perspective to access data related to the people and groups in the dataset.
         </p>
-       
+        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+          General information about the project is available at the <a href="https://seco.cs.aalto.fi/projects/rrl/"  target="_blank" rel="noopener noreferrer">project blog</a>.
+        </p>
+        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+          Use this perspective to access data related to the actors in the dataset.
+          See <a href="/instructions">instructions</a> for using the
+          filters. The result view can be selected using the tabs:
+        </p>
+        <ul class="MuiTypography-root MuiTypography-body1">
+          <li>
+            <strong>TABLE</STRONG> view includes all actors in
+            the LetterSampo data. One table row is equivalent to one actors.
+            Wikidata/Wikimedia Commons is used as the image source.
+          </li>
+          <li>
+            <strong>MAP</strong> is a map visualization showing the known locations of activities, e.g. places of birth, sending and receiving letters, and death.
+            Places without the coordinate information are shown as a part of the place higher in the hierarchy.
+          </li>
+          <li>
+            <strong>NETWORK</strong> is a social network visualization showing the Sender-Recipient relationships.
+              Notice that the amount of people shown in the network is limited for performance reason.
+              The Sender-Recipient relationships are not available for all, so some facet setting may not show the network at all.
+              More network visualizations focusing on a particular person can be viewed at person instance pages.
+          </li>
+          <li>
+            <strong>SPARQL-QUERY</strong> the SPARQL query used to generate the result
+            table view into YASGUI query editor.
+          </li>
+        </ul>
       `,
       instancePage: {
         label: 'Actor',
         description: `
-          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            TODO: short instructions here
-          </p>
+          <h6 class="MuiTypography-root MuiTypography-h6">
+            Page tabs
+          </h6>
+          <ul class="MuiTypography-root MuiTypography-body1">
+            <li>
+              <strong>TABLE</STRONG> view includes detailed data about this person or group.
+            </li>
+            <li>
+              <strong>LETTERS</strong> show the available information about letters sent or received by this person.
+              NB some people may not have any letter information available.
+            </li>
+            <li>
+              <strong>TOP CORRESPONDENCES</STRONG> show a timeline of letters and most important correspondences of this person. The timeline consists of two charts, the upper one showing the activities using a precision of one day, the lower one showing the yearly amounts of sent and received letters.
+              NB. Letters having more approximate temporal information, e.g. 'sent 1860-1865' show up on the first day of that time period, e.g. '1 Jan. 1860'.
+            </li>
+            <li>
+              <strong>NETWORK OF LETTERS</strong> shows this actors's relations to other actors connected by the letter correspondences.
+            </li>
+            <li>
+              <strong>SOCIAL SIGNATURES</strong> shows a chart showing how much the actor has been in correspondence with the most, the second most, etc, important other actor during different period of his/her time of activity.
+            </li>
+            <li>
+              <strong>EXPORT</strong> the SPARQL query used to generate the result
+              table view into YASGUI query editor.
+            </li>
+          </ul>
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"></p>
         `
       },
       properties: {
@@ -348,18 +424,52 @@ export default {
     letters: {
       label: 'Letters',
       facetResultsType: 'letters',
-      shortDescription: 'Information about the letters in the database', // altogether 152166
+      shortDescription: 'Information about the letters in the database',
       longDescription: `
-        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-          TODO: short instructions here
-        </p>
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+        Use this perspective to access the letter data in the dataset.
+      </p>
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+        See <a href="/instructions">instructions</a> for using the
+        filters. The result view can be selected using the tabs:
+      </p>
+      <ul class="MuiTypography-root MuiTypography-body1">
+      <li>
+        <strong>TABLE</STRONG> view includes all letter in
+        the LetterSampo data. One table row is equivalent to one letter.
+      </li>
+      <li>
+        <strong>MIGRATIONS</strong> is a map visualization showing the known routes of the letters.
+        NB. Some letters may not have information including both the places of sending and receiving, and does not therefore appear on the map application.
+      </li>
+      <li>
+        <strong>BY YEAR</strong> includes a chart showing the yearly distribution of letters in the database.
+      </li>
+      <li>
+        <strong>SPARQL-QUERY</strong> the SPARQL query used to generate the result
+        table view into YASGUI query editor.
+      </li>
+    </ul>
       `,
       instancePage: {
         label: 'Letter',
         description: `
-          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            TODO: short instructions here
-          </p>
+          <h6 class="MuiTypography-root MuiTypography-h6">
+            Page tabs
+          </h6>
+          <ul class="MuiTypography-root MuiTypography-body1">
+            <li>
+              <strong>TABLE</STRONG> view includes detailed data about this person or group.
+            </li>
+            <li>
+              <strong>TABLE</strong> show the available information about the letters in the database.
+            </li>
+            <li>
+              <strong>EXPORT</strong> the SPARQL query used to generate the result
+              table view into YASGUI query editor.
+            </li>
+          </ul>
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"></p>
         `
       },
       properties: {
@@ -482,18 +592,49 @@ export default {
     places: {
       label: 'Places',
       facetResultsType: 'Places',
-      shortDescription: 'Related towns, cities, or countries', // 4532
+      shortDescription: 'Related towns, cities, or countries',
       longDescription: `
-        <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-          TODO: short instructions here
-        </p>
+      <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      Use this perspective to access the place data related to the actors and letters in the dataset.
+      Places in the LetterSampo data consists of countries, counties, towns, villages, and town neighborhoods,
+      as well as individual buildings, e.g. schools, churches, hospitals etc.
+      The data (labels, coordinates, hierarchy) is converted from various data sources:
+      Geonames, GND places, and Wikidata.
+    </p>
+    <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+      See <a href="/instructions">instructions</a> for using the
+      filters. The result view can be selected using the tabs:
+    </p>
+    <ul class="MuiTypography-root MuiTypography-body1">
+      <li>
+        <strong>TABLE</STRONG> view includes all places in
+        the LetterSampo data. One table row is equivalent to one place.
+      </li>
+      <li>
+        <strong>MAP</strong> is a map visualization showing the known locations of activities, e.g. places of birth, sending and receiving letters, and death.
+        NB. Some places may not have a coordinate location, and does not appear on the map application.
+      </li>
+      <li>
+        <strong>SPARQL-QUERY</strong> the SPARQL query used to generate the result
+        table view into YASGUI query editor.
+      </li>
+    </ul>
       `,
       instancePage: {
         label: 'Place',
         description: `
-          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            TODO: short instructions here
-          </p>
+        <ul class="MuiTypography-root MuiTypography-body1">
+          <li>
+            <strong>TABLE</STRONG> view includes detailed imformation about each place resource in the database.
+          </li>
+          <li>
+            <strong>TIMELINE OF LETTERS</strong> contains a chart showing the yearly distribution of letters related to this place.
+          </li>
+          <li>
+            <strong>EXPORT</strong> the SPARQL query used to generate the result
+            table view into YASGUI query editor.
+          </li>
+        </ul>
         `
       },
       properties: {
@@ -592,9 +733,28 @@ export default {
       instancePage: {
         label: 'Correspondence',
         description: `
-          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            TODO: short instructions here
+          <p>
+          This instance page provides detailed information about a correspondence between two actors.
           </p>
+          <h6 class="MuiTypography-root MuiTypography-h6">
+            Page tabs
+          </h6>
+          <ul class="MuiTypography-root MuiTypography-body1">
+            <li>
+              <strong>TABLE</STRONG> view includes detailed information about the correspondence between two specific actors.
+            </li>
+            <li>
+              <strong>TIMELINE OF LETTERS</strong> details about all the letters sent and received between the two actors. The two timeline charts on this tab show the correspondence with precision of a single day or by years.
+            </li>
+            <li>
+              <strong>NETWORK OF LETTERS</strong> contains a network visualization showing the closest other correspondences connecting to the specific correspondence between the two actors of this page.
+            </li>
+            <li>
+              <strong>EXPORT</strong> the SPARQL query used to generate the result
+              table view into YASGUI query editor.
+            </li>
+          </ul>
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph"></p>
         `
       },
       properties: {
@@ -643,7 +803,7 @@ export default {
         label: 'Network Metrics',
         description: `
           <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
-            TODO: short instructions here
+            This instance page provides information about the actors with the highest values for each of the network metric.
           </p>
         `
       },
