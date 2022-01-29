@@ -335,7 +335,7 @@ export const peopleEventPlacesQuery = `
 SELECT DISTINCT ?id ?lat ?long 
 (COUNT(DISTINCT ?person) AS ?instanceCount)
 WHERE {
-
+  <FILTER>
   { ?person lssc:created/lssc:was_sent_from ?id } 
   UNION 
   { ?person ^lssc:was_addressed_to/lssc:was_sent_to ?id } 
