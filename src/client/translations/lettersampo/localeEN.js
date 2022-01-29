@@ -395,13 +395,19 @@ export default {
         description: {
           label: 'Description',
           description: `
-            The description of the letter content.
+          The description of the letter content.
           `
         },
         manuscript: {
           label: 'Manuscript',
           description: `
-            The specific manuscript(s) in which the Work can be found.
+          The specific manuscript(s) in which the Work can be found.
+          `
+        },
+        comment: {
+          label: 'Comment',
+          description: `
+          Comments marked with the letter.
           `
         },
         productionTimespan: {

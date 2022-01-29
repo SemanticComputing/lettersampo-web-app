@@ -77,6 +77,10 @@ export const letterPropertiesInstancePage = `
 }
 UNION
 {
+  ?id rdfs:comment ?comment .
+}
+UNION
+{
   ?id ^lssc:created ?source__id . 
   ?source__id skos:prefLabel ?source__prefLabel . 
   FILTER (!REGEX(STR(?source__prefLabel), 'unknown', 'i'))

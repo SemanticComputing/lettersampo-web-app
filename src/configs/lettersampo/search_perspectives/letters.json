@@ -33,7 +33,7 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "letterProperties",
-                "pagesize": 10,
+                "pagesize": 30,
                 "sortBy": null,
                 "sortDirection": null
             },
@@ -207,6 +207,15 @@
             "onlyOnInstancePage": true
         },
         {
+            "id": "comment",
+            "valueType": "string",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "onlyOnInstancePage": true
+        },
+        {
             "id": "datasource",
             "valueType": "object",
             "makeLink": true,
@@ -256,7 +265,7 @@
             "sortButton": true
         },
         "from": {
-            "containerClass": "ten",
+            "containerClass": "seven",
             "facetType": "list",
             "filterType": "uriFilter",
             "predicate": "ckccs:was_sent_from",
@@ -267,7 +276,7 @@
             "sortButton": true
         },
         "to": {
-            "containerClass": "ten",
+            "containerClass": "seven",
             "facetType": "list",
             "filterType": "uriFilter",
             "predicate": "ckccs:was_sent_to",
@@ -290,17 +299,6 @@
             "sortByDescPredicate": "crm:P4_has_time-span/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
-        "datasource": {
-            "containerClass": "ten",
-            "facetType": "list",
-            "filterType": "uriFilter",
-            "predicate": "ckccs:source",
-            "searchField": false,
-            "sortBy": "instanceCount",
-            "sortDirection": "desc",
-            "sortButton": true,
-            "sortByPredicate": "ckccs:source/skos:prefLabel"
-        },
         "language": {
             "containerClass": "four",
             "facetType": "list",
@@ -311,6 +309,17 @@
             "sortDirection": "desc",
             "sortButton": true,
             "sortByPredicate": "dct:language/skos:prefLabel"
+        },
+        "datasource": {
+            "containerClass": "ten",
+            "facetType": "list",
+            "filterType": "uriFilter",
+            "predicate": "ckccs:source",
+            "searchField": false,
+            "sortBy": "instanceCount",
+            "sortDirection": "desc",
+            "sortButton": true,
+            "sortByPredicate": "ckccs:source/skos:prefLabel"
         }
     }
 }
