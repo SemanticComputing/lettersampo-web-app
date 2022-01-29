@@ -550,7 +550,8 @@ const arrayToObject = (array, keyField) =>
     return obj
   }, {})
 
-class DefaultDict {
+/**
+ class DefaultDict {
   proxy;
 
   constructor (DefaultClass) {
@@ -567,6 +568,7 @@ class DefaultDict {
   // Object.keys(dc)
   // Object.entries(dc)
 }
+*/
 
 class Counter {
   dct;
@@ -615,8 +617,8 @@ class Counter {
 }
 
 export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
-  const { numberTopResults, types } = config
-  const topN = numberTopResults || 10
+  const { numberTopResults, types, lastLabel } = config
+  let topN = numberTopResults || 10
 
   sparqlBindings.forEach(b => { Object.keys(b).forEach(key => { b[key] = b[key].value }) })
 
@@ -632,31 +634,39 @@ export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
   sparqlBindings.forEach(ob => {
     const v = topTies.indexOf(ob[ob.type + '__label'])
     //  one of the top correspondences (v > -1) or in other (topTies.length)
-    datas[ob.type].push([ob.date, v > -1 ? v : topTies.length])
+    if (v > -1) {
+      datas[ob.type].push([ob.date, v])
+    } else if (lastLabel) {
+      datas[ob.type].push([ob.date, topTies.length])
+    }
   })
 
   const years = new Set(sparqlBindings.map(ob => { return parseInt(ob.year) }))
 
+  topN = topTies.length
+  if (lastLabel) { topTies.push(lastLabel) }
+
   return {
     series: types.map(type => { return { name: type, data: datas[type] } }),
     topTies: topTies,
-    minUTC: Date.UTC(Math.min(...years), 0, 1),
+    topN: topN,
+    minUTC: Date.UTC(Math.min(...years)),
+    //  NB. January = 0, ... December = 11:
     maxUTC: Date.UTC(Math.max(...years), 11, 31)
   }
 }
 
 export const createCorrespondenceChartData2 = ({ sparqlBindings, config }) => {
   const series = []
-  Object.entries(mapMultipleLineChart({ sparqlBindings, config })).forEach(x => {
+  Object.entries(mapMultipleLineChart({ sparqlBindings, config })).forEach(([key, arr]) => {
     // filter out empty result arrays, e.g. 'sent_letters' : []
-    if (x[1] && x[1].length) {
-      const arr = x[1]
+    if (arr && arr.length) {
       const lastX = arr[arr.length - 1]
       // add an extra zero to the end to show the whole last result in browser
       arr.push([lastX[0] + 1, 0])
       series.push({
-        name: x[0],
-        data: arr.map(y => [Date.UTC(y[0], 0, 1), y[1]])
+        name: key,
+        data: arr.map(y => [Date.UTC(y[0]), y[1]])
       })
     }
   })

@@ -474,6 +474,35 @@ export const networkNodesFacetQuery = `
   }
 `
 
+export const topCorrespondenceQuery = `
+SELECT ?id (?source__label AS ?from__label) (?target__label AS ?to__label)  (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
+WHERE 
+{
+    VALUES ?id { <ID> }
+  {
+    ?id ckccs:created ?letter .
+    ?letter a ckccs:Letter ;
+      ckccs:was_addressed_to ?target .
+    ?target skos:prefLabel ?_target__label .
+    BIND ("to" AS ?type)
+  
+    BIND(?id AS ?source)
+  } UNION {
+    ?letter ckccs:was_addressed_to ?id ;
+      a ckccs:Letter .
+    ?source ckccs:created ?letter ;
+      skos:prefLabel ?_source__label . 
+
+    BIND(?id AS ?target)
+    BIND ("from" AS ?type)
+
+  }
+  ?target skos:prefLabel ?target__label .
+  ?source skos:prefLabel ?source__label .
+  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+  } ORDER BY ?_date
+`
+
 //  https://api.triplydb.com/s/O9tYz4CRO
 export const sentReceivedQuery = `
   SELECT DISTINCT (STR(?year) as ?category) 
@@ -509,35 +538,6 @@ export const sentReceivedQuery = `
     }
     FILTER ((bound(?death) && ?year<=?death) || !bound(?death))
   } 
-  GROUP BY ?year 
+  GROUP BY ?year
   ORDER BY ?year
-`
-
-export const topCorrespondenceQuery = `
-SELECT ?id (?source__label AS ?from__label) (?target__label AS ?to__label)  (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
-WHERE 
-{
-    VALUES ?id { <ID> }
-  {
-    ?id ckccs:created ?letter .
-    ?letter a ckccs:Letter ;
-      ckccs:was_addressed_to ?target .
-    ?target skos:prefLabel ?_target__label .
-    BIND ("to" AS ?type)
-  
-    BIND(?id AS ?source)
-  } UNION {
-    ?letter ckccs:was_addressed_to ?id ;
-      a ckccs:Letter .
-    ?source ckccs:created ?letter ;
-      skos:prefLabel ?_source__label . 
-
-    BIND(?id AS ?target)
-    BIND ("from" AS ?type)
-
-  }
-  ?target skos:prefLabel ?target__label .
-  ?source skos:prefLabel ?source__label .
-  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
-  } ORDER BY ?_date
 `

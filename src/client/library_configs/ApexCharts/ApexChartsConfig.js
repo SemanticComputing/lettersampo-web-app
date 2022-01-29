@@ -142,11 +142,9 @@ export const createTopTimelineChartData = ({
     fill,
     tooltip,
     legend,
-    grid,
-    lastLabel
+    grid
   } = resultClassConfig
-  const topN = results.topTies.length
-  const yLabels = results.topTies.concat(lastLabel)
+  results.series.forEach(x => { x.name = intl.get(`lineChart.${x.name}`) || x.name })
   const apexChartOptionsWithData = {
     chart: {
       id: 'topN',
@@ -161,7 +159,7 @@ export const createTopTimelineChartData = ({
     },
     series: results.series,
     title: {
-      text: title.replace(/{}/g, topN.toString()),
+      text: title.replace(/{}/g, results.topN.toString()),
       align: 'left'
     },
     xaxis: {
@@ -174,12 +172,12 @@ export const createTopTimelineChartData = ({
     },
     yaxis: {
       min: -1,
-      max: topN + 1,
-      tickAmount: topN + 2,
+      max: results.topTies.length,
+      tickAmount: results.topTies.length + 1,
       reversed: true,
       labels: {
         formatter: function (value) {
-          return (value >= 0) ? yLabels[value] || '' : ''
+          return (value >= 0) ? results.topTies[value] || '' : ''
         },
         minWidth: 150,
         maxWidth: 300,
