@@ -520,7 +520,7 @@ export const sentReceivedQuery = `
 `
 
 export const topCorrespondenceQuery = `
-SELECT ?id ?source ?source__label ?target ?target__label ?date ?type ?year
+SELECT ?id ?source ?source__label ?target ?target__label (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
 WHERE 
 {
     VALUES ?id { <ID> }
@@ -544,7 +544,6 @@ WHERE
   }
   ?target skos:prefLabel ?target__label .
   ?source skos:prefLabel ?source__label .
-  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?date .
-  BIND(year(?date) AS ?year)
-  } ORDER BY ?date
+  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+  } ORDER BY ?_date
 `
