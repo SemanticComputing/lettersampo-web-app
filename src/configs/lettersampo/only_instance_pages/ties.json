@@ -36,7 +36,7 @@
                     "filterTarget": "instance",
                     "resultMapper": "createCorrespondenceChartData",
                     "resultMapperConfig": {
-                        "types": ["sender"],
+                        "types": ["sender1", "sender2"],
                         "numberTopResults": 3,
                         "lastLabel": false
                     },

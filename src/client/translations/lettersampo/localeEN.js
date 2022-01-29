@@ -105,7 +105,10 @@ export default {
     receivedCount: 'Received',
     allCount: 'All',
     average: 'Average',
-    sender: 'Sender'
+    sender: 'Sender',
+    sender1: 'Sender 1',
+    sender2: 'Sender 2',
+    both: 'Both'
   },
   exportToYasgui: 'open the result table query in yasgui sparql editor',
   openInLinkedDataBrowser: 'open in linked data browser',

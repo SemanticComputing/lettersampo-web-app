@@ -6,7 +6,6 @@ export const sahaModel = '"&model=ckcc"'
 //  TODO: add suitable letter properties, e.g. subject etc.
 //  TODO: fix node links, e.g. copy and change url in networkNodesQuery
 export const tiePropertiesInstancePage = `
-
 ?id lssc:actor1 ?ego__id ;
   lssc:actor2 ?alter__id ;
   lssc:num_letters ?numLetters ;
@@ -56,12 +55,33 @@ OPTIONAL
 }
 `
 
+export const tieTimelineQuery = `
+SELECT DISTINCT ?id ?sender1__label ?sender2__label (xsd:date(?_date) AS ?date) (year(?_date) AS ?year) ?type
+  WHERE {
+  
+  BIND(<ID> as ?id)
+  
+  ?letter lssc:in_tie ?id ;
+          crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+  
+  {
+    ?id lssc:actor1 [ lssc:created ?letter ; skos:prefLabel ?sender1__label ]
+    BIND ("sender1" AS ?type)
+  }
+  UNION
+  {
+    ?id lssc:actor2 [ lssc:created ?letter ; skos:prefLabel ?sender2__label ]
+    BIND ("sender2" AS ?type)
+  }
+}
+`
+
 //  https://api.triplydb.com/s/ILhzAxhyr
-export const tieLettersQuery = `
-SELECT DISTINCT (STR(?year) as ?category) 
-    (count(distinct ?sent_letter) AS ?sentCount) 
-    (count(distinct ?received_letter) AS ?receivedCount) 
-    ((?sentCount + ?receivedCount) as ?allCount)
+export const tieTimelineYearsQuery = `
+SELECT DISTINCT (STR(?year) as ?category)
+    (count(distinct ?sent_letter) AS ?sender1)
+    (count(distinct ?received_letter) AS ?sender2)
+    ((?sender1 + ?sender2) as ?both)
   WHERE {
   
   BIND(<ID> as ?id)

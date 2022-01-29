@@ -500,7 +500,7 @@ WHERE
   ?target skos:prefLabel ?target__label .
   ?source skos:prefLabel ?source__label .
   ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
-  } ORDER BY ?_date
+} 
 `
 
 //  https://api.triplydb.com/s/O9tYz4CRO
