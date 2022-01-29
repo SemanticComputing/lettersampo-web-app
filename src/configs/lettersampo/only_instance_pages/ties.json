@@ -19,8 +19,78 @@
             "tabPath": "table",
             "tabIcon": "CalendarViewDay"
           },
-          "tieInstancePageLetterNetwork": {
+          "tieInstancePageTimeline": {
             "tabID": 1,
+            "component": "ApexChartsDouble",
+            "pageType": "instancePage",
+            "tabPath": "letters-by-year",
+            "tabIcon": "Tune",
+            "upperResultClass": "tieTimelineUpper",
+            "lowerResultClass": "tieTimelineLower",
+            "resultClasses": {
+                "tieTimelineUpper": {
+                    "title": "Letter details",
+                    "pageType": "instancePage",
+                    "height": "50%",
+                    "sparqlQuery": "tieTimelineQuery",
+                    "filterTarget": "instance",
+                    "resultMapper": "createCorrespondenceChartData",
+                    "resultMapperConfig": {
+                        "types": ["sender"],
+                        "numberTopResults": 3,
+                        "lastLabel": false
+                    },
+                    "createChartData": "createTopTimelineChartData",
+                    "tooltip": { "x": { "format": "d MMM yyyy" } },
+                    "fill": { "opacity": [0.7, 0.5] },
+                    "legend": { "show": false },
+                    "grid": {
+                        "row": {
+                          "colors": ["#d5d5d5", "transparent"], "opacity": 0.5
+                        },
+                        "column": { "colors": ["#a8a8a8", "transparent"] },
+                        "xaxis": { "lines": { "show": true } },
+                        "yaxis": { "lines": { "show": true } }
+                    }
+                },
+                "tieTimelineLower": {
+                    "pageType": "instancePage",
+                    "height": "50%",
+                    "filterTarget": "instance",
+                    "sparqlQuery": "tieTimelineYearsQuery",
+                    "resultMapper": "createCorrespondenceChartData2",
+                    "resultMapperConfig": {
+                        "fillEmptyValues": true
+                    },
+                    "createChartData": "createTopTimelineChartData2",
+                    "title": { "text": "Letters by year", "align": "left" },
+                    "xaxis": {
+                        "type": "datetime",
+                        "tooltip": { "enabled": true }
+                    },
+                    "yaxis": {
+                        "labels": { "minWidth": 150, "maxWidth": 300 }
+                    },
+                    "grid": {
+                        "column": { "colors": ["#a8a8a8", "transparent"] },
+                        "xaxis": { "lines": { "show": true } },
+                        "yaxis": { "lines": { "show": true } }
+                    },
+                    "tooltip": { "x": { "format": "yyyy" } },
+                    "stroke": { "curve": "stepline", "width": 1 },
+                    "fill": {
+                        "type": "gradient",
+                        "gradient": {
+                            "shadeIntensity": 1,
+                            "opacityFrom": 0.3,
+                            "opacityTo": 0.6
+                        }
+                    }
+                }
+            }
+          },
+          "tieInstancePageLetterNetwork": {
+            "tabID": 2,
             "component": "Network",
             "tabPath": "letter-network",
             "tabIcon": "BubbleChart",
@@ -81,43 +151,6 @@
               "minTemp": 1
             }
           },
-          "tieInstancePageLettersByYear": {
-            "tabID": 2,
-            "component": "ApexCharts",
-            "pageType": "instancePage",
-            "createChartData": "createMultipleLineChartData",
-            "stroke": {
-              "curve": "straight",
-              "width": 2
-            },
-            "fill": {
-              "type": "gradient",
-              "gradient": {
-                "shadeIntensity": 1,
-                "inverseColors": false,
-                "opacityFrom": 0.6,
-                "opacityTo": 0.05,
-                "stops": [
-                  20,
-                  60,
-                  100,
-                  100
-                ]
-              }
-            },
-            "title": "Letters by year",
-            "xaxisTitle": "Year",
-            "xaxisType": "category",
-            "xaxisTickAmount": 20,
-            "yaxisTitle": "Number of letters",
-            "tabPath": "letters-by-year",
-            "tabIcon": "ShowChart",
-            "sparqlQuery": "tieLettersQuery",
-            "resultMapper": "mapMultipleLineChart",
-            "resultMapperConfig": {
-              "fillEmptyValues": true
-            }
-          },
           "instancePageExport": {
             "tabID": 3,
             "component": "Export",
@@ -147,22 +180,6 @@
       "numberedList": false
     },
     {
-      "id": "ego",
-      "valueType": "object",
-      "makeLink": true,
-      "externalLink": true,
-      "sortValues": true,
-      "numberedList": false
-    },
-    {
-      "id": "alter",
-      "valueType": "object",
-      "makeLink": true,
-      "externalLink": true,
-      "sortValues": true,
-      "numberedList": false
-    },
-    {
       "id": "numLetters",
       "valueType": "string",
       "makeLink": false,
@@ -185,6 +202,22 @@
       "externalLink": false,
       "sortValues": false,
       "numberedList": true
+    },
+    {
+      "id": "ego",
+      "valueType": "object",
+      "makeLink": true,
+      "externalLink": true,
+      "sortValues": true,
+      "numberedList": false
+    },
+    {
+      "id": "alter",
+      "valueType": "object",
+      "makeLink": true,
+      "externalLink": true,
+      "sortValues": true,
+      "numberedList": false
     }
   ]
 }
