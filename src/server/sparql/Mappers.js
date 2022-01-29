@@ -675,64 +675,32 @@ export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
 
   const sentData = []
   const receivedData = []
-  const yearsCounter = new DefaultDict(Number)
-  const yearsTopCounter = new DefaultDict(Number)
-
   sparqlBindings.forEach(ob => {
-    const yst = parseInt(ob.year)
-    yearsCounter[yst] += 1
-    yearsTopCounter[yst] += 0
-
     if (ob.type === 'sender') {
       const v = topTies.indexOf(ob.target__label)
       if (v > -1) {
         sentData.push([ob.date, v])
-        yearsTopCounter[yst] += 1
       } else sentData.push([ob.date, topTies.length])
     } else if (ob.type === 'receiver') {
       const v = topTies.indexOf(ob.source__label)
       if (v > -1) {
         receivedData.push([ob.date, v])
-        yearsTopCounter[yst] += 1
       } else receivedData.push([ob.date, topTies.length])
     }
   })
-
-  // console.log(Object.entries(yearsTopCounter))
-
-  const yearMin = Math.min(...Object.keys(yearsCounter))
-  const yearMax = Math.max(...Object.keys(yearsCounter))
-
-  for (let y = yearMin; y <= yearMax; y++) {
-    yearsCounter[y] += 0
-    yearsTopCounter[y] += 0
-  }
-
-  // NB, UTC-months start from zero=January ... December=11
-  const yearlyData = Object.entries(yearsCounter).map(ob => {
-    return [Date.UTC(ob[0], 0, 1), ob[1]]
-  })
-
-  const yearlyTopData = Object.entries(yearsTopCounter).map(ob => {
-    return [Date.UTC(ob[0], 0, 1), ob[1]]
-  })
+  const years = new Set(sparqlBindings.map(ob => { return parseInt(ob.year) }))
+  const yearMin = Math.min(...years)
+  const yearMax = Math.max(...years)
 
   return {
     series: [
       { name: 'to', data: sentData },
       { name: 'from', data: receivedData }
     ],
-    yearlySeries: [
-      { name: 'all', data: yearlyData },
-      { name: 'top ' + topN.toString() + ' correspondences', data: yearlyTopData }
-    ],
-    topTies: topTies,
     topN: topTies.length,
-    yearMin: yearMin,
-    yearMax: yearMax,
+    topTies: topTies,
     minUTC: Date.UTC(yearMin, 0, 1),
-    maxUTC: Date.UTC(yearMax, 11, 31),
-    maxUTC2: Date.UTC(yearMax + 1, 11, 31)
+    maxUTC: Date.UTC(yearMax, 11, 31)
   }
 }
 
