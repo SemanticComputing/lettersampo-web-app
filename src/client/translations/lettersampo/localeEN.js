@@ -79,7 +79,6 @@ export default {
     network: 'network',
     export: 'export',
     'by-year': 'by year',
-    'letters-by-year': 'timeline of letters',
     'by-period': 'by period',
     'letter-network': 'network of letters',
     'social-signatures': 'social signatures',
@@ -290,7 +289,7 @@ export default {
           Number of distinct correspondences.
           `
         },
-        alter: {
+        tie: {
           label: 'Correspondences',
           description: `
             Other actors who have been in correspondence with this actor. 

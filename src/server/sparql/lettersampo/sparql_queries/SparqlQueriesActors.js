@@ -151,12 +151,6 @@ export const actorLettersInstancePageQuery = `
     BIND (?prefLabel__id as ?prefLabel__prefLabel)
   
     {
-      ?id a ?type__id .
-      ?type__id skos:prefLabel ?type__prefLabel .
-      BIND (?type__id as ?type_dataProviderUrl)
-    }
-    UNION
-    {
       SELECT DISTINCT ?id ?metrics__id ?metrics__dataProviderUrl ?metrics__prefLabel
       WHERE {
         ?id lssc:has_statistic [
@@ -170,16 +164,16 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
-      { SELECT ?id ?alter__id ?alter__count ?alter__prefLabel WHERE {
-        { ?alter__id lssc:actor1 ?id }
+      { SELECT ?id ?tie__id ?tie__count ?tie__prefLabel WHERE {
+        { ?tie__id lssc:actor1 ?id }
         UNION
-        { ?alter__id lssc:actor2 ?id }
-        ?alter__id lssc:num_letters ?alter__count ;
+        { ?tie__id lssc:actor2 ?id }
+        ?tie__id lssc:num_letters ?tie__count ;
                    skos:prefLabel ?_lbl .
-        BIND (CONCAT(?_lbl, ' (', STR(?alter__count), ')') AS ?alter__prefLabel)
-        } ORDER BY DESC(?alter__count) }
-      FILTER (BOUND(?alter__id))
-      BIND(CONCAT("/ties/page/", REPLACE(STR(?alter__id), "^.*\\\\/(.+)", "$1")) AS ?alter__dataProviderUrl)
+        BIND (CONCAT(?_lbl, ' (', STR(?tie__count), ')') AS ?tie__prefLabel)
+        } ORDER BY DESC(?tie__count) }
+      FILTER (BOUND(?tie__id))
+      BIND(CONCAT("/ties/page/", REPLACE(STR(?tie__id), "^.*\\\\/(.+)", "$1")) AS ?tie__dataProviderUrl)
     }
     UNION
     {
