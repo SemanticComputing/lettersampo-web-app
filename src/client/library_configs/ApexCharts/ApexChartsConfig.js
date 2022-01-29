@@ -145,7 +145,7 @@ export const createTopTimelineChartData = ({
     grid,
     lastLabel
   } = resultClassConfig
-  const topN = results.topN.toString()
+  const topN = results.topTies.length
   const yLabels = results.topTies.concat(lastLabel)
   const apexChartOptionsWithData = {
     chart: {
@@ -161,7 +161,7 @@ export const createTopTimelineChartData = ({
     },
     series: results.series,
     title: {
-      text: title.replace(/{}/g, topN),
+      text: title.replace(/{}/g, topN.toString()),
       align: 'left'
     },
     xaxis: {
@@ -174,8 +174,8 @@ export const createTopTimelineChartData = ({
     },
     yaxis: {
       min: -1,
-      max: results.topN + 1,
-      tickAmount: results.topN + 2,
+      max: topN + 1,
+      tickAmount: topN + 2,
       reversed: true,
       labels: {
         formatter: function (value) {

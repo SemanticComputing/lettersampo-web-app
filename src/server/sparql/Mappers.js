@@ -615,92 +615,33 @@ class Counter {
 }
 
 export const createCorrespondenceChartData = ({ sparqlBindings, config }) => {
-  const topN = config.numTopResults || 10
+  const { numberTopResults, types } = config
+  const topN = numberTopResults || 10
 
   sparqlBindings.forEach(b => { Object.keys(b).forEach(key => { b[key] = b[key].value }) })
 
-  //  Datetimes '1663-10-26T00:00:00' to UTC -9662204389000
+  //  Dates '1663-10-26' to UTC -9662204389000
   sparqlBindings.forEach(b => { b.date = Date.parse(b.date) })
 
-  function sortTimestamps (arr, labels) {
-    const cn = new Counter(arr)
-    return labels.map(k => { return [k, cn[k] | 0] })
-  }
-
-  const cnSenders = new Counter(sparqlBindings.filter(ob => ob.type === 'receiver').map(ob => ob.source__label))
-  // cnSenders.update([x.get('source__label') for x in res if x.get('type')=="receiver"])
-  const cnReceiver = new Counter(sparqlBindings.filter(ob => ob.type === 'sender').map(ob => ob.target__label))
-
-  const cnAll = new Counter()
-  cnAll.combine(cnSenders)
-  cnAll.combine(cnReceiver)
-
-  const topSenders = cnSenders.mostCommonLabels(topN)
-  const topReceivers = cnReceiver.mostCommonLabels(topN)
+  //  find the N most common values in the data
+  const cnAll = new Counter(sparqlBindings.map(ob => ob[ob.type + '__label']))
   const topTies = cnAll.mostCommonLabels(topN)
 
-  const senderLetters = new DefaultDict(Array)
-  const receiverLetters = new DefaultDict(Array)
-
+  const datas = {}
+  types.forEach(type => { datas[type] = [] })
   sparqlBindings.forEach(ob => {
-    if (ob.type === 'sender') {
-      senderLetters[ob.date].push('all')
-      if (ob.source__label in topSenders) {
-        senderLetters[ob.date].push(ob.source__label)
-      }
-    } else if (ob.type === 'receiver') {
-      receiverLetters[ob.date].push('all')
-      if (ob.target__label in topReceivers) {
-        receiverLetters[ob.date].push(ob.target__label)
-      }
-    }
+    const v = topTies.indexOf(ob[ob.type + '__label'])
+    //  one of the top correspondences (v > -1) or in other (topTies.length)
+    datas[ob.type].push([ob.date, v > -1 ? v : topTies.length])
   })
 
-  let series = new DefaultDict(Array)
-  Object.entries(senderLetters).forEach(ob => {
-    const arr = sortTimestamps(ob[1], topSenders.concat(['all']))
-    arr.forEach(x => {
-      series[x[0]].push([ob[0], x[1]])
-    })
-  })
-  // const senderSeries = Object.entries(series).map(ob => { return { name: ob[0], data: ob[1] } })
-
-  series = new DefaultDict(Array)
-  Object.entries(receiverLetters).forEach(ob => {
-    const arr = sortTimestamps(ob[1], topReceivers.concat(['all']))
-    arr.forEach(x => {
-      series[x[0]].push([ob[0], x[1]])
-    })
-  })
-
-  const sentData = []
-  const receivedData = []
-  sparqlBindings.forEach(ob => {
-    if (ob.type === 'sender') {
-      const v = topTies.indexOf(ob.target__label)
-      if (v > -1) {
-        sentData.push([ob.date, v])
-      } else sentData.push([ob.date, topTies.length])
-    } else if (ob.type === 'receiver') {
-      const v = topTies.indexOf(ob.source__label)
-      if (v > -1) {
-        receivedData.push([ob.date, v])
-      } else receivedData.push([ob.date, topTies.length])
-    }
-  })
   const years = new Set(sparqlBindings.map(ob => { return parseInt(ob.year) }))
-  const yearMin = Math.min(...years)
-  const yearMax = Math.max(...years)
 
   return {
-    series: [
-      { name: 'to', data: sentData },
-      { name: 'from', data: receivedData }
-    ],
-    topN: topTies.length,
+    series: types.map(type => { return { name: type, data: datas[type] } }),
     topTies: topTies,
-    minUTC: Date.UTC(yearMin, 0, 1),
-    maxUTC: Date.UTC(yearMax, 11, 31)
+    minUTC: Date.UTC(Math.min(...years), 0, 1),
+    maxUTC: Date.UTC(Math.max(...years), 11, 31)
   }
 }
 

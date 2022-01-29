@@ -79,6 +79,7 @@ export default {
     network: 'network',
     export: 'export',
     'by-year': 'by year',
+    'letters-by-year': 'timeline of letters',
     'by-period': 'by period',
     'letter-network': 'network of letters',
     'social-signatures': 'social signatures',

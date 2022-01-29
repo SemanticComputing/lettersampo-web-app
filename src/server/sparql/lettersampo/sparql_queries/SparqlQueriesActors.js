@@ -391,7 +391,7 @@ VALUES ?node { <ID> } # actors:p11301 p300075
   ?letter a lssc:Letter ;
     lssc:was_addressed_to ?target .
   ?target skos:prefLabel ?_target__label .
-  BIND ("sender" AS ?type)
+  BIND ("to" AS ?type)
   # FILTER (!REGEX(?_target__label, '(unknown|no_recipient_given)', 'i'))
 
   BIND(?node AS ?source)
@@ -403,7 +403,7 @@ VALUES ?node { <ID> } # actors:p11301 p300075
   # FILTER (!REGEX(?_source__label, '(unknown|no_recipient_given)', 'i'))
 
   BIND(?node AS ?target)
-  BIND ("receiver" AS ?type)
+  BIND ("from" AS ?type)
 
 }
 ?target skos:prefLabel ?target__label .
@@ -514,7 +514,7 @@ export const sentReceivedQuery = `
 `
 
 export const topCorrespondenceQuery = `
-SELECT ?id ?source ?source__label ?target ?target__label (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
+SELECT ?id (?source__label AS ?from__label) (?target__label AS ?to__label)  (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
 WHERE 
 {
     VALUES ?id { <ID> }
@@ -523,7 +523,7 @@ WHERE
     ?letter a ckccs:Letter ;
       ckccs:was_addressed_to ?target .
     ?target skos:prefLabel ?_target__label .
-    BIND ("sender" AS ?type)
+    BIND ("to" AS ?type)
   
     BIND(?id AS ?source)
   } UNION {
@@ -533,7 +533,7 @@ WHERE
       skos:prefLabel ?_source__label . 
 
     BIND(?id AS ?target)
-    BIND ("receiver" AS ?type)
+    BIND ("from" AS ?type)
 
   }
   ?target skos:prefLabel ?target__label .

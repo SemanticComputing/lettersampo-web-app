@@ -196,7 +196,8 @@
                                 "filterTarget": "instance",
                                 "resultMapper": "createCorrespondenceChartData",
                                 "resultMapperConfig": {
-                                    "numTopResults": 10
+                                    "types": ["to", "from"],
+                                    "numberTopResults": 10
                                 },
                                 "createChartData": "createTopTimelineChartData",
                                 "tooltip": { "x": { "format": "d MMM yyyy" } },
