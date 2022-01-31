@@ -1,7 +1,7 @@
 {
     "id": "actors",
     "endpoint": {
-        "url": "http://localhost:3030/lettersampo/query",
+        "url": "https://ldf.fi/ckcc/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -116,70 +116,8 @@
                             }
                         ]
                     },
-                    "actorInstancePageLetterNetwork": {
-                        "tabID": 2,
-                        "component": "Network",
-                        "tabPath": "letter-network",
-                        "tabIcon": "BubbleChart",
-                        "pageType": "instancePage",
-                        "sparqlQuery": "letterLinksQuery",
-                        "sparqlQueryNodes": "networkNodesQuery",
-                        "useNetworkAPI": true,
-                        "limit": 100,
-                        "optimize": 2.0,
-                        "preprocess": "preprocessEgo",
-                        "style": [
-                            {
-                                "selector": "node",
-                                "style": {
-                                    "shape": "ellipse",
-                                    "font-size": 10,
-                                    "background-color": "data(color)",
-                                    "label": "data(prefLabel)",
-                                    "height": "data(size)",
-                                    "width": "data(size)"
-                                }
-                            },
-                            {
-                                "selector": "edge",
-                                "style": {
-                                    "width": "data(weight)",
-                                    "line-color": "data(color)",
-                                    "curve-style": "bezier",
-                                    "content": "data(prefLabel)",
-                                    "color": "hsl(30, 64%, 35%)",
-                                    "target-arrow-shape": "triangle",
-                                    "target-arrow-color": "data(color)",
-                                    "font-size": "8",
-                                    "text-valign": "center",
-                                    "edge-text-rotation": "autorotate",
-                                    "text-background-opacity": 1,
-                                    "text-background-color": "white",
-                                    "text-background-shape": "roundrectangle"
-                                }
-                            }
-                        ],
-                        "layout": {
-                            "name": "cose",
-                            "idealEdgeLength": 100,
-                            "nodeOverlap": 20,
-                            "refresh": 20,
-                            "fit": true,
-                            "padding": 30,
-                            "randomize": false,
-                            "componentSpacing": 100,
-                            "nodeRepulsion": 400000,
-                            "edgeElasticity": 100,
-                            "nestingFactor": 5,
-                            "gravity": 80,
-                            "numIter": 1347,
-                            "initialTemp": 200,
-                            "coolingFactor": 0.95,
-                            "minTemp": 1
-                        }
-                    },
                     "actorInstancePageTopCorrespondences": {
-                        "tabID": 3,
+                        "tabID": 2,
                         "component": "ApexChartsDouble",
                         "pageType": "instancePage",
                         "tabPath": "top-correspondences",
@@ -246,6 +184,68 @@
                                     }
                                 }
                             }
+                        }
+                    },
+                    "actorInstancePageLetterNetwork": {
+                        "tabID": 3,
+                        "component": "Network",
+                        "tabPath": "letter-network",
+                        "tabIcon": "BubbleChart",
+                        "pageType": "instancePage",
+                        "sparqlQuery": "letterLinksQuery",
+                        "sparqlQueryNodes": "networkNodesQuery",
+                        "useNetworkAPI": true,
+                        "limit": 100,
+                        "optimize": 2.0,
+                        "preprocess": "preprocessEgo",
+                        "style": [
+                            {
+                                "selector": "node",
+                                "style": {
+                                    "shape": "ellipse",
+                                    "font-size": 10,
+                                    "background-color": "data(color)",
+                                    "label": "data(prefLabel)",
+                                    "height": "data(size)",
+                                    "width": "data(size)"
+                                }
+                            },
+                            {
+                                "selector": "edge",
+                                "style": {
+                                    "width": "data(weight)",
+                                    "line-color": "data(color)",
+                                    "curve-style": "bezier",
+                                    "content": "data(prefLabel)",
+                                    "color": "hsl(30, 64%, 35%)",
+                                    "target-arrow-shape": "triangle",
+                                    "target-arrow-color": "data(color)",
+                                    "font-size": "8",
+                                    "text-valign": "center",
+                                    "edge-text-rotation": "autorotate",
+                                    "text-background-opacity": 1,
+                                    "text-background-color": "white",
+                                    "text-background-shape": "roundrectangle"
+                                }
+                            }
+                        ],
+                        "layout": {
+                            "name": "cose",
+                            "idealEdgeLength": 100,
+                            "nodeOverlap": 20,
+                            "refresh": 20,
+                            "fit": true,
+                            "padding": 30,
+                            "randomize": false,
+                            "componentSpacing": 100,
+                            "nodeRepulsion": 400000,
+                            "edgeElasticity": 100,
+                            "nestingFactor": 5,
+                            "gravity": 80,
+                            "numIter": 1347,
+                            "initialTemp": 200,
+                            "coolingFactor": 0.95,
+                            "minTemp": 1
                         }
                     },
                     "actorInstancePageSocialSignatures": {
