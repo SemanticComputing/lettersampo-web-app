@@ -1,7 +1,7 @@
 {
   "id": "ties",
   "endpoint": {
-    "url": "http://localhost:3030/lettersampo/query",
+    "url": "https://ldf.fi/ckcc/sparql",
     "useAuth": false,
     "prefixesFile": "SparqlQueriesPrefixes.js"
   },
