@@ -610,10 +610,8 @@ export default {
       <li>
         <strong>TABLE</STRONG> view includes all places in
         the LetterSampo data. One table row is equivalent to one place.
-      </li>
-      <li>
-        <strong>MAP</strong> is a map visualization showing the known locations of activities, e.g. places of birth, sending and receiving letters, and death.
-        NB. Some places may not have a coordinate location, and does not appear on the map application.
+        Clicking on the place name opens a instance page providing more information about the chosen place. 
+        Clicking on the place image opens a larger version of it.
       </li>
       <li>
         <strong>SPARQL-QUERY</strong> the SPARQL query used to generate the result
