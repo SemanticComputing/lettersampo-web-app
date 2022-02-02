@@ -224,6 +224,7 @@ export default {
             <strong>TABLE</STRONG> view includes all actors in
             the LetterSampo data. One table row is equivalent to one actors.
             Wikidata/Wikimedia Commons is used as the image source.
+            NB. Clicking on the person name leads to a actor instance page providing more information about the actor, while clicking on the image opens the image in a larger scale.
           </li>
           <li>
             <strong>MAP</strong> is a map visualization showing the known locations of activities, e.g. places of birth, sending and receiving letters, and death.
@@ -256,14 +257,14 @@ export default {
               NB some people may not have any letter information available.
             </li>
             <li>
-              <strong>TOP CORRESPONDENCES</STRONG> show a timeline of letters and most important correspondences of this person. The timeline consists of two charts, the upper one showing the activities using a precision of one day, the lower one showing the yearly amounts of sent and received letters.
+              <strong>TOP CORRESPONDENCES</STRONG> view shows a timeline of letters and most important correspondences of this person. The upper chart of the timeline shows the activities using a precision of one day, the lower one the yearly amounts of sent and received letters.
               NB. Letters having more approximate temporal information, e.g. 'sent 1860-1865' show up on the first day of that time period, e.g. '1 Jan. 1860'.
             </li>
             <li>
-              <strong>NETWORK OF LETTERS</strong> shows this actors's relations to other actors connected by the letter correspondences.
+              <strong>NETWORK OF LETTERS</strong> shows this actors's relations to other actors connected by the correspondences.
             </li>
             <li>
-              <strong>SOCIAL SIGNATURES</strong> shows a chart showing how much the actor has been in correspondence with the most, the second most, etc, important other actor during different period of his/her time of activity.
+              <strong>SOCIAL SIGNATURES</strong> view has a chart showing how much the actor has been in correspondence with the most, the second most, etc, important other actor during the different periods along the total time of activity.
             </li>
             <li>
               <strong>EXPORT</strong> the SPARQL query used to generate the result
