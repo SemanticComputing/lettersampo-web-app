@@ -19,6 +19,7 @@ export const placePropertiesFacetResults = `
   UNION
   {
     ?id crm:P89_falls_within ?broader__id .
+    FILTER (?broader__id != ?id)
     ?broader__id skos:prefLabel ?broader__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
     OPTIONAL {
@@ -32,6 +33,7 @@ export const placePropertiesFacetResults = `
   {
     ?narrower__id crm:P89_falls_within ?id ;
       skos:prefLabel ?narrower__prefLabel .
+    FILTER (?narrower__id != ?id)
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
   UNION
@@ -65,6 +67,7 @@ export const placePropertiesInstancePage = `
   UNION
   {
     ?id crm:P89_falls_within ?broader__id .
+    FILTER (?broader__id != ?id)
     ?broader__id skos:prefLabel ?broader__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
     OPTIONAL {
@@ -77,6 +80,7 @@ export const placePropertiesInstancePage = `
   UNION
   { ?narrower__id crm:P89_falls_within ?id ;
       skos:prefLabel ?narrower__prefLabel .
+    FILTER (?narrower__id != ?id)
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
   UNIoN
