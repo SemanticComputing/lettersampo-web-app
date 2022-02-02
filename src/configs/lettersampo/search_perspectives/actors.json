@@ -73,7 +73,7 @@
                                 "numberedList": true
                             },
                             {
-                                "id": "flourish",
+                                "id": "floruit",
                                 "valueType": "string",
                                 "makeLink": false,
                                 "externalLink": false,
@@ -442,7 +442,7 @@
             "onlyOnInstancePage": true
         },
         {
-            "id": "flourish",
+            "id": "floruit",
             "valueType": "string",
             "makeLink": false,
             "externalLink": false,
@@ -608,7 +608,7 @@
             "sortByDescPredicate": "ckccs:birthDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
-        "flourish": {
+        "floruit": {
             "containerClass": "four",
             "endProperty": "crm:P82b_end_of_the_end",
             "facetType": "timespan",

@@ -309,7 +309,7 @@ export default {
           Place of Birth
           `
         },
-        flourish: {
+        floruit: {
           label: 'Floruit',
           description: `
           Floruit, e.g. time of flourishing, time of activity.
@@ -460,10 +460,7 @@ export default {
           </h6>
           <ul class="MuiTypography-root MuiTypography-body1">
             <li>
-              <strong>TABLE</STRONG> view includes detailed data about this person or group.
-            </li>
-            <li>
-              <strong>TABLE</strong> show the available information about the letters in the database.
+              <strong>TABLE</strong> show the available information about the letter in the database.
             </li>
             <li>
               <strong>EXPORT</strong> the SPARQL query used to generate the result

@@ -74,7 +74,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id lssc:flourished/skos:prefLabel ?flourish
+    ?id lssc:flourished/skos:prefLabel ?floruit
   }
   UNION
   {
@@ -188,7 +188,7 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     {
-      ?id lssc:flourished/skos:prefLabel ?flourish
+      ?id lssc:flourished/skos:prefLabel ?floruit
     }
     UNION
     { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
@@ -269,10 +269,10 @@ export const actorPropertiesFacetResults = `
   }
   UNION
   { 
-    ?id lssc:flourished ?flourish__id .
-    ?flourish__id skos:prefLabel ?flourish__prefLabel ;
-      crm:P82a_begin_of_the_begin ?flourish__start; 
-      crm:P82b_end_of_the_end ?flourish__end 
+    ?id lssc:flourished ?floruit__id .
+    ?floruit__id skos:prefLabel ?floruit__prefLabel ;
+      crm:P82a_begin_of_the_begin ?floruit__start; 
+      crm:P82b_end_of_the_end ?floruit__end 
   }
   UNION
   { ?id lssc:is_related_to ?external__id . 
