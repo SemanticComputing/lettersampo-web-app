@@ -32,21 +32,19 @@ export const placePropertiesInstancePage = `
     }
   }
   UNION
-  {
-    ?narrower__id crm:P89_falls_within ?id ;
+  { ?narrower__id crm:P89_falls_within ?id ;
       skos:prefLabel ?narrower__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
   UNIoN
-  { ?id lssc:is_related_to ?external__id . 
+  { ?id lssc:is_related_to ?external__id .
     OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
     OPTIONAL { ?external__id skos:prefLabel ?external__label }
-    BIND(COALESCE(?external__classlabel, ?external__label, ?external__id) AS ?external__prefLabel)
+    BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
     BIND(?external__id AS ?external__dataProviderUrl)
   }
   UNION
-  { 
-    ?id skos:altLabel ?altLabel .
+  { ?id skos:altLabel ?altLabel .
     # FILTER (STR(?prefLabel__prefLabel) != STR(?altLabel)) 
   }
   UNION
