@@ -94,7 +94,8 @@
                                 "makeLink": true,
                                 "externalLink": false,
                                 "sortValues": false,
-                                "numberedList": true
+                                "numberedList": true,
+                                "expandedOnInstancePage": true
                             },
                             {
                                 "id": "numReceived",
@@ -110,7 +111,8 @@
                                 "makeLink": true,
                                 "externalLink": false,
                                 "sortValues": false,
-                                "numberedList": true
+                                "numberedList": true,
+                                "expandedOnInstancePage": true
                             },
                             {
                                 "id": "metrics",
@@ -120,7 +122,8 @@
                                 "sortValues": true,
                                 "numberedList": false,
                                 "minWidth": 220,
-                                "onlyOnInstancePage": true
+                                "onlyOnInstancePage": true,
+                                "expandedOnInstancePage": true
                             }
                         ]
                     },

@@ -39,8 +39,48 @@
                         "tabPath": "table",
                         "tabIcon": "CalendarViewDay"
                     },
-                    "placeInstancePageTimeline": {
+                    "placeInstancePageLetters": {
                         "tabID": 1,
+                        "component": "InstancePageTable",
+                        "tabPath": "letters",
+                        "tabIcon": "MailOutline",
+                        "fetchResultsWhenMounted": true,
+                        "sparqlQuery": "placeLettersInstancePageQuery",
+                        "properties": [
+                            {
+                                "id": "from",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": true,
+                                "onlyOnInstancePage": true,
+                                "expandedOnInstancePage": true
+                            },
+                            {
+                                "id": "to",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": false,
+                                "numberedList": true,
+                                "onlyOnInstancePage": true,
+                                "expandedOnInstancePage": true
+                            },
+                            {
+                                "id": "related",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": true,
+                                "numberedList": true,
+                                "onlyOnInstancePage": true,
+                                "expandedOnInstancePage": true
+                            }
+                        ]
+                    },
+                    "placeInstancePageTimeline": {
+                        "tabID": 2,
                         "component": "ApexChartsDouble",
                         "pageType": "instancePage",
                         "tabPath": "letters-by-year",
@@ -56,7 +96,7 @@
                                 "filterTarget": "instance",
                                 "resultMapper": "createCorrespondenceChartData",
                                 "resultMapperConfig": {
-                                    "types": ["to", "from"],
+                                    "types": ["from", "to"],
                                     "numberTopResults": 10,
                                     "lastLabel": "other"
                                 },
@@ -109,7 +149,7 @@
                         }
                     },
                     "instancePageExport": {
-                        "tabID": 2,
+                        "tabID": 3,
                         "component": "Export",
                         "tabPath": "export",
                         "tabIcon": "CloudDownload",
@@ -181,33 +221,6 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false
-        },
-        {
-            "id": "related",
-            "valueType": "object",
-            "makeLink": true,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
-            "onlyOnInstancePage": true
-        },
-        {
-            "id": "from",
-            "valueType": "object",
-            "makeLink": true,
-            "externalLink": false,
-            "sortValues": false,
-            "numberedList": true,
-            "onlyOnInstancePage": true
-        },
-        {
-            "id": "to",
-            "valueType": "object",
-            "makeLink": true,
-            "externalLink": false,
-            "sortValues": false,
-            "numberedList": true,
-            "onlyOnInstancePage": true
         },
         {
             "id": "broader",

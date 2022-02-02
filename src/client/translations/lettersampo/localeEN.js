@@ -629,7 +629,11 @@ export default {
             <strong>TABLE</STRONG> view includes detailed imformation about each place resource in the database.
           </li>
           <li>
-            <strong>TIMELINE OF LETTERS</strong> contains a chart showing the yearly distribution of letters related to this place.
+            <strong>LETTERS AND ACTORS</strong> contains lists of letters and actors related to this place.
+          </li>
+          <li>
+            <strong>TIMELINE OF LETTERS</strong> contains a timeline showing the letters related to this place.
+            The two timeline charts on this tab show the activities with precision of a single day or by years.
           </li>
           <li>
             <strong>EXPORT</strong> the SPARQL query used to generate the result

@@ -1,5 +1,48 @@
 const perspectiveID = 'places'
 
+export const placePropertiesFacetResults = `
+  BIND(?id as ?uri__id)
+  BIND(?id as ?uri__prefLabel)
+  BIND(?id as ?uri__dataProviderUrl)
+  ?id skos:prefLabel ?prefLabel__id .
+  BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+  {
+    VALUES (?type__id ?type__prefLabel) { 
+      (crm:E53_Place "Place")
+      (lssc:City "City")
+      (lssc:Country "Country")
+    }
+    ?id a ?type__id .
+    BIND (?type__id as ?type_dataProviderUrl)
+  }
+  UNION
+  {
+    ?id crm:P89_falls_within ?broader__id .
+    ?broader__id skos:prefLabel ?broader__prefLabel .
+    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
+    OPTIONAL {
+      ?broader__id a lssc:Country .
+      BIND (?broader__id AS ?country__id)
+      ?broader__id skos:prefLabel ?country__prefLabel .
+      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?country__dataProviderUrl)
+    }
+  }
+  UNION
+  {
+    ?narrower__id crm:P89_falls_within ?id ;
+      skos:prefLabel ?narrower__prefLabel .
+    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
+  }
+  UNION
+  {
+    ?id sch:image ?image__id ;
+      skos:prefLabel ?image__description ;
+      skos:prefLabel ?image__title .
+    BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
+  }
+`
+
 // TODO add migrations from the place
 export const placePropertiesInstancePage = `
   BIND(?id as ?uri__id)
@@ -49,30 +92,6 @@ export const placePropertiesInstancePage = `
   }
   UNION
   {
-    ?id ^lssc:was_sent_from ?from__id .
-    ?from__id skos:prefLabel ?from__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
-  } 
-  UNION
-  {
-    ?id ^lssc:was_sent_to ?to__id .
-    ?to__id skos:prefLabel ?to__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-  }
-  UNION {
-    {
-      ?id ^lssc:was_sent_from/^lssc:created ?related__id 
-    } 
-    UNION 
-    {
-      ?id ^lssc:was_sent_from/lssc:was_addressed_to ?related__id 
-    }
-    FILTER (BOUND(?related__id))
-    ?related__id skos:prefLabel ?related__prefLabel .
-    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
-  }
-  UNION
-  {
     ?id geo:lat ?lat ; geo:long ?long .
     BIND (CONCAT('lat ', STR(?lat), ', long ',STR(?long)) as ?location__prefLabel)
     BIND (?location__prefLabel AS ?location__id)
@@ -86,47 +105,42 @@ export const placePropertiesInstancePage = `
   }
   `
 
-export const placePropertiesFacetResults = `
+export const placeLettersInstancePageQuery = `
+SELECT * 
+WHERE {
+  BIND(<ID> as ?id)
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
+
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
-  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+
   {
-    VALUES (?type__id ?type__prefLabel) { 
-      (crm:E53_Place "Place")
-      (lssc:City "City")
-      (lssc:Country "Country")
+    ?id ^lssc:was_sent_from ?from__id .
+    ?from__id skos:prefLabel ?from__prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
+  } 
+  UNION
+  {
+    ?id ^lssc:was_sent_to ?to__id .
+    ?to__id skos:prefLabel ?to__prefLabel .
+    BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+  }
+  UNION 
+  {
+    {
+      ?id ^lssc:was_sent_from/^lssc:created ?related__id 
+    } 
+    UNION 
+    {
+      ?id ^lssc:was_sent_from/lssc:was_addressed_to ?related__id 
     }
-    ?id a ?type__id .
-    BIND (?type__id as ?type_dataProviderUrl)
+    FILTER (BOUND(?related__id))
+    ?related__id skos:prefLabel ?related__prefLabel .
+    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   }
-  UNION
-  {
-    ?id crm:P89_falls_within ?broader__id .
-    ?broader__id skos:prefLabel ?broader__prefLabel .
-    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
-    OPTIONAL {
-      ?broader__id a lssc:Country .
-      BIND (?broader__id AS ?country__id)
-      ?broader__id skos:prefLabel ?country__prefLabel .
-      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?country__dataProviderUrl)
-    }
-  }
-  UNION
-  {
-    ?narrower__id crm:P89_falls_within ?id ;
-      skos:prefLabel ?narrower__prefLabel .
-    BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
-  }
-  UNION
-  {
-    ?id sch:image ?image__id ;
-      skos:prefLabel ?image__description ;
-      skos:prefLabel ?image__title .
-    BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
-  }
+}
 `
 
 export const eventPlacesQuery = `
