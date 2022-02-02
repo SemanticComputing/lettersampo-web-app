@@ -138,7 +138,6 @@ export const actorPropertiesInstancePage = `
   }
 `
 
-/** TODO: add flourished years also to the result page */
 export const actorLettersInstancePageQuery = `
   SELECT * 
   WHERE {
@@ -186,6 +185,10 @@ export const actorLettersInstancePageQuery = `
     UNION
     {
       ?id lssc:num_correspondences ?numCorrespondences
+    }
+    UNION
+    {
+      ?id lssc:flourished/skos:prefLabel ?flourish
     }
     UNION
     { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
