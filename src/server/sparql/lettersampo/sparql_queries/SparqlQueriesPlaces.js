@@ -167,3 +167,35 @@ export const sentReceivedByPlaceQuery = `
     FILTER (BOUND(?year))
   } GROUP BY ?year ORDER BY ?year 
 `
+
+export const placeTimeLineQuery = `
+SELECT DISTINCT ?id ?to__label ?from__label (xsd:date(?_date) AS ?date) (year(?_date) AS ?year) ?type
+WHERE {
+  
+  BIND( <ID> as ?id)
+  ?sub crm:P89_falls_within* ?id .
+  
+  {
+    ?letter lssc:was_sent_from ?sub ;
+      a lssc:Letter ;
+      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+    OPTIONAL { 
+        ?letter lssc:was_sent_to/skos:prefLabel ?_to .
+    }
+    BIND ("from" AS ?type)
+    BIND (COALESCE(?_to, '<Info missing>') AS ?from__label)
+  }
+  UNION
+  {
+    ?letter lssc:was_sent_to ?sub ;
+                    a lssc:Letter ;
+                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+    OPTIONAL { 
+        ?letter lssc:was_sent_from/skos:prefLabel ?_from .
+    }
+    BIND ("to" AS ?type)
+    BIND (COALESCE(?_from, '<Info missing>') AS ?to__label)
+  }
+  FILTER (BOUND(?_date))
+}
+`
