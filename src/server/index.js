@@ -24,8 +24,9 @@ import querystring from 'querystring'
 createBackendSearchConfig().then(backendSearchConfig => {
   const DEFAULT_PORT = 3001
   const app = express()
-  app.set('port', process.env.PORT || DEFAULT_PORT)
+  app.set('port', process.env.SAMPO_UI_EXPRESS_PORT || DEFAULT_PORT)
   app.use(bodyParser.json())
+  app.disable('x-powered-by')
 
   // NODE_ENV is defined in package.json when running in localhost
   const isDevelopment = process.env.NODE_ENV === 'development'
