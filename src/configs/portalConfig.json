@@ -75,7 +75,7 @@
             "bannerMobileHeight": 150,
             "bannerReducedHeight": 220,
             "bannerDefaultHeight": 300,
-            "wrapSubheading": true
+            "wrapSubheading": false
         },
         "infoHeader": {
             "default": {
