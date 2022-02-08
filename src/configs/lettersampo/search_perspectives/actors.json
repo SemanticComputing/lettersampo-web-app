@@ -1,14 +1,14 @@
 {
     "id": "actors",
     "endpoint": {
-        "url": "https://ldf.fi/ckcc/sparql",
+        "url": "https://ldf.fi/lettersampo/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
     "sparqlQueriesFile": "SparqlQueriesActors.js",
-    "baseURI": "http://ldf.fi/ckcc",
+    "baseURI": "http://ldf.fi/lssc",
     "URITemplate": "<BASE_URI>/actors/<LOCAL_ID>",
-    "facetClass": "crm:E21_Person crm:E39_Actor crm:E74_Group",
+    "facetClass": "lssc:ProvidedActor",
     "frontPageImage": "main_page/people2-452x262.jpg",
     "searchMode": "faceted-search",
     "defaultActiveFacets": [
@@ -569,7 +569,7 @@
             "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id lssc:in_degree ?_orderBy }} }"
         },
         "image": {
-            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,'z') AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id sch:image ?_orderBy }} }"
+            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,'z') AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id foaf:focus/sch:image ?_orderBy }} }"
         },
         "prefLabel": {
             "containerClass": "one",
@@ -581,11 +581,11 @@
         "gender": {
             "containerClass": "three",
             "facetType": "list",
-            "predicate": "foaf:gender",
+            "predicate": "foaf:focus/foaf:gender",
             "filterType": "uriFilter",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
-            "sortByPredicate": "foaf:gender/skos:prefLabel"
+            "sortByPredicate": "foaf:focus/foaf:gender/skos:prefLabel"
         },
         "type": {
             "containerClass": "two",
@@ -604,9 +604,9 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "lssc:birthDate",
-            "sortByAscPredicate": "lssc:birthDate/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "lssc:birthDate/crm:P82b_end_of_the_end",
+            "predicate": "foaf:focus/lssc:birthDate",
+            "sortByAscPredicate": "foaf:focus/lssc:birthDate/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "foaf:focus/lssc:birthDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "floruit": {
@@ -617,9 +617,9 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "lssc:flourished",
-            "sortByAscPredicate": "lssc:flourished/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "lssc:flourished/crm:P82b_end_of_the_end",
+            "predicate": "foaf:focus/lssc:flourished",
+            "sortByAscPredicate": "foaf:focus/lssc:flourished/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "foaf:focus/lssc:flourished/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "deathDateTimespan": {
@@ -630,19 +630,19 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "lssc:deathDate",
-            "sortByAscPredicate": "lssc:deathDate/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "lssc:deathDate/crm:P82b_end_of_the_end",
+            "predicate": "foaf:focus/lssc:deathDate",
+            "sortByAscPredicate": "foaf:focus/lssc:deathDate/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "foaf:focus/lssc:deathDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "external": {
             "containerClass": "six",
             "facetType": "list",
-            "predicate": "lssc:is_related_to/a",
+            "predicate": "foaf:focus/lssc:is_related_to/a",
             "filterType": "uriFilter",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
-            "sortByPredicate": "lssc:is_related_to/a/skos:prefLabel"
+            "sortByPredicate": "foaf:focus/lssc:is_related_to/a/skos:prefLabel"
         }
     }
 }

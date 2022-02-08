@@ -1,5 +1,4 @@
 const perspectiveID = 'actors'
-
 /**
  * TODO: add reverse relation, e.g. members on page http://localhost:8080/en/actors/page/37a1c23b-c19f-4126-a99c-3f264f939f22/table
 TODO: simplify property chain: crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate
@@ -10,7 +9,8 @@ export const actorPropertiesInstancePage = `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
-
+  ?id foaf:focus ?act .
+  
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
@@ -22,14 +22,14 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id foaf:gender ?gender . 
+    ?act foaf:gender ?gender . 
     ?gender skos:prefLabel ?gender__prefLabel .
     BIND(?gender as ?gender__dataProviderUrl)
   }
   UNION 
-  { ?id skos:altLabel ?altLabel }
+  { ?act skos:altLabel ?altLabel }
   UNION
-  { ?id lssc:is_related_to ?external__id . 
+  { ?act lssc:is_related_to ?external__id . 
     OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
     OPTIONAL { ?external__id skos:prefLabel ?external__label }
     BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
@@ -42,14 +42,14 @@ export const actorPropertiesInstancePage = `
       lssc:approximateBirthDate
       lssc:possibleBirthDate
     }
-    ?id ?_bprop ?birthDateTimespan__id .
+    ?act ?_bprop ?birthDateTimespan__id .
     ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
     OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
     OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
   }
   UNION
   {
-    ?id lssc:was_born_in_location ?birthPlace__id .
+    ?act lssc:was_born_in_location ?birthPlace__id .
     ?birthPlace__id skos:prefLabel ?birthPlace__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
   }
@@ -61,14 +61,14 @@ export const actorPropertiesInstancePage = `
       lssc:approximateDeathDate
       lssc:possibleDeathDate 
     }
-    ?id ?_dprop ?deathDateTimespan__id .
+    ?act ?_dprop ?deathDateTimespan__id .
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
   }
   UNION
   {
-    ?id lssc:died_at_location ?deathPlace__id .
+    ?act lssc:died_at_location ?deathPlace__id .
     ?deathPlace__id skos:prefLabel ?deathPlace__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
   }
@@ -78,11 +78,11 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    { ?id lssc:created/lssc:was_sent_from ?knownLocation__id }
+    { ?act lssc:created/lssc:was_sent_from ?knownLocation__id }
       UNION
-    { ?id ^lssc:was_addressed_to/lssc:was_sent_to ?knownLocation__id }
+    { ?act ^lssc:was_addressed_to/lssc:was_sent_to ?knownLocation__id }
       UNION
-    { ?id lssc:was_in_location ?knownLocation__id }
+    { ?act lssc:was_in_location ?knownLocation__id }
   ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
   }
@@ -102,7 +102,7 @@ export const actorPropertiesInstancePage = `
       (lssc:colleague_of "Colleague of")
       (lssc:was_patron_of "Was patron of")
     }
-    ?id ?rel__prop ?rel__id .
+    ?act ?rel__prop ?rel__id .
     ?rel__id skos:prefLabel ?rel__label2
     BIND (CONCAT(?rel__label, ' ',?rel__label2) AS ?rel__prefLabel)
     BIND(CONCAT("/actors/page/", REPLACE(STR(?rel__id), "^.*\\\\/(.+)", "$1")) AS ?rel__dataProviderUrl)  
@@ -127,7 +127,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id sch:image ?image__id ;
+    ?act sch:image ?image__id ;
       skos:prefLabel ?image__description ;
       skos:prefLabel ?image__title .
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
@@ -218,9 +218,10 @@ export const actorPropertiesFacetResults = `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)
+  ?id foaf:focus ?act .
 
   {
-  ?id a ?type__id .
+  ?act a ?type__id .
   ?type__id skos:prefLabel ?type__prefLabel .
   BIND (?type__id as ?type_dataProviderUrl)
   }
@@ -237,14 +238,14 @@ export const actorPropertiesFacetResults = `
       lssc:approximateBirthDate
       lssc:possibleBirthDate
     }
-    ?id ?_bprop ?birthDateTimespan__id .
+    ?act ?_bprop ?birthDateTimespan__id .
     ?birthDateTimespan__id skos:prefLabel ?birthDateTimespan__prefLabel .
     OPTIONAL { ?birthDateTimespan__id crm:P82a_begin_of_the_begin ?birthDateTimespan__start }
     OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
   }
   UNION
   {
-    ?id lssc:was_born_in_location ?birthPlace__id .
+    ?act lssc:was_born_in_location ?birthPlace__id .
     ?birthPlace__id skos:prefLabel ?birthPlace__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
   }
@@ -256,26 +257,26 @@ export const actorPropertiesFacetResults = `
       lssc:approximateDeathDate
       lssc:possibleDeathDate 
     }
-    ?id ?_dprop ?deathDateTimespan__id .
+    ?act ?_dprop ?deathDateTimespan__id .
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
   }
   UNION
   {
-    ?id lssc:died_at_location ?deathPlace__id .
+    ?act lssc:died_at_location ?deathPlace__id .
     ?deathPlace__id skos:prefLabel ?deathPlace__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
   }
   UNION
   { 
-    ?id lssc:flourished ?floruit__id .
+    ?act lssc:flourished ?floruit__id .
     ?floruit__id skos:prefLabel ?floruit__prefLabel ;
       crm:P82a_begin_of_the_begin ?floruit__start; 
       crm:P82b_end_of_the_end ?floruit__end 
   }
   UNION
-  { ?id lssc:is_related_to ?external__id . 
+  { ?act lssc:is_related_to ?external__id . 
     OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
     OPTIONAL { ?external__id skos:prefLabel ?external__label }
     BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
@@ -291,13 +292,13 @@ export const actorPropertiesFacetResults = `
   }
   UNION
   {
-    ?id foaf:gender ?gender__id . 
+    ?act foaf:gender ?gender__id . 
     ?gender__id skos:prefLabel ?gender__prefLabel .
     BIND(?gender__id as ?gender__dataProviderUrl)
   }
   UNION
   {
-    ?id sch:image ?image__id ;
+    ?act sch:image ?image__id ;
       skos:prefLabel ?image__description ;
       skos:prefLabel ?image__title .
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
@@ -333,35 +334,36 @@ WHERE {
 } 
 `
 
-//  https://api.triplydb.com/s/lhDOivCiG
+//  https://api.triplydb.com/s/Utt3HBx4l
 export const peopleEventPlacesQuery = `
 SELECT DISTINCT ?id ?lat ?long 
 (COUNT(DISTINCT ?person) AS ?instanceCount)
 WHERE {
   <FILTER>
-  { ?person lssc:created/lssc:was_sent_from ?id } 
+  ?person foaf:focus ?act 
+  { ?act lssc:created/lssc:was_sent_from ?id }
   UNION 
-  { ?person ^lssc:was_addressed_to/lssc:was_sent_to ?id } 
+  { ?act ^lssc:was_addressed_to/lssc:was_sent_to ?id } 
   UNION
-  { ?person lssc:was_born_in_location ?id }
+  { ?act lssc:was_born_in_location ?id }
   UNION
-  { ?person lssc:died_at_location ?id }
+  { ?act lssc:died_at_location ?id }
   ?id geo:lat ?lat ;
     geo:long ?long .
 } GROUP BY ?id ?lat ?long
 `
 
-//  https://api.triplydb.com/s/ck2-SDpCO
 export const peopleRelatedTo = `
   OPTIONAL {
     <FILTER>
-    { ?related__id lssc:created/lssc:was_sent_from ?id }
+    ?related__id foaf:focus ?act 
+    { ?act lssc:created/lssc:was_sent_from ?id }
     UNION
-    { ?related__id ^lssc:was_addressed_to/lssc:was_sent_to ?id }
+    { ?act ^lssc:was_addressed_to/lssc:was_sent_to ?id }
     UNION
-    { ?related__id lssc:was_born_in_location ?id }
+    { ?act lssc:was_born_in_location ?id }
     UNION
-    { ?related__id lssc:died_at_location ?id }
+    { ?act lssc:died_at_location ?id }
     ?related__id skos:prefLabel ?related__prefLabel .
     BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   } 
@@ -477,36 +479,36 @@ export const networkNodesFacetQuery = `
   }
 `
 
+//  https://api.triplydb.com/s/99nDsr8uW
 export const topCorrespondenceQuery = `
-SELECT ?id (?source__label AS ?from__label) (?target__label AS ?to__label)  (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
+SELECT ?id ?from__label ?to__label (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
 WHERE 
 {
-    VALUES ?id { <ID> }
-  {
-    ?id lssc:created ?letter .
-    ?letter a lssc:Letter ;
-      lssc:was_addressed_to ?target .
-    ?target skos:prefLabel ?_target__label .
-    BIND ("to" AS ?type)
+  VALUES ?id { <ID> }
   
-    BIND(?id AS ?source)
-  } UNION {
-    ?letter lssc:was_addressed_to ?id ;
+  {
+    ?id foaf:focus/lssc:created ?letter .
+    ?letter lssc:was_addressed_to/^foaf:focus ?target ;
+      a lssc:Letter .    
+    BIND (?id AS ?source)
+    BIND ("to" AS ?type)
+  } 
+  UNION 
+  {
+    ?letter lssc:was_addressed_to/^foaf:focus ?id ;
       a lssc:Letter .
-    ?source lssc:created ?letter ;
-      skos:prefLabel ?_source__label . 
-
-    BIND(?id AS ?target)
+    ?source foaf:focus/lssc:created ?letter .
+    BIND (?id AS ?target)
     BIND ("from" AS ?type)
-
   }
-  ?target skos:prefLabel ?target__label .
-  ?source skos:prefLabel ?source__label .
+  
+  ?target skos:prefLabel ?to__label .
+  ?source skos:prefLabel ?from__label .
   ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
 } 
 `
 
-//  https://api.triplydb.com/s/O9tYz4CRO
+// https://api.triplydb.com/s/l_lnHMact
 export const sentReceivedQuery = `
   SELECT DISTINCT (STR(?year) as ?category) 
     (count(distinct ?sent_letter) AS ?sentCount) 
@@ -514,15 +516,17 @@ export const sentReceivedQuery = `
     ((?sentCount + ?receivedCount) as ?allCount)
   WHERE {
     BIND(<ID> as ?id)
+    ?id foaf:focus ?act .
+
     {
-      ?id lssc:created ?sent_letter .
+      ?act lssc:created ?sent_letter .
       ?sent_letter a lssc:Letter ;
                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
     } 
     UNION 
     {
-      ?received_letter lssc:was_addressed_to ?id ;
+      ?received_letter lssc:was_addressed_to ?act ;
                        a lssc:Letter ;
                       crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
@@ -530,13 +534,13 @@ export const sentReceivedQuery = `
     FILTER (BOUND(?year))
 
     OPTIONAL {
-      ?id lssc:birthDate/crm:P82b_end_of_the_end ?birth_end .
+      ?id foaf:focus/lssc:birthDate/crm:P82b_end_of_the_end ?birth_end .
     BIND(year(?birth_end) AS ?birth)
     }
     FILTER ((bound(?birth) && ?birth<?year) || !bound(?birth))
 
     OPTIONAL {
-        ?id lssc:deathDate/crm:P82b_end_of_the_end ?death_end .
+        ?id foaf:focus/lssc:deathDate/crm:P82b_end_of_the_end ?death_end .
       BIND(year(?death_start) AS ?death)
     }
     FILTER ((bound(?death) && ?year<=?death) || !bound(?death))
