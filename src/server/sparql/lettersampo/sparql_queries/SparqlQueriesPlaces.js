@@ -47,7 +47,7 @@ export const placePropertiesFacetResults = `
   }
 `
 
-// TODO add migrations from the place
+// https://api.triplydb.com/s/cBUaK7IGl
 export const placePropertiesInstancePage = `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__prefLabel)
