@@ -70,7 +70,8 @@
                                 "makeLink": true,
                                 "externalLink": false,
                                 "sortValues": false,
-                                "numberedList": true
+                                "numberedList": true,
+                                "expandedOnInstancePage": true
                             },
                             {
                                 "id": "floruit",
@@ -562,10 +563,10 @@
     ],
     "facets": {
         "numSent": {
-            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id ckccs:out_degree ?_orderBy }} }"
+            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id lssc:out_degree ?_orderBy }} }"
         },
         "numReceived": {
-            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id ckccs:in_degree ?_orderBy }} }"
+            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,0) AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id lssc:in_degree ?_orderBy }} }"
         },
         "image": {
             "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,'z') AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id sch:image ?_orderBy }} }"
@@ -603,9 +604,9 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "ckccs:birthDate",
-            "sortByAscPredicate": "ckccs:birthDate/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "ckccs:birthDate/crm:P82b_end_of_the_end",
+            "predicate": "lssc:birthDate",
+            "sortByAscPredicate": "lssc:birthDate/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "lssc:birthDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "floruit": {
@@ -616,9 +617,9 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "ckccs:flourished",
-            "sortByAscPredicate": "ckccs:flourished/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "ckccs:flourished/crm:P82b_end_of_the_end",
+            "predicate": "lssc:flourished",
+            "sortByAscPredicate": "lssc:flourished/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "lssc:flourished/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "deathDateTimespan": {
@@ -629,9 +630,9 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "ckccs:deathDate",
-            "sortByAscPredicate": "ckccs:deathDate/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "ckccs:deathDate/crm:P82b_end_of_the_end",
+            "predicate": "lssc:deathDate",
+            "sortByAscPredicate": "lssc:deathDate/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "lssc:deathDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "external": {

@@ -203,7 +203,8 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "onlyOnInstancePage": true
+            "onlyOnInstancePage": true,
+            "expandedOnInstancePage": true
         },
         {
             "id": "location",
@@ -245,7 +246,8 @@
             "externalLink": true,
             "sortValues": true,
             "numberedList": false,
-            "onlyOnInstancePage": true
+            "onlyOnInstancePage": true,
+            "expandedOnInstancePage": true
         },
         {
             "id": "uri",
@@ -278,7 +280,7 @@
             "containerClass": "ten",
             "facetType": "list",
             "filterType": "uriFilter",
-            "facetValueFilter": "FILTER EXISTS { ?id a ckccs:Country }",
+            "facetValueFilter": "FILTER EXISTS { ?id a lssc:Country }",
             "predicate": "crm:P89_falls_within+",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
