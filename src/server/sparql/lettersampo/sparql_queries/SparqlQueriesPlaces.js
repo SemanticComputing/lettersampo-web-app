@@ -7,23 +7,25 @@ export const placePropertiesFacetResults = `
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+
+  ?id foaf:focus ?plc .
   {
     VALUES (?type__id ?type__prefLabel) { 
       (crm:E53_Place "Place")
       (lssc:City "City")
       (lssc:Country "Country")
     }
-    ?id a ?type__id .
+    ?plc a ?type__id .
     BIND (?type__id as ?type_dataProviderUrl)
   }
   UNION
   {
-    ?id crm:P89_falls_within ?broader__id .
+    ?id foaf:focus/crm:P89_falls_within/^foaf:focus ?broader__id .
     FILTER (?broader__id != ?id)
     ?broader__id skos:prefLabel ?broader__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
     OPTIONAL {
-      ?broader__id a lssc:Country .
+      ?broader__id foaf:focus/a lssc:Country .
       BIND (?broader__id AS ?country__id)
       ?broader__id skos:prefLabel ?country__prefLabel .
       BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?country__dataProviderUrl)
@@ -31,14 +33,14 @@ export const placePropertiesFacetResults = `
   }
   UNION
   {
-    ?narrower__id crm:P89_falls_within ?id ;
+    ?narrower__id foaf:focus/crm:P89_falls_within/^foaf:focus ?id ;
       skos:prefLabel ?narrower__prefLabel .
     FILTER (?narrower__id != ?id)
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
   UNION
   {
-    ?id sch:image ?image__id ;
+    ?id foaf:focus/sch:image ?image__id ;
       skos:prefLabel ?image__description ;
       skos:prefLabel ?image__title .
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=300")) as ?image__url)
@@ -50,6 +52,7 @@ export const placePropertiesInstancePage = `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
+  ?id foaf:focus ?plc .
   {
     ?id skos:prefLabel ?prefLabel__id .
     BIND (?prefLabel__id as ?prefLabel__prefLabel)
@@ -61,50 +64,48 @@ export const placePropertiesInstancePage = `
       (lssc:City "City")
       (lssc:Country "Country")
     }
-    ?id a ?type__id .
+    ?plc a ?type__id .
     BIND (?type__id as ?type_dataProviderUrl)
   }
   UNION
   {
-    ?id crm:P89_falls_within ?broader__id .
+    ?id foaf:focus/crm:P89_falls_within/^foaf:focus ?broader__id .
     FILTER (?broader__id != ?id)
     ?broader__id skos:prefLabel ?broader__prefLabel .
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?broader__dataProviderUrl)
     OPTIONAL {
-      ?broader__id a lssc:Country .
+      ?broader__id foaf:focus/a lssc:Country .
       BIND (?broader__id AS ?country__id)
       ?broader__id skos:prefLabel ?country__prefLabel .
       BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?broader__id), "^.*\\\\/(.+)", "$1")) AS ?country__dataProviderUrl)
     }
   }
   UNION
-  { ?narrower__id crm:P89_falls_within ?id ;
+  { ?narrower__id foaf:focus/crm:P89_falls_within/^foaf:focus ?id ;
       skos:prefLabel ?narrower__prefLabel .
     FILTER (?narrower__id != ?id)
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
   UNIoN
-  { ?id lssc:is_related_to ?external__id .
+  { ?id foaf:focus/lssc:is_related_to ?external__id .
     OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
     OPTIONAL { ?external__id skos:prefLabel ?external__label }
     BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
     BIND(?external__id AS ?external__dataProviderUrl)
   }
   UNION
-  { ?id skos:altLabel ?altLabel .
+  { ?id foaf:focus/skos:altLabel ?altLabel .
     # FILTER (STR(?prefLabel__prefLabel) != STR(?altLabel)) 
   }
   UNION
   {
-    ?id geo:lat ?lat ; geo:long ?long .
+    ?id foaf:focus [ geo:lat ?lat ; geo:long ?long ] .
     BIND (CONCAT('lat ', STR(?lat), ', long ',STR(?long)) as ?location__prefLabel)
     BIND (?location__prefLabel AS ?location__id)
   }
   UNION
   {
-    ?id sch:image ?image__id ;
-      skos:prefLabel ?image__description ;
-      skos:prefLabel ?image__title .
+    ?id foaf:focus/sch:image ?image__id .
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
   }
   `
@@ -119,26 +120,27 @@ WHERE {
 
   ?id skos:prefLabel ?prefLabel__id .
   BIND (?prefLabel__id as ?prefLabel__prefLabel)
-
+  
+  ?id foaf:focus ?plc .
   {
-    ?id ^lssc:was_sent_from ?from__id .
+    ?plc ^lssc:was_sent_from ?from__id .
     ?from__id skos:prefLabel ?from__prefLabel .
     BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
   } 
   UNION
   {
-    ?id ^lssc:was_sent_to ?to__id .
+    ?plc ^lssc:was_sent_to ?to__id .
     ?to__id skos:prefLabel ?to__prefLabel .
     BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
   }
   UNION 
   {
     {
-      ?id ^lssc:was_sent_from/^lssc:created ?related__id 
+      ?plc ^lssc:was_sent_from/^lssc:created ?related__id 
     } 
     UNION 
     {
-      ?id ^lssc:was_sent_from/lssc:was_addressed_to ?related__id 
+      ?plc ^lssc:was_sent_from/lssc:was_addressed_to ?related__id 
     }
     FILTER (BOUND(?related__id))
     ?related__id skos:prefLabel ?related__prefLabel .
@@ -152,7 +154,8 @@ export const eventPlacesQuery = `
   (COUNT(DISTINCT ?event) as ?instanceCount)
   WHERE {
     <FILTER>
-    ?event crm:P7_took_place_at ?id .
+    ?id foaf:focus ?plc .
+    ?event crm:P7_took_place_at ?plc .
     ?id wgs84:lat ?lat ;
         wgs84:long ?long .
   }
@@ -168,7 +171,8 @@ export const sentReceivedByPlaceQuery = `
     ((?sentCount + ?receivedCount) as ?allCount)
   WHERE {
     BIND(<ID> as ?id)
-    ?sub crm:P89_falls_within* ?id .
+    ?id foaf:focus ?plc .
+    ?sub crm:P89_falls_within* ?plc .
     {
       ?sent_letter lssc:was_sent_from ?sub ;
         a lssc:Letter ;
@@ -191,7 +195,8 @@ SELECT DISTINCT ?id ?to__label ?from__label (xsd:date(?_date) AS ?date) (year(?_
 WHERE {
   
   BIND( <ID> as ?id)
-  ?sub crm:P89_falls_within* ?id .
+  ?id foaf:focus ?plc .
+  ?sub crm:P89_falls_within* ?plc .
   
   {
     ?letter lssc:was_sent_from ?sub ;

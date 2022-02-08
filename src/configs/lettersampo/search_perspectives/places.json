@@ -1,14 +1,14 @@
 {
     "id": "places",
     "endpoint": {
-        "url": "https://ldf.fi/ckcc/sparql",
+        "url": "https://ldf.fi/lettersampo/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
     "sparqlQueriesFile": "SparqlQueriesPlaces.js",
-    "baseURI": "http://ldf.fi/ckcc",
+    "baseURI": "http://ldf.fi/lssc",
     "URITemplate": "<BASE_URI>/places/<LOCAL_ID>",
-    "facetClass": "crm:E53_Place",
+    "facetClass": "lssc:ProvidedPlace",
     "frontPageImage": "main_page/places2-452x262.jpg",
     "searchMode": "faceted-search",
     "defaultActiveFacets": [
@@ -260,6 +260,12 @@
         }
     ],
     "facets": {
+        "image": {
+            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,'z') AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id foaf:focus/sch:image ?_orderBy }} }"
+        },
+        "narrower": {
+            "sortByPattern": "{ SELECT ?id (COALESCE(?_orderBy,'z') AS ?orderBy) WHERE { VALUES ?facetClass { <FACET_CLASS> } ?id a ?facetClass . OPTIONAL { ?id foaf:focus/^crm:P89_falls_within/^foaf:focus ?_orderBy }} }"
+        },
         "prefLabel": {
             "containerClass": "one",
             "facetType": "text",
@@ -271,33 +277,33 @@
             "containerClass": "three",
             "facetType": "list",
             "filterType": "uriFilter",
-            "predicate": "a",
+            "predicate": "foaf:focus/a",
             "sortBy": "prefLabel",
-            "sortByPredicate": "a/(skos:prefLabel|rdfs:label)",
+            "sortByPredicate": "foaf:focus/a/(skos:prefLabel|rdfs:label)",
             "sortDirection": "asc"
         },
         "country": {
             "containerClass": "ten",
             "facetType": "list",
             "filterType": "uriFilter",
-            "facetValueFilter": "FILTER EXISTS { ?id a lssc:Country }",
-            "predicate": "crm:P89_falls_within+",
+            "facetValueFilter": "FILTER EXISTS { ?id foaf:focus/a lssc:Country }",
+            "predicate": "foaf:focus/crm:P89_falls_within+/^foaf:focus",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
             "searchField": true,
             "sortButton": true,
-            "sortByPredicate": "crm:P89_falls_within/skos:prefLabel"
+            "sortByPredicate": "foaf:focus/crm:P89_falls_within+/^foaf:focus/skos:prefLabel"
         },
         "broader": {
             "containerClass": "ten",
             "facetType": "list",
             "filterType": "uriFilter",
-            "predicate": "crm:P89_falls_within",
+            "predicate": "foaf:focus/crm:P89_falls_within",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
             "searchField": true,
             "sortButton": true,
-            "sortByPredicate": "crm:P89_falls_within/skos:prefLabel"
+            "sortByPredicate": "foaf:focus/crm:P89_falls_within/skos:prefLabel"
         }
     }
 }
