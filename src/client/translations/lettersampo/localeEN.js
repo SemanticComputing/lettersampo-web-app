@@ -258,7 +258,8 @@ export default {
             </li>
             <li>
               <strong>TOP CORRESPONDENCES</STRONG> view shows a timeline of letters and most important correspondences of this person. The upper chart of the timeline shows the activities using a precision of one day, the lower one the yearly amounts of sent and received letters.
-              NB. Letters having more approximate temporal information, e.g. 'sent 1860-1865' show up on the first day of that time period, e.g. '1 Jan. 1860'.
+              NB. Letters having more approximate temporal information, e.g. 'sent 1860-1865' show up on the first day of that time period, e.g. '1 Jan. 1860'. 
+              Notice that you can zoom or pan the timelines by using the buttons on the right upper corner of each component. 
             </li>
             <li>
               <strong>NETWORK OF LETTERS</strong> shows this actors's relations to other actors connected by the correspondences.
@@ -628,7 +629,8 @@ export default {
           </li>
           <li>
             <strong>TIMELINE OF LETTERS</strong> contains a timeline showing the letters related to this place.
-            The two timeline charts on this tab show the activities with precision of a single day or by years.
+            The two timeline charts on this tab show the activities with precision of a single day or by years. 
+            Notice that you can zoom or pan the timelines by using the buttons on the right upper corner of each component. 
           </li>
           <li>
             <strong>EXPORT</strong> the SPARQL query used to generate the result
@@ -744,7 +746,8 @@ export default {
               <strong>TABLE</STRONG> view includes detailed information about the correspondence between two specific actors.
             </li>
             <li>
-              <strong>TIMELINE OF LETTERS</strong> details about all the letters sent and received between the two actors. The two timeline charts on this tab show the correspondence with precision of a single day or by years.
+              <strong>TIMELINE OF LETTERS</strong> details about all the letters sent and received between the two actors. The two timeline charts on this tab show the correspondence with precision of a single day or by years. 
+              Notice that you can zoom or pan the timelines by using the buttons on the right upper corner of each component. 
             </li>
             <li>
               <strong>NETWORK OF LETTERS</strong> contains a network visualization showing the closest other correspondences connecting to the specific correspondence between the two actors of this page.
