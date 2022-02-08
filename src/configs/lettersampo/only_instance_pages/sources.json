@@ -1,12 +1,12 @@
 {
   "id": "sources",
   "endpoint": {
-    "url": "https://ldf.fi/ckcc/sparql",
+    "url": "https://ldf.fi/lettersampo/sparql",
     "useAuth": false,
     "prefixesFile": "SparqlQueriesPrefixes.js"
   },
   "sparqlQueriesFile": "SparqlQueriesSources.js",
-  "baseURI": "http://ldf.fi/ckcc",
+  "baseURI": "http://ldf.fi/lssc",
   "URITemplate": "<BASE_URI>/sources/<LOCAL_ID>",
   "resultClasses": {
     "sources": {

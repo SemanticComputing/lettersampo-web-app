@@ -1,7 +1,7 @@
 {
   "id": "metrics",
   "endpoint": {
-    "url": "https://ldf.fi/ckcc/sparql",
+    "url": "https://ldf.fi/lettersampo/sparql",
     "useAuth": false,
     "prefixesFile": "SparqlQueriesPrefixes.js"
   },
