@@ -193,7 +193,8 @@
       "makeLink": true,
       "externalLink": false,
       "sortValues": false,
-      "numberedList": true
+      "numberedList": true,
+      "expandedOnInstancePage": true
     },
     {
       "id": "other",
