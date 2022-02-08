@@ -134,7 +134,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id lssc:source/skos:prefLabel ?datasource
+    ?id foaf:focus/lssc:source/skos:prefLabel ?datasource
   }
 `
 
@@ -193,7 +193,7 @@ export const actorLettersInstancePageQuery = `
     UNION
     { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
       WHERE {
-        ?id lssc:created ?sentletter__id .
+        ?id foaf:focus/lssc:created ?sentletter__id .
           ?sentletter__id a lssc:Letter ;
             skos:prefLabel ?sentletter__prefLabel .
         BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
@@ -204,7 +204,7 @@ export const actorLettersInstancePageQuery = `
     { SELECT DISTINCT ?id ?receivedletter__id ?receivedletter__prefLabel ?receivedletter__dataProviderUrl
       WHERE {
       ?receivedletter__id
-        lssc:was_addressed_to ?id ;
+        lssc:was_addressed_to/^foaf:focus ?id ;
         a lssc:Letter ;
         skos:prefLabel ?receivedletter__prefLabel .
       BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)

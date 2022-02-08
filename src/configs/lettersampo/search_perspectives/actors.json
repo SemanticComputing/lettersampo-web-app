@@ -643,6 +643,15 @@
             "sortBy": "instanceCount",
             "sortDirection": "desc",
             "sortByPredicate": "foaf:focus/lssc:is_related_to/a/skos:prefLabel"
+        },
+        "datasource": {
+            "containerClass": "six",
+            "facetType": "list",
+            "predicate": "foaf:focus/lssc:source",
+            "filterType": "uriFilter",
+            "sortBy": "instanceCount",
+            "sortDirection": "desc",
+            "sortByPredicate": "foaf:focus/lssc:source/skos:prefLabel"
         }
     }
 }
