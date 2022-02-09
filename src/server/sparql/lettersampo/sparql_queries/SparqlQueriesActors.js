@@ -16,7 +16,7 @@ export const actorPropertiesInstancePage = `
   BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
 
   {
-    ?id a ?type__id .
+    ?act a ?type__id .
     ?type__id skos:prefLabel ?type__prefLabel .
     BIND (?type__id as ?type_dataProviderUrl)
   }
@@ -426,17 +426,17 @@ WHERE
 {
   VALUES ?node { <ID> }
   {
-    ?node lssc:created ?letter .
+    ?node foaf:focus/lssc:created ?letter .
     ?letter a lssc:Letter ;
-      lssc:was_addressed_to ?target .
+      lssc:was_addressed_to/^foaf:focus ?target .
     ?target skos:prefLabel ?_target__label . 
     FILTER (!REGEX(?_target__label, '(unknown|no_recipient_given)', 'i'))
   
     BIND(?node AS ?source)
   } UNION {
-    ?letter lssc:was_addressed_to ?node ;
+    ?letter lssc:was_addressed_to/^foaf:focus ?node ;
       a lssc:Letter .
-    ?source lssc:created ?letter ;
+    ?source foaf:focus/lssc:created ?letter ;
       skos:prefLabel ?_source__label . 
     FILTER (!REGEX(?_source__label, '(unknown|no_recipient_given)', 'i'))
 
