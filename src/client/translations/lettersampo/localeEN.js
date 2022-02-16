@@ -856,6 +856,12 @@ export default {
           description: `
             Number of letters from this data source.
           `
+        },
+        dataset: {
+          label: 'Data set',
+          description: `
+            The data set providing this collections of letters.
+          `
         }
       }
     }

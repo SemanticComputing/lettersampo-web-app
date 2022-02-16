@@ -8,6 +8,10 @@ export const sourcePropertiesInstancePage = `
   }
   UNION
   {
+    ?id skos:broader/skos:prefLabel ?dataset
+  }
+  UNION
+  {
     SELECT ?id (COUNT(DISTINCT ?ltr) AS ?numLetters) {
       ?ltr lssc:source ?id
     } GROUP BY ?id

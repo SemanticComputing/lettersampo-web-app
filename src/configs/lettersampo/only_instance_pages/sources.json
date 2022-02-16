@@ -40,6 +40,14 @@
       "numberedList": false
     },
     {
+      "id": "dataset",
+      "valueType": "string",
+      "makeLink": false,
+      "externalLink": false,
+      "sortValues": false,
+      "numberedList": false
+    },
+    {
       "id": "numLetters",
       "valueType": "string",
       "makeLink": false,
