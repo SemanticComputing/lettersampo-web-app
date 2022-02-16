@@ -518,7 +518,7 @@
             "numberedList": false,
             "minWidth": 250,
             "priority": 8,
-            "onlyOnInstancePage": false
+            "onlyOnInstancePage": true
         },
         {
             "id": "rel",
@@ -638,11 +638,11 @@
         "external": {
             "containerClass": "six",
             "facetType": "list",
-            "predicate": "foaf:focus/lssc:is_related_to/a",
+            "predicate": "foaf:focus/lssc:is_related_to/skos:prefLabel",
             "filterType": "uriFilter",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
-            "sortByPredicate": "foaf:focus/lssc:is_related_to/a/skos:prefLabel"
+            "sortByPredicate": "foaf:focus/lssc:is_related_to/skos:prefLabel"
         },
         "datasource": {
             "containerClass": "six",
