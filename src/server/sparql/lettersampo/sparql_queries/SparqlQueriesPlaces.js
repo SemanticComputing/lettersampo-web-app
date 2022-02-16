@@ -108,7 +108,7 @@ export const placePropertiesInstancePage = `
     ?id foaf:focus/sch:image ?image__id .
     BIND(URI(CONCAT(REPLACE(STR(?image__id), "^https*:", ""), "?width=600")) as ?image__url)
   }
-  `
+`
 
 export const placeLettersInstancePageQuery = `
 SELECT * 
@@ -118,10 +118,13 @@ WHERE {
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
 
-  ?id skos:prefLabel ?prefLabel__id .
-  BIND (?prefLabel__id as ?prefLabel__prefLabel)
-  
   ?id foaf:focus ?plc .
+
+  {
+    ?id skos:prefLabel ?prefLabel__id .
+    BIND (?prefLabel__id as ?prefLabel__prefLabel)
+  }
+  UNION
   {
     ?plc ^lssc:was_sent_from ?from__id .
     ?from__id skos:prefLabel ?from__prefLabel .
