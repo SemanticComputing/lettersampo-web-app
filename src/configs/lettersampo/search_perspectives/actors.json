@@ -590,11 +590,11 @@
         "type": {
             "containerClass": "two",
             "facetType": "list",
-            "predicate": "a",
+            "predicate": "foaf:focus/a",
             "filterType": "uriFilter",
             "sortBy": "instanceCount",
             "sortDirection": "desc",
-            "sortByPredicate": "a/skos:prefLabel"
+            "sortByPredicate": "foaf:focus/a/skos:prefLabel"
         },
         "birthDateTimespan": {
             "containerClass": "four",

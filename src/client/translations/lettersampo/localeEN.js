@@ -25,8 +25,7 @@ export default {
     searchBarPlaceHolder: 'Search all content',
     searchBarPlaceHolderShort: 'Search',
     instructions: 'instructions',
-    instructionsUrl: 'https://seco.cs.aalto.fi/projects/rrl/'
-
+    instructionsUrl: 'https://seco.cs.aalto.fi/publications/2022/hyvonen-lsd-instructions-2022.pdf'
   },
   facetBar: {
     results: 'Results',
