@@ -1,7 +1,7 @@
 {
     "id": "letters",
     "endpoint": {
-        "url": "https://ldf.fi/ckcc/sparql",
+        "url": "https://ldf.fi/lettersampo/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -315,7 +315,8 @@
         },
         "datasource": {
             "containerClass": "ten",
-            "facetType": "list",
+            "facetType": "hierarchical",
+            "parentProperty": "skos:broader",
             "filterType": "uriFilter",
             "predicate": "lssc:source",
             "searchField": false,
