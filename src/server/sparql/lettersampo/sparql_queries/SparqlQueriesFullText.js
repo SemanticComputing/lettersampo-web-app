@@ -1,11 +1,9 @@
 export const fullTextSearchProperties = `
 VALUES (?type__id ?type__prefLabel ?pagetype) 
 { 
-  (crm:E21_Person "Person" "/actors")
-  (crm:E74_Group "Group" "/actors")
-  (crm:E53_Place "Place" "/places")
+  (lssc:ProvidedActor "Actor" "/actors")
+  (lssc:ProvidedPlace "Place" "/places")
 }
-
 ?id a ?type__id .  
 ?id skos:prefLabel ?prefLabel__id .
 BIND(?prefLabel__id as ?prefLabel__prefLabel)
