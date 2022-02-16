@@ -118,36 +118,37 @@ WHERE {
   BIND(?id as ?uri__prefLabel)
   BIND(?id as ?uri__dataProviderUrl)
 
-  ?id foaf:focus ?plc .
-
   {
     ?id skos:prefLabel ?prefLabel__id .
     BIND (?prefLabel__id as ?prefLabel__prefLabel)
   }
   UNION
   {
-    ?plc ^lssc:was_sent_from ?from__id .
-    ?from__id skos:prefLabel ?from__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
-  } 
-  UNION
-  {
-    ?plc ^lssc:was_sent_to ?to__id .
-    ?to__id skos:prefLabel ?to__prefLabel .
-    BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
-  }
-  UNION 
-  {
+    ?id foaf:focus/((^crm:P89_falls_within)*) ?sub .
     {
-      ?plc ^lssc:was_sent_from/^lssc:created ?related__id 
+      ?sub ^lssc:was_sent_from ?from__id .
+      ?from__id skos:prefLabel ?from__prefLabel .
+      BIND(CONCAT("/letters/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
     } 
+    UNION
+    {
+      ?sub ^lssc:was_sent_to ?to__id .
+      ?to__id skos:prefLabel ?to__prefLabel .
+      BIND(CONCAT("/letters/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
+    }
     UNION 
     {
-      ?plc ^lssc:was_sent_from/lssc:was_addressed_to ?related__id 
+      {
+        ?sub ^lssc:was_sent_from/^lssc:created ?related__id 
+      } 
+      UNION 
+      {
+        ?sub ^lssc:was_sent_from/lssc:was_addressed_to ?related__id 
+      }
+      FILTER (BOUND(?related__id))
+      ?related__id skos:prefLabel ?related__prefLabel .
+      BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
     }
-    FILTER (BOUND(?related__id))
-    ?related__id skos:prefLabel ?related__prefLabel .
-    BIND(CONCAT("/actors/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
   }
 }
 `
@@ -165,8 +166,7 @@ export const eventPlacesQuery = `
   GROUP BY ?id ?lat ?long
 `
 
-//  TODO add subplaces to counts
-// https://api.triplydb.com/s/gYYySP446
+//  https://api.triplydb.com/s/MxNLRmBmm
 export const sentReceivedByPlaceQuery = `
   SELECT DISTINCT (STR(?year) as ?category)
     (count(distinct ?sent_letter) AS ?sentCount)
