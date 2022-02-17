@@ -54,7 +54,6 @@
         "topBar": {
             "logoTextTransform": "none",
             "showLanguageButton": false,
-            "feedbackLink": "https://link.webropolsurveys.com/...",
             "externalInstructions": true,
             "externalAboutPage": true,
             "reducedHeight": 44,
@@ -66,6 +65,12 @@
                     "externalLink": true,
                     "translatedUrl": "aboutTheProjectUrl",
                     "translatedText": "aboutTheProject"
+                },
+                {
+                    "id": "feedback",
+                    "externalLink": true,
+                    "translatedUrl": "contactTheAuthorsUrl",
+                    "translatedText": "contactTheAuthors"
                 }
             ]
         },

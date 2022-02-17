@@ -16,11 +16,12 @@ export default {
   mainPageImageLicence: 'Images used under license from Wikimedia Commons',
   backendErrorText: 'One of the backend services is not available at the moment. Please try again later.',
   topBar: {
-    feedback: 'feedback',
     info: {
-      info: 'Info',
+      info: 'Info and Feedback',
       aboutTheProject: 'About the project',
-      aboutTheProjectUrl: 'https://seco.cs.aalto.fi/projects/rrl/'
+      aboutTheProjectUrl: 'https://seco.cs.aalto.fi/projects/rrl/',
+      contactTheAuthors: 'For any feedback, please contract the project team at the project homepage.',
+      contactTheAuthorsUrl: 'https://seco.cs.aalto.fi/projects/rrl/'
     },
     searchBarPlaceHolder: 'Search all content',
     searchBarPlaceHolderShort: 'Search',
