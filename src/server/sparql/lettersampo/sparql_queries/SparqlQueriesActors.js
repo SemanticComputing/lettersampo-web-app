@@ -221,7 +221,7 @@ export const actorPropertiesFacetResults = `
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)
   ?id foaf:focus ?act .
-
+  
   {
   ?act a ?type__id .
   ?type__id skos:prefLabel ?type__prefLabel .
@@ -246,12 +246,6 @@ export const actorPropertiesFacetResults = `
     OPTIONAL { ?birthDateTimespan__id crm:P82b_end_of_the_end ?birthDateTimespan__end }
   }
   UNION
-  {
-    ?act lssc:was_born_in_location ?birthPlace__id .
-    ?birthPlace__id skos:prefLabel ?birthPlace__prefLabel .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
-  }
-  UNION
   { 
     VALUES ?_dprop { 
       lssc:deathDate
@@ -263,26 +257,6 @@ export const actorPropertiesFacetResults = `
     ?deathDateTimespan__id skos:prefLabel ?deathDateTimespan__prefLabel .
     OPTIONAL { ?deathDateTimespan__id crm:P82a_begin_of_the_begin ?deathDateTimespan__start }
     OPTIONAL { ?deathDateTimespan__id crm:P82b_end_of_the_end ?deathDateTimespan__end }
-  }
-  UNION
-  {
-    ?act lssc:died_at_location ?deathPlace__id .
-    ?deathPlace__id skos:prefLabel ?deathPlace__prefLabel .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
-  }
-  UNION
-  { 
-    ?act lssc:flourished ?floruit__id .
-    ?floruit__id skos:prefLabel ?floruit__prefLabel ;
-      crm:P82a_begin_of_the_begin ?floruit__start; 
-      crm:P82b_end_of_the_end ?floruit__end 
-  }
-  UNION
-  { ?act lssc:is_related_to ?external__id . 
-    OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
-    OPTIONAL { ?external__id skos:prefLabel ?external__label }
-    BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
-    BIND(?external__id AS ?external__dataProviderUrl)
   }
   UNION
   {
