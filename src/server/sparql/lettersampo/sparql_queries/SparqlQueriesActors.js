@@ -27,13 +27,14 @@ export const actorPropertiesInstancePage = `
     BIND(?gender as ?gender__dataProviderUrl)
   }
   UNION 
+  { ?id skos:altLabel ?altLabel }
+  UNION 
   { ?act skos:altLabel ?altLabel }
   UNION
-  { ?act lssc:is_related_to ?external__id . 
-    OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
-    OPTIONAL { ?external__id skos:prefLabel ?external__label }
-    BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
-    BIND(?external__id AS ?external__dataProviderUrl)
+  { 
+    ?act lssc:is_related_to ?external__id . 
+    ?external__id skos:prefLabel ?external__prefLabel .
+    BIND((REPLACE(STR(?external__id), '^http[s]*://' ,'')) AS ?external__dataProviderUrl)
   }
   UNION
   {
@@ -49,7 +50,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?act lssc:was_born_in_location ?birthPlace__id .
+    ?act lssc:was_born_in_location/^foaf:focus ?birthPlace__id .
     ?birthPlace__id skos:prefLabel ?birthPlace__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?birthPlace__id), "^.*\\\\/(.+)", "$1")) AS ?birthPlace__dataProviderUrl)
   }
@@ -68,7 +69,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?act lssc:died_at_location ?deathPlace__id .
+    ?act lssc:died_at_location/^foaf:focus ?deathPlace__id .
     ?deathPlace__id skos:prefLabel ?deathPlace__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?deathPlace__id), "^.*\\\\/(.+)", "$1")) AS ?deathPlace__dataProviderUrl)
   }
@@ -78,11 +79,11 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    { ?act lssc:created/lssc:was_sent_from ?knownLocation__id }
+    { ?act lssc:created/lssc:was_sent_from/^foaf:focus ?knownLocation__id }
       UNION
-    { ?act ^lssc:was_addressed_to/lssc:was_sent_to ?knownLocation__id }
+    { ?act ^lssc:was_addressed_to/lssc:was_sent_to/^foaf:focus ?knownLocation__id }
       UNION
-    { ?act lssc:was_in_location ?knownLocation__id }
+    { ?act lssc:was_in_location/^foaf:focus ?knownLocation__id }
   ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
     BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
   }
@@ -221,7 +222,7 @@ export const actorPropertiesFacetResults = `
   BIND(?id as ?uri__dataProviderUrl)
   BIND(?id as ?uri__prefLabel)
   ?id foaf:focus ?act .
-  
+
   {
   ?act a ?type__id .
   ?type__id skos:prefLabel ?type__prefLabel .

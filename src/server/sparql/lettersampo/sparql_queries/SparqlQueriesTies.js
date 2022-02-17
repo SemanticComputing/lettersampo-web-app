@@ -65,12 +65,12 @@ SELECT DISTINCT ?id ?sender1__label ?sender2__label (xsd:date(?_date) AS ?date) 
           crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
   
   {
-    ?id lssc:actor1 [ lssc:created ?letter ; skos:prefLabel ?sender1__label ]
+    ?id lssc:actor1 [ foaf:focus/lssc:created ?letter ; skos:prefLabel ?sender1__label ]
     BIND ("sender1" AS ?type)
   }
   UNION
   {
-    ?id lssc:actor2 [ lssc:created ?letter ; skos:prefLabel ?sender2__label ]
+    ?id lssc:actor2 [ foaf:focus/lssc:created ?letter ; skos:prefLabel ?sender2__label ]
     BIND ("sender2" AS ?type)
   }
 }
@@ -91,12 +91,12 @@ SELECT DISTINCT (STR(?year) as ?category)
   FILTER (BOUND(?year))
   
   {
-    ?id lssc:actor1/lssc:created ?letter .
+    ?id lssc:actor1/foaf:focus/lssc:created ?letter .
     BIND (?letter AS ?sent_letter)
   }
   UNION
   {
-    ?id lssc:actor2/lssc:created ?letter .
+    ?id lssc:actor2/foaf:focus/lssc:created ?letter .
     BIND (?letter AS ?received_letter)
   }
   } 
@@ -109,7 +109,7 @@ SELECT DISTINCT ?source ?target
   ?weight (STR(?weight) AS ?prefLabel)
 WHERE {
   { VALUES ?id { <ID> }
-    VALUES ?class { crm:E21_Person crm:E39_Actor crm:E74_Group }
+    VALUES ?class { lssc:ProvidedActor }
     ?id a ?class .
   } UNION { 
     VALUES ?_tie { <ID> }
@@ -142,9 +142,9 @@ WHERE {
 export const tieNodesQuery = `
   SELECT DISTINCT ?id ?prefLabel ?class ?href
   WHERE {
-    VALUES ?class { crm:E21_Person crm:E39_Actor crm:E74_Group }
+    VALUES ?class { lssc:ProvidedActor }
     VALUES ?id { <ID_SET> }
-    ?id a ?class ;
+    ?id a lssc:ProvidedActor ;
      skos:prefLabel ?_label .
     BIND(REPLACE(?_label, ',[^,A-ZÜÅÄÖ]+$', '')AS ?prefLabel)
     BIND(CONCAT("../../../actors/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"),"/letter-network") AS ?href)
