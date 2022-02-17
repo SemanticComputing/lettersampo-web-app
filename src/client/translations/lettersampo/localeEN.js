@@ -625,7 +625,7 @@ export default {
             <strong>TABLE</STRONG> view includes detailed imformation about each place resource in the database.
           </li>
           <li>
-            <strong>LETTERS AND ACTORS</strong> contains lists of letters and actors related to this place.
+            <strong>LETTERS</strong> contains lists of letters and actors related to this place. NB. loading this tab migth be slow if there is plenty of letters.
           </li>
           <li>
             <strong>TIMELINE OF LETTERS</strong> contains a timeline showing the letters related to this place.
