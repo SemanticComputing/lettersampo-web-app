@@ -257,6 +257,9 @@ export default {
               NB some people may not have any letter information available.
             </li>
             <li>
+              <strong>TIMELINE OF LETTERS</strong> view shows a timeline of yearly letters. NB some people may not have any letter information available.
+            </li>
+            <li>
               <strong>TOP CORRESPONDENCES</STRONG> view shows a timeline of letters and most important correspondences of this person. The upper chart of the timeline shows the activities using a precision of one day, the lower one the yearly amounts of sent and received letters.
               NB. Letters having more approximate temporal information, e.g. 'sent 1860-1865' show up on the first day of that time period, e.g. '1 Jan. 1860'. 
               Notice that you can zoom or pan the timelines by using the buttons on the right upper corner of each component. 
