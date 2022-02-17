@@ -1,6 +1,5 @@
 const perspectiveID = 'actors'
 /**
- * TODO: add reverse relation, e.g. members on page http://localhost:8080/en/actors/page/37a1c23b-c19f-4126-a99c-3f264f939f22/table
 TODO: simplify property chain: crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate
  */
 
@@ -76,16 +75,6 @@ export const actorPropertiesInstancePage = `
   UNION
   {
     ?id lssc:flourished/skos:prefLabel ?floruit
-  }
-  UNION
-  {
-    { ?act lssc:created/lssc:was_sent_from/^foaf:focus ?knownLocation__id }
-      UNION
-    { ?act ^lssc:was_addressed_to/lssc:was_sent_to/^foaf:focus ?knownLocation__id }
-      UNION
-    { ?act lssc:was_in_location/^foaf:focus ?knownLocation__id }
-  ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
   }
   UNION
   {
@@ -195,16 +184,22 @@ export const actorLettersInstancePageQuery = `
     }
     UNION
     { SELECT DISTINCT ?id ?sentletter__id ?sentletter__prefLabel ?sentletter__dataProviderUrl
+        ?knownLocation__id ?knownLocation__prefLabel 
+        (CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
       WHERE {
         ?id foaf:focus/lssc:created ?sentletter__id .
           ?sentletter__id a lssc:Letter ;
             skos:prefLabel ?sentletter__prefLabel .
         BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
         OPTIONAL { ?sentletter__id (crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+        OPTIONAL { ?sentletter__id lssc:was_sent_from/^foaf:focus ?knownLocation__id .
+          ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel }
       } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?sentletter__prefLabel))
     }
     UNION 
     { SELECT DISTINCT ?id ?receivedletter__id ?receivedletter__prefLabel ?receivedletter__dataProviderUrl
+        ?knownLocation__id ?knownLocation__prefLabel 
+        (CONCAT("/places/page/", REPLACE(STR(?knownLocation__id), "^.*\\\\/(.+)", "$1")) AS ?knownLocation__dataProviderUrl)
       WHERE {
       ?receivedletter__id
         lssc:was_addressed_to/^foaf:focus ?id ;
@@ -212,6 +207,9 @@ export const actorLettersInstancePageQuery = `
         skos:prefLabel ?receivedletter__prefLabel .
       BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)
       OPTIONAL { ?receivedletter__id (crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+      OPTIONAL { ?receivedletter__id lssc:was_sent_to/^foaf:focus ?knownLocation__id .
+        ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel }
+
       } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?receivedletter__prefLabel))
     } 
   }
