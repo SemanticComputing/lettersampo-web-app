@@ -76,7 +76,6 @@ SELECT DISTINCT ?id ?sender1__label ?sender2__label (xsd:date(?_date) AS ?date) 
 }
 `
 
-//  https://api.triplydb.com/s/ILhzAxhyr
 export const tieTimelineYearsQuery = `
 SELECT DISTINCT (STR(?year) as ?category)
     (count(distinct ?sent_letter) AS ?sender1)

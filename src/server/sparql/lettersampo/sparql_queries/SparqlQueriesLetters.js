@@ -149,7 +149,6 @@ UNION
 `
 
 // # https://github.com/uber/deck.gl/blob/master/docs/layers/arc-layer.md
-//  in yasgui: https://api.triplydb.com/s/rcZVxZsHf
 export const lettersMigrationsQuery = `
   SELECT DISTINCT ?id 
   ?from__id ?from__prefLabel ?from__lat ?from__long ?from__dataProviderUrl
@@ -187,7 +186,6 @@ export const lettersMigrationsDialogQuery = `
   }
 `
 
-//  https://api.triplydb.com/s/JJ8pW_uH3
 export const lettersByYearQuery = `
 SELECT DISTINCT ?category (COUNT(DISTINCT ?letter) AS ?count)
 WHERE {
