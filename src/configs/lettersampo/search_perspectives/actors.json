@@ -116,6 +116,17 @@
                                 "expandedOnInstancePage": true
                             },
                             {
+                                "id": "knownLocation",
+                                "valueType": "object",
+                                "makeLink": true,
+                                "externalLink": false,
+                                "sortValues": true,
+                                "numberedList": false,
+                                "minWidth": 220,
+                                "onlyOnInstancePage": true,
+                                "expandedOnInstancePage": true
+                            },
+                            {
                                 "id": "metrics",
                                 "valueType": "object",
                                 "makeLink": true,
@@ -564,16 +575,6 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": true,
-            "minWidth": 220,
-            "onlyOnInstancePage": true
-        },
-        {
-            "id": "knownLocation",
-            "valueType": "object",
-            "makeLink": true,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
             "minWidth": 220,
             "onlyOnInstancePage": true
         },

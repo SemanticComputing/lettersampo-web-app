@@ -31,9 +31,9 @@ export const actorPropertiesInstancePage = `
   { ?act skos:altLabel ?altLabel }
   UNION
   { 
-    ?act lssc:is_related_to ?external__id . 
+    ?act lssc:is_related_to ?external__id .
     ?external__id skos:prefLabel ?external__prefLabel .
-    BIND((REPLACE(STR(?external__id), '^http[s]*://' ,'')) AS ?external__dataProviderUrl)
+    BIND((REPLACE(STR(?external__id), '^https://' ,'http://')) AS ?external__dataProviderUrl)
   }
   UNION
   {
@@ -293,8 +293,8 @@ WHERE {
     BIND(?id AS ?source)
   } UNION {
     ?tie lssc:actor1 ?source ; 
-    lssc:actor2 ?id
-    BIND(?id AS ?target)
+      lssc:actor2 ?id
+      BIND(?id AS ?target)
   }
   ?tie lssc:num_letters ?weight .
 
@@ -360,37 +360,6 @@ SELECT DISTINCT (?actor as ?source) ?target ?weight (str(?weight) as ?prefLabel)
       lssc:actor2 ?target ;
     lssc:num_letters ?weight .
 }
-`
-
-export const correspondenceTimelineQuery = `SELECT DISTINCT ?id ?source ?source__label ?target ?target__label ?date ?type ?year
-WHERE 
-{
-VALUES ?node { <ID> } # actors:p11301 p300075
-{
-  ?node lssc:created ?letter .
-  ?letter a lssc:Letter ;
-    lssc:was_addressed_to ?target .
-  ?target skos:prefLabel ?_target__label .
-  BIND ("to" AS ?type)
-  # FILTER (!REGEX(?_target__label, '(unknown|no_recipient_given)', 'i'))
-
-  BIND(?node AS ?source)
-} UNION {
-  ?letter lssc:was_addressed_to ?node ;
-    a lssc:Letter .
-  ?source lssc:created ?letter ;
-    skos:prefLabel ?_source__label .
-  # FILTER (!REGEX(?_source__label, '(unknown|no_recipient_given)', 'i'))
-
-  BIND(?node AS ?target)
-  BIND ("from" AS ?type)
-
-}
-?target skos:prefLabel ?target__label .
-?source skos:prefLabel ?source__label .
-?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?date .
-BIND(year(?date) AS ?year)
-} ORDER BY ?date
 `
 
 export const socialSignatureQuery = `

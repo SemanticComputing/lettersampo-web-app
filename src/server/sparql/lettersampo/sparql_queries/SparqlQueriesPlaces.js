@@ -87,11 +87,10 @@ export const placePropertiesInstancePage = `
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
   UNIoN
-  { ?id foaf:focus/lssc:is_related_to ?external__id .
-    OPTIONAL { ?external__id a/skos:prefLabel ?external__classlabel }
-    OPTIONAL { ?external__id skos:prefLabel ?external__label }
-    BIND(COALESCE(?external__label, ?external__classlabel, ?external__id) AS ?external__prefLabel)
-    BIND(?external__id AS ?external__dataProviderUrl)
+  { 
+    ?id foaf:focus/lssc:is_related_to ?external__id .
+    ?external__id skos:prefLabel ?external__prefLabel .
+    BIND((REPLACE(STR(?external__id), '^https:' ,'http:')) AS ?external__dataProviderUrl)
   }
   UNION
   { ?id foaf:focus/skos:altLabel ?altLabel .
