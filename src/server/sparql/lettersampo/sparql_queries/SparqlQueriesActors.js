@@ -33,7 +33,7 @@ export const actorPropertiesInstancePage = `
   { 
     ?act lssc:is_related_to ?external__id .
     ?external__id skos:prefLabel ?external__prefLabel .
-    BIND((REPLACE(STR(?external__id), '^https://' ,'http://')) AS ?external__dataProviderUrl)
+    BIND((REPLACE(STR(?external__id), '^https://' ,'http://')) AS ?external__dataProviderUrl) 
   }
   UNION
   {

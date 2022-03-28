@@ -564,9 +564,8 @@
             "externalLink": true,
             "sortValues": true,
             "numberedList": false,
-            "minWidth": 250,
-            "priority": 8,
-            "onlyOnInstancePage": true
+            "onlyOnInstancePage": true,
+            "expandedOnInstancePage": false
         },
         {
             "id": "rel",

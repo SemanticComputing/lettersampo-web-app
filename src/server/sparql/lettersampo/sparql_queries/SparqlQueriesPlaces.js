@@ -86,7 +86,7 @@ export const placePropertiesInstancePage = `
     FILTER (?narrower__id != ?id)
     BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?narrower__id), "^.*\\\\/(.+)", "$1")) AS ?narrower__dataProviderUrl)
   }
-  UNIoN
+  UNION
   { 
     ?id foaf:focus/lssc:is_related_to ?external__id .
     ?external__id skos:prefLabel ?external__prefLabel .
