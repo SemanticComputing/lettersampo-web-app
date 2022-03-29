@@ -3,7 +3,6 @@ const perspectiveID = 'actors'
 TODO: simplify property chain: crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate
  */
 
-//  http://demo.seco.tkk.fi/saha/project/resource.shtml?uri=http%3A%2F%2Femlo.bodleian.ox.ac.uk%2Fid%2F822ba92b-3ccf-4f1e-b776-e87aca45c866&model=emlo
 export const actorPropertiesInstancePage = `
   BIND(?id as ?uri__id)
   BIND(?id as ?uri__prefLabel)
@@ -25,7 +24,7 @@ export const actorPropertiesInstancePage = `
     ?gender skos:prefLabel ?gender__prefLabel .
     BIND(?gender as ?gender__dataProviderUrl)
   }
-  UNION 
+  UNION
   { ?id skos:altLabel ?altLabel }
   UNION 
   { ?act skos:altLabel ?altLabel }
@@ -33,7 +32,7 @@ export const actorPropertiesInstancePage = `
   { 
     ?act lssc:is_related_to ?external__id .
     ?external__id skos:prefLabel ?external__prefLabel .
-    BIND((REPLACE(STR(?external__id), '^https://' ,'http://')) AS ?external__dataProviderUrl) 
+    BIND((REPLACE(STR(?external__id), '^https:' ,'http:')) AS ?external__dataProviderUrl)
   }
   UNION
   {
@@ -280,7 +279,6 @@ export const actorPropertiesFacetResults = `
   }
 `
 
-//  https://api.triplydb.com/s/U-6MA_haY
 export const letterLinksQuery = `
 SELECT DISTINCT ?source ?target 
   ?weight 

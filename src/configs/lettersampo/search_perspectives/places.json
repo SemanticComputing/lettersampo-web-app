@@ -247,7 +247,7 @@
             "sortValues": true,
             "numberedList": false,
             "onlyOnInstancePage": true,
-            "expandedOnInstancePage": true
+            "expandedOnInstancePage": false
         },
         {
             "id": "uri",
