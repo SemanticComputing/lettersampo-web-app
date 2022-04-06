@@ -594,7 +594,7 @@
             "numberedList": false,
             "minWidth": 70,
             "priority": 5,
-            "onlyOnInstancePage": true
+            "onlyOnInstancePage": false
         },
         {
             "id": "uri",
@@ -688,6 +688,15 @@
             "sortBy": "instanceCount",
             "sortDirection": "desc",
             "sortByPredicate": "foaf:focus/lssc:occupation/skos:prefLabel"
+        },
+        "external": {
+            "containerClass": "four",
+            "facetType": "list",
+            "predicate": "foaf:focus/lssc:is_related_to/a",
+            "filterType": "uriFilter",
+            "sortBy": "instanceCount",
+            "sortDirection": "desc",
+            "sortByPredicate": "foaf:focus/lssc:is_related_to/a/skos:prefLabel"
         },
         "datasource": {
             "containerClass": "six",

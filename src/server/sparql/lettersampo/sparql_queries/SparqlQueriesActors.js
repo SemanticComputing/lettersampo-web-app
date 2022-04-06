@@ -127,7 +127,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?id foaf:focus/lssc:source/skos:prefLabel ?datasource
+    ?act lssc:source/skos:prefLabel ?datasource
   }
 `
 
@@ -267,6 +267,10 @@ export const actorPropertiesFacetResults = `
   UNION
   {
     ?id lssc:in_degree ?numReceived
+  }
+  UNIoN
+  {
+    ?act lssc:source/skos:prefLabel ?datasource
   }
   UNION
   {
