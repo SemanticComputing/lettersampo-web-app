@@ -537,10 +537,10 @@
         },
         {
             "id": "occupation",
-            "valueType": "string",
-            "makeLink": false,
+            "valueType": "object",
+            "makeLink": true,
             "externalLink": false,
-            "sortValues": true,
+            "sortValues": false,
             "numberedList": false
         },
         {

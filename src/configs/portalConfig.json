@@ -11,7 +11,8 @@
         "onlyInstancePages": [
             "ties",
             "sources",
-            "metrics"
+            "metrics",
+            "occupations"
         ]
     },
     "localeConfig": {

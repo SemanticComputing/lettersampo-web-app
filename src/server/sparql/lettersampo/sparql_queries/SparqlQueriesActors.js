@@ -77,7 +77,9 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?act lssc:occupation/skos:prefLabel ?occupation 
+    ?act lssc:occupation ?occupation__id . 
+    ?occupation__id skos:prefLabel ?occupation__prefLabel .
+    BIND(CONCAT("/occupations/page/", REPLACE(STR(?occupation__id), "^.*\\\\/(.+)", "$1")) AS ?occupation__dataProviderUrl)
   }
   UNION
   {

@@ -1,0 +1,75 @@
+{
+  "id": "occupations",
+  "endpoint": {
+    "url": "https://ldf.fi/lettersampo/sparql",
+    "useAuth": false,
+    "prefixesFile": "SparqlQueriesPrefixes.js"
+  },
+  "sparqlQueriesFile": "SparqlQueriesOccupations.js",
+  "baseURI": "http://ldf.fi/lssc",
+  "URITemplate": "<BASE_URI>/occupations/<LOCAL_ID>",
+  "resultClasses": {
+    "occupations": {
+      "instanceConfig": {
+        "propertiesQueryBlock": "occupationPropertiesInstancePage",
+        "instancePageResultClasses": {
+          "instancePageTable": {
+            "tabID": 0,
+            "component": "InstancePageTable",
+            "tabPath": "table",
+            "tabIcon": "CalendarViewDay"
+          },
+          "instancePageExport": {
+            "tabID": 1,
+            "component": "Export",
+            "tabPath": "export",
+            "tabIcon": "CloudDownload",
+            "pageType": "instancePage"
+          }
+        }
+      }
+    }
+  },
+  "properties": [
+    {
+      "id": "prefLabel",
+      "valueType": "object",
+      "makeLink": true,
+      "externalLink": false,
+      "sortValues": true,
+      "numberedList": false
+    },
+    {
+      "id": "altLabel",
+      "valueType": "string",
+      "makeLink": false,
+      "externalLink": false,
+      "sortValues": false,
+      "numberedList": false
+    },
+    {
+      "id": "actor",
+      "valueType": "object",
+      "makeLink": true,
+      "externalLink": false,
+      "sortValues": true,
+      "numberedList": true
+    },
+    {
+      "id": "related",
+      "valueType": "object",
+      "makeLink": true,
+      "externalLink": false,
+      "sortValues": false,
+      "numberedList": false
+    },
+    {
+      "id": "external",
+      "valueType": "object",
+      "makeLink": true,
+      "externalLink": true,
+      "sortValues": false,
+      "numberedList": false
+    }
+  ]
+}

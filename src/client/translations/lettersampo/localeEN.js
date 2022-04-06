@@ -838,6 +838,49 @@ export default {
         }
       }
     },
+    occupations: {
+      instancePage: {
+        label: 'Occupations',
+        description: `
+          <p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">
+            This instance page provides information about the occupations. 
+            The occupation data is extracted from Wikidata or GND.
+          </p>
+        `
+      },
+      properties: {
+        prefLabel: {
+          label: 'Preferable label',
+          description: `
+            Label for occupation.
+          `
+        },
+        altLabel: {
+          label: 'Alternative labels',
+          description: `
+            Alternative labels for vocations.
+          `
+        },
+        actor: {
+          label: 'Related actors.',
+          description: `
+          List of actors related with this occupation.
+          `
+        },
+        related: {
+          label: 'Related occupations.',
+          description: `
+          List of related occupations.
+          `
+        },
+        external: {
+          label: 'External databases',
+          description: `
+            Links to External databases.
+          `
+        }
+      }
+    },
     sources: {
       instancePage: {
         label: 'Data source',
