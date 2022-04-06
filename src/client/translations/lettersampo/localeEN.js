@@ -334,7 +334,13 @@ export default {
         altLabel: {
           label: 'Alternative names or vocations',
           description: `
-            Alternative names or vocations of the actor.
+            Alternative names or vocations of the actor as mentioned in the CKCC data.
+          `
+        },
+        occupation: {
+          label: 'Vocation',
+          description: `
+          Vocations in this list are extracted from Wikidata or GND.
           `
         },
         external: {
@@ -347,12 +353,6 @@ export default {
           label: 'Event',
           description: `
             Events related to the manuscript.
-          `
-        },
-        occupation: {
-          label: 'Occupation',
-          description: `
-            Occupation of the actor.
           `
         },
         owner: {

@@ -31,7 +31,7 @@ export const actorPropertiesInstancePage = `
   UNION
   { 
     ?act lssc:is_related_to ?external__id .
-    ?external__id skos:prefLabel ?external__prefLabel .
+    ?external__id a/skos:prefLabel ?external__prefLabel .
     BIND((REPLACE(STR(?external__id), '^https:' ,'http:')) AS ?external__dataProviderUrl)
   }
   UNION
@@ -74,6 +74,10 @@ export const actorPropertiesInstancePage = `
   UNION
   {
     ?id lssc:flourished/skos:prefLabel ?floruit
+  }
+  UNION
+  {
+    ?act lssc:occupation/skos:prefLabel ?occupation 
   }
   UNION
   {

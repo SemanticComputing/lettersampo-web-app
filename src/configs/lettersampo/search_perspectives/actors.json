@@ -536,6 +536,14 @@
             "onlyOnInstancePage": true
         },
         {
+            "id": "occupation",
+            "valueType": "string",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false
+        },
+        {
             "id": "numSent",
             "valueType": "string",
             "makeLink": false,
