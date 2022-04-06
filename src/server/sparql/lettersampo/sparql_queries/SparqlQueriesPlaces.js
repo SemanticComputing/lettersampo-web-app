@@ -89,7 +89,7 @@ export const placePropertiesInstancePage = `
   UNION
   { 
     ?id foaf:focus/lssc:is_related_to ?external__id .
-    ?external__id skos:prefLabel ?external__prefLabel .
+    ?external__id a/skos:prefLabel ?external__prefLabel .
     BIND((REPLACE(STR(?external__id), '^https:' ,'http:')) AS ?external__dataProviderUrl)
   }
   UNION
