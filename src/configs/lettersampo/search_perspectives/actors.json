@@ -672,6 +672,15 @@
             "sortByDescPredicate": "foaf:focus/lssc:deathDate/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
+        "occupation": {
+            "containerClass": "six",
+            "facetType": "list",
+            "predicate": "foaf:focus/lssc:occupation",
+            "filterType": "uriFilter",
+            "sortBy": "instanceCount",
+            "sortDirection": "desc",
+            "sortByPredicate": "foaf:focus/lssc:occupation/skos:prefLabel"
+        },
         "datasource": {
             "containerClass": "six",
             "facetType": "list",

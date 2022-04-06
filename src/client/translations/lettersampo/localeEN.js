@@ -349,6 +349,12 @@ export default {
             Events related to the manuscript.
           `
         },
+        occupation: {
+          label: 'Occupation',
+          description: `
+            Occupation of the actor.
+          `
+        },
         owner: {
           label: 'Owner',
           description: `
