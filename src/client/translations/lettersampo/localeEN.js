@@ -1,7 +1,7 @@
 export default {
   languageLabel: 'English',
   html: {
-    title: 'LetterSampo – Historical Letters on the Semantic Web',
+    title: 'LetterSampo – Republic of Letters on the Semantic Web',
     description: 'LetterSampo can be used for analysing epistolary data in different data repositories in different countries, or for aggegated international datasets, such as Republic of Letters Data.'
   },
   appTitle: {
