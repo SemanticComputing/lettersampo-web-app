@@ -17,7 +17,7 @@
     },
     "localeConfig": {
         "defaultLocale": "en",
-        "readTranslationsFromGoogleSheets": "false",
+        "readTranslationsFromGoogleSheets": false,
         "availableLocales": [
             {
                 "id": "en",
