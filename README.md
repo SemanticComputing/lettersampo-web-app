@@ -1,5 +1,5 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-# User Interface for LetterSampo portal
+# User interface for LetterSampo portal
 
 Based on [Sampo-UI - A framework for building semantic portal user interfaces](https://github.com/SemanticComputing/sampo-ui)
 
