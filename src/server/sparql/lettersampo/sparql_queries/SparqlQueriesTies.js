@@ -17,6 +17,7 @@ BIND(?ego__id AS ?ego__dataProviderUrl)
 BIND(?alter__id as ?alter__prefLabel)
 BIND(?alter__id AS ?alter__dataProviderUrl)
 
+OPTIONAL { ?id lssc:has_time ?timeperiod }
 OPTIONAL
 {
   ?ego__id skos:prefLabel ?prefLabel1__id .
@@ -49,7 +50,7 @@ OPTIONAL
 
     BIND(CONCAT("/letters/page/", REPLACE(STR(?letter__id), "^.*\\\\/(.+)", "$1")) AS ?letter__dataProviderUrl)
 
-    OPTIONAL { ?letter__id (crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?letter__timespan }
+    OPTIONAL { ?letter__id (lssc:has_time|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?letter__timespan }
   } 
   ORDER BY COALESCE(STR(?letter__timespan), CONCAT("9999", ?letter__prefLabel))
 }
@@ -62,7 +63,7 @@ SELECT DISTINCT ?id ?sender1__label ?sender2__label (xsd:date(?_date) AS ?date) 
   BIND(<ID> as ?id)
   
   ?letter lssc:in_tie ?id ;
-          crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+          lssc:has_time/crm:P82a_begin_of_the_begin ?_date .
   
   {
     ?id lssc:actor1 [ foaf:focus/lssc:created ?letter ; skos:prefLabel ?sender1__label ]
@@ -86,7 +87,7 @@ SELECT DISTINCT (STR(?year) as ?category)
   BIND(<ID> as ?id)
   
   ?letter lssc:in_tie ?id ;
-          crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+          lssc:has_time/crm:P82a_begin_of_the_begin ?time_0 .
   BIND (year(?time_0) AS ?year)
   FILTER (BOUND(?year))
   

@@ -24,7 +24,7 @@ UNION
 }
 UNION
 {
-  { ?id crm:P4_has_time-span ?productionTimespan__id }
+  { ?id lssc:has_time ?productionTimespan__id }
   UNION
   { ?id lssc:inferredDate ?productionTimespan__id }
 
@@ -95,7 +95,7 @@ UNION
 }
 UNION
 {
-  { ?id crm:P4_has_time-span ?productionTimespan__id }
+  { ?id lssc:has_time ?productionTimespan__id }
   UNION
   { ?id lssc:inferredDate ?productionTimespan__id }
 
@@ -192,7 +192,7 @@ WHERE {
   <FILTER>
   ?id lssc:created ?letter .
   ?letter lssc:was_addressed_to ?target .
-  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+  ?letter lssc:has_time/crm:P82a_begin_of_the_begin ?time_0 .
   BIND (STR(year(?time_0)) AS ?category)
   FILTER (BOUND(?category))
 } 

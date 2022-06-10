@@ -1,6 +1,6 @@
 const perspectiveID = 'actors'
 /**
-TODO: simplify property chain: crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate
+TODO: simplify property chain: lssc:has_time|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate
  */
 
 export const actorPropertiesInstancePage = `
@@ -20,9 +20,7 @@ export const actorPropertiesInstancePage = `
   }
   UNION
   {
-    ?act foaf:gender ?gender . 
-    ?gender skos:prefLabel ?gender__prefLabel .
-    BIND(?gender as ?gender__dataProviderUrl)
+    ?act foaf:gender/skos:prefLabel ?gender
   }
   UNION
   { ?id skos:altLabel ?altLabel }
@@ -196,7 +194,7 @@ export const actorLettersInstancePageQuery = `
           ?sentletter__id a lssc:Letter ;
             skos:prefLabel ?sentletter__prefLabel .
         BIND(CONCAT("/letters/page/", REPLACE(STR(?sentletter__id), "^.*\\\\/(.+)", "$1")) AS ?sentletter__dataProviderUrl)
-        OPTIONAL { ?sentletter__id (crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+        OPTIONAL { ?sentletter__id (lssc:has_time|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?time }
         OPTIONAL { ?sentletter__id lssc:was_sent_from/^foaf:focus ?knownLocation__id .
           ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel }
       } ORDER BY COALESCE(STR(?time), CONCAT("9999", ?sentletter__prefLabel))
@@ -211,7 +209,7 @@ export const actorLettersInstancePageQuery = `
         a lssc:Letter ;
         skos:prefLabel ?receivedletter__prefLabel .
       BIND(CONCAT("/letters/page/", REPLACE(STR(?receivedletter__id), "^.*\\\\/(.+)", "$1")) AS ?receivedletter__dataProviderUrl)
-      OPTIONAL { ?receivedletter__id (crm:P4_has_time-span|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?time }
+      OPTIONAL { ?receivedletter__id (lssc:has_time|lssc:inferredDate|lssc:approximateDate|lssc:possibleDate)/crm:P82a_begin_of_the_begin ?time }
       OPTIONAL { ?receivedletter__id lssc:was_sent_to/^foaf:focus ?knownLocation__id .
         ?knownLocation__id skos:prefLabel ?knownLocation__prefLabel }
 
@@ -276,9 +274,7 @@ export const actorPropertiesFacetResults = `
   }
   UNION
   {
-    ?act foaf:gender ?gender__id . 
-    ?gender__id skos:prefLabel ?gender__prefLabel .
-    BIND(?gender__id as ?gender__dataProviderUrl)
+    ?act foaf:gender/skos:prefLabel ?gender
   }
   UNION
   {
@@ -396,7 +392,7 @@ WHERE
   }
   ?target skos:prefLabel ?target__label .
   ?source skos:prefLabel ?source__label .
-  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+  ?letter lssc:has_time/crm:P82a_begin_of_the_begin ?time_0 .
 } `
 
 export const networkNodesQuery = `
@@ -456,7 +452,7 @@ WHERE
   
   ?target skos:prefLabel ?to__label .
   ?source skos:prefLabel ?from__label .
-  ?letter crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+  ?letter lssc:has_time/crm:P82a_begin_of_the_begin ?_date .
 } 
 `
 
@@ -473,14 +469,14 @@ export const sentReceivedQuery = `
     {
       ?act lssc:created ?sent_letter .
       ?sent_letter a lssc:Letter ;
-                   crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+                   lssc:has_time/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
     } 
     UNION 
     {
       ?received_letter lssc:was_addressed_to ?act ;
                        a lssc:Letter ;
-                      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time_0 .
+                      lssc:has_time/crm:P82a_begin_of_the_begin ?time_0 .
       BIND (year(?time_0) AS ?year)
     }
     FILTER (BOUND(?year))

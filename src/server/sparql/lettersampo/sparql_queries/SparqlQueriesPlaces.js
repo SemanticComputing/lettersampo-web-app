@@ -178,14 +178,14 @@ export const sentReceivedByPlaceQuery = `
     {
       ?sent_letter lssc:was_sent_from ?sub ;
         a lssc:Letter ;
-        crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time .
+        lssc:has_time/crm:P82a_begin_of_the_begin ?time .
     BIND (STR(year(?time)) AS ?year)
     } 
     UNION 
     {
       ?received_letter lssc:was_sent_to ?sub ;
                       a lssc:Letter ;
-                      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?time .
+                      lssc:has_time/crm:P82a_begin_of_the_begin ?time .
     BIND (STR(year(?time)) AS ?year)
     }
     FILTER (BOUND(?year))
@@ -203,7 +203,7 @@ WHERE {
   {
     ?letter lssc:was_sent_from ?sub ;
       a lssc:Letter ;
-      crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+      lssc:has_time/crm:P82a_begin_of_the_begin ?_date .
     OPTIONAL { 
         ?letter lssc:was_sent_to/skos:prefLabel ?_to .
     }
@@ -214,7 +214,7 @@ WHERE {
   {
     ?letter lssc:was_sent_to ?sub ;
                     a lssc:Letter ;
-                    crm:P4_has_time-span/crm:P82a_begin_of_the_begin ?_date .
+                    lssc:has_time/crm:P82a_begin_of_the_begin ?_date .
     OPTIONAL { 
         ?letter lssc:was_sent_from/skos:prefLabel ?_from .
     }
