@@ -796,6 +796,12 @@ export default {
             Number of letters sent between the two actors.
           `
         },
+        timeperiod: {
+          label: 'Time',
+          description: `
+            The range of years when this correspondence has been active.
+          `
+        },
         letter: {
           label: 'List of letters',
           description: `

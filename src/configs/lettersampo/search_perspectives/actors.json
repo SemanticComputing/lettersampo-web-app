@@ -450,7 +450,7 @@
         },
         {
             "id": "gender",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
             "sortValues": true,

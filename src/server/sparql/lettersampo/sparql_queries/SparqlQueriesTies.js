@@ -17,7 +17,7 @@ BIND(?ego__id AS ?ego__dataProviderUrl)
 BIND(?alter__id as ?alter__prefLabel)
 BIND(?alter__id AS ?alter__dataProviderUrl)
 
-OPTIONAL { ?id lssc:has_time ?timeperiod }
+OPTIONAL { ?id lssc:has_time/skos:prefLabel ?timeperiod }
 OPTIONAL
 {
   ?ego__id skos:prefLabel ?prefLabel1__id .

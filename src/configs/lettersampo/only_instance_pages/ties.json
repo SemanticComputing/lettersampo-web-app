@@ -188,6 +188,14 @@
       "numberedList": false
     },
     {
+      "id": "timeperiod",
+      "valueType": "string",
+      "makeLink": false,
+      "externalLink": false,
+      "sortValues": false,
+      "numberedList": false
+    },
+    {
       "id": "letter",
       "valueType": "object",
       "makeLink": true,

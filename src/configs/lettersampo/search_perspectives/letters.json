@@ -297,9 +297,9 @@
             "dataType": "xsd:dateTime",
             "max": null,
             "min": null,
-            "predicate": "crm:P4_has_time-span",
-            "sortByAscPredicate": "crm:P4_has_time-span/crm:P82a_begin_of_the_begin",
-            "sortByDescPredicate": "crm:P4_has_time-span/crm:P82b_end_of_the_end",
+            "predicate": "lssc:has_time",
+            "sortByAscPredicate": "lssc:has_time/crm:P82a_begin_of_the_begin",
+            "sortByDescPredicate": "lssc:has_time/crm:P82b_end_of_the_end",
             "startProperty": "crm:P82a_begin_of_the_begin"
         },
         "language": {
