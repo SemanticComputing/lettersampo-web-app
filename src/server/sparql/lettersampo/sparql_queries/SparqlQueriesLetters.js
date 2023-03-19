@@ -138,7 +138,8 @@ UNIOn
   ?id lssc:is_related_to ?related__id . 
   OPTIONAL { ?related__id skos:prefLabel ?related__label }
   BIND(COALESCE(?related__label, ?related__id) AS ?related__prefLabel)
-  BIND(?related__id AS ?related__dataProviderUrl)
+  # tmp url for epistolarium links
+  BIND(URI(REPLACE(STR(?related__id), "ckcc.huygens.knaw.nl/epistolarium", "tc13.huygens.knaw.nl/glp-ckcc-gui")) AS ?related__dataProviderUrl)
 }
 UNION
 {
