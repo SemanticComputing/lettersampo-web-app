@@ -1,2 +1,8 @@
 User-agent: *
-Disallow: /
+Disallow: /actors/page/*
+Disallow: /letters/page/*
+Disallow: /metrics/page/*
+Disallow: /occupations/page/*
+Disallow: /places/page/*
+Disallow: /sources/page/*
+Disallow: /ties/page/*
