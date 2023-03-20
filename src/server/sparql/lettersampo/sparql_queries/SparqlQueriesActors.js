@@ -433,7 +433,6 @@ SELECT ?id ?from__label ?to__label (xsd:date(?_date) AS ?date) ?type (year(?_dat
 WHERE 
 {
   VALUES ?id { <ID> }
-  
   {
     ?id foaf:focus/lssc:created ?letter .
     ?letter lssc:was_addressed_to/^foaf:focus ?target ;
@@ -452,6 +451,34 @@ WHERE
   
   ?target skos:prefLabel ?to__label .
   ?source skos:prefLabel ?from__label .
+  ?letter lssc:has_time/crm:P82a_begin_of_the_begin ?_date .
+} 
+`
+
+export const letterSourcesQuery = `
+SELECT DISTINCT ?id ?received__label ?sent__label (xsd:date(?_date) AS ?date) ?type (year(?_date) AS ?year)
+WHERE 
+{
+  VALUES ?id { <ID> }
+  {
+    ?id foaf:focus/lssc:created ?letter .
+    ?letter lssc:source ?target ;
+      a lssc:Letter .    
+    BIND (?id AS ?source)
+    BIND ("sent" AS ?type)
+  } 
+  UNION 
+  {
+    ?letter lssc:was_addressed_to/^foaf:focus ?id ;
+      a lssc:Letter ;
+      lssc:source ?source .
+    # ?source foaf:focus/lssc:created ?letter .
+    BIND (?id AS ?target)
+    BIND ("received" AS ?type)
+  }
+  # ?prs foaf:focus/:created [ :has_time/crm:P81a_end_of_the_begin ?time ; :source ?source ] .
+  ?target skos:prefLabel ?sent__label .
+  ?source skos:prefLabel ?received__label .
   ?letter lssc:has_time/crm:P82a_begin_of_the_begin ?_date .
 } 
 `

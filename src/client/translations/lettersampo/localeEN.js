@@ -84,6 +84,7 @@ export default {
     'letter-network': 'network of letters',
     'social-signatures': 'social signatures',
     'top-correspondences': 'top correspondences',
+    'letter-sources': 'letter sources',
     sentReceivedByPlace: 'timeline of letters',
     correspondenceTimeline: 'Letter Timeline',
     sentReceivedByTie: 'Timeline',

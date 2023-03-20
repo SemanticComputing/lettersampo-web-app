@@ -246,8 +246,78 @@
                             }
                         }
                     },
-                    "actorInstancePageLetterNetwork": {
+                    "actorInstancePageLetterSources": {
                         "tabID": 4,
+                        "component": "ApexChartsDouble",
+                        "pageType": "instancePage",
+                        "tabPath": "letter-sources",
+                        "tabIcon": "Tune",
+                        "upperResultClass": "actorInstancePageDoubleUpper",
+                        "lowerResultClass": "actorInstancePageDoubleLower",
+                        "resultClasses": {
+                            "actorInstancePageDoubleUpper": {
+                                "title": "Top {} Sources",
+                                "pageType": "instancePage",
+                                "height": "60%",
+                                "sparqlQuery": "letterSourcesQuery",
+                                "filterTarget": "instance",
+                                "resultMapper": "createCorrespondenceChartData",
+                                "resultMapperConfig": {
+                                    "types": ["sent", "received"],
+                                    "numberTopResults": 15,
+                                    "lastLabel": "Other"
+                                },
+                                "createChartData": "createTopTimelineChartData",
+                                "tooltip": { "x": { "format": "d MMM yyyy" } },
+                                "fill": { "opacity": [0.7, 0.5] },
+                                "legend": { "position": "bottom" },
+                                "grid": {
+                                    "row": {
+                                      "colors": ["#d5d5d5", "transparent"], "opacity": 0.5
+                                    },
+                                    "column": { "colors": ["#a8a8a8", "transparent"] },
+                                    "xaxis": { "lines": { "show": true } },
+                                    "yaxis": { "lines": { "show": true } }
+                                }
+                            },
+                            "actorInstancePageDoubleLower": {
+                                "pageType": "instancePage",
+                                "height": "40%",
+                                "filterTarget": "instance",
+                                "sparqlQuery": "sentReceivedQuery",
+                                "resultMapper": "createCorrespondenceChartDataLower",
+                                "resultMapperConfig": {
+                                    "fillEmptyValues": true
+                                },
+                                "createChartData": "createTopTimelineChartData2",
+                                "title": { "text": "Letters by Year", "align": "left" },
+                                "xaxis": {
+                                    "type": "datetime",
+                                    "tooltip": { "enabled": true }
+                                },
+                                "yaxis": {
+                                    "labels": { "minWidth": 150, "maxWidth": 300 }
+                                },
+                                "grid": {
+                                    "column": { "colors": ["#a8a8a8", "transparent"] },
+                                    "xaxis": { "lines": { "show": true } },
+                                    "yaxis": { "lines": { "show": true } }
+                                },
+                                "tooltip": { "x": { "format": "yyyy" } },
+                                "stroke": { "curve": "stepline", "width": 1 },
+                                "fill": {
+                                    "type": "gradient",
+                                    "gradient": {
+                                        "shadeIntensity": 1,
+                                        "opacityFrom": 0.3,
+                                        "opacityTo": 0.6
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "actorInstancePageLetterNetwork": {
+                        "tabID": 5,
                         "component": "Network",
                         "tabPath": "letter-network",
                         "tabIcon": "BubbleChart",
@@ -309,7 +379,7 @@
                         }
                     },
                     "actorInstancePageSocialSignatures": {
-                        "tabID": 5,
+                        "tabID": 6,
                         "component": "ApexCharts",
                         "pageType": "instancePage",
                         "createChartData": "createMultipleLineChartData",
