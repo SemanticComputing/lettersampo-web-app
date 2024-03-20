@@ -32,14 +32,8 @@ UNION
   OPTIONAL { ?productionTimespan__id crm:P82a_begin_of_the_begin ?productionTimespan__start }
   OPTIONAL { ?productionTimespan__id crm:P82b_end_of_the_end ?productionTimespan__end }
 }
-UNION
-{ 
-  ?id dct:language ?language__id . 
-  ?language__id a [] ; skos:prefLabel ?language__prefLabel .
-  BIND (?language__id AS ?language__dataProviderUrl)
-}
 UNION 
-{ 
+{
   ?id lssc:source ?datasource__id .
   ?datasource__id a [] ; skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
