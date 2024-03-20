@@ -611,7 +611,9 @@
             "makeLink": true,
             "externalLink": false,
             "sortValues": false,
-            "numberedList": false
+            "numberedList": false,
+            "onlyOnInstancePage": true,
+            "expandedOnInstancePage": true
         },
         {
             "id": "numSent",
@@ -643,7 +645,7 @@
             "sortValues": true,
             "numberedList": false,
             "onlyOnInstancePage": true,
-            "expandedOnInstancePage": false
+            "expandedOnInstancePage": true
         },
         {
             "id": "rel",

@@ -45,7 +45,8 @@
       "makeLink": false,
       "externalLink": false,
       "sortValues": false,
-      "numberedList": false
+      "numberedList": false,
+      "expandedOnInstancePage": true
     },
     {
       "id": "actor",
@@ -53,7 +54,8 @@
       "makeLink": true,
       "externalLink": false,
       "sortValues": true,
-      "numberedList": true
+      "numberedList": true,
+      "expandedOnInstancePage": true
     },
     {
       "id": "related",
@@ -61,7 +63,8 @@
       "makeLink": true,
       "externalLink": false,
       "sortValues": false,
-      "numberedList": false
+      "numberedList": false,
+      "expandedOnInstancePage": true
     },
     {
       "id": "external",
@@ -69,7 +72,8 @@
       "makeLink": true,
       "externalLink": true,
       "sortValues": false,
-      "numberedList": false
+      "numberedList": false,
+      "expandedOnInstancePage": true
     }
   ]
 }
