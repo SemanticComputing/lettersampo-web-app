@@ -27,6 +27,7 @@ UNION
   UNION
   { ?id lssc:inferredDate ?productionTimespan__id }
 
+  FILTER EXISTS { ?productionTimespan__id a [] }
   OPTIONAL { ?productionTimespan__id skos:prefLabel ?productionTimespan__prefLabel }
   OPTIONAL { ?productionTimespan__id crm:P82a_begin_of_the_begin ?productionTimespan__start }
   OPTIONAL { ?productionTimespan__id crm:P82b_end_of_the_end ?productionTimespan__end }
@@ -98,6 +99,7 @@ UNION
   UNION
   { ?id lssc:inferredDate ?productionTimespan__id }
 
+  FILTER EXISTS { ?productionTimespan__id a [] }
   OPTIONAL { ?productionTimespan__id skos:prefLabel ?productionTimespan__prefLabel }
   OPTIONAL { ?productionTimespan__id crm:P82a_begin_of_the_begin ?productionTimespan__start }
   OPTIONAL { ?productionTimespan__id crm:P82b_end_of_the_end ?productionTimespan__end }
