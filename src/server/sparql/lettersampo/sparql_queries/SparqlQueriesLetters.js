@@ -18,8 +18,7 @@ UNION
 UNION
 {
   ?id lssc:was_addressed_to ?target__id . 
-  ?target__id skos:prefLabel ?target__prefLabel . 
-  # FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
+  ?target__id a [] ; skos:prefLabel ?target__prefLabel . 
   BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
 }
 UNION
@@ -34,20 +33,20 @@ UNION
 }
 UNION
 { 
-  ?id dct:language  ?language__id . 
-  ?language__id skos:prefLabel ?language__prefLabel .
+  ?id dct:language ?language__id . 
+  ?language__id a [] ; skos:prefLabel ?language__prefLabel .
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION 
 { 
   ?id lssc:source ?datasource__id .
-  ?datasource__id skos:prefLabel ?datasource__prefLabel .
+  ?datasource__id a [] ; skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
 UNION 
 {
   ?id lssc:was_sent_from ?from__id .
-  ?from__id skos:prefLabel ?from__prefLabel .
+  ?from__id a [] ; skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
   
   OPTIONAL {
@@ -60,7 +59,7 @@ UNION
 UNION
 {
   ?id lssc:was_sent_to ?to__id .
-  ?to__id skos:prefLabel ?to__prefLabel .
+  ?to__id a [] ; skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
 `
@@ -106,7 +105,7 @@ UNION
 UNION
 { 
   ?id dct:language  ?language__id . 
-  ?language__id skos:prefLabel ?language__prefLabel .
+  ?language__id a [] ; skos:prefLabel ?language__prefLabel .
   BIND (?language__id AS ?language__dataProviderUrl)
 }
 UNION
@@ -118,19 +117,19 @@ UNION
 UNION
 { 
   ?id lssc:source ?datasource__id .
-  ?datasource__id skos:prefLabel ?datasource__prefLabel .
+  ?datasource__id a [] ; skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
 UNION 
 {
   ?id lssc:was_sent_from ?from__id .
-  ?from__id skos:prefLabel ?from__prefLabel .
+  ?from__id a [] ; skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
 }
 UNION 
 {
   ?id lssc:was_sent_to ?to__id .
-  ?to__id skos:prefLabel ?to__prefLabel .
+  ?to__id  a [] ; skos:prefLabel ?to__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?to__id), "^.*\\\\/(.+)", "$1")) AS ?to__dataProviderUrl)
 }
 UNIOn

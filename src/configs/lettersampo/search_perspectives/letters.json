@@ -1,7 +1,7 @@
 {
     "id": "letters",
     "endpoint": {
-        "url": "https://ldf.fi/lettersampo/sparql",
+        "url": "http://localhost:3030/yoma",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -265,7 +265,8 @@
             "sortBy": "instanceCount",
             "sortByPredicate": "lssc:was_addressed_to/skos:prefLabel",
             "sortDirection": "desc",
-            "sortButton": true
+            "sortButton": true,
+            "hideUnknownValue": true
         },
         "from": {
             "containerClass": "seven",
@@ -276,7 +277,8 @@
             "sortBy": "instanceCount",
             "sortByPredicate": "lssc:was_sent_from/skos:prefLabel",
             "sortDirection": "desc",
-            "sortButton": true
+            "sortButton": true,
+            "hideUnknownValue": true
         },
         "to": {
             "containerClass": "seven",
@@ -287,7 +289,8 @@
             "sortBy": "instanceCount",
             "sortByPredicate": "lssc:was_sent_to/skos:prefLabel",
             "sortDirection": "desc",
-            "sortButton": true
+            "sortButton": true,
+            "hideUnknownValue": true
         },
         "productionTimespan": {
             "containerClass": "four",
@@ -311,7 +314,8 @@
             "sortBy": "instanceCount",
             "sortDirection": "desc",
             "sortButton": true,
-            "sortByPredicate": "dct:language/skos:prefLabel"
+            "sortByPredicate": "dct:language/skos:prefLabel",
+            "hideUnknownValue": true
         },
         "datasource": {
             "containerClass": "ten",
@@ -323,7 +327,8 @@
             "sortBy": "instanceCount",
             "sortDirection": "desc",
             "sortButton": true,
-            "sortByPredicate": "lssc:source/skos:prefLabel"
+            "sortByPredicate": "lssc:source/skos:prefLabel",
+            "hideUnknownValue": true
         }
     }
 }
