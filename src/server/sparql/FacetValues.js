@@ -3,7 +3,8 @@ import { has } from 'lodash'
 import {
   facetValuesQuery,
   facetValuesQueryTimespan,
-  facetValuesRange
+  facetValuesRange,
+  hierarchicalFacetValuesQuery
 } from './SparqlQueriesGeneral'
 import {
   generateConstraintsBlock,
@@ -23,10 +24,12 @@ export const getFacet = async ({
   sortDirection = null,
   constraints,
   resultFormat,
-  constrainSelf
+  constrainSelf,
+  dynamicLangTag
 }) => {
   const facetConfig = backendSearchConfig[facetClass].facets[facetID]
-  const { endpoint, defaultConstraint = null, langTag = null } = backendSearchConfig[facetClass]
+  const { endpoint, defaultConstraint = null, enableDynamicLanguageChange } = backendSearchConfig[facetClass]
+  const langTag = enableDynamicLanguageChange ? dynamicLangTag : backendSearchConfig[facetClass].langTag || null
   // choose query template and result mapper:
   let q = ''
   let mapper = null
@@ -36,7 +39,11 @@ export const getFacet = async ({
       mapper = mapFacet
       break
     case 'hierarchical':
-      q = facetValuesQuery
+      if (facetConfig.maxHierarchyLevel) {
+        q = hierarchicalFacetValuesQuery
+      } else {
+        q = facetValuesQuery
+      }
       mapper = mapHierarchicalFacet
       break
     case 'timespan':
@@ -114,11 +121,18 @@ export const getFacet = async ({
   )
   if (facetConfig.facetType === 'hierarchical') {
     q = q.replace('<ORDER_BY>', '# no need for ordering')
-    q = q.replace(/<PREDICATE>/g, `${facetConfig.predicate}/${facetConfig.parentProperty}*`)
-    q = q.replace('<PARENTS>', `
-            OPTIONAL { ?id ${facetConfig.parentProperty} ?parent_ }
-            BIND(COALESCE(?parent_, '0') as ?parent)
-    `)
+
+    if (facetConfig.maxHierarchyLevel) {
+      q = q.replace(/<HIERARCHY>/g, generateHierarchyBlock({depth: facetConfig.maxHierarchyLevel}))
+      q = q.replace(/<PREDICATE>/g, facetConfig.predicate)
+      q = q.replace(/<PARENTPROPERTY>/g, facetConfig.parentProperty)
+    } else {
+      q = q.replace(/<PREDICATE>/g, `${facetConfig.predicate}/${facetConfig.parentProperty}*`)
+      q = q.replace('<PARENTS>', `
+              OPTIONAL { ?id ${facetConfig.parentProperty} ?parent_ }
+              BIND(COALESCE(?parent_, '0') as ?parent)
+      `)
+    }
   } else {
     q = q.replace('<ORDER_BY>', `ORDER BY ${sortDirection}(?${sortBy})`)
     q = q.replace(/<PREDICATE>/g, facetConfig.predicate)
@@ -126,6 +140,11 @@ export const getFacet = async ({
   }
   q = q.replace(/<FILTER>/g, filterBlock)
   q = q.replace(/<FACET_CLASS>/g, backendSearchConfig[facetClass].facetClass)
+  if (has(backendSearchConfig[facetClass], 'facetClassPredicate')) {
+    q = q.replace(/<FACET_CLASS_PREDICATE>/g, backendSearchConfig[facetClass].facetClassPredicate)
+  } else {
+    q = q.replace(/<FACET_CLASS_PREDICATE>/g, 'a')
+  }
   q = q.replace('<UNKNOWN_SELECTED>', unknownSelected)
   q = q.replace('<MISSING_PREDICATE>', facetConfig.predicate)
   if (has(facetConfig, 'labelPattern')) {
@@ -156,9 +175,9 @@ export const getFacet = async ({
   if (langTag) {
     q = q.replace(/<LANG>/g, langTag)
   }
-  // if (facetID === 'productionPlace') {
-  //   console.log(endpoint.prefixes + q)
-  // }
+
+  // console.log(endpoint.prefixes + q)
+
   const response = await runSelectQuery({
     query: endpoint.prefixes + q,
     endpoint: endpoint.url,
@@ -282,7 +301,7 @@ const unknownBlock = `
       SELECT DISTINCT (count(DISTINCT ?instance) as ?instanceCount) {
         <FILTER>
         VALUES ?facetClass { <FACET_CLASS> }
-        ?instance a ?facetClass .
+        ?instance <FACET_CLASS_PREDICATE> ?facetClass .
         FILTER NOT EXISTS {
           ?instance <MISSING_PREDICATE> [] .
         }
@@ -295,3 +314,35 @@ const unknownBlock = `
     BIND(<UNKNOWN_SELECTED> as ?selected)
   }
 `
+
+export const generateHierarchyBlock = ({
+  depth
+}) => {
+  if (depth === 0) {
+    return `
+    {
+      ?instance <PREDICATE> ?id .
+    }
+  `
+  } else {
+    let block = ''
+    for (let i = 0; i < depth; i++) {
+      let parentPath = ''
+      for (let x = 0; x < i; x++) {
+        parentPath = parentPath + '/<PARENTPROPERTY>'
+      }
+      block = block + `
+          {
+            ?instance <PREDICATE>${parentPath} ?id .
+          }
+      `
+      if ( i < (depth - 1) ) {
+        block = block + `
+          UNION
+        `
+      }
+    }
+    return (block)
+  }
+
+}
