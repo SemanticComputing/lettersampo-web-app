@@ -1,7 +1,7 @@
 {
     "id": "letters",
     "endpoint": {
-        "url": "http://localhost:3030/yoma",
+        "url": "https://ldf.fi/lettersampo/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
