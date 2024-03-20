@@ -13,7 +13,6 @@ PREFIX spatial: <http://jena.apache.org/spatial#>
 PREFIX text: <http://jena.apache.org/text#>
 PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-
 PREFIX lssc: <http://ldf.fi/schema/lssc/>
 PREFIX actors: <http://ldf.fi/lssc/actors/>
 PREFIX letters: <http://ldf.fi/lssc/letters/>
