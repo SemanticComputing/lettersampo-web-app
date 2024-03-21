@@ -197,7 +197,8 @@
             "externalLink": false,
             "sortValues": true,
             "numberedList": false,
-            "minWidth": 150
+            "minWidth": 150,
+            "onlyOnInstancePage": true
         },
         {
             "id": "related",

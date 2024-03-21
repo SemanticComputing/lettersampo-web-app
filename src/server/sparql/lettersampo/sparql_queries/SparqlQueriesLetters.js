@@ -28,7 +28,7 @@ UNION
   { ?id lssc:inferredDate ?productionTimespan__id }
 
   FILTER EXISTS { ?productionTimespan__id a [] }
-  OPTIONAL { ?productionTimespan__id skos:prefLabel ?productionTimespan__prefLabel }
+  ?productionTimespan__id skos:prefLabel ?productionTimespan__prefLabel .
   OPTIONAL { ?productionTimespan__id crm:P82a_begin_of_the_begin ?productionTimespan__start }
   OPTIONAL { ?productionTimespan__id crm:P82b_end_of_the_end ?productionTimespan__end }
 }
@@ -38,18 +38,11 @@ UNION
   ?datasource__id a [] ; skos:prefLabel ?datasource__prefLabel .
   BIND(CONCAT("/sources/page/", REPLACE(STR(?datasource__id), "^.*\\\\/(.+)", "$1")) AS ?datasource__dataProviderUrl)
 }
-UNION 
+UNION
 {
-  ?id lssc:was_sent_from ?from__id .
+  ?id lssc:was_sent_from/^foaf:focus ?from__id .
   ?from__id a [] ; skos:prefLabel ?from__prefLabel .
   BIND(CONCAT("/places/page/", REPLACE(STR(?from__id), "^.*\\\\/(.+)", "$1")) AS ?from__dataProviderUrl)
-  
-  OPTIONAL {
-    ?from__id crm:P89_falls_within+ ?countryfrom__id .
-    ?countryfrom__id a lssc:Country .
-    ?countryfrom__id skos:prefLabel ?countryfrom__prefLabel .
-    BIND(CONCAT("/places/page/", REPLACE(STR(?countryfrom__id), "^.*\\\\/(.+)", "$1")) AS ?countryfrom__dataProviderUrl)
-  }
 }
 UNION
 {
@@ -76,15 +69,13 @@ UNION
 UNION
 {
   ?id ^lssc:created ?source__id . 
-  ?source__id skos:prefLabel ?source__prefLabel . 
-  FILTER (!REGEX(STR(?source__prefLabel), 'unknown', 'i'))
+  ?source__id a [] ; skos:prefLabel ?source__prefLabel . 
   BIND(CONCAT("/actors/page/", REPLACE(STR(?source__id), "^.*\\\\/(.+)", "$1")) AS ?source__dataProviderUrl)
 }
 UNION 
 {
   ?id lssc:was_addressed_to ?target__id . 
-  ?target__id skos:prefLabel ?target__prefLabel . 
-  FILTER (!REGEX(STR(?target__prefLabel), 'unknown', 'i'))
+  ?target__id a [] ; skos:prefLabel ?target__prefLabel . 
   BIND(CONCAT("/actors/page/", REPLACE(STR(?target__id), "^.*\\\\/(.+)", "$1")) AS ?target__dataProviderUrl)
 }
 UNION
