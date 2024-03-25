@@ -16,7 +16,7 @@ export const metricPropertiesInstancePage = `
           lssc:value ?_value ] ;
         skos:prefLabel ?_label .
       BIND(CONCAT("/actors/page/", REPLACE(STR(?highest__id), "^.*\\\\/(.+)", "$1")) AS ?highest__dataProviderUrl)
-      BIND (CONCAT(?_label, ': ', STR(?_value)) AS ?highest__prefLabel)
+      BIND (CONCAT(?_label, ': ', STR(xsd:decimal(?_value))) AS ?highest__prefLabel)
     } ORDER BY DESC(?_value) LIMIT 20
   }
   UNION 
